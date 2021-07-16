@@ -1,7 +1,7 @@
 import type { ModVersion } from '@glowsquid/glowsquid-adapter'
 import { Modrinth } from 'modrinth'
 
-export const getVersion = async (versionId: string): Promise<ModVersion> => {
+export const getVersion = async (modId: string, versionId: string): Promise<ModVersion> => {
   const modrinth = new Modrinth()
   const version = await modrinth.version(versionId)
 

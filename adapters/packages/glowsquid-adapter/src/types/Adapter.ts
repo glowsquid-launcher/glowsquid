@@ -56,11 +56,12 @@ export interface Adapter {
   /**
    * Gets info on a version of a mod
    *
+   * @param modId the ID of the mod this version belongs to (some adapters don't need this)
    * @param versionId the version ID
    *
    * If no version is found this should return an error
    */
-  getVersion(versionId: string): Promise<ModVersion>
+  getVersion(modId: string, versionId: string): Promise<ModVersion>
 
   /**
    * Gets all versions for a mod
