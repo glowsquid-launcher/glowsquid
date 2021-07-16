@@ -10,11 +10,11 @@ export interface ModVersion {
   /**
    * build/version number
    */
-  number: string
+  number?: string
   /**
    * sha1 hash
    */
-  sha1: string
+  sha1?: string
   /**
    * the download URL for the main .jar file
    */
@@ -22,7 +22,7 @@ export interface ModVersion {
   /**
    * changelog specified by the mods author(s)
    */
-  changelog: string
+  changelog?: string
   /**
    * supported minecraft versions
    *
