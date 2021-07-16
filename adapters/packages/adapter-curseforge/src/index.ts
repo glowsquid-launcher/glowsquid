@@ -1,3 +1,21 @@
-// Replace the contents of this file with your own exported values.
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import type { Adapter } from '@glowsquid/glowsquid-adapter'
+import {
+  config,
+  getAllVersions,
+  getMod,
+  getModAuthors,
+  getModList,
+  getVersion,
+} from './Adapter'
 
-export default "Hello world from a browser library.";
+const adapter: Adapter = {
+  config,
+  getAllVersions,
+  getVersion,
+  getModAuthors,
+  getModList,
+  getMod,
+}
+
+export default adapter
