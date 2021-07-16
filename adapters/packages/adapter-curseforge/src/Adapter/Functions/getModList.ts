@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { SimpleMod } from '@glowsquid/glowsquid-adapter'
 import { getMods } from 'mc-curseforge-api'
-import { config } from '../Adapter/Config'
+import { config } from '../Config'
 
 export const getModList = async (
   limit: number,

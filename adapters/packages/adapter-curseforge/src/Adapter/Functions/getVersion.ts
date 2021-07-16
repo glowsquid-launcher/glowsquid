@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { ModVersion } from "@glowsquid/glowsquid-adapter";
 import curseforge from 'mc-curseforge-api'
 
