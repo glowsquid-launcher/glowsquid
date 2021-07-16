@@ -51,7 +51,7 @@ export interface Adapter {
    * If the mod is not found this should return an error
    * Hint: use the {@link getUser} function to reduce code duplication
    */
-  getModAuthors(modId: string): Promise<User[]>
+  getModAuthors(modId: string): Promise<User[]> | Promise<string[]>
 
   /**
    * Gets info on a version of a mod
