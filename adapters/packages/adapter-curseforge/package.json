@@ -1,0 +1,45 @@
+{
+  "name": "@glowsquid/adapter-curseforge",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "unlicensed",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "dev": "yarn build --watch --preserveWatchOutput",
+    "lint": "eslint ./src --ext .ts --env node",
+    "test": "jest --passWithNoTests --rootDir ./",
+    "clean": "rimraf ./lib ./tsconfig.tsBuildInfo",
+    "build": "tsc --build ./tsconfig.build.json",
+    "verify": "yarn test && yarn clean && yarn build && yarn lint --max-warnings 0",
+    "purge": "yarn clean && rimraf ./coverage ./node_modules",
+    "tsp": "yarn run tsp:root \"$@\" --cwd $(pwd)"
+  },
+  "devDependencies": {
+    "@glowsquid/glowsquid-adapter": "workspace:*",
+    "eslint": "^7.30.0",
+    "jest": "27.0.6",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.3",
+    "typescript": "~4.3.5"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [
+      "<rootDir>/src/**/*.test.ts"
+    ]
+  },
+  "dependencies": {
+    "mc-curseforge-api": "^2.2.3"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "references": [],
+  "extends": "../../config/tsconfig.browser.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "composite": true,
+    "tsBuildInfoFile": "./tsconfig.tsBuildInfo"
+  },
+  "include": ["src/**/*.ts", "src/**/*.json"],
+  "exclude": ["src/jest", "src/**/*.test.ts", "src/**/__mocks__"]
+}

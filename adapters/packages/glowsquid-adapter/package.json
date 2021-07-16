@@ -1,0 +1,42 @@
+{
+  "name": "@glowsquid/glowsquid-adapter",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "unlicensed",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "dev": "yarn build --watch --preserveWatchOutput",
+    "lint": "eslint ./src --ext .ts --env node",
+    "test": "jest --passWithNoTests --rootDir ./",
+    "clean": "rimraf ./lib ./tsconfig.tsBuildInfo",
+    "build": "tsc --build ./tsconfig.build.json",
+    "verify": "yarn test && yarn clean && yarn build && yarn lint --max-warnings 0",
+    "purge": "yarn clean && rimraf ./coverage ./node_modules",
+    "tsp": "yarn run tsp:root \"$@\" --cwd $(pwd)"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [
+      "<rootDir>/src/**/*.test.ts"
+    ]
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "octokit": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.3.1",
+    "@types/node-fetch": "^2.5.11"
+  }
+}

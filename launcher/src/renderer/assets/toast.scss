@@ -1,0 +1,16 @@
+@import '~vuetify/src/styles/styles.sass';
+@import '~vuetify/src/components/VSnackbar/VSnackbar.sass';
+
+.toasted-container {
+  margin: $snackbar-wrapper-margin;
+
+  .toasted.toasted-primary {
+      background-color: var(--v-primary-base) !important;
+      border-radius: $snackbar-border-radius !important;
+      #text {
+        font-family: $body-font-family !important;
+      }
+
+      box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.479), 0px 16px 24px 2px rgba(0, 0, 0, 0.219), 0px 6px 30px 5px rgba(0, 0, 0, 0.171) !important;
+  }
+}
