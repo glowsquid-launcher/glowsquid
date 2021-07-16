@@ -1,7 +1,6 @@
-import type { Mod } from '/adapters/packages/glowsquid-adapter'
+import type { Mod } from '@glowsquid/glowsquid-adapter'
 import curseforge from 'mc-curseforge-api'
 import { config } from '../Adapter/Config'
-import {platform} from "os";
 
 export const getMod = async (modId: string): Promise<Mod> => {
   const mod = await curseforge.getMod(Number(modId))
