@@ -1,0 +1,1 @@
+async function e(e,o){const t=async()=>{var t,l;const n=document.querySelectorAll(`astro-root[uid="${e}"]`),r=null!=(l=null==(t=n[0].querySelector("astro-fragment"))?void 0:t.innerHTML)?l:null,a=await o();for(const e of n)a(e,r)};"requestIdleCallback"in window?window.requestIdleCallback(t):setTimeout(t,200)}export default e;
