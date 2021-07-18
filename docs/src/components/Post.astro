@@ -1,0 +1,20 @@
+---
+import { Markdown } from 'astro/components';
+import Head from './Head.astro';
+
+const { title, description, author } = Astro.props;
+---
+
+<html lang={ 'en' }>
+  <head>
+    <Head title={title} description={description} />
+  </head>
+
+  <body class="w-100">
+    <h1 class="text-9xl text-left">{title}</h1>
+    <span class="mt-6 text-sm italic"> by {author}</span>
+    <h2 class="mt-2 mb-2">{description}</h2>
+
+    <slot />
+  </body>
+</html>

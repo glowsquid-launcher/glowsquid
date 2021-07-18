@@ -1,0 +1,11 @@
+---
+const allBlogs = Astro.fetchContent('../blogs/*.md') 
+---
+
+<ul>
+{allBlogs.map(blog => (
+    <li>
+    <a href={`blog/${blog.slug}`}>{blog.title}</a>
+    </li>
+))}
+</ul>

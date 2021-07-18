@@ -1,0 +1,28 @@
+---
+import Post from '../components/Post.astro'
+import Markdown from 'astro/components'
+const { collection } = Astro.props
+
+export async function createCollection() {
+   const allPosts = Astro.fetchContent('../blogs/*.md') 
+
+   return {
+       routes: allPosts.map((post, i) => ({
+               slug: post.slug,
+               index: i
+       })),
+
+       permalink: ({ params }) => `/blog/${params.slug}`,
+
+       async data({ params }) {
+           return [allPosts[params.index]]
+       },
+
+       pageSize: Infinity
+   }
+}
+---
+
+<Post title={collection.data[0].title} description={collection.data[0].description} author={collection.data[0].author}>
+    {collection.data[0].astro.html}
+</Post>
