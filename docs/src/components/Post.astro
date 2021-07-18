@@ -10,11 +10,32 @@ const { title, description, author } = Astro.props;
     <Head title={title} description={description} />
   </head>
 
-  <body class="w-100">
-    <h1 class="text-9xl text-left">{title}</h1>
-    <span class="mt-6 text-sm italic"> by {author}</span>
-    <h2 class="mt-2 mb-2">{description}</h2>
+  <body class="flex flex-col">
 
-    <slot />
+    <container class="md:border-l-8 md:ml-14">
+      <container class="flex justify-start mb-14 md:ml-8 ">
+        <div class="flex flex-col text-left">
+          <h1 class="text-9xl">{title}</h1>
+          <p class="mt-6 text-sm italic"> by {author}</p>
+          <h2 class="mt-2 mb-2">{description}</h2>
+        </div>
+      </container>
+    </container>
+
+    <hr class="mt-8 mb-8 md:w-3/4 w-full self-center">
+
+    <container class="flex flex-grow md:justify-center ">
+      <div class="flex justify-center md:align-middle flex-col width-readability md:w-3/4 sm:w-full md:border-l-4 md:border-r-4  mr-0 ml-0 text-lg">
+        <article class="md:pr-4 md:pl-4" >
+          <slot />
+        </article>
+      </div>
+    </container>
   </body>
 </html>
+
+<style>
+  .width-readability {
+    max-width: 75ch;
+  }
+</style>

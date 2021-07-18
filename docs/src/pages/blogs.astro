@@ -1,6 +1,11 @@
 ---
+import Head from '../components/Head.astro'
 const allBlogs = Astro.fetchContent('../blogs/*.md') 
 ---
+
+<head>
+    <Head title="all blogs" description="All blogs of le glowsquid" />
+</head>
 
 <ul>
 {allBlogs.map(blog => (

@@ -22,3 +22,6 @@ The launcher is still in development, although you can look for updates on our [
 
 ❌ - Global datapacks and settings (coming in the future) <br>
 </div>
+
+# Blog
+check out [Le blog](/blogs)
