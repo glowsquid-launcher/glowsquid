@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { Adapter } from '@glowsquid/glowsquid-adapter'
 import {
   config,

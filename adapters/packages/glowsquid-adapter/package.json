@@ -16,7 +16,6 @@
   ],
   "scripts": {
     "dev": "yarn build --watch --preserveWatchOutput",
-    "lint": "eslint ./src --ext .ts --env node",
     "test": "jest --passWithNoTests --rootDir ./",
     "clean": "rimraf ./lib ./tsconfig.tsBuildInfo",
     "build": "tsc --build ./tsconfig.build.json",
