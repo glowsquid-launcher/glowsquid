@@ -1,5 +1,6 @@
 import preprocess from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-static';
+import WindiCSS from 'vite-plugin-windicss'
 import { optimizeImports, optimizeCss, elements, icons, pictograms } from "carbon-preprocess-svelte";
 
 const production = process.env.NODE_ENV === 'production';
@@ -21,6 +22,7 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
+			// for an SPA / dynamic app
 			fallback: 'app.html'
 		}),
 
@@ -36,7 +38,7 @@ const config = {
 			ssr: {
 				noExternal: ["@tauri-apps/api", production && '@carbon/charts'].filter(Boolean),
 			},
-			plugins: [production && optimizeCss()],
+			plugins: [WindiCSS(), production && optimizeCss()],
 		}
 	},
 };
