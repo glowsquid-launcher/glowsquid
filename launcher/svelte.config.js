@@ -14,10 +14,16 @@ const config = {
 			fallback: 'app.html'
 		}),
 
-		ssr: false,
-
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
+
+		ssr: false,
+
+		vite: {
+			ssr: {
+				noExternal: ["@tauri-apps/api"]
+			}
+		}
 	},
 };
 

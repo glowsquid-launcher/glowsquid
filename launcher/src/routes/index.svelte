@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { tauri } from '@tauri-apps/api';
+	import { invoke } from '@tauri-apps/api/tauri';
 
-	tauri.invoke('my_custom_command');
+	invoke('my_custom_command');
 </script>
 
 <h1>Welcome to SvelteKit</h1>
