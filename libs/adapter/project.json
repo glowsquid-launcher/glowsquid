@@ -1,0 +1,33 @@
+{
+  "root": "libs/adapter",
+  "sourceRoot": "libs/adapter/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/adapter",
+        "main": "libs/adapter/src/index.ts",
+        "tsConfig": "libs/adapter/tsconfig.lib.json",
+        "assets": ["libs/adapter/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/adapter/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/adapter"],
+      "options": {
+        "jestConfig": "libs/adapter/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

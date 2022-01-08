@@ -1,0 +1,30 @@
+{
+  "root": "apps/launcher",
+  "projectType": "application",
+  "sourceRoot": "apps/launcher/src",
+  "targets": {
+    "build": {
+      "executor": "@nxext/sveltekit:sveltekit",
+      "options": {
+        "command": "build"
+      }
+    },
+    "serve": {
+      "executor": "@nxext/sveltekit:sveltekit",
+      "options": {
+        "command": "dev"
+      }
+    },
+    "add": {
+      "executor": "@nxext/sveltekit:add"
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/launcher/**/*.{ts,svelte,spec.ts}"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,4 +1,7 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "adapter": "libs/adapter",
+    "launcher": "apps/launcher"
+  }
 }
