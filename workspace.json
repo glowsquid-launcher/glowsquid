@@ -2,6 +2,8 @@
   "version": 2,
   "projects": {
     "adapter": "libs/adapter",
+    "docs": "apps/docs",
+    "docs-e2e": "apps/docs-e2e",
     "launcher": "apps/launcher"
   }
 }
