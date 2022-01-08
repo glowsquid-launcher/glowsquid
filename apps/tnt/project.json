@@ -1,7 +1,7 @@
 {
-  "root": "apps/launcher",
+  "root": "apps/tnt",
   "projectType": "application",
-  "sourceRoot": "apps/launcher/src",
+  "sourceRoot": "apps/tnt/src",
   "targets": {
     "build": {
       "executor": "@nxext/sveltekit:sveltekit",
@@ -22,7 +22,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/launcher/**/*.{ts,svelte,spec.ts}"]
+        "lintFilePatterns": ["apps/tnt/**/*.{ts,svelte,spec.ts}"]
       }
     }
   },

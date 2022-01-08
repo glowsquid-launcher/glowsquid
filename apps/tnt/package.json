@@ -1,5 +1,5 @@
 {
-  "name": "@glowsquid/launcher",
+  "name": "@glowsquid/tnt",
   "version": "0.0.1",
   "type": "module",
   "devDependencies": {
