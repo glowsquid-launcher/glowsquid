@@ -3,6 +3,6 @@
   "version": "0.0.1",
   "type": "module",
   "devDependencies": {
-    "svelte": "../../node_modules/svelte"
+    "@sveltejs/adapter-static": "../../node_modules"
   }
 }
