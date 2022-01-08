@@ -1,3 +1,3 @@
 {
-  "conventionalCommits.scopes": ["launcher", "docs"]
+  "conventionalCommits.scopes": ["launcher", "docs", "oxide"]
 }

@@ -30,5 +30,5 @@
       }
     ]
   },
-  "plugins": ["@nxtensions/astro"]
+  "plugins": ["@nxtensions/astro", "@nxrs/cargo"]
 }
