@@ -27,5 +27,8 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "nx": {
+    "implicitDependencies": ["tnt"]
+  }
 }

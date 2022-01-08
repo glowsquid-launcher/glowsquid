@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "type": "module",
   "devDependencies": {
-    "@sveltejs/adapter-static": "../../node_modules"
+    "@sveltejs/adapter-static": "../../node_modules",
+    "@tauri-apps/api": "../../node_modules"
   }
 }

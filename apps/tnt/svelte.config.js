@@ -4,7 +4,7 @@ import {
   icons,
   optimizeCss,
   optimizeImports,
-  pictograms,
+  pictograms
 } from 'carbon-preprocess-svelte';
 import preprocess from 'svelte-preprocess';
 import WindiCSS from 'vite-plugin-windicss';
@@ -26,8 +26,8 @@ const config = {
 
   kit: {
     adapter: adapter({
-      pages: 'build',
-      assets: 'build',
+      pages: '../../dist/tnt',
+      assets: '../../dist/tnt',
       // for an SPA / dynamic app
       fallback: 'index.html',
     }),
