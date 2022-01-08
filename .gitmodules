@@ -1,0 +1,3 @@
+[submodule "libs/copper"]
+	path = libs/copper
+	url = https://github.com/glowsquid-launcher/copper
