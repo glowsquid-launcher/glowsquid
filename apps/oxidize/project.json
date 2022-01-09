@@ -6,11 +6,15 @@
     "build": {
       "executor": "@nxrs/cargo:build",
       "options": {
-        "release": false
+        "release": false,
+        "targetDir": "../../dist/oxide/target",
+        "outDir": "../../dist/oxide/builds/debug"
       },
       "configurations": {
         "production": {
-          "release": true
+          "release": true,
+          "targetDir": "../../dist/oxide/target",
+          "outDir": "../../dist/oxide/builds/release"
         }
       }
     },
