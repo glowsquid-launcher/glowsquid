@@ -12,6 +12,10 @@
       "executor": "@nxtensions/astro:dev",
       "options": {}
     },
+    "serve": {
+      "executor": "@nxtensions/astro:dev",
+      "options": {}
+    },
     "preview": {
       "dependsOn": [
         {

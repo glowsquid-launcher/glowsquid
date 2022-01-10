@@ -7,14 +7,14 @@
       "executor": "@nxrs/cargo:build",
       "options": {
         "release": false,
-        "targetDir": "../../dist/oxide/target",
-        "outDir": "../../dist/oxide/builds/debug"
+        "targetDir": "../../dist/apps/oxide/target",
+        "outDir": "../../dist/apps/oxide/builds/debug"
       },
       "configurations": {
         "production": {
           "release": true,
-          "targetDir": "../../dist/oxide/target",
-          "outDir": "../../dist/oxide/builds/release"
+          "targetDir": "../../dist/apps/oxide/target",
+          "outDir": "../../dist/apps/oxide/builds/release"
         }
       }
     },

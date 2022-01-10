@@ -26,8 +26,8 @@ const config = {
 
   kit: {
     adapter: adapter({
-      pages: '../../dist/tnt',
-      assets: '../../dist/tnt',
+      pages: '../../dist/apps/tnt',
+      assets: '../../dist/apps/tnt',
       // for an SPA / dynamic app
       fallback: 'index.html',
     }),

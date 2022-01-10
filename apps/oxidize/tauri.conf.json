@@ -6,8 +6,8 @@
   "build": {
     "distDir": "../../dist/tnt/",
     "devPath": "http://localhost:3000",
-    "beforeDevCommand": "yarn nx tnt:serve",
-    "beforeBuildCommand": "yarn nx tnt:build"
+    "beforeDevCommand": "yarn nx serve tnt",
+    "beforeBuildCommand": "yarn nx build tnt"
   },
   "tauri": {
     "bundle": {

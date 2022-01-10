@@ -1,0 +1,21 @@
+---
+  import { Button } from "carbon-components-svelte";
+const {title} = Astro.props;
+---
+<html>
+  <head>
+    <title>{title} | Glowsquid</title>
+    <link rel="stylesheet" type="text/css"
+  href='carbon-components-svelte/css/g100.css' />
+  </head>
+  <body>
+    <!-- Adds a navigation bar to every page. -->
+    <nav>
+      <Button href="#">Home</Button>
+      <a href="#">Posts</a>
+      <a href="#">Contact</a>
+    </nav>
+    <!-- slot: your page content will be injected here. -->
+    <slot />
+  </body>
+</html>
