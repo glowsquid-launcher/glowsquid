@@ -16,7 +16,13 @@
           "targetDir": "../../dist/apps/oxide/target",
           "outDir": "../../dist/apps/oxide/builds/release"
         }
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
     },
     "test": {
       "executor": "@nxrs/cargo:test",
