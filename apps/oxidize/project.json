@@ -29,6 +29,13 @@
         "failOnWarnings": true,
         "noDeps": true
       }
+    },
+    "serve": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "yarn tauri dev",
+        "cwd": "apps/oxidize"
+      }
     }
   },
   "tags": [],
