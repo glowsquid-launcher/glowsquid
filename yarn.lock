@@ -1145,6 +1145,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/cli@npm:13.4.4":
+  version: 13.4.4
+  resolution: "@nrwl/cli@npm:13.4.4"
+  dependencies:
+    "@nrwl/tao": 13.4.4
+    chalk: 4.1.0
+    enquirer: ~2.3.6
+    v8-compile-cache: 2.3.0
+    yargs: 15.4.1
+    yargs-parser: 20.0.0
+  bin:
+    nx: bin/nx.js
+  checksum: 3de18c3502effd27c6925fc7633a7762f06531678b3c0f1f96a3ff57dbd1e67bb9fced7aca34d5f84484809da592832bcfca36cafae69d6a1e9f092cd28ca571
+  languageName: node
+  linkType: hard
+
 "@nrwl/cypress@npm:13.4.3, @nrwl/cypress@npm:^13.0.0":
   version: 13.4.3
   resolution: "@nrwl/cypress@npm:13.4.3"
@@ -1197,6 +1213,20 @@ __metadata:
     semver: 7.3.4
     tslib: ^2.3.0
   checksum: e85e76013368100713c80103252fa1bca226f2b63f4b954a3e334c3568756cc56aba5a75252ef2f199fdf901fa6427facf6465bba438e54676f56adbd3001b8a
+  languageName: node
+  linkType: hard
+
+"@nrwl/devkit@npm:^13.4.0":
+  version: 13.4.4
+  resolution: "@nrwl/devkit@npm:13.4.4"
+  dependencies:
+    "@nrwl/tao": 13.4.4
+    ejs: ^3.1.5
+    ignore: ^5.0.4
+    rxjs: ^6.5.4
+    semver: 7.3.4
+    tslib: ^2.3.0
+  checksum: 70297576e99e990c87a10f0e60c3951932e7ca6e3cd994b1b6df15d2ccfc4b783ccc982ff7838c4f673d5a1e97305d52a622df91c84ea9c123a7c70032a2cf11
   languageName: node
   linkType: hard
 
@@ -1329,6 +1359,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/tao@npm:13.4.4":
+  version: 13.4.4
+  resolution: "@nrwl/tao@npm:13.4.4"
+  dependencies:
+    chalk: 4.1.0
+    enquirer: ~2.3.6
+    fast-glob: 3.2.7
+    fs-extra: ^9.1.0
+    ignore: ^5.0.4
+    jsonc-parser: 3.0.0
+    nx: 13.4.4
+    rxjs: ^6.5.4
+    rxjs-for-await: 0.0.2
+    semver: 7.3.4
+    tmp: ~0.2.1
+    tslib: ^2.3.0
+    yargs-parser: 20.0.0
+  bin:
+    tao: index.js
+  checksum: de21b5350cbbb6a525db65789b9281989569fb10c8bc923834801e988a3c6a4eead3cf1c15ecb8cd343736bcb343c8ff5f3719e6254e6063c83864b384362644
+  languageName: node
+  linkType: hard
+
 "@nrwl/workspace@npm:13.4.3":
   version: 13.4.3
   resolution: "@nrwl/workspace@npm:13.4.3"
@@ -1364,6 +1417,15 @@ __metadata:
     prettier:
       optional: true
   checksum: e6f32956e8326567d74aa8e2df103d415263bc97803e5dd230999654c522db10ed4ebc0801e8e6d4e5698b015cb8ea8ed4ef358eb928c4eb89af76deff2dddd3
+  languageName: node
+  linkType: hard
+
+"@nxext/sveltekit@npm:^13.0.0-next.2":
+  version: 13.0.0-next.2
+  resolution: "@nxext/sveltekit@npm:13.0.0-next.2"
+  dependencies:
+    "@nrwl/devkit": ^13.4.0
+  checksum: 638c915b358099eeec2c867450e28a2a35873e7da3a4b4956d9b80d8f845074447b27aa1846c4dd6e79aaae28977ce696074b739f0012b3d7b20a8b99e92e5ef
   languageName: node
   linkType: hard
 
@@ -7425,6 +7487,7 @@ __metadata:
     "@nrwl/nx-cloud": latest
     "@nrwl/tao": 13.4.3
     "@nrwl/workspace": 13.4.3
+    "@nxext/sveltekit": ^13.0.0-next.2
     "@nxrs/cargo": ^0.3.1
     "@nxtensions/astro": ^1.3.0
     "@sveltejs/adapter-static": next
@@ -11263,6 +11326,17 @@ __metadata:
   bin:
     nx: bin/nx.js
   checksum: dde28d1abf507aa702a3d04b06447729f5c0392c240e988c2fe32db1bc6e6e8f1543eea4a27675995a099929575f9a4ff7f78946e4ccb61a5aebf1b00378add3
+  languageName: node
+  linkType: hard
+
+"nx@npm:13.4.4":
+  version: 13.4.4
+  resolution: "nx@npm:13.4.4"
+  dependencies:
+    "@nrwl/cli": 13.4.4
+  bin:
+    nx: bin/nx.js
+  checksum: 57f463551e2229b308e6f5ee7ad978a6c73b200f25252b6e97dae5db1dd628c688a63f5c72e930fccbbff157656b8844dcba432f1de4afc35f6d5cd34a5e646b
   languageName: node
   linkType: hard
 

@@ -6,5 +6,8 @@
     "docs-e2e": "apps/docs-e2e",
     "oxidize": "apps/oxidize",
     "tnt": "apps/tnt"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
   }
 }
