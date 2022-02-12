@@ -1,4 +1,4 @@
-import { invoke as tauriInvoke } from '@tauri-apps/api'
+import { invoke as tauriInvoke } from '@tauri-apps/api/tauri'
 import type { Object } from 'ts-toolbelt'
 import type { Instance } from './instances'
 

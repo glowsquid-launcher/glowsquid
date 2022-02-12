@@ -10,16 +10,16 @@ edition = "2018"
 build = "src/build.rs"
 
 [build-dependencies]
-tauri-build = { version = "1.0.0-beta.4" }
+tauri-build = { version = "1.0.0-rc.0", features = [] }
 
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-copper = { version = "*", path = "../../libs/copper" }
 discord_api = "0.2.1"
+theseus = { version = "*", git = "https://github.com/modrinth/theseus" }
 
 [dependencies.tauri]
-version = "1.0.0-beta"
+version = "1.0.0-rc.0"
 features = ["api-all"]
 
 [features]

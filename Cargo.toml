@@ -1,2 +1,2 @@
 [workspace]
-members = ["apps/oxidize"]
+members = ["apps/oxidize/src-tauri"]
