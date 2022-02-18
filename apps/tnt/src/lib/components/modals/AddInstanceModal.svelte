@@ -22,7 +22,7 @@
   on:close={() => addInstanceModalActive.set(false)}
   on:submit={submit}
 >
-  <ModalHeader label="instances" title="Add instance" />
+  <ModalHeader label="Instances" title="Add instance" />
   <ModalBody hasForm>
     <FormGroup legendText="Basic information">
       <TextInput id="name" placeholder="Name" bind:value={name} />
