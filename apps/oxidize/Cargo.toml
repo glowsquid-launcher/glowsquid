@@ -19,7 +19,7 @@ discord_api = "0.2.1"
 theseus = { version = "*", git = "https://github.com/modrinth/theseus" }
 
 [dependencies.tauri]
-version = "1.0.0-rc.0"
+version = "1.0.0-rc.6"
 features = ["api-all"]
 
 [features]
