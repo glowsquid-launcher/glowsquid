@@ -1,13 +1,10 @@
 import adapter from '@sveltejs/adapter-static';
 import {
-	elements,
-	// icons,
-	optimizeCss,
 	optimizeImports,
-	// pictograms
 } from 'carbon-preprocess-svelte';
 import preprocess from 'svelte-preprocess';
 import WindiCSS from 'vite-plugin-windicss';
+import autoprefixer from 'autoprefixer';
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -15,13 +12,16 @@ const production = process.env.NODE_ENV === 'production';
 const config = {
 	// so many preprocessors
 	preprocess: [
-		preprocess({}),
-		optimizeImports(),
-		// icons(),
-		// pictograms(),
-		elements({
-			theme: 'all',
+	preprocess({
+postcss: {
+          plugins: [
+            autoprefixer({
+              overrideBrowserslist: ["last 1 version", "ie >= 11"],
+            }),
+          ],
+        },
 		}),
+		optimizeImports(),
 	],
 
 	kit: {
@@ -41,7 +41,7 @@ const config = {
 					Boolean
 				),
 			},
-			plugins: [WindiCSS(), production && optimizeCss()],
+			plugins: [WindiCSS()],
 			esbuild: {
 				target: ['esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89'],
 			},

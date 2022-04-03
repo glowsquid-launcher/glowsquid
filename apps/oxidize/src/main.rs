@@ -4,6 +4,7 @@
 )]
 
 mod commands;
+mod launchermeta;
 pub(crate) mod structs;
 use commands::*;
 

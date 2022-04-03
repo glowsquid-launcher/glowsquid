@@ -35,5 +35,5 @@ export const transitioning = writable(false)
 if (browser) {
 	import('./invoke')
 		.then(({ invoke }) => invoke('get_app_path', undefined))
-		.then((path) => instancesPath.set(`${path}/instances`))
+		.then((path) => instancesPath.set(`${path}instances`))
 }

@@ -10,7 +10,7 @@ interface InvokeMap {
    * gets `amount` or all instances
    *
    *
-   * @param amount The amount of instances. Sorted by recently used
+   * @param args amount: The amount of instances. Sorted by recently used
    * */
   'get_instances'(args: { amount?: number }): Instance[]
   'get_app_path'(): string

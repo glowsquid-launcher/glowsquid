@@ -12,9 +12,9 @@
   import AddInstanceModal from '$lib/components/modals/AddInstanceModal.svelte';
   import PageTransition from '$lib/components/PageTransition.svelte';
   import '@carbon/charts/styles-g100.css';
+  import "carbon-components-svelte/css/all.css"
   import { getVersion } from '@tauri-apps/api/app';
-  import { Button, Header, HeaderUtilities } from 'carbon-components-svelte';
-  import 'carbon-components-svelte/css/g100.css';
+  import { Button, Header, HeaderUtilities, Theme } from 'carbon-components-svelte';
   import { Cube16, Home16, Settings32 } from 'carbon-icons-svelte';
   import 'virtual:windi.css';
 
@@ -22,6 +22,12 @@
   if (browser) import('virtual:windi-devtools');
   export let key: string;
 </script>
+
+<Theme theme="g100" persist persistKey="__carbon-theme"  tokens={{
+    "interactive-01": "#d02670",
+    "hover-primary": "#ee5396",
+    "active-primary": "#9f1853",
+  }} />
 
 <AddInstanceModal />
 

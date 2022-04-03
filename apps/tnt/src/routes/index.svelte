@@ -7,7 +7,7 @@
   import { fade, fly, slide } from 'svelte/transition';
 
   // get the last 4 used instances
-  let quickLaunchList = [0, 1, 2, 3];
+  let quickLaunchList = [0, 4, 2, 3];
 
   const importCurseforge = () => {};
 
@@ -27,14 +27,14 @@
       <div
         class="grid grid-cols-[repeat(auto-fill, 366px)] lg:grid-cols-4 gap-6"
       >
-        {#each quickLaunchList as _, i}
+        {#each quickLaunchList as id, i}
           <div
             transition:slide={{
               delay: i * (animationTime / quickLaunchList.length) - 200,
             }}
           >
             <QuickLaunchCard
-              title="test"
+              title={ `id: ${id}` }
               version="1.18.1"
               id="instance-id"
               on:launch={console.log}
