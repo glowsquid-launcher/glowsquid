@@ -7,7 +7,7 @@ const storage = <T>(key: string, initValue: T): Writable<T> => {
 	if (!browser) return store
 
 	const storedValueStr = localStorage.getItem(key)
-	if (storedValueStr != null) store.set(JSON.parse(storedValueStr))
+	if (storedValueStr !== null) store.set(JSON.parse(storedValueStr))
 
 	store.subscribe((val) => {
 		if ([null, undefined].includes(val)) {
@@ -19,7 +19,7 @@ const storage = <T>(key: string, initValue: T): Writable<T> => {
 
 	window.addEventListener('storage', () => {
 		const storedValueStr = localStorage.getItem(key)
-		if (storedValueStr == null) return
+		if (storedValueStr === null) return
 
 		const localValue: T = JSON.parse(storedValueStr)
 		if (localValue !== get(store)) store.set(localValue)
