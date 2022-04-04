@@ -3,9 +3,23 @@ use async_graphql::*;
 
 pub struct Query;
 
+
+#[derive(Enum, Copy, Clone, Eq, PartialEq)]
+/// An enum of all avalible loaders
+enum Loader {
+    Fabric,
+    Forge
+}
+
 #[derive(InputObject)]
+/// Filters for the mod
 struct Filters {
+    /// The minecraft version this mod should support
     version: String,
+    /// The mod name
+    name: String,
+    /// The loader the mod supports
+    loader: Loader,
 }
 
 async fn get_modrinth_mods(limit: i32, filters: &Filters) -> Option<Vec<ModListing>> {
