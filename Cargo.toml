@@ -1,2 +1,5 @@
 [workspace]
-members = ["apps/oxidize"]
+members = [
+    "apps/server",
+    "apps/oxidize"
+]
