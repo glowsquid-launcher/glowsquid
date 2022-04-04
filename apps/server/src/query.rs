@@ -7,7 +7,9 @@ pub struct Query;
 #[derive(Enum, Copy, Clone, Eq, PartialEq)]
 /// An enum of all avalible loaders
 enum Loader {
+    /// The fabric loader
     Fabric,
+    /// The forge loader
     Forge
 }
 
