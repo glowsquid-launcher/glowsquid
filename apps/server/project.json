@@ -4,15 +4,16 @@
   "sourceRoot": "apps/server/src",
   "targets": {
     "build": {
-      "executor": "@nxrs/cargo:build",
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "release": false
+        "command": "wrangler build"
       },
-      "configurations": {
-        "production": {
-          "release": true
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
         }
-      }
+      ]
     },
     "test": {
       "executor": "@nxrs/cargo:test",
@@ -24,6 +25,13 @@
         "fix": false,
         "failOnWarnings": true,
         "noDeps": true
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "wrangler dev",
+        "cwd": "apps/server"
       }
     }
   },

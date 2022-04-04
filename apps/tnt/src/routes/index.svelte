@@ -5,6 +5,7 @@
   import { Button } from 'carbon-components-svelte';
   import { Add32, Fire32, FolderOpen32, Tools32 } from 'carbon-icons-svelte';
   import { fade, fly, slide } from 'svelte/transition';
+  import {serverURL} from "$lib/env"
 
   // get the last 4 used instances
   let quickLaunchList = [0, 4, 2, 3];
@@ -18,6 +19,8 @@
   const createNewInstance = () => {
     addInstanceModalActive.set(true);
   };
+
+  fetch(serverURL).then(res => res.text()).then(console.log)
 </script>
 
 <div class="flex flex-col content-center">

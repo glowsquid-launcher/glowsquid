@@ -5,6 +5,7 @@
 	"scripts": {
 		"start": "nx serve",
 		"build": "nx build",
+		"dev": "nx run-many --target=serve --projects=server,oxidize",
 		"test": "nx test"
 	},
 	"private": true,

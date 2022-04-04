@@ -2,7 +2,7 @@
   "version": 2,
   "projects": {
     "oxidize": "apps/oxidize",
-    "server": "apps/server",
-    "tnt": "apps/tnt"
+    "tnt": "apps/tnt",
+    "server": "apps/server"
   }
 }
