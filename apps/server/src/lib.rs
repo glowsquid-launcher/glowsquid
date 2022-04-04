@@ -5,6 +5,7 @@ use worker::*;
 
 use serde::Deserialize;
 
+pub mod mods;
 mod query;
 mod utils;
 
