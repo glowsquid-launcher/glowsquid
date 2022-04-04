@@ -19,8 +19,6 @@
   const createNewInstance = () => {
     addInstanceModalActive.set(true);
   };
-
-  fetch(serverURL).then(res => res.text()).then(console.log)
 </script>
 
 <div class="flex flex-col content-center">
