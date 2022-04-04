@@ -31,11 +31,12 @@ pub async fn main(req: Request, env: Env, _ctx: worker::Context) -> Result<Respo
 
     router
         .get("/", |_, _| {
-            Response::ok("Hello from Workers!")?.with_cors(
-                &Cors::new()
-                    .with_origins(vec!["*"])
-                    .with_methods(vec![Method::Get]),
-            )
+            Response::ok("POST to /graphql for the API (Use insomnia or something as a client)")?
+                .with_cors(
+                    &Cors::new()
+                        .with_origins(vec!["*"])
+                        .with_methods(vec![Method::Get]),
+                )
         })
         .post_async("/graphql", |mut req, _| async move {
             let query = req.json::<GraphQL>().await?.query;

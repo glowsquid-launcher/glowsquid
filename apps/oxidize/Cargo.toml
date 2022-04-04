@@ -17,10 +17,6 @@ serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 discord_api = "0.2.1"
 theseus = { version = "*", git = "https://github.com/modrinth/theseus" }
-reqwest = "0.11"
-furse = "1"
-ferinth = "2"
-tokio = "1"
 
 [dependencies.tauri]
 version = "1.0.0-rc.6"

@@ -2644,15 +2644,11 @@ name = "oxidize"
 version = "0.1.0"
 dependencies = [
  "discord_api",
- "ferinth",
- "furse",
- "reqwest 0.11.9",
  "serde",
  "serde_json",
  "tauri",
  "tauri-build",
  "theseus",
- "tokio 1.16.1",
 ]
 
 [[package]]
@@ -3614,6 +3610,8 @@ dependencies = [
  "async-graphql",
  "cfg-if 0.1.10",
  "console_error_panic_hook",
+ "ferinth",
+ "furse",
  "serde",
  "serde_json",
  "worker",

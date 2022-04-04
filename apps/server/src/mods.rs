@@ -5,14 +5,14 @@ use async_graphql::*;
 #[derive(Enum, Copy, Clone, Eq, PartialEq)]
 pub enum ModSource {
     Modrinth,
-    Curseforge
+    Curseforge,
 }
 
 #[derive(Enum, Copy, Clone, Eq, PartialEq)]
 enum SideSupport {
     Required,
     Optional,
-    Unsupported
+    Unsupported,
 }
 
 #[derive(SimpleObject)]
@@ -20,7 +20,7 @@ pub struct ModListing {
     id: ID,
     source: ModSource,
     short_description: String,
-    icon_url: String
+    icon_url: String,
 }
 
 #[derive(SimpleObject)]
@@ -28,19 +28,19 @@ pub struct Urls {
     website: Option<String>,
     wiki: Option<String>,
     issues: Option<String>,
-    source: Option<String>
+    source: Option<String>,
 }
 
 #[derive(SimpleObject)]
 pub struct Picture {
     title: String,
     description: String,
-    url: String
+    url: String,
 }
 
 #[derive(SimpleObject)]
 pub struct Mod {
-id: ID,
+    id: ID,
     source: ModSource,
     short_description: String,
     long_description: String,
@@ -50,5 +50,6 @@ id: ID,
     client_side: SideSupport,
     server_side: SideSupport,
     categories: Vec<String>,
-    pictures: Vec<Picture>
+    pictures: Vec<Picture>,
+    versions: Vec<String>
 }
