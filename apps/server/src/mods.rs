@@ -158,38 +158,53 @@ impl Version {
     async fn all_dependencies(&self, minecraft_version: String) -> Vec<Dependency> {
         match self.source {
             ModSource::Modrinth => {
-                let get_deps = |dependencies: Vec<Dependency>| async move {
+                #[async_recursion::async_recursion]
+                async fn get_deps(
+                    dependencies: Vec<Dependency>,
+                    minecraft_version: String,
+                    loader: Loader,
+                ) -> Vec<Dependency> {
                     let mut deps = dependencies.clone();
                     for dep in &dependencies {
-                        let version =  &reqwest::get(format!(
+                        let version =  reqwest::get(format!(
                         "https://api.modrinth.com/v2/project/{}/version?loaders=[\"{}\"]&game_versions=[\"{}\"]",
                             dep.mod_id.to_string(),
-                            self.loader,
-                            minecraft_version
+                            &loader,
+                            &minecraft_version
                         ))
                             .await
                             .unwrap()
                             .json::<Vec<ferinth::structures::version_structs::Version>>()
                             .await
-                            .unwrap()[0];
+                            .unwrap();
 
-                        deps.extend(
-                            version.dependencies
-                                .iter()
-                                .map(|dep| Dependency {
-                                    mod_id: ID(dep.project_id.clone().unwrap()),
-                                    source: ModSource::Modrinth,
-                                    relation: match dep.dependency_type {
-                                        ferinth::structures::version_structs::DependencyType::Required => DependencyRelation::RequiredDependency,
-                                        ferinth::structures::version_structs::DependencyType::Optional => DependencyRelation::OptionalDependency,
-                                        ferinth::structures::version_structs::DependencyType::Incompatible => DependencyRelation::Incompatible,
-                                }})
-                                .collect::<Vec<Dependency>>()
-                        );
+                        if let Some(version) = version.into_iter().next() {
+                            deps.extend(
+                                version.dependencies
+                                    .iter()
+                                    .map(|dep| Dependency {
+                                     mod_id: ID(dep.project_id.clone().unwrap()),
+                                     source: ModSource::Modrinth,
+                                     relation: match dep.dependency_type {
+                                         ferinth::structures::version_structs::DependencyType::Required => DependencyRelation::RequiredDependency,
+                                         ferinth::structures::version_structs::DependencyType::Optional => DependencyRelation::OptionalDependency,
+                                         ferinth::structures::version_structs::DependencyType::Incompatible => DependencyRelation::Incompatible,
+                                        }
+                                })
+                                 // checks if the dependency is already in the list
+                                 .filter(|dep| !deps.iter().any(|dep2| dep2.mod_id == dep.mod_id))
+                                 .collect::<Vec<Dependency>>()
+                            );
+
+                            deps.extend(
+                                get_deps(deps.clone(), minecraft_version.clone(), loader).await,
+                            );
+                        }
                     }
                     deps
-                };
-                get_deps(self.dependencies.clone()).await
+                }
+
+                get_deps(self.dependencies.clone(), minecraft_version, self.loader).await
             }
             ModSource::Curseforge => unimplemented!(),
         }
