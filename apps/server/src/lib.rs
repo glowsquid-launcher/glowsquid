@@ -9,6 +9,8 @@ pub mod mods;
 mod query;
 mod utils;
 
+use ferinth::Ferinth;
+use furse::Furse;
 use query::Query;
 
 #[derive(Deserialize)]
@@ -38,10 +40,13 @@ pub async fn main(req: Request, env: Env, _ctx: worker::Context) -> Result<Respo
                         .with_methods(vec![Method::Get]),
                 )
         })
-        .post_async("/graphql", |mut req, _| async move {
+        .post_async("/graphql", |mut req, ctx| async move {
             let query = req.json::<GraphQL>().await?.query;
 
-            let schema = Schema::new(Query, EmptyMutation, EmptySubscription);
+            let schema = Schema::build(Query, EmptyMutation, EmptySubscription)
+                .data(Furse::new(&ctx.secret("CF_API_KEY")?.to_string()))
+                .data(Ferinth::new())
+                .finish();
             let res = schema.execute(query).await;
 
             Response::ok(serde_json::to_string(&res)?)?.with_cors(

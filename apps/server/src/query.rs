@@ -3,14 +3,13 @@ use async_graphql::*;
 
 pub struct Query;
 
-
 #[derive(Enum, Copy, Clone, Eq, PartialEq)]
 /// An enum of all avalible loaders
 enum Loader {
     /// The fabric loader
     Fabric,
     /// The forge loader
-    Forge
+    Forge,
 }
 
 #[derive(InputObject)]
@@ -55,6 +54,10 @@ impl Query {
     }
 
     async fn get_mod(&self, id: ID, source: ModSource) -> Mod {
+        todo!()
+    }
+
+    async fn get_mod_version(&self, id: ID, source: ModSource) -> Vec<String> {
         todo!()
     }
 }
