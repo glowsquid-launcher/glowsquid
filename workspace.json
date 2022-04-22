@@ -6,5 +6,6 @@
     "oxidize": "apps/oxidize",
     "server": "apps/server",
     "tnt": "apps/tnt"
+    "website": "apps/website"
   }
 }
