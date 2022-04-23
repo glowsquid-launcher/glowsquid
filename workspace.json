@@ -5,7 +5,11 @@
     "glow-ui-e2e": "apps/glow-ui-e2e",
     "oxidize": "apps/oxidize",
     "server": "apps/server",
+<<<<<<< HEAD
     "tnt": "apps/tnt"
+=======
+    "tnt": "apps/tnt",
+>>>>>>> website
     "website": "apps/website"
   }
 }
