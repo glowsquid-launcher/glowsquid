@@ -23,7 +23,7 @@
   import { Cube16, Home16, Settings32 } from 'carbon-icons-svelte';
   import 'virtual:windi.css';
 
-  // @ts-ignore
+  // @ts-expect-error windi devtools exists during development and is an empty module at build
   if (browser) import('virtual:windi-devtools');
   export let key: string;
 </script>
@@ -34,10 +34,10 @@
   persistKey="__carbon-theme"
   tokens={{
     'ui-background': '#003333',
-	  'ui-01': '#197877',
-	  'interactive-01': '#35A4A2',
-	  'hover-primary': '#67D4C0',
-	  'active-primary': '#003333'
+    'ui-01': '#197877',
+    'interactive-01': '#35A4A2',
+    'hover-primary': '#67D4C0',
+    'active-primary': '#003333',
   }}
 />
 

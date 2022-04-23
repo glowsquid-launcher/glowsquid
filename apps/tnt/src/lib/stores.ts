@@ -2,6 +2,11 @@ import { browser } from "$app/env"
 import type { Writable } from 'svelte/store'
 import { get, writable } from 'svelte/store'
 
+/**
+ * creates a store that is persisted in localStorage
+ * @param {string} key - the key to store the value under
+ * @param {T} initValue the initial value of the store 
+**/
 const storage = <T>(key: string, initValue: T): Writable<T> => {
 	const store = writable(initValue)
 	if (!browser) return store
@@ -36,4 +41,5 @@ if (browser) {
 	import('./invoke')
 		.then(({ invoke }) => invoke('get_app_path', undefined))
 		.then((path) => instancesPath.set(`${path}instances`))
+		.catch(err => console.error("failed to get app path", err))
 }

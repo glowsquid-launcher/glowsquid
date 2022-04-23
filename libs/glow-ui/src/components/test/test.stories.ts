@@ -1,4 +1,3 @@
-import { action } from '@storybook/addon-actions';
 import Test from './Test.svelte';
 
 export default {
@@ -6,6 +5,9 @@ export default {
   component: Test,
 };
 
+/**
+ * storybook test
+**/
 export const Text = () => ({
   Component: Test,
   props: { }

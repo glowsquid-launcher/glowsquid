@@ -6,7 +6,7 @@ use crate::CLIENT_ID;
 
 // types
 pub enum Code {
-    Code(String),
+    Token(String),
     RefreshToken(String),
 }
 
@@ -213,7 +213,7 @@ async fn get_access_token(
             ("redirect_uri", redirect_uri),
             ("grant_type", "authorization_code"),
             match code {
-                Code::Code(code) => ("code", code),
+                Code::Token(code) => ("code", code),
                 Code::RefreshToken(token) => ("refresh_token", token),
             },
         ])

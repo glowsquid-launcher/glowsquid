@@ -34,7 +34,7 @@ pub async fn main(req: Request, env: Env, _ctx: worker::Context) -> Result<Respo
 
             if let Some((_, code)) = queries.find(|(k, _)| k == "code") {
                 let response = authenticate_user(
-                    Code::Code(code.to_string()),
+                    Code::Token(code.to_string()),
                     ctx.var("MS_CLIENT_SECRET")?.to_string(),
                     &url.to_string(),
                 )
