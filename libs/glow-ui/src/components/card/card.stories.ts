@@ -1,4 +1,4 @@
-import 'virtual:windi.css';
+import 'uno.css';
 import Card from './Card.svelte';
 
 export default {

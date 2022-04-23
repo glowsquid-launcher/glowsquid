@@ -11,3 +11,5 @@
   export let body: string;
   export let buttons: Button[];
 </script>
+
+<div class="text-8xl">Test</div>
