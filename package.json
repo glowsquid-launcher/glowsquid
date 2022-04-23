@@ -33,6 +33,7 @@
     "@storybook/addon-essentials": "~6.4.12",
     "@storybook/core-server": "~6.4.12",
     "@storybook/svelte": "~6.4.12",
+    "@sveltejs/adapter-node": "next",
     "@sveltejs/adapter-static": "next",
     "@sveltejs/kit": "next",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.41",
