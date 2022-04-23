@@ -4949,6 +4949,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sveltejs/adapter-node@npm:next":
+  version: 1.0.0-next.73
+  resolution: "@sveltejs/adapter-node@npm:1.0.0-next.73"
+  dependencies:
+    tiny-glob: ^0.2.9
+  checksum: 65396e2d7b05e1c0d79c2e6e7edece915774cdc2d1dab9c78986fccac9222df6f5bd8c9cdb7c40ef8b6200e0998de82db994622b27867ef10347a05cda7dfc5e
+  languageName: node
+  linkType: hard
+
 "@sveltejs/adapter-static@npm:next":
   version: 1.0.0-next.27
   resolution: "@sveltejs/adapter-static@npm:1.0.0-next.27"
@@ -13158,6 +13167,7 @@ __metadata:
     "@storybook/addon-essentials": ~6.4.12
     "@storybook/core-server": ~6.4.12
     "@storybook/svelte": ~6.4.12
+    "@sveltejs/adapter-node": next
     "@sveltejs/adapter-static": next
     "@sveltejs/kit": next
     "@sveltejs/vite-plugin-svelte": ^1.0.0-next.41
