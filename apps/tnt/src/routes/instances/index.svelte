@@ -12,7 +12,7 @@
 		<div class="grid grid-cols-[repeat(auto-fill, 366px)] lg:grid-cols-4 gap-6">
 			{#each instanceList as instance, i}
 				<div transition:slide={{ delay: i * (animationTime / instanceList.length) }}>
-					<InstanceCard title="test" version="1.18.1" id={instance.id} />
+					<InstanceCard title="test" version="1.18.1" id={instance.id.toString()} />
 				</div>
 			{/each}
 		</div>
