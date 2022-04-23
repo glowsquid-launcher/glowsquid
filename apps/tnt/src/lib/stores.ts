@@ -41,5 +41,6 @@ if (browser) {
 	import('./invoke')
 		.then(({ invoke }) => invoke('get_app_path', undefined))
 		.then((path) => instancesPath.set(`${path}instances`))
-		.catch(err => console.error("failed to get app path", err))
+		// TODO: add error handling via a notification
+		.catch(err => err)
 }
