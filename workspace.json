@@ -1,8 +1,10 @@
 {
   "version": 2,
   "projects": {
+    "glow-ui": "libs/glow-ui",
+    "glow-ui-e2e": "apps/glow-ui-e2e",
     "oxidize": "apps/oxidize",
-    "tnt": "apps/tnt",
-    "server": "apps/server"
+    "server": "apps/server",
+    "tnt": "apps/tnt"
   }
 }

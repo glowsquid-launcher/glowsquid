@@ -15,8 +15,11 @@ tauri-build = { version = "1.0.0-rc.0", features = [] }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-discord_api = "0.2.1"
-theseus = { version = "*", git = "https://github.com/modrinth/theseus" }
+reqwest = "0.11.10"
+discord_api = "0.2.3"
+# v2.2.4
+labrinth = { commit = "023663b268bf279157444103a84a49b089997869", git = "https://github.com/modrinth/labrinth" }
+async-trait = "0.1"
 
 [dependencies.tauri]
 version = "1.0.0-rc.6"

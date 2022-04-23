@@ -1,9 +1,10 @@
 {
-  "name": "@glowsquid/tnt",
-  "version": "0.0.1",
-  "type": "module",
-  "devDependencies": {
-    "@sveltejs/adapter-static": "../../node_modules",
-    "@tauri-apps/api": "../../node_modules"
-  }
+	"name": "@glowsquid/tnt",
+	"version": "0.0.1",
+	"type": "module",
+	"devDependencies": {
+		"@sveltejs/adapter-static": "../../node_modules",
+		"@glowsquid/ui": "../../libs/glow-ui",
+		"@tauri-apps/api": "../../node_modules"
+	}
 }

@@ -1,0 +1,28 @@
+{
+  "root": "apps/glow-ui-e2e",
+  "sourceRoot": "apps/glow-ui-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/glow-ui-e2e/cypress.json",
+        "devServerTarget": "glow-ui:storybook"
+      },
+      "configurations": {
+        "ci": {
+          "devServerTarget": "glow-ui:storybook:ci"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/glow-ui-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["glow-ui"]
+}

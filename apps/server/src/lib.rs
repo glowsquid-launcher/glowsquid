@@ -1,22 +1,11 @@
-use async_graphql::EmptyMutation;
-use async_graphql::EmptySubscription;
-use async_graphql::Schema;
+use microsoft::{authenticate_user, Code};
+use reqwest::StatusCode;
 use worker::*;
 
-use serde::Deserialize;
-
-pub mod mods;
-mod query;
+mod microsoft;
 mod utils;
 
-use ferinth::Ferinth;
-use furse::Furse;
-use query::Query;
-
-#[derive(Deserialize)]
-struct GraphQL {
-    query: String,
-}
+pub const CLIENT_ID: &str = "2aa32806-92e3-4242-babc-392ac0f0fd30";
 
 fn log_request(req: &Request) {
     console_log!("{} - [{}]", Date::now().to_string(), req.path(),);
@@ -33,28 +22,49 @@ pub async fn main(req: Request, env: Env, _ctx: worker::Context) -> Result<Respo
 
     router
         .get("/", |_, _| {
-            Response::ok("POST to /graphql for the API (Use insomnia or something as a client)")?
-                .with_cors(
-                    &Cors::new()
-                        .with_origins(vec!["*"])
-                        .with_methods(vec![Method::Get]),
-                )
-        })
-        .post_async("/graphql", |mut req, ctx| async move {
-            let query = req.json::<GraphQL>().await?.query;
-
-            let schema = Schema::build(Query, EmptyMutation, EmptySubscription)
-                .data(Furse::new(&ctx.secret("CF_API_KEY")?.to_string()))
-                .data(ctx.secret("CF_API_KEY")?.to_string())
-                .data(Ferinth::new())
-                .finish();
-            let res = schema.execute(query).await;
-
-            Response::ok(serde_json::to_string(&res)?)?.with_cors(
+            Response::ok("Check out the main website(coming soon:tm:) for api docs")?.with_cors(
                 &Cors::new()
                     .with_origins(vec!["*"])
-                    .with_methods(vec![Method::Post]),
+                    .with_methods(vec![Method::Get]),
             )
+        })
+        .get_async("/microsoft_auth", |req, ctx| async move {
+            let url = req.url().unwrap();
+            let mut queries = url.query_pairs();
+
+            if let Some((_, code)) = queries.find(|(k, _)| k == "code") {
+                let response = authenticate_user(
+                    Code::Code(code.to_string()),
+                    ctx.var("MS_CLIENT_SECRET")?.to_string(),
+                    &url.to_string(),
+                )
+                .await;
+
+                match response {
+                    Ok(value) => Response::from_json(&value),
+                    Err(err) => Response::from_json(&err),
+                }?
+                .with_cors(&Cors::new().with_origins(vec!["*"]))
+            } else if let Some((_, refresh_token)) = queries.find(|(k, _)| k == "refresh_token") {
+                let response = authenticate_user(
+                    Code::RefreshToken(refresh_token.to_string()),
+                    ctx.var("MS_CLIENT_SECRET")?.to_string(),
+                    &url.to_string(),
+                )
+                .await;
+
+                match response {
+                    Ok(value) => Response::from_json(&value),
+                    Err(err) => Response::from_json(&err),
+                }?
+                .with_cors(&Cors::new().with_origins(vec!["*"]))
+            } else {
+                Ok(Response::error(
+                    "no code or token provided",
+                    StatusCode::BAD_REQUEST.as_u16(),
+                )?
+                .with_cors(&Cors::new().with_origins(vec!["*"]))?)
+            }
         })
         .run(req, env)
         .await

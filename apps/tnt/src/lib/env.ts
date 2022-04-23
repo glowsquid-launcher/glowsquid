@@ -1,3 +1,5 @@
 import {dev} from "$app/env"
 
-export const serverURL = dev ? "http://localhost:8787/graphql" : "https://server.tnt-man-inc.workers.dev/graphql"
+// builtin sources
+export const curseforgeSourceURL = dev ? "http://localhost:8787/curseforge" : "https://server.tnt-man-inc.workers.dev/curseforge"
+export const modrinthSourceURL = dev  ? "http://localhost:8787/modrinth" : "https://server.tnt-man-inc.workers.dev/modrinth"

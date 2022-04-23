@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@glowsquid/glow-ui": ["libs/glow-ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

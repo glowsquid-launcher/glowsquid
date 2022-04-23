@@ -5,7 +5,6 @@
   import { Button } from 'carbon-components-svelte';
   import { Add32, Fire32, FolderOpen32, Tools32 } from 'carbon-icons-svelte';
   import { fade, fly, slide } from 'svelte/transition';
-  import {serverURL} from "$lib/env"
 
   // get the last 4 used instances
   let quickLaunchList = [0, 4, 2, 3];
@@ -35,7 +34,7 @@
             }}
           >
             <QuickLaunchCard
-              title={ `id: ${id}` }
+              title={`id: ${id}`}
               version="1.18.1"
               id="instance-id"
               on:launch={console.log}
