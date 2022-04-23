@@ -1,11 +1,16 @@
+const WindiCSS = require("vite-plugin-windicss").default;
+
 module.exports = {
   stories: [],
   addons: ['@storybook/addon-essentials'],
-  // uncomment the property below if you want to apply some webpack config globally
-  // webpackFinal: async (config, { configType }) => {
-  //   // Make whatever fine-grained changes you need that should apply to all storybook configs
-
-  //   // Return the altered config
-  //   return config;
-  // },
+  core: {
+    builder: "@storybook/builder-vite",
+  },
+  async viteFinal(config, { configType }) {
+    config.plugins = config.plugins ?? [];
+    config.plugins.push(
+      WindiCSS()
+    );
+    return config;
+  },
 };

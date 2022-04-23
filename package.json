@@ -31,6 +31,8 @@
     "@nxrs/cargo": "^0.3.2",
     "@nxtensions/astro": "^2.1.2",
     "@storybook/addon-essentials": "~6.4.12",
+    "@storybook/addon-svelte-csf": "^2.0.3",
+    "@storybook/builder-vite": "^0.1.30",
     "@storybook/core-server": "~6.4.12",
     "@storybook/svelte": "~6.4.12",
     "@sveltejs/adapter-node": "next",
