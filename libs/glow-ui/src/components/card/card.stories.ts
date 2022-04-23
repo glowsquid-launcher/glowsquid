@@ -1,4 +1,4 @@
-import "virtual:windi.css";
+import 'virtual:windi.css';
 import Card from './Card.svelte';
 
 export default {
@@ -8,5 +8,5 @@ export default {
 
 export const Text = () => ({
   Component: Card,
-  props: { }
+  props: {},
 });
