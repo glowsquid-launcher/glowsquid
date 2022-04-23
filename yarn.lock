@@ -13164,13 +13164,10 @@ __metadata:
     "@nxext/sveltekit": ^13.0.0-next.2
     "@nxrs/cargo": ^0.3.2
     "@nxtensions/astro": ^2.1.2
-<<<<<<< HEAD
     "@storybook/addon-essentials": ~6.4.12
     "@storybook/core-server": ~6.4.12
     "@storybook/svelte": ~6.4.12
-=======
     "@sveltejs/adapter-node": next
->>>>>>> website
     "@sveltejs/adapter-static": next
     "@sveltejs/kit": next
     "@sveltejs/vite-plugin-svelte": ^1.0.0-next.41
