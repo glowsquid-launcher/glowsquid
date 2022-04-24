@@ -28,6 +28,11 @@
 	.index-page {
 		font-family: 'Varela', sans-serif;
 	}
+	.top-section h1 {
+		font-size: 5em;
+		font-weight: bold;
+		margin-bottom: 0;
+	}
 	.top-section {
 		color: black;
 		display: flex;
