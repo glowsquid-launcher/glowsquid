@@ -8,5 +8,4 @@ const config = {
   preprocess: preprocess(),
   adapter: adapter(),
 };
-
 export default config;
