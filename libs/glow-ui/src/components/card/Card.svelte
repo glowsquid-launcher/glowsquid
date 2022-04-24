@@ -12,4 +12,4 @@
   export let buttons: Button[];
 </script>
 
-<div class="text-8xl">Test</div>
+<div class="text-8xl">{title}</div>

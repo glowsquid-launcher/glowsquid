@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
+  "name": "@glowsquid/server",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "wrangler build",
+    "test": "cargo test"
+  }
+}

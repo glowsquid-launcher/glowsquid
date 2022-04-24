@@ -1,5 +1,4 @@
 import adapter from '@sveltejs/adapter-static';
-import path from 'path';
 import preprocess from 'svelte-preprocess';
 import Unocss from 'unocss/vite';
 import {
@@ -16,8 +15,8 @@ const config = {
 
   kit: {
     adapter: adapter({
-      pages: '../../dist/apps/tnt',
-      assets: '../../dist/apps/tnt',
+      pages: './dist/',
+      assets: './dist/',
       fallback: 'index.html',
     }),
 
@@ -40,11 +39,6 @@ const config = {
       },
       build: {
         target: ['esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89'],
-      },
-      resolve: {
-        alias: {
-          '@glowsquid/glow-ui': path.resolve('../../libs/glow-ui/src/index.ts'),
-        },
       },
     },
   },

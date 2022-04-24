@@ -8,14 +8,11 @@
 </script>
 
 <script lang="ts">
-  import { browser } from '$app/env';
   import AddInstanceModal from '$lib/components/modals/AddInstanceModal.svelte';
   import PageTransition from '$lib/components/PageTransition.svelte';
   // import { getVersion } from '@tauri-apps/api/app';
-  import 'virtual:windi.css';
+  import 'uno.css';
 
-  // @ts-expect-error windi devtools exists during development and is an empty module at build
-  if (browser) import('virtual:windi-devtools');
   export let key: string;
 </script>
 

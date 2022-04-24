@@ -4,10 +4,8 @@
     "version": "0.1.0"
   },
   "build": {
-    "distDir": "../../dist/tnt/",
-    "devPath": "http://localhost:3000",
-    "beforeDevCommand": "yarn nx serve tnt",
-    "beforeBuildCommand": "yarn nx build tnt"
+    "distDir": "../tnt/dist",
+    "devPath": "http://localhost:3000"
   },
   "tauri": {
     "bundle": {

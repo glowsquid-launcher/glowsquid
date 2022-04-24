@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json",
+  "name": "@glowsquid/oxidize",
+  "private": true,
+  "devDependencies": {
+    "@glowsquid/tnt": "workspace:*",
+    "@tauri-apps/cli": "^1.0.0-rc.8"
+  },
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "test": "echo \"Error: no test specified\""
+  }
+}

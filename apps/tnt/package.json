@@ -1,10 +1,23 @@
 {
-	"name": "@glowsquid/tnt",
-	"version": "0.0.1",
-	"type": "module",
-	"devDependencies": {
-		"@sveltejs/adapter-static": "../../node_modules",
-		"@glowsquid/ui": "../../libs/glow-ui",
-		"@tauri-apps/api": "../../node_modules"
-	}
+  "name": "@glowsquid/tnt",
+  "version": "0.0.1",
+  "type": "module",
+  "devDependencies": {
+    "@glowsquid/glow-ui": "workspace:*",
+    "@sveltejs/adapter-static": "next",
+    "@sveltejs/kit": "next",
+    "@tauri-apps/api": "^1.0.0-rc.3",
+    "svelte": "^3.47.0",
+    "svelte-check": "^2.7.0",
+    "svelte-loader": "^3.1.2",
+    "svelte-preprocess": "^4.10.6",
+    "ts-toolbelt": "^9.6.0"
+  },
+  "scripts": {
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "package": "svelte-kit package",
+    "preview": "svelte-kit preview",
+    "prepare": "svelte-kit sync"
+  }
 }

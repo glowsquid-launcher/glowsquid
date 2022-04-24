@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/.turbo
 
 # dependencies
 node_modules
@@ -48,3 +49,4 @@ testem.log
 .DS_Store
 Thumbs.db
 /target
+.turbo

@@ -1,3 +1,4 @@
 # vite does some stuff in node_modules for some reason
 /node_modules
 /.svelte-kit
+/dist
