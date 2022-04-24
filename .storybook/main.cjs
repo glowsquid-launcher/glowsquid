@@ -5,6 +5,7 @@ const {
   presetTypography,
   presetAttributify,
   presetIcons,
+  extractorSvelte,
 } = require('unocss');
 
 module.exports = {
@@ -13,12 +14,15 @@ module.exports = {
   core: {
     builder: '@storybook/builder-vite',
   },
-  async viteFinal(config, { configType }) {
+  async viteFinal(config) {
     config.plugins = config.plugins ?? [];
-    config.plugins.push(
+    config.plugins.unshift(
       Unocss({
+        extractors: [extractorSvelte],
         presets: [
-          presetAttributify(),
+          presetAttributify({
+            nonValuedAttribute: true,
+          }),
           presetUno(),
           presetTypography(),
           presetIcons(),

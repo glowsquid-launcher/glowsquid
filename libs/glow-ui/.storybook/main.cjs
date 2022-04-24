@@ -1,15 +1,15 @@
-const rootMain = require('../../../.storybook/main');
+const rootMain = require('../../../.storybook/main.cjs');
+const preprocess = require('svelte-preprocess');
 
 module.exports = {
   ...rootMain,
-  "stories": [
-    ...rootMain.stories,
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx|svelte)"
+  stories: [
+    '../src/**/*.stories.mdx',
+    '../src/**/*.stories.@(js|jsx|ts|tsx|svelte)',
   ],
   addons: [...rootMain.addons],
-  "framework": "@storybook/svelte",
-  "svelteOptions": {
-    "preprocess": require("../svelte.config.cjs").preprocess
-  }
-}
+  framework: '@storybook/svelte',
+  svelteOptions: {
+    preprocess: preprocess(),
+  },
+};

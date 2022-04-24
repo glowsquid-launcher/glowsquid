@@ -13,12 +13,10 @@
 
 <div class="flex flex-col content-center">
   <div class="w-4/5 self-center">
-    <section>
-			launch list
-          </section>
+    <section>launch list</section>
 
     <hr
-      class="mt-5 mb-5"
+      class="mb-5 mt-5"
       in:fly={{ duration: animationTime, x: -1000 }}
       out:fly={{ duration: animationTime, x: 1000 }}
     />
@@ -30,7 +28,7 @@
     </section>
 
     <hr
-      class="mt-5 mb-5"
+      class="mb-5 mt-5"
       in:fly={{ duration: animationTime, x: -1000 }}
       out:fly={{ duration: animationTime, x: 1000 }}
     />
