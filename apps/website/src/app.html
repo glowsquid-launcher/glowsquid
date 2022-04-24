@@ -9,4 +9,17 @@
   <body>
     <div id="svelte">%svelte.body%</div>
   </body>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    *::-webkit-scrollbar {
+      display: none;
+    }
+    * {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
 </html>
