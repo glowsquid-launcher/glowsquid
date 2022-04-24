@@ -1,12 +1,4 @@
-const Unocss = require('unocss/vite').default;
-
-const {
-  presetUno,
-  presetTypography,
-  presetAttributify,
-  presetIcons,
-  extractorSvelte,
-} = require('unocss');
+const Unocss = require('../unocssPlugin');
 
 module.exports = {
   stories: [],
@@ -16,19 +8,7 @@ module.exports = {
   },
   async viteFinal(config) {
     config.plugins = config.plugins ?? [];
-    config.plugins.unshift(
-      Unocss({
-        extractors: [extractorSvelte],
-        presets: [
-          presetAttributify({
-            nonValuedAttribute: true,
-          }),
-          presetUno(),
-          presetTypography(),
-          presetIcons(),
-        ],
-      })
-    );
+    config.plugins.unshift(Unocss);
     return config;
   },
 };

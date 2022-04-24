@@ -1,15 +1,25 @@
 <script>
   import 'uno.css';
-  import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+  import '@unocss/reset/tailwind.css';
+
+  import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
+  import { ButtonStyle } from '../../types';
 
   import Button from './Button.svelte';
 </script>
 
-<!--👇 The title determines where your story goes in the story list -->
-<Meta title="YourComponent" component={Button} argTypes={{}} />
+<Meta argTypes={{}} component={Button} title="Button" />
 
 <Template let:args>
-  <Button {...args} />
+  {#if (args.type = 'basic')}
+    <Button {...args} on:click={() => console.log('clicked')}>Hi</Button>
+  {/if}
 </Template>
 
-<Story name="FirstStory" args={{}} />
+<Story
+  args={{
+    type: 'basic',
+    variant: ButtonStyle.Default,
+  }}
+  name="Text"
+/>

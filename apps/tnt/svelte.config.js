@@ -1,12 +1,6 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
-import Unocss from 'unocss/vite';
-import {
-  presetIcons,
-  presetTypography,
-  presetUno,
-  presetAttributify,
-} from 'unocss';
+import Unocss from '../../unocssPlugin.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -24,16 +18,7 @@ const config = {
       ssr: {
         noExternal: ['@tauri-apps/api'],
       },
-      plugins: [
-        Unocss({
-          presets: [
-            presetAttributify(),
-            presetUno(),
-            presetTypography(),
-            presetIcons(),
-          ],
-        }),
-      ],
+      plugins: [Unocss],
       esbuild: {
         target: ['esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89'],
       },

@@ -6,7 +6,7 @@ module.exports = {
   overrides: [{
     files: ['*.ts', '*.js', '*.svelte'],
     parserOptions: {
-      project: ['apps/website/tsconfig.*?.json']
+      project: ['libs/glow-ui/tsconfig.*?.json']
     },
     rules: {}
   }, {

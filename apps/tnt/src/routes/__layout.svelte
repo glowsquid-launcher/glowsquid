@@ -12,15 +12,16 @@
   import PageTransition from '$lib/components/PageTransition.svelte';
   // import { getVersion } from '@tauri-apps/api/app';
   import 'uno.css';
+  import '@unocss/reset/tailwind.css';
 
   export let key: string;
 </script>
 
 <AddInstanceModal />
 
-<div class="w-screen h-screen">
-	Header here
- <div class="pt-16">
+<div class="h-screen w-screen">
+  Header here
+  <div class="pt-16">
     <PageTransition refresh={key}>
       <slot />
     </PageTransition>

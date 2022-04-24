@@ -1,5 +1,6 @@
 import preprocess from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-auto';
+import Unocss from '../../unocssPlugin.js';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -7,5 +8,8 @@ const config = {
   // for more information about preprocessors
   preprocess: preprocess(),
   adapter: adapter(),
+  vite: {
+    plugins: [Unocss],
+  },
 };
 export default config;
