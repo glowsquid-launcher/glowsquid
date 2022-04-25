@@ -7,7 +7,7 @@
 
 <button
   on:click
-  class="flex content-center pb-1 pl-4 pr-4 pt-1 outline-none {variant}"
+  class="rounded-xl pb-2 pt-2 pl-4 pr-4 hover-shadow-md transition duration-300 ease-in-out {variant}"
   {disabled}
 >
   <slot />
@@ -15,6 +15,6 @@
 
 <style>
   .default {
-    @apply bg-blue-500 hover-bg-blue-700 text-white;
+    @apply bg-primary hover-bg-highlight active-bg-active text-white;
   }
 </style>
