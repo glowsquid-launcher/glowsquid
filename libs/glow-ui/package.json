@@ -59,7 +59,9 @@
     "./components/button/Button.spec": "./package/components/button/Button.spec.js",
     "./components/button/Button.stories.svelte": "./package/components/button/Button.stories.svelte",
     "./components/button/Button.svelte": "./package/components/button/Button.svelte",
-    "./unocssPlugin": "./package/unocssPlugin.js",
+    "./unocssPlugin": "./package/unocssPlugin.cjs",
+    "./helpers": "./package/helpers.js",
+    "./themes.css": "./package/themes.ccs",
     ".": "./package/index.js"
   },
   "svelte": "./package/index.js"
