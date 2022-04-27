@@ -1,9 +1,14 @@
-const Unocss = require('../src/lib/unocssPlugin.cjs');
 const preprocess = require('svelte-preprocess');
+const Unocss = require('unocss/vite').default
 
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|svelte)'],
-  addons: ['@storybook/addon-essentials'],
+  addons: [
+    '@storybook/addon-essentials',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-a11y',
+  ],
   core: {
     builder: '@storybook/builder-vite',
   },
@@ -13,7 +18,7 @@ module.exports = {
     config.resolve = config.resolve ?? {};
     config.resolve.alias = config.resolve.alias ?? {};
 
-    config.plugins.unshift(Unocss);
+    config.plugins.unshift(Unocss(require("../../../uno.config.cjs")));
 
     config.resolve.alias.$lib = '../src/lib';
     config.resolve.alias.$app =

@@ -9,7 +9,7 @@ const {
   transformerVariantGroup,
 } = require('unocss');
 
-module.exports = Unocss({
+module.exports = {
   extractors: [extractorSvelte],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   presets: [presetUno(), presetTypography(), presetIcons()],
@@ -22,4 +22,4 @@ module.exports = Unocss({
       active: 'var(--color-active)',
     },
   },
-});
+}

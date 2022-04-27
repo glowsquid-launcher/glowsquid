@@ -13,12 +13,20 @@
   onMount(() => setTheme('dark'));
 </script>
 
-<Meta argTypes={{}} component={Button} title="Button" />
+<Meta
+  argTypes={{
+    onClick: {
+      action: 'clicked',
+    },
+  }}
+  component={Button}
+  title="Button"
+/>
 
 <Template let:args>
   {#if (args.type = 'basic')}
-    <Button variant={args.variant} on:click={() => setTheme(args.cssTheme)}
-      >Set colour theme</Button
+    <Button variant={args.variant} on:click={args.onClick}>
+      Set colour theme</Button
     >
   {/if}
 </Template>
