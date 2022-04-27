@@ -7,15 +7,11 @@
     "isolatedModules": true,
     "sourceMap": true,
     "types": ["svelte"],
-    "strict": false,
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"]
-    }
+    "baseUrl": "."
   },
   "files": [],
   "include": [],

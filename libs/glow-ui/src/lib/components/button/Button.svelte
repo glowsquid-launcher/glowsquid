@@ -7,6 +7,7 @@
 
 <button
   on:click
+  data-testid="button"
   class="rounded-xl pb-2 pt-2 pl-4 pr-4 hover-shadow-md transition duration-300 ease-in-out {variant}"
   {disabled}
 >

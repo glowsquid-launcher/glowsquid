@@ -9,6 +9,6 @@
   "scripts": {
     "dev": "tauri dev",
     "build": "tauri build",
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"TODO: add e2e and unit tests to oxidize\""
   }
 }
