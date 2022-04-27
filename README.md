@@ -21,6 +21,19 @@ Glowsquid is a modded minecraft launcher built on [_tauri_](https://tauri.studio
 
 You can see the various components of glowsquid and their own READMEs by going into the `apps` or `libs` folder.
 
+## Features
+
+<!-- Emojis for style points -->
+
+- :rocket: Launching minecraft (without going through the offical launcher)
+- :lock: Microsoft authentication and multiple accounts
+- :arrow_down: Downloading and creating modpacks
+- Support for [Curseforge](https://www.curseforge.com/), [Modrinth](https://modrinth.com/), and Custom mod/modpack sources
+- Support for [Forge](https://forums.minecraftforge.net/), [Fabric](https://fabricmc.net/), and [Quilt](https://quiltmc.org/)
+- :wrench: fast and themable frontend
+- :100: Near 100% parity with MultiMC5
+- :zap: Performant backend written in rust
+
 ## Ask for help
 
 You can ask questions and get support via our [discord](https://discord.gg/AzwR4KSJW4)
