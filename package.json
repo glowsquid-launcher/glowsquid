@@ -27,6 +27,7 @@
     "@typescript-eslint/parser": "~5.20.0",
     "@unocss/preset-attributify": "^0.31.13",
     "cz-conventional-changelog": "3.3.0",
+    "eslint": "^8.14.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-svelte3": "^3.4.1",

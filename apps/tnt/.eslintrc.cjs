@@ -12,7 +12,7 @@ module.exports = {
     {
       files: ['*.ts', '*.js', '*.svelte'],
       parserOptions: {
-        project: ['apps/launcher/tsconfig.*?.json'],
+        project: ['apps/tnt/tsconfig.*?.json'],
       },
       rules: {},
     },
@@ -38,7 +38,7 @@ module.exports = {
   },
   env: {
     browser: true,
-    es2017: true,
+    es2020: true,
     node: true,
   },
 };

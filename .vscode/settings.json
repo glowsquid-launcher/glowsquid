@@ -1,3 +1,4 @@
 {
-  "conventionalCommits.scopes": ["launcher", "docs", "oxide", "tnt"]
+  "conventionalCommits.scopes": ["launcher", "docs", "oxide", "tnt"],
+  "eslint.probe": ["typescript", "javascript", "svelte"]
 }

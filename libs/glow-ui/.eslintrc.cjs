@@ -1,34 +1,45 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  extends: ['../../.eslintrc.json', 'eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier', 'plugin:storybook/recommended'],
+  extends: [
+    '../../.eslintrc.json',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+    'plugin:storybook/recommended',
+  ],
   plugins: ['svelte3', '@typescript-eslint'],
   ignorePatterns: ['!**/*', '*.cjs'],
-  overrides: [{
-    files: ['*.ts', '*.js', '*.svelte'],
-    parserOptions: {
-      project: ['libs/glow-ui/tsconfig.*?.json']
+  overrides: [
+    {
+      files: ['*.ts', '*.js', '*.svelte'],
+      parserOptions: {
+        project: ['libs/glow-ui/tsconfig.*?.json'],
+      },
+      rules: {},
     },
-    rules: {}
-  }, {
-    files: ['*.ts', '*.tsx'],
-    rules: {}
-  }, {
-    files: ['*.js', '*.jsx'],
-    rules: {}
-  }, {
-    files: ['*.svelte'],
-    processor: 'svelte3/svelte3'
-  }],
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {},
+    },
+    {
+      files: ['*.js', '*.jsx'],
+      rules: {},
+    },
+    {
+      files: ['*.svelte'],
+      processor: 'svelte3/svelte3',
+    },
+  ],
   settings: {
-    'svelte3/typescript': require('typescript')
+    'svelte3/typescript': require('typescript'),
   },
   parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 2018
+    ecmaVersion: 2018,
   },
   env: {
     browser: true,
     es2017: true,
-    node: true
-  }
+    node: true,
+  },
 };

@@ -36,6 +36,6 @@
     <section transition:fade={{ duration: animationTime }}>
       <h2 class="mb-6">Playtime stats</h2>
       TODO
-    </section>
+      </section>
   </div>
 </div>
