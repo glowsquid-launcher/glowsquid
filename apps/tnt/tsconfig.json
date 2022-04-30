@@ -6,17 +6,27 @@
     "importsNotUsedAsValues": "error",
     "isolatedModules": true,
     "sourceMap": true,
-    "types": ["svelte"],
+    "types": [
+      "svelte"
+    ],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"],
-      "$locales": ["src/lib/locales"],
-      "$locales/*": ["src/lib/locales/*"]
+      "$lib": [
+        "src/lib"
+      ],
+      "$lib/*": [
+        "src/lib/*"
+      ],
+      "$locales": [
+        "src/lib/locales"
+      ],
+      "$locales/*": [
+        "src/lib/locales/*"
+      ]
     }
   }
 }
