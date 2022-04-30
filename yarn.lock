@@ -2128,7 +2128,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iconify/types@npm:^1.1.0":
+"@iconify-json/ic@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@iconify-json/ic@npm:1.1.2"
+  dependencies:
+    "@iconify/types": ^1.0.12
+  checksum: 41b2d47179e34dc38cab237a36f8f90ea2d8b3c4e6c2c51158a7baeb9a4d22e72eecfb4bb8dba3d72219a0b75c4f4c126e08d3c897b0f993d140e376d4a6f03c
+  languageName: node
+  linkType: hard
+
+"@iconify-json/mdi@npm:^1.1.10":
+  version: 1.1.10
+  resolution: "@iconify-json/mdi@npm:1.1.10"
+  dependencies:
+    "@iconify/types": ^1.1.0
+  checksum: 250a62c9d8754169a31c49febacc98401a1b3b6bfd57899e74848838dd5fe0bf778d1d5f9a100dc699a55507a1618bd5bc2b4a1d3c460ee0c7902d05d81c46aa
+  languageName: node
+  linkType: hard
+
+"@iconify/types@npm:^1.0.12, @iconify/types@npm:^1.1.0":
   version: 1.1.0
   resolution: "@iconify/types@npm:1.1.0"
   checksum: beffcdbf14e879ff74e79ac29ea0f4f4874f9df632f1994d97395b3f05cbeebaf10f1abc73cf850dc7444924cd57ed92e0e2ca55bacfe3374eff7542d489fbd0
@@ -10096,6 +10114,8 @@ __metadata:
     "@alexanderniebuhr/prettier-plugin-unocss": ^0.0.4
     "@commitlint/cli": ^16.2.3
     "@commitlint/config-conventional": ^16.2.1
+    "@iconify-json/ic": ^1.1.2
+    "@iconify-json/mdi": ^1.1.10
     "@tsconfig/svelte": ^3.0.0
     "@types/node": 17.0.25
     "@typescript-eslint/eslint-plugin": ~5.20.0

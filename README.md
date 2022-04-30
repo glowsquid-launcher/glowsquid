@@ -14,7 +14,6 @@
 ## Next-gen hyperspeed minecraft launcher with all the features and more
 
 **NOTE:** Currently not complete.
-
 ## About
 
 Glowsquid is a modded minecraft launcher built on [_tauri_](https://tauri.studio/) and [_svelte_](https://svelte.dev/) for fast performance while still looking beautiful. It's near fully customizable via custom css and can support almost every single mod platform via _server adapters_(docs soon:tm:).

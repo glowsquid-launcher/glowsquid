@@ -1,21 +1,32 @@
 <script lang="ts">
   import { ButtonStyle } from '../../types';
 
+  /**
+   * Should the button be disabled?
+   */
   export let disabled = false;
   export let variant: ButtonStyle = ButtonStyle.Default;
 </script>
 
-<button
-  on:click
-  data-testid="button"
-  class="rounded-xl pb-2 pt-2 pl-4 pr-4 hover-shadow-md transition duration-300 ease-in-out {variant}"
-  {disabled}
->
+<button on:click data-testid="button" class="btn {variant}" {disabled}>
   <slot />
 </button>
 
 <style>
   .default {
-    @apply bg-primary hover-bg-highlight active-bg-active text-white;
+    @apply bg-primary text-white;
+  }
+  .default:not(:disabled) {
+    @apply hover-bg-highlight active-bg-active;
+  }
+
+  .btn {
+    @apply rounded-xl pb-2 pt-2 pl-4 pr-4 transition duration-300 ease-in-out;
+  }
+  .btn:not(:disabled) {
+    @apply hover-shadow-md;
+  }
+  .btn:disabled {
+    @apply bg-disabled;
   }
 </style>

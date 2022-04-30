@@ -2,6 +2,7 @@
   import { Button } from '@glowsquid/glow-ui';
 </script>
 
+<!-- TODO: use tailwind/unocss -->
 <div class="index-page" flex="~ direction=column">
 	<div class="top-section">
 		<!-- TODO: Find a background image for this section to make it look nice, then find a font colour for it -->

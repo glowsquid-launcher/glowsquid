@@ -2,6 +2,7 @@ html.dark {
   --color-background: #004646;
   --color-primary: #0a6d6e;
   --color-secondary: #1d8283;
+  --color-disabled: #175757;
   --color-highlight: var(--color-secondary);
   --color-active: #2b989a;
 }

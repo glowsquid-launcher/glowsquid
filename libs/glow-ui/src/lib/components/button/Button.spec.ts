@@ -12,7 +12,7 @@ describe('Button', () => {
     button.onclick = () => {
       button.innerHTML = 'clicked';
     };
-    await fireEvent.click(button)
+    await fireEvent.click(button);
 
     expect(getByText('clicked')).toBeDefined();
     expect(button.classList.contains('default')).toBeTruthy();
@@ -20,21 +20,21 @@ describe('Button', () => {
 
   it('should change style based on prop', () => {
     const { getByTestId, component } = render(Button);
-    const button = getByTestId('button')
+    const button = getByTestId('button');
     expect(button).toBeDefined();
 
-    const testStyle = async (style: ButtonStyle) => {
+    const setStyleAndConfirm = async (style: ButtonStyle) => {
       component.$set({ variant: style });
-      await tick()
-      return button.classList.contains(style)
-    }
+      await tick();
+      return button.classList.contains(style);
+    };
 
-    expect(testStyle(ButtonStyle.Primary)).toBeTruthy();
-    expect(testStyle(ButtonStyle.Secondary)).toBeTruthy();
-    expect(testStyle(ButtonStyle.Success)).toBeTruthy()
-    expect(testStyle(ButtonStyle.Info)).toBeTruthy();
-    expect(testStyle(ButtonStyle.Warning)).toBeTruthy();
-    expect(testStyle(ButtonStyle.Danger)).toBeTruthy();
-    expect(testStyle(ButtonStyle.Link)).toBeTruthy();
-  })
+    expect(setStyleAndConfirm(ButtonStyle.Primary)).toBeTruthy();
+    expect(setStyleAndConfirm(ButtonStyle.Secondary)).toBeTruthy();
+    expect(setStyleAndConfirm(ButtonStyle.Success)).toBeTruthy();
+    expect(setStyleAndConfirm(ButtonStyle.Info)).toBeTruthy();
+    expect(setStyleAndConfirm(ButtonStyle.Warning)).toBeTruthy();
+    expect(setStyleAndConfirm(ButtonStyle.Danger)).toBeTruthy();
+    expect(setStyleAndConfirm(ButtonStyle.Link)).toBeTruthy();
+  });
 });

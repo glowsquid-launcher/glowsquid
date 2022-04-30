@@ -18,24 +18,59 @@
     onClick: {
       action: 'clicked',
     },
+    disabled: {
+      type: 'boolean',
+      description: 'Disables the button',
+      defaultValue: false,
+    },
   }}
   component={Button}
-  title="Button"
+  title="Buttons/Basic"
 />
 
-<Template let:args>
-  {#if (args.type = 'basic')}
-    <Button variant={args.variant} on:click={args.onClick}>
-      Set colour theme</Button
-    >
-  {/if}
+<Template let:args={{ variant, onClick, cssTheme, disabled }} id="text">
+  <Button
+    {variant}
+    {disabled}
+    on:click={() => {
+      setTheme(cssTheme);
+      onClick();
+    }}
+  >
+    Set colour</Button
+  >
+</Template>
+
+<Template let:args={{ variant, onClick, cssTheme, disabled }} id="complex">
+  <Button
+    {variant}
+    {disabled}
+    on:click={() => {
+      setTheme(cssTheme);
+      onClick();
+    }}
+  >
+    <div>
+      <div class="i-mdi-anvil" />
+      e
+    </div>
+  </Button>
 </Template>
 
 <Story
   args={{
-    type: 'basic',
     cssTheme: 'dark',
     variant: ButtonStyle.Default,
   }}
-  name="Text"
+  name="Basic"
+  template="text"
+/>
+
+<Story
+  args={{
+    cssTheme: 'dark',
+    variant: ButtonStyle.Default,
+  }}
+  name="Complex"
+  template="complex"
 />

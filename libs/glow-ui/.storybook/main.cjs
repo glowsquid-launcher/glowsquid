@@ -1,5 +1,5 @@
 const preprocess = require('svelte-preprocess');
-const Unocss = require('unocss/vite').default
+const Unocss = require('unocss/vite').default;
 
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|svelte)'],
@@ -17,8 +17,9 @@ module.exports = {
     config.plugins = config.plugins ?? [];
     config.resolve = config.resolve ?? {};
     config.resolve.alias = config.resolve.alias ?? {};
+    config.json = config.json ?? {};
 
-    config.plugins.unshift(Unocss(require("../../../uno.config.cjs")));
+    config.plugins.unshift(Unocss(require('../../../uno.config.cjs')));
 
     config.resolve.alias.$lib = '../src/lib';
     config.resolve.alias.$app =

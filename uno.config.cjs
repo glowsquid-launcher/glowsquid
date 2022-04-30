@@ -12,14 +12,25 @@ const {
 module.exports = {
   extractors: [extractorSvelte],
   transformers: [transformerDirectives(), transformerVariantGroup()],
-  presets: [presetUno(), presetTypography(), presetIcons()],
+  presets: [
+    presetUno(),
+    presetTypography(),
+    presetIcons({
+      extraProperties: {
+        display: 'inline-block',
+        'vertical-align': 'middle',
+        // ...
+      },
+    }),
+  ],
   theme: {
-    // even though I use bri-ish english spelling I'll use americanish as thats what css uses
+    // even though I use english(traditional) spelling I'll use english(simplified) as thats what css uses
     colors: {
       primary: 'var(--color-primary)',
       secondary: 'var(--color-secondary)',
       highlight: 'var(--color-highlight)',
       active: 'var(--color-active)',
+      disabled: 'var(--color-disabled)',
     },
   },
-}
+};
