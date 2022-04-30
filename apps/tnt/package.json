@@ -13,7 +13,7 @@
     "svelte-loader": "^3.1.2",
     "svelte-preprocess": "^4.10.6",
     "ts-toolbelt": "^9.6.0",
-    "typescript": "latest"
+    "typescript": "^4.6.4"
   },
   "scripts": {
     "dev": "run-p 'dev:*'",

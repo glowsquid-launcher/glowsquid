@@ -2118,7 +2118,7 @@ __metadata:
     svelte-preprocess: ^4.10.6
     ts-toolbelt: ^9.6.0
     typesafe-i18n: ^5.4.2
-    typescript: latest
+    typescript: ^4.6.4
   languageName: unknown
   linkType: soft
 
@@ -16734,7 +16734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:latest":
+"typescript@npm:^4.6.4":
   version: 4.6.4
   resolution: "typescript@npm:4.6.4"
   bin:
@@ -16754,7 +16754,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@latest#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>":
   version: 4.6.4
   resolution: "typescript@patch:typescript@npm%3A4.6.4#~builtin<compat/typescript>::version=4.6.4&hash=493e53"
   bin:
