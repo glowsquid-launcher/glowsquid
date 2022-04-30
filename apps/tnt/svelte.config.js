@@ -1,7 +1,7 @@
-import adapter from '@sveltejs/adapter-static';
-import preprocess from 'svelte-preprocess';
-import path from 'path'
 import Unocss from '@glowsquid/glow-ui/unocssPlugin';
+import adapter from '@sveltejs/adapter-static';
+import path from 'path';
+import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
