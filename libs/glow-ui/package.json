@@ -2,9 +2,10 @@
   "name": "@glowsquid/glow-ui",
   "version": "0.0.1",
   "scripts": {
-    "dev": "run-p dev:storybook dev:package dev:test",
+    "dev": "run-p 'dev:*'",
     "dev:storybook": "yarn run storybook",
     "dev:package": "watch 'yarn run build:package' ./src",
+    "dev:test": "vitest",
     "build": "run-p 'build:*'",
     "build:build": "svelte-kit build",
     "build:package": "svelte-kit package",
