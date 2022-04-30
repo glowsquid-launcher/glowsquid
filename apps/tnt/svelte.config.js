@@ -1,35 +1,35 @@
 import Unocss from '@glowsquid/glow-ui/unocssPlugin';
 import adapter from '@sveltejs/adapter-static';
-import path from 'path'
+import path from 'path';
 import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   // so many preprocessors
-  preprocess : [ preprocess() ],
+  preprocess: [preprocess()],
 
-  kit : {
-    adapter : adapter({
-      pages : './dist/',
-      assets : './dist/',
-      fallback : 'index.html',
+  kit: {
+    adapter: adapter({
+      pages: './dist/',
+      assets: './dist/',
+      fallback: 'index.html',
     }),
 
-    vite : {
-      ssr : {
-        noExternal : [ '@tauri-apps/api' ],
+    vite: {
+      ssr: {
+        noExternal: ['@tauri-apps/api'],
       },
-      plugins : [ Unocss ],
-      esbuild : {
-        target : [ 'esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89' ],
+      plugins: [Unocss],
+      esbuild: {
+        target: ['esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89'],
       },
-      build : {
-        target : [ 'esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89' ],
+      build: {
+        target: ['esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89'],
       },
-      resolve : {
-        alias : {
-          $locales : path.resolve('./src/lib/locales'),
-          $lib : path.resolve('./src/lib'),
+      resolve: {
+        alias: {
+          $locales: path.resolve('./src/lib/locales'),
+          $lib: path.resolve('./src/lib'),
         },
       },
     },
