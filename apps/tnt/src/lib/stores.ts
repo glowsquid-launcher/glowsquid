@@ -15,7 +15,7 @@ const storage = <T>(key: string, initValue: T): Writable<T> => {
   if (storedValueStr !== null) store.set(JSON.parse(storedValueStr))
 
   store.subscribe((val) => {
-    if ([null, undefined].includes(val)) {
+    if ([null, undefined].includes(val as any)) {
       localStorage.removeItem(key)
     } else {
       localStorage.setItem(key, JSON.stringify(val))

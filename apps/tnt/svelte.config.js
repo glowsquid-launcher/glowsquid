@@ -6,8 +6,7 @@ import unoConfig from '../../uno.config.cjs'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  // so many preprocessors
-  preprocess: [preprocess()],
+  preprocess: preprocess(),
 
   kit: {
     adapter: adapter({

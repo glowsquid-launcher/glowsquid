@@ -2137,6 +2137,7 @@ __metadata:
     ts-toolbelt: ^9.6.0
     typesafe-i18n: ^5.4.2
     typescript: ^4.6.4
+    unocss: ^0.32.8
   languageName: unknown
   linkType: soft
 
@@ -2157,6 +2158,8 @@ __metadata:
     svelte-check: ^2.7.0
     svelte-loader: ^3.1.2
     svelte-preprocess: ^4.10.6
+    ua-parser-js: ^1.0.2
+    unocss: ^0.32.8
   languageName: unknown
   linkType: soft
 
@@ -16689,6 +16692,13 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 8cff08bf66d9ecfbf9fcc5edde04a5a7923e6cac3b21d99b4e9a06973bf5bd7f9a83ec7eed24129c1b9e13fd861de8c1070110d4b9ce9f18ab57c6999e9c9a6f
+  languageName: node
+  linkType: hard
+
+"ua-parser-js@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "ua-parser-js@npm:1.0.2"
+  checksum: ff7f6d79a9c1a38aa85a0e751040fc7e17a0b621bda876838d14ebe55aca4e50e68da0350f181e58801c2d8a35e7db4e12473776e558910c4b7cabcec96aa3bf
   languageName: node
   linkType: hard
 
