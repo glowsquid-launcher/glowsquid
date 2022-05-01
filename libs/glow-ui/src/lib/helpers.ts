@@ -1,4 +1,4 @@
-import { browser } from '$app/env';
+import { browser } from '$app/env'
 
 /**
  * sets the theme of the app
@@ -7,6 +7,6 @@ import { browser } from '$app/env';
  *
  * @remarks All this does is edit the class of the main document. Its more of a utility function than some complex thing
  **/
-export function setTheme(theme: 'dark' | 'light') {
-  if (browser) document.documentElement.className = theme;
+export function setTheme (theme: 'dark' | 'light') {
+  if (browser) document.documentElement.className = theme
 }

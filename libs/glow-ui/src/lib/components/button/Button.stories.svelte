@@ -1,28 +1,27 @@
-<script>
-  import 'uno.css';
-  import '$lib/themes.css';
-  import '@unocss/reset/tailwind.css';
+<script lang="ts">import 'uno.css'
+import '$lib/themes.css'
+import '@unocss/reset/tailwind.css'
 
-  import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-  import { ButtonStyle } from '$lib/types';
-  import { setTheme } from '$lib/helpers';
+import { Meta, Story, Template } from '@storybook/addon-svelte-csf'
+import { ButtonStyle } from '$lib/types'
+import { setTheme } from '$lib/helpers'
 
-  import Button from './Button.svelte';
-  import { onMount } from 'svelte';
+import Button from './Button.svelte'
+import { onMount } from 'svelte'
 
-  onMount(() => setTheme('dark'));
+onMount(() => setTheme('dark'))
 </script>
 
 <Meta
   argTypes={{
     onClick: {
-      action: 'clicked',
+      action: 'clicked'
     },
     disabled: {
       type: 'boolean',
       description: 'Disables the button',
-      defaultValue: false,
-    },
+      defaultValue: false
+    }
   }}
   component={Button}
   title="Buttons/Basic"
@@ -33,8 +32,8 @@
     {variant}
     {disabled}
     on:click={() => {
-      setTheme(cssTheme);
-      onClick();
+      setTheme(cssTheme)
+      onClick()
     }}
   >
     Set colour</Button
@@ -46,8 +45,8 @@
     {variant}
     {disabled}
     on:click={() => {
-      setTheme(cssTheme);
-      onClick();
+      setTheme(cssTheme)
+      onClick()
     }}
   >
     <div>
@@ -60,7 +59,7 @@
 <Story
   args={{
     cssTheme: 'dark',
-    variant: ButtonStyle.Default,
+    variant: ButtonStyle.Default
   }}
   name="Basic"
   template="text"
@@ -69,7 +68,7 @@
 <Story
   args={{
     cssTheme: 'dark',
-    variant: ButtonStyle.Default,
+    variant: ButtonStyle.Default
   }}
   name="Complex"
   template="complex"

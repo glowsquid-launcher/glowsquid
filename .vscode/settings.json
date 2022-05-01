@@ -1,5 +1,5 @@
 {
   "conventionalCommits.scopes": ["launcher", "docs", "oxide", "tnt", "ui"],
   "eslint.probe": ["typescript", "javascript", "svelte"],
-  "eslint.validate": ["javascript", "svelte"]
+  "eslint.validate": ["javascript", "svelte", "typescript"]
 }

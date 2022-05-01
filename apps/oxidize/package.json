@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "tauri dev",
     "build": "tauri build",
-    "test": "echo \"TODO: add e2e and unit tests to oxidize\""
+    "test": "echo \"TODO: add e2e and unit tests to oxidize\"",
+    "format": "cargo fmt"
   }
 }

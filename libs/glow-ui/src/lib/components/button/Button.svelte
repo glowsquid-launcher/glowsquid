@@ -1,11 +1,10 @@
-<script lang="ts">
-  import { ButtonStyle } from '../../types';
+<script lang="ts">import { ButtonStyle } from '../../types'
 
-  /**
+/**
    * Should the button be disabled?
    */
-  export let disabled = false;
-  export let variant: ButtonStyle = ButtonStyle.Default;
+export let disabled = false
+export let variant: ButtonStyle = ButtonStyle.Default
 </script>
 
 <button on:click data-testid="button" class="btn {variant}" {disabled}>
