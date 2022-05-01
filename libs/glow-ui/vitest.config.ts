@@ -1,11 +1,3 @@
-import { defineConfig } from 'vitest/config';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { extractFromSvelteConfig } from "vitest-svelte-kit"
 
-export default defineConfig({
-  plugins: [svelte({ hot: !process.env.VITEST })],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    include: ['./src/**/*.spec.ts'],
-  },
-});
+export default extractFromSvelteConfig()
