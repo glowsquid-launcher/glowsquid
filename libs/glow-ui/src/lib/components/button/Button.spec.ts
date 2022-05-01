@@ -1,4 +1,4 @@
-import { ButtonStyle } from '../../types'
+import { ButtonVariant } from '../../types'
 import { render, fireEvent } from '@testing-library/svelte'
 import Button from './Button.svelte'
 import { tick } from 'svelte'
@@ -23,18 +23,18 @@ describe('Button', () => {
     const button = getByTestId('button')
     expect(button).toBeDefined()
 
-    const setStyleAndConfirm = async (style: ButtonStyle) => {
+    const setStyleAndConfirm = async (style: ButtonVariant) => {
       component.$set({ variant: style })
       await tick()
       return button.classList.contains(style)
     }
 
-    expect(setStyleAndConfirm(ButtonStyle.Primary)).toBeTruthy()
-    expect(setStyleAndConfirm(ButtonStyle.Secondary)).toBeTruthy()
-    expect(setStyleAndConfirm(ButtonStyle.Success)).toBeTruthy()
-    expect(setStyleAndConfirm(ButtonStyle.Info)).toBeTruthy()
-    expect(setStyleAndConfirm(ButtonStyle.Warning)).toBeTruthy()
-    expect(setStyleAndConfirm(ButtonStyle.Danger)).toBeTruthy()
-    expect(setStyleAndConfirm(ButtonStyle.Link)).toBeTruthy()
+    expect(setStyleAndConfirm(ButtonVariant.Primary)).toBeTruthy()
+    expect(setStyleAndConfirm(ButtonVariant.Secondary)).toBeTruthy()
+    expect(setStyleAndConfirm(ButtonVariant.Success)).toBeTruthy()
+    expect(setStyleAndConfirm(ButtonVariant.Info)).toBeTruthy()
+    expect(setStyleAndConfirm(ButtonVariant.Warning)).toBeTruthy()
+    expect(setStyleAndConfirm(ButtonVariant.Danger)).toBeTruthy()
+    expect(setStyleAndConfirm(ButtonVariant.Link)).toBeTruthy()
   })
 })

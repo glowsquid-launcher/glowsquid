@@ -12,6 +12,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
+  ignorePatterns: ['**/node_modules/**', '**/coverage/**', '**/dist/**', '**/package/**', '**/.svelte-kit/**'],
   plugins: ['svelte3', '@typescript-eslint', 'vitest'],
   rules: {},
   settings: {

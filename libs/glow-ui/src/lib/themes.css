@@ -1,10 +1,22 @@
 html.dark {
-  --color-background: #004646;
-  --color-primary: #0a6d6e;
-  --color-secondary: #1d8283;
-  --color-disabled: #175757;
+  --color-background: hsl(180, 100%, 14%);
+
+  /* generic colours */
+  --color-primary: hsl(180, 83%, 24%);
+  --color-secondary: hsl(180, 64%, 31%);
+  --color-active: hsl(180, 58%, 39%);
   --color-highlight: var(--color-secondary);
-  --color-active: #2b989a;
+  --color-disabled: hsl(180, 83%, 10%);
+
+  --color-error: hsl(5, 98%, 56%);
+  --color-error-highlight: hsl(5, 98%, 58%);
+  --color-error-active: hsl(5, 98%, 60%);
+
+  --color-warning: hsl(46, 98%, 60%);
+
+  --color-success: hsl(142, 69%, 51%);
+
+  --color-danger: var(--color-error);
 }
 
 /* unocss no work :( */

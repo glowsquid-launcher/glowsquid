@@ -31,6 +31,10 @@ module.exports = {
       highlight: 'var(--color-highlight)',
       active: 'var(--color-active)',
       disabled: 'var(--color-disabled)',
+      error: 'var(--color-error)',
+      warning: 'var(--color-warning)',
+      success: 'var(--color-success)',
+      danger: 'var(--color-danger)',
     },
   },
 };

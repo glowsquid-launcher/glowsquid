@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-export enum ButtonStyle {
+export enum ButtonVariant {
   Default = 'default',
   Primary = 'primary',
   Secondary = 'secondary',

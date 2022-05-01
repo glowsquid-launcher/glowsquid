@@ -3,7 +3,7 @@ import '$lib/themes.css'
 import '@unocss/reset/tailwind.css'
 
 import { Meta, Story, Template } from '@storybook/addon-svelte-csf'
-import { ButtonStyle } from '$lib/types'
+import { ButtonVariant } from '$lib/types'
 import { setTheme } from '$lib/helpers'
 
 import Button from './Button.svelte'
@@ -59,7 +59,7 @@ onMount(() => setTheme('dark'))
 <Story
   args={{
     cssTheme: 'dark',
-    variant: ButtonStyle.Default
+    variant: ButtonVariant.Default
   }}
   name="Basic"
   template="text"
@@ -68,7 +68,7 @@ onMount(() => setTheme('dark'))
 <Story
   args={{
     cssTheme: 'dark',
-    variant: ButtonStyle.Default
+    variant: ButtonVariant.Default
   }}
   name="Complex"
   template="complex"
