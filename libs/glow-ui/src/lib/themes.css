@@ -3,9 +3,9 @@ html.dark {
 
   /* generic colours */
   --color-primary: hsl(180, 83%, 24%);
-  --color-secondary: hsl(180, 64%, 31%);
+  --color-secondary: hsl(180, 64%, 33%);
   --color-active: hsl(180, 58%, 39%);
-  --color-highlight: var(--color-secondary);
+  --color-highlight: hsl(180, 58%, 36%);
   --color-disabled: hsl(180, 83%, 10%);
 
   --color-error: hsl(5, 98%, 56%);
@@ -14,7 +14,7 @@ html.dark {
 
   --color-warning: hsl(46, 98%, 60%);
 
-  --color-success: hsl(142, 69%, 51%);
+  --color-success: hsl(142, 69%, 38%);
 
   --color-danger: var(--color-error);
 }

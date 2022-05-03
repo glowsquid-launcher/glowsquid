@@ -21,6 +21,15 @@ onMount(() => setTheme('dark'))
       type: 'boolean',
       description: 'Disables the button',
       defaultValue: false
+    },
+    variant: {
+      options: Object.values(ButtonVariant),
+      control: 'select'
+    },
+    cssTheme: {
+      type: 'string',
+      options: ['light', 'dark'],
+      control: 'inline-radio'
     }
   }}
   component={Button}
@@ -57,19 +66,11 @@ onMount(() => setTheme('dark'))
 </Template>
 
 <Story
-  args={{
-    cssTheme: 'dark',
-    variant: ButtonVariant.Default
-  }}
   name="Basic"
   template="text"
 />
 
 <Story
-  args={{
-    cssTheme: 'dark',
-    variant: ButtonVariant.Default
-  }}
   name="Complex"
   template="complex"
 />

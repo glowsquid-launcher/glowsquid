@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 export enum ButtonVariant {
-  Default = 'default',
   Primary = 'primary',
   Secondary = 'secondary',
   Success = 'success',

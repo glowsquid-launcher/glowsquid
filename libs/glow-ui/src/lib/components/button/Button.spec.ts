@@ -15,7 +15,7 @@ describe('Button', () => {
     await fireEvent.click(button)
 
     expect(getByText('clicked')).toBeDefined()
-    expect(button.classList.contains('default')).toBeTruthy()
+    expect(button.classList.contains('primary')).toBeTruthy()
   })
 
   it('should change style based on prop', () => {
