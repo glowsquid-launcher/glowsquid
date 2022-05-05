@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "build": "wrangler build",
-    "test": "cargo test"
+    "test": "cargo test",
+    "format": "cargo fmt"
   }
 }

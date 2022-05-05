@@ -20,7 +20,7 @@ interface InvokeMap {
  * invokes a command except its fully typed
  *
 */
-export function invoke<T extends InvokeMap, C extends Object.SelectKeys<T, FunctionType>>(
+export function invoke<T extends InvokeMap, C extends Object.SelectKeys<T, FunctionType>> (
   c: C,
   args: Parameters<T[C]>[0]
 ): Promise<ReturnType<T[C]>> {

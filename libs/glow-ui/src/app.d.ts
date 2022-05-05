@@ -1,4 +1,5 @@
-/// <reference types="@sveltejs/kit" />
+/* eslint-disable no-unused-vars */
+import '@sveltejs/kit'
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces

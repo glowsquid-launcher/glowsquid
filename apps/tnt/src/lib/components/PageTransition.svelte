@@ -1,7 +1,6 @@
-<script>
-  import { animationTime, transitionDelay } from '$lib/animations';
-  import { fly } from 'svelte/transition';
-  export let refresh = '';
+<script>import { animationTime, transitionDelay } from '$lib/animations'
+import { fly } from 'svelte/transition'
+export let refresh = ''
 </script>
 
 {#key refresh}

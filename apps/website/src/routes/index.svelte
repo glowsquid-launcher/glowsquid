@@ -1,28 +1,22 @@
-<script>
-  import { Button } from '@glowsquid/glow-ui';
-</script>
-
+<!-- TODO: use tailwind/unocss -->
 <div class="index-page" flex="~ direction=column">
 	<div class="top-section">
 		<!-- TODO: Find a background image for this section to make it look nice, then find a font colour for it -->
-	</div>
 		<h1>Glowsquid launcher</h1>
-		<div class="point">
+	</div>
+		<div class="point" />
 	<div class="middle-section">
 			<p>Built on rust and svelte.</p>
 			<h1>Fast</h1>
-		</div>
-	</div>
 			<p>Helpful defaults and easy modpack installation</p>
 			<h1>Useful</h1>
-		<div class="point">
+		<div class="point" />
 		<div class="seperator" />
 			<p>Free, forever.</p>
-		</div>
 			<h1>Open source</h1>
-		</div>
 		<div class="seperator" />
-		<div class="point">
+		<div class="point" />
+	</div>
 </div>
 
 <style>
