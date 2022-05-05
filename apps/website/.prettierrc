@@ -15,5 +15,5 @@
   "experimentalBabelParserPluginsList": [
     "jsx",
     "typescript"
-  ]
+  ],
 }
