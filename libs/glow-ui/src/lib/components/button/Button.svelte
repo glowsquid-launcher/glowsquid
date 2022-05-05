@@ -1,10 +1,7 @@
 <script lang="ts">import { ButtonVariant } from '../../types'
 
-/**
-   * Should the button be disabled?
-   */
-export let disabled = false
 export let variant: ButtonVariant = ButtonVariant.Primary
+$: disabled = variant === ButtonVariant.Disabled
 </script>
 
 <button on:click data-testid="button" class="btn {variant}" {disabled}>
@@ -16,16 +13,11 @@ export let variant: ButtonVariant = ButtonVariant.Primary
 
 <style>
   .primary {
-    @apply bg-primary text-white;
+    @apply bg-primary text-white hover-bg-highlight active-bg-active;
   }
 
   .secondary {
-    @apply bg-secondary text-white;
-  }
-
-  .primary:not(:disabled),
-  .secondary:not(:disabled) {
-    @apply hover-bg-highlight active-bg-active;
+    @apply bg-secondary text-white hover-bg-highlight active-bg-active;
   }
 
   .success {
@@ -50,7 +42,8 @@ export let variant: ButtonVariant = ButtonVariant.Primary
   .btn:not(:disabled) {
     @apply hover-shadow-md;
   }
-  .btn:disabled {
+
+  .disabled {
     @apply important-bg-disabled important-text-gray-500;
   }
 </style>

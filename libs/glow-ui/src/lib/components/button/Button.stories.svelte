@@ -18,11 +18,6 @@ onMount(() => setTheme('dark'))
       options: Object.values(ButtonVariant),
       control: 'select'
     },
-    disabled: {
-      type: 'boolean',
-      description: 'Disables the button',
-      defaultValue: false
-    },
 
     cssTheme: {
       type: 'string',
@@ -41,7 +36,6 @@ onMount(() => setTheme('dark'))
 <Template let:args={{ variant, onClick, cssTheme, disabled }} id="text">
   <Button
     {variant}
-    {disabled}
     on:click={() => {
       setTheme(cssTheme)
       onClick()
@@ -54,7 +48,6 @@ onMount(() => setTheme('dark'))
 <Template let:args={{ variant, onClick, cssTheme, disabled }} id="complex">
   <Button
     {variant}
-    {disabled}
     on:click={() => {
       setTheme(cssTheme)
       onClick()
