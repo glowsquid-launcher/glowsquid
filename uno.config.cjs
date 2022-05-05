@@ -32,33 +32,38 @@ module.exports = {
       highlight: 'var(--color-highlight)',
       active: 'var(--color-active)',
       disabled: 'var(--color-disabled)',
-      
+
       // ACCENT/UI COMPONENT VARIATION COLOURS
 
       // error
       error: 'var(--color-error)',
-      'error-highlight': 'var(--color-error-highlight)',
-      'error-active': 'var(--color-error-active)',
+      errorHighlight: 'var(--color-error-highlight)',
+      errorActive: 'var(--color-error-active)',
+
+      // danger
+      danger: 'var(--color-danger)',
+      dangerHighlight: 'var(--color-danger-highlight)',
+      dangerActive: 'var(--color-danger-active)',
 
       // warning
       warning: 'var(--color-warning)',
-      'warning-highlight': 'var(--color-warning-highlight)',
-      'warning-active': 'var(--color-warning-active)',
-      
+      warningHighlight: 'var(--color-warning-highlight)',
+      warningActive: 'var(--color-warning-active)',
+
       // success
       success: 'var(--color-success)',
-      'success-highlight': 'var(--color-success-highlight)',
-      'success-active': 'var(--color-success-active)',
-      
+      successHighlight: 'var(--color-success-highlight)',
+      successActive: 'var(--color-success-active)',
+
       // danger
       danger: 'var(--color-danger)',
-      'danger-highlight': 'var(--color-danger-highlight)',
-      'danger-active': 'var(--color-danger-active)',
-      
+      dangerHighlight: 'var(--color-danger-highlight)',
+      dangerActive: 'var(--color-danger-active)',
+
       // link
       link: 'var(--color-link)',
-      'link-highlight': 'var(--color-link-highlight)',
-      'link-active': 'var(--color-link-active)',
+      linkHighlight: 'var(--color-link-highlight)',
+      linkActive: 'var(--color-link-active)',
     },
   },
 };

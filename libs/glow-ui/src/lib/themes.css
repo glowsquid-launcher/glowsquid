@@ -9,16 +9,24 @@ html.dark {
   --color-disabled: hsl(180, 83%, 10%);
 
   --color-error: hsl(5, 98%, 56%);
-  --color-error-highlight: hsl(5, 98%, 58%);
-  --color-error-active: hsl(5, 98%, 60%);
+  --color-error-highlight: hsl(5, 98%, 53%);
+  --color-error-active: hsl(5, 100%, 40%);
 
   --color-warning: hsl(46, 98%, 60%);
+  --color-warning-highlight: hsl(46, 98%, 63%);
+  --color-warning-active: hsl(46, 100%, 65%);
 
   --color-success: hsl(142, 69%, 38%);
+  --color-success-highlight: hsl(142, 69%, 41%);
+  --color-success-active: hsl(142, 69%, 45%);
 
   --color-danger: var(--color-error);
-  
+  --color-danger-highlight: var(--color-error-highlight);
+  --color-danger-active: var(--color-error-active);
+
   --color-link: hsl(207, 100%, 40%);
+  --color-link-highlight: hsl(207, 100%, 43%);
+  --color-link-active: hsl(207, 100%, 47%);
 }
 
 /* unocss no work :( */
