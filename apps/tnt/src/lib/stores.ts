@@ -1,7 +1,6 @@
 import { browser } from '$app/env'
 import type { Writable } from 'svelte/store'
 import { get, writable } from 'svelte/store'
-import type { Union } from 'ts-toolbelt'
 
 /**
  * creates a store that is persisted in localStorage
