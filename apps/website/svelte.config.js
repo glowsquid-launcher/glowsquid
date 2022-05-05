@@ -8,11 +8,11 @@ const config = {
   // Consult https://github.com/sveltejs/svelte-preprocess
   // for more information about preprocessors
   preprocess: preprocess(),
-  adapter: adapter({
-    edge: true
-  }),
 
   kit: {
+    adapter: adapter({
+      edge: true
+    }),
     vite: {
       plugins: [Unocss(unoConfig)]
     }
