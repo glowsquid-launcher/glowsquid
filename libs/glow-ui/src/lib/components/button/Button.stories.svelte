@@ -22,6 +22,7 @@ onMount(() => setTheme('dark'))
     cssTheme: {
       type: 'string',
       options: ['light', 'dark'],
+      defaultValue: 'dark',
       control: 'inline-radio'
     },
 
