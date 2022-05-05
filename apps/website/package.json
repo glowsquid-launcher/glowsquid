@@ -5,6 +5,7 @@
   "devDependencies": {
     "@glowsquid/glow-ui": "workspace:*",
     "@sveltejs/adapter-auto": "next",
+    "@sveltejs/adapter-vercel": "^1.0.0-next.50",
     "@sveltejs/kit": "next",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.41",
     "@typescript-eslint/parser": "^5.21.0",

@@ -1,5 +1,5 @@
 import preprocess from 'svelte-preprocess'
-import adapter from '@sveltejs/adapter-auto'
+import adapter from '@sveltejs/adapter-vercel'
 import Unocss from 'unocss/vite'
 import unoConfig from '../../uno.config.cjs'
 
@@ -8,7 +8,9 @@ const config = {
   // Consult https://github.com/sveltejs/svelte-preprocess
   // for more information about preprocessors
   preprocess: preprocess(),
-  adapter: adapter(),
+  adapter: adapter({
+    edge: true
+  }),
 
   kit: {
     vite: {

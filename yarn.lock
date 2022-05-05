@@ -2224,6 +2224,7 @@ __metadata:
   dependencies:
     "@glowsquid/glow-ui": "workspace:*"
     "@sveltejs/adapter-auto": next
+    "@sveltejs/adapter-vercel": ^1.0.0-next.50
     "@sveltejs/kit": next
     "@sveltejs/vite-plugin-svelte": ^1.0.0-next.41
     "@typescript-eslint/parser": ^5.21.0
@@ -4130,6 +4131,15 @@ __metadata:
   dependencies:
     esbuild: ^0.14.21
   checksum: 089fee892800596cc4d57453a5ecb72b17e8f14ff95eaa59461e41ae829c9e2fa5095336f8b385b4d5ae6ef80e777e84bf149a361e56a54f01446f7398988e46
+  languageName: node
+  linkType: hard
+
+"@sveltejs/adapter-vercel@npm:^1.0.0-next.50":
+  version: 1.0.0-next.50
+  resolution: "@sveltejs/adapter-vercel@npm:1.0.0-next.50"
+  dependencies:
+    esbuild: ^0.14.21
+  checksum: a5b478d8fb2ee1b0e56f592c43d12eb098b4f8241e48822bb5a3fba4dee474c93f01e1864557f96e21eff75d5fc2fd8a6918853f3f85e77661365d3d6b2f14dc
   languageName: node
   linkType: hard
 
