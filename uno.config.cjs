@@ -35,6 +35,7 @@ module.exports = {
       warning: 'var(--color-warning)',
       success: 'var(--color-success)',
       danger: 'var(--color-danger)',
+      link: 'var(--color-link)'
     },
   },
 };

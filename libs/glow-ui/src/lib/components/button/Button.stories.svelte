@@ -14,22 +14,24 @@ onMount(() => setTheme('dark'))
 
 <Meta
   argTypes={{
-    onClick: {
-      action: 'clicked'
+    variant: {
+      options: Object.values(ButtonVariant),
+      control: 'select'
     },
     disabled: {
       type: 'boolean',
       description: 'Disables the button',
       defaultValue: false
     },
-    variant: {
-      options: Object.values(ButtonVariant),
-      control: 'select'
-    },
+
     cssTheme: {
       type: 'string',
       options: ['light', 'dark'],
       control: 'inline-radio'
+    },
+
+    onClick: {
+      action: 'clicked'
     }
   }}
   component={Button}

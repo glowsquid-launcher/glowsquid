@@ -17,6 +17,8 @@ html.dark {
   --color-success: hsl(142, 69%, 38%);
 
   --color-danger: var(--color-error);
+  
+  --color-link: hsl(207, 100%, 40%);
 }
 
 /* unocss no work :( */

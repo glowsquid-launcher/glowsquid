@@ -8,6 +8,9 @@ export let variant: ButtonVariant = ButtonVariant.Primary
 </script>
 
 <button on:click data-testid="button" class="btn {variant}" {disabled}>
+  {#if variant === ButtonVariant.Link}
+        <div class="i-mdi-open-in-new" />
+  {/if}
   <slot />
 </button>
 
@@ -26,24 +29,28 @@ export let variant: ButtonVariant = ButtonVariant.Primary
   }
 
   .success {
-    @apply bg-success text-white;
+    @apply bg-success;
   }
 
   .danger {
-    @apply bg-error text-white;
+    @apply bg-error;
   }
 
   .warning {
-    @apply bg-warning text-gray-600;
+    @apply bg-warning important-text-black;
+  }
+  
+  .link {
+    @apply bg-link;
   }
 
   .btn {
-    @apply rounded-xl pb-2 pt-2 pl-4 pr-4 transition duration-300 ease-in-out font-bold text-white text-size-5;
+    @apply font-bold text-white text-size-5 rounded-xl pb-2 pt-2 pl-4 pr-4 transition duration-300 ease-in-out ;
   }
   .btn:not(:disabled) {
     @apply hover-shadow-md;
   }
   .btn:disabled {
-    @apply important-bg-disabled;
+    @apply important-bg-disabled important-text-gray-500;
   }
 </style>
