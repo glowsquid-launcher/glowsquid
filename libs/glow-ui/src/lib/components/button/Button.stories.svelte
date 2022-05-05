@@ -54,8 +54,8 @@ onMount(() => setTheme('dark'))
     }}
   >
     <div>
-      <div class="i-mdi-anvil" />
-      e
+      <div class="i-mdi-folder-zip-outline" />
+      Import ZIP
     </div>
   </Button>
 </Template>

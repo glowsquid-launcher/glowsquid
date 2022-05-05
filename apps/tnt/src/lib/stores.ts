@@ -12,7 +12,7 @@ const storage = <T>(key: string, initValue: T): Writable<T> => {
   if (!browser) return store
 
   const storedValueStr = localStorage.getItem(key)
-  if (storedValueStr !== null) store.set(JSON.parse(storedValueStr));
+  if (storedValueStr !== null) store.set(JSON.parse(storedValueStr))
 
   store.subscribe((val) => {
     if (val === null || val === undefined) {
