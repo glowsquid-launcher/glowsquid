@@ -34,7 +34,7 @@ onMount(() => setTheme('dark'))
   title="Buttons/Basic"
 />
 
-<Template let:args={{ variant, onClick, cssTheme, disabled }} id="text">
+<Template let:args={{ variant, onClick, cssTheme, text }} id="text">
   <Button
     {variant}
     on:click={() => {
@@ -42,11 +42,11 @@ onMount(() => setTheme('dark'))
       onClick()
     }}
   >
-    Set colour</Button
+    {text}</Button
   >
 </Template>
 
-<Template let:args={{ variant, onClick, cssTheme, disabled }} id="complex">
+<Template let:args={{ variant, onClick, cssTheme }} id="complex">
   <Button
     {variant}
     on:click={() => {
@@ -64,6 +64,9 @@ onMount(() => setTheme('dark'))
 <Story
   name="Basic"
   template="text"
+  args={{
+    text: 'Click to set colour'
+  }}
 />
 
 <Story
