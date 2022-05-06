@@ -17,7 +17,7 @@ const config = {
 
     vite: {
       ssr: {
-        noExternal: ['@tauri-apps/api']
+        noExternal: ['@tauri-apps/api', 'typesafe-i18n']
       },
       plugins: [Unocss(unoConfig)],
       esbuild: {

@@ -9,9 +9,9 @@ export const load: Load = async ({ url }) => {
 }
 </script>
 
-<script lang="ts">import AddInstanceModal from '$lib/components/modals/AddInstanceModal.svelte'
+<script lang="ts">import Header from '$lib/components/Header.svelte'
+import AddInstanceModal from '$lib/components/modals/AddInstanceModal.svelte'
 import PageTransition from '$lib/components/PageTransition.svelte'
-import LL from '$locales/i18n-svelte'
 // import { getVersion } from '@tauri-apps/api/app';
 import 'uno.css'
 import '@unocss/reset/tailwind.css'
@@ -25,9 +25,7 @@ refreshLocales()
 <AddInstanceModal />
 
 <div class="h-screen w-screen">
-  Header here: i18n test: {$LL.HI({
-    name: 'TABS'
-  })}
+  <Header />
   <div class="pt-16">
     <PageTransition refresh={key}>
       <slot />

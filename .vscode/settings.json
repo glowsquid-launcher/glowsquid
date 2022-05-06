@@ -96,11 +96,7 @@
     "node_modules/minipass-sized/**/index.js": false
   },
   "vitest.commandLine": "yarn workspace @glowsquid/glow-ui vitest run --reporter=json",
-  "vitest.exclude": [
-    "**/node_modules/**",
-    "**/dist/**",
-    "**/cypress/**",
-    "**/.{idea,git,cache,output,temp}/**",
-    "**/package/**"
+  "vitest.include": [
+    "libs/glow-ui/src/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"
   ]
 }

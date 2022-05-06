@@ -1,11 +1,11 @@
 [package]
-name = "oxidize"
+name = "glowsquid"
 version = "0.1.0"
 description = "The glowsquid launcher backend"
 authors = ["suyashtnt, redcreeper1485"]
 license = "MIT"
 repository = "https://github.com/glowsquid-launcher/glowsquid"
-default-run = "oxidize"
+default-run = "glowsquid"
 edition = "2018"
 build = "src/build.rs"
 
