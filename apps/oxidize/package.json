@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "tauri dev",
     "build": "tauri build",
-    "build:cargo": "cargo build",
+    "build:cargo": "cargo build --release",
     "test": "cargo test",
     "format": "cargo fmt"
   }
