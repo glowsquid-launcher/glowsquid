@@ -61,8 +61,13 @@ jobs:
           command: install
           args: wrangler
 
-      - name: Test
+      - name: Test (Linux)
+        if: matrix.os == 'ubuntu-latest'
         run: xvfb-run yarn test
+
+      - name: Test (Windows)
+        if: matrix.os == 'windows-latest'
+        run: yarn test
 
   build:
     name: Build
