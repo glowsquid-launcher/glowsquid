@@ -55,6 +55,12 @@ jobs:
           command: install
           args: tauri-driver
 
+      - name: Install Wrangler
+        uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: wrangler
+
       - name: Test
         run: xvfb-run yarn test
 
@@ -89,6 +95,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Install Wrangler
+        uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: wrangler
 
       - name: Install dependencies
         run: yarn
