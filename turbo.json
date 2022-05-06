@@ -3,18 +3,27 @@
   "baseBranch": "origin/dev",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**", ".svelte-kit/**", "target/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        "build/**",
+        ".svelte-kit/**",
+        "target/release/*"
+      ]
     },
     "test": {
-      "dependsOn": ["^build"],
-      "outputs": []
-    },
-    "lint": {
+      "dependsOn": [
+        "build"
+      ],
       "outputs": []
     },
     "dev": {
       "cache": false
+    },
+    "format": {
+      "outputs": []
     }
   }
 }

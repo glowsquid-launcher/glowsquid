@@ -1,10 +1,9 @@
-<script lang="ts">
-	import { animationTime } from '$lib/animations'
-	import InstanceCard from '$lib/components/InstanceCard.svelte'
-	import { slide } from 'svelte/transition'
+<script lang="ts">import { animationTime } from '$lib/animations'
+import InstanceCard from '$lib/components/InstanceCard.svelte'
+import { slide } from 'svelte/transition'
 
-	// get ALL instances
-	let instanceList = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
+// get ALL instances
+const instanceList = [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
 </script>
 
 <div class="flex flex-col">

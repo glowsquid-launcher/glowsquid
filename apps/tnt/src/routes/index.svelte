@@ -1,14 +1,15 @@
-<script lang="ts">
-  import { animationTime } from '$lib/animations';
-  import { addInstanceModalActive } from '$lib/stores';
-  import { fade, fly } from 'svelte/transition';
+<script lang="ts">import { animationTime } from '$lib/animations'
+import { addInstanceModalActive } from '$lib/stores'
+import { fade, fly } from 'svelte/transition'
 
-  // get the last 4 used instances
-  let quickLaunchList = [0, 4, 2, 3];
+// get the last 4 used instances
+// eslint-disable-next-line no-unused-vars
+const quickLaunchList = [0, 4, 2, 3]
 
-  const createNewInstance = () => {
-    addInstanceModalActive.set(true);
-  };
+// eslint-disable-next-line no-unused-vars
+const createNewInstance = () => {
+  addInstanceModalActive.set(true)
+}
 </script>
 
 <div class="flex flex-col content-center">

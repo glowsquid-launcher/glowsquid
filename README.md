@@ -17,7 +17,7 @@
 
 ## About
 
-Glowsquid is a modded minecraft launcher built on [_tauri_](https://tauri.studio/) and [_svelte_](https://svelte.dev/) for fast performance while still looking beautiful. It's near fully customizable via custom css and can support almost every single mod platform via _server adapters_(docs soon:tm:).
+Glowsquid is a modded minecraft launcher built on [_tauri_](https://tauri.studio/) and [_svelte_](https://svelte.dev/) for fast performance while still looking beautiful. It's near fully customizable via custom css and can support almost every single mod platform via _WASM-based adapters_(docs soon:tm:).
 
 You can see the various components of glowsquid and their own READMEs by going into the `apps` or `libs` folder.
 

@@ -9,6 +9,8 @@
   "scripts": {
     "dev": "tauri dev",
     "build": "tauri build",
-    "test": "echo \"Error: no test specified\""
+    "build:cargo": "cargo build",
+    "test": "cargo test",
+    "format": "cargo fmt"
   }
 }

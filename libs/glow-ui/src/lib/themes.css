@@ -1,9 +1,32 @@
 html.dark {
-  --color-background: #004646;
-  --color-primary: #0a6d6e;
-  --color-secondary: #1d8283;
-  --color-highlight: var(--color-secondary);
-  --color-active: #2b989a;
+  --color-background: hsl(180, 100%, 14%);
+
+  /* generic colours */
+  --color-primary: hsl(180, 83%, 24%);
+  --color-secondary: hsl(180, 64%, 33%);
+  --color-active: hsl(180, 58%, 39%);
+  --color-highlight: hsl(180, 58%, 36%);
+  --color-disabled: hsl(180, 83%, 10%);
+
+  --color-error: hsl(5, 98%, 56%);
+  --color-error-highlight: hsl(5, 98%, 53%);
+  --color-error-active: hsl(5, 100%, 40%);
+
+  --color-warning: hsl(46, 98%, 60%);
+  --color-warning-highlight: hsl(46, 98%, 63%);
+  --color-warning-active: hsl(46, 100%, 65%);
+
+  --color-success: hsl(142, 69%, 38%);
+  --color-success-highlight: hsl(142, 69%, 41%);
+  --color-success-active: hsl(142, 69%, 45%);
+
+  --color-danger: var(--color-error);
+  --color-danger-highlight: var(--color-error-highlight);
+  --color-danger-active: var(--color-error-active);
+
+  --color-link: hsl(207, 100%, 40%);
+  --color-link-highlight: hsl(207, 100%, 43%);
+  --color-link-active: hsl(207, 100%, 47%);
 }
 
 /* unocss no work :( */

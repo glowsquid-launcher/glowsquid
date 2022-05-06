@@ -1,45 +1,34 @@
 module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+    // vitest has the same api as jest
+    jest: true
+  },
+  extends: ['standard'],
   parser: '@typescript-eslint/parser',
-  extends: [
-    '../../.eslintrc.json',
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-    'plugin:storybook/recommended',
-  ],
-  plugins: ['svelte3', '@typescript-eslint'],
-  ignorePatterns: ['!**/*', '*.cjs'],
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module'
+  },
+  ignorePatterns: ['**/node_modules/**', '**/coverage/**', '**/dist/**', '**/package/**', '**/.svelte-kit/**'],
+  plugins: ['svelte3', '@typescript-eslint', 'vitest'],
+  rules: {},
+  settings: {
+    'svelte3/typescript': () => require('typescript')
+  },
   overrides: [
-    {
-      files: ['*.ts', '*.js', '*.svelte'],
-      parserOptions: {
-        project: ['libs/glow-ui/tsconfig.*?.json'],
-      },
-      rules: {},
-    },
-    {
-      files: ['*.ts', '*.tsx'],
-      rules: {},
-    },
-    {
-      files: ['*.js', '*.jsx'],
-      rules: {},
-    },
     {
       files: ['*.svelte'],
       processor: 'svelte3/svelte3',
-    },
-  ],
-  settings: {
-    'svelte3/typescript': require('typescript'),
-  },
-  parserOptions: {
-    sourceType: 'module',
-    ecmaVersion: 2018,
-  },
-  env: {
-    browser: true,
-    es2017: true,
-    node: true,
-  },
-};
+      rules: {
+        'import/first': 0,
+        'import/no-duplicates': 0,
+        'imports/no-mutable-exports': 0,
+        'imports/prefer-default-export': 0,
+        'no-use-before-define': 0
+      }
+    }
+  ]
+}

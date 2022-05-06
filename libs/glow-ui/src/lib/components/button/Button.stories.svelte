@@ -1,33 +1,75 @@
-<script>
-  import 'uno.css';
-  import '$lib/themes.css';
-  import '@unocss/reset/tailwind.css';
+<script lang="ts">import 'uno.css'
+import '$lib/themes.css'
+import '@unocss/reset/tailwind.css'
 
-  import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-  import { ButtonStyle } from '$lib/types';
-  import { setTheme } from '$lib/helpers';
+import { Meta, Story, Template } from '@storybook/addon-svelte-csf'
+import { ButtonVariant } from '$lib/types'
+import { setTheme } from '$lib/helpers'
 
-  import Button from './Button.svelte';
-  import { onMount } from 'svelte';
+import Button from './Button.svelte'
+import { onMount } from 'svelte'
 
-  onMount(() => setTheme('dark'));
+onMount(() => setTheme('dark'))
 </script>
 
-<Meta argTypes={{}} component={Button} title="Button" />
+<Meta
+  argTypes={{
+    variant: {
+      options: Object.values(ButtonVariant),
+      control: 'select'
+    },
 
-<Template let:args>
-  {#if (args.type = 'basic')}
-    <Button variant={args.variant} on:click={() => setTheme(args.cssTheme)}
-      >Set colour theme</Button
-    >
-  {/if}
+    cssTheme: {
+      type: 'string',
+      options: ['light', 'dark'],
+      defaultValue: 'dark',
+      control: 'inline-radio'
+    },
+
+    onClick: {
+      action: 'clicked'
+    }
+  }}
+  component={Button}
+  title="Buttons/Basic"
+/>
+
+<Template let:args={{ variant, onClick, cssTheme, text }} id="text">
+  <Button
+    {variant}
+    on:click={() => {
+      setTheme(cssTheme)
+      onClick()
+    }}
+  >
+    {text}</Button
+  >
+</Template>
+
+<Template let:args={{ variant, onClick, cssTheme }} id="complex">
+  <Button
+    {variant}
+    on:click={() => {
+      setTheme(cssTheme)
+      onClick()
+    }}
+  >
+    <div>
+      <div class="i-mdi-folder-zip-outline" />
+      Import ZIP
+    </div>
+  </Button>
 </Template>
 
 <Story
+  name="Basic"
+  template="text"
   args={{
-    type: 'basic',
-    cssTheme: 'dark',
-    variant: ButtonStyle.Default,
+    text: 'Click to set colour'
   }}
-  name="Text"
+/>
+
+<Story
+  name="Complex"
+  template="complex"
 />

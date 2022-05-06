@@ -1,5 +1,6 @@
-import adapter from '@sveltejs/adapter-auto';
-import preprocess from 'svelte-preprocess';
+import adapter from '@sveltejs/adapter-auto'
+import preprocess from 'svelte-preprocess'
+import 'vitest/config'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -9,7 +10,13 @@ const config = {
 
   kit: {
     adapter: adapter(),
-  },
-};
+    vite: {
+      test: {
+        globals: true,
+        environment: 'jsdom'
+      }
+    }
+  }
+}
 
-export default config;
+export default config

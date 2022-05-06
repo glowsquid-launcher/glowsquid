@@ -7,19 +7,10 @@
     "isolatedModules": true,
     "sourceMap": true,
     "types": ["svelte"],
-    "strict": false,
+    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ]
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "."
+  }
 }
