@@ -5,19 +5,33 @@
     "module": "ESNext",
     "target": "es2017",
     "importsNotUsedAsValues": "error",
+    "checkJs": true,
     "isolatedModules": true,
     "sourceMap": true,
-    "types": ["svelte"],
+    "types": [
+      "svelte",
+      "node",
+      "webdriverio/async",
+      "@wdio/mocha-framework",
+    ],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"],
-      "$locales": ["src/lib/locales"],
-      "$locales/*": ["src/lib/locales/*"]
+      "$lib": [
+        "src/lib"
+      ],
+      "$lib/*": [
+        "src/lib/*"
+      ],
+      "$locales": [
+        "src/lib/locales"
+      ],
+      "$locales/*": [
+        "src/lib/locales/*"
+      ]
     }
   }
 }
