@@ -88,13 +88,13 @@ jobs:
         run: xvfb-run yarn test
 
       # Doesnt work for some reason
-      #- name: Test (Windows)
-      #if: matrix.os == 'windows-latest'
-      #run: yarn test
+      - name: Test (Windows)
+        if: matrix.os == 'windows-latest'
+        run: yarn build
 
-      #- name: Test (Macos)
-      #  if: matrix.os == 'macos-latest'
-      # run: yarn test
+      - name: Test (Macos)
+        if: matrix.os == 'macos-latest'
+        run: yarn build
 
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'ubuntu-latest'
