@@ -92,6 +92,9 @@ jobs:
           command: install
           args: wrangler
 
+      - name: prepare project
+        run: yarn workspace @glowsquid/glow-ui prepare
+
       # Tests
       - name: Test (Linux)
         if: matrix.os == 'ubuntu-latest'
