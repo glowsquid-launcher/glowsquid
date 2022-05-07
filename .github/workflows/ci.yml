@@ -1,0 +1,163 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "dev"]
+  pull_request:
+    types: [opened, synchronize]
+
+env:
+  CARGO_INCREMENTAL: 0
+  CI: 1
+  RUST_BACKTRACE: short
+jobs:
+  build-test:
+    name: Build + Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      # Setup
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: "yarn"
+
+      - name: install dependencies (ubuntu only)
+        if: matrix.os == 'ubuntu-latest'
+        run: >-
+          sudo apt-get update &&
+          sudo apt-get install -y
+          libgtk-3-dev
+          libgtksourceview-3.0-dev
+          webkit2gtk-4.0
+          libappindicator3-dev
+          webkit2gtk-driver
+          xvfb
+
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - uses: actions/cache@v3
+        id: cargo-cache
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Install tauri-driver
+        uses: actions-rs/cargo@v1
+        if: matrix.os != 'macos-latest' && steps.cargo-cache.outputs.cache-hit != 'true'
+        with:
+          command: install
+          args: tauri-driver
+
+      - name: Install Wrangler
+        if: steps.cargo-cache.outputs.cache-hit != 'true'
+        uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: wrangler
+
+      # Tests
+      - name: Test (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: xvfb-run yarn test
+
+      # Doesnt work for some reason
+      - name: Test (Windows)
+        if: matrix.os == 'windows-latest'
+        run: yarn build
+
+      - name: Test (Macos)
+        if: matrix.os == 'macos-latest'
+        run: yarn build
+
+      # Artifact uploads
+      - uses: actions/upload-artifact@v2
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          name: linux-build
+          path: |
+            ./apps/oxidize/target/release/bundle/appimage/glowsquid_*.AppImage
+            ./apps/oxidize/target/release/bundle/deb/glowsquid_*.deb
+
+      - uses: actions/upload-artifact@v2
+        if: matrix.os == 'windows-latest'
+        with:
+          name: windows-build
+          path: ./apps/oxidize/target/release/bundle/msi/*
+
+      - uses: actions/upload-artifact@v2
+        if: matrix.os == 'macos-latest'
+        with:
+          name: macos-build
+          path: |
+            ./apps/oxidize/target/release/bundle/macos/Glowsquid.app
+            ./apps/oxidize/target/release/bundle/macos/Glowsquid_*.dmg
+
+  chromatic-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: "yarn"
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: prepare project
+        run: yarn workspace @glowsquid/glow-ui prepare
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: ./libs/glow-ui

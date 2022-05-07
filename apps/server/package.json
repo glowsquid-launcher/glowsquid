@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
-    "build": "wrangler build",
-    "test": "cargo test",
+    "build": "cargo install --force worker-build && worker-build --release",
+    "test": "cargo test --release",
     "format": "cargo fmt"
   }
 }
