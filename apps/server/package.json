@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "build": "cargo install --force worker-build && worker-build --release",
-    "test": "cargo test",
+    "test": "cargo test --release",
     "format": "cargo fmt"
   }
 }

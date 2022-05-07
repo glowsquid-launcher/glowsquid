@@ -10,7 +10,7 @@
     "dev": "tauri dev",
     "build": "tauri build",
     "build:cargo": "cargo build --release",
-    "test": "cargo test",
+    "test": "cargo test --release",
     "format": "cargo fmt"
   }
 }
