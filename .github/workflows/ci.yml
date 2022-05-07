@@ -70,6 +70,7 @@ jobs:
 
       - name: Install tauri-driver
         uses: actions-rs/cargo@v1
+        if: matrix.os != 'macos-latest'
         with:
           command: install
           args: tauri-driver
@@ -99,15 +100,15 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'ubuntu-latest'
         with:
-          name: linux-updater-artifacts
+          name: linux-build
           path: ./apps/oxidize/target/release/bundle/appimage/glowsquid_*.AppImage.*
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'windows-latest'
         with:
-          name: windows-updater-artifacts
+          name: windows-build
           path: ./apps/oxidize/target/release/bundle/msi/*
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'macos-latest'
         with:
-          name: macos-updater-artifacts
+          name: macos-build
           path: ./apps/oxidize/target/release/bundle/macos/glowsquid.app.tar.*
