@@ -3,7 +3,7 @@
 	<!-- TODO: header -->
 	<div class="top-section">
 		<!-- TODO: Find a background image for this section, find a font colour for it -->
-		<h1>The next-gen minecraft launcher you've been asking for.</h1>
+		<h1>Meet the next-gen minecraft launcher.</h1>
 	</div>
 </div>
 
