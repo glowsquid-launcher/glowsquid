@@ -101,7 +101,9 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         with:
           name: linux-build
-          path: ./apps/oxidize/target/release/bundle/appimage/glowsquid_*.AppImage.*
+          path: |
+            ./apps/oxidize/target/release/bundle/appimage/glowsquid_*.AppImage
+            ./apps/oxidize/target/release/bundle/deb/glowsquid_*.deb
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'windows-latest'
         with:
@@ -111,4 +113,6 @@ jobs:
         if: matrix.os == 'macos-latest'
         with:
           name: macos-build
-          path: ./apps/oxidize/target/release/bundle/macos/glowsquid.app.tar.*
+          path: |
+            ./apps/oxidize/target/release/bundle/macos/Glowsquid.app
+            ./apps/oxidize/target/release/bundle/macos/Glowsquid_*.dmg
