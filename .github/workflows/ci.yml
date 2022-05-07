@@ -56,6 +56,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - uses: actions/cache@v3
+        id: cargo-cache
         with:
           path: |
             ~/.cargo/bin/
@@ -66,16 +67,18 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Install dependencies
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn
 
       - name: Install tauri-driver
         uses: actions-rs/cargo@v1
-        if: matrix.os != 'macos-latest'
+        if: matrix.os != 'macos-latest' && steps.cargo-cache.outputs.cache-hit != 'true'
         with:
           command: install
           args: tauri-driver
 
       - name: Install Wrangler
+        if: steps.cargo-cache.outputs.cache-hit != 'true'
         uses: actions-rs/cargo@v1
         with:
           command: install
