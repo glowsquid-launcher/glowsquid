@@ -97,6 +97,11 @@
   },
   "vitest.commandLine": "yarn workspace @glowsquid/glow-ui vitest run --reporter=json",
   "vitest.include": [
-    "libs/glow-ui/src/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"
-  ]
+    "libs/glow-ui/src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"
+  ],
+  "rust-analyzer.linkedProjects": [
+    "apps/oxidize/Cargo.toml",
+    "apps/server/Cargo.toml"
+  ],
+  "rust-analyzer.experimental.procAttrMacros": true,
 }
