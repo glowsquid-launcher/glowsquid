@@ -26,5 +26,8 @@
     "format": {
       "outputs": []
     }
-  }
+  },
+  "globalDependencies": [
+    "$OS"
+  ]
 }
