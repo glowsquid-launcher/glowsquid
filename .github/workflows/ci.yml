@@ -81,6 +81,9 @@ jobs:
           command: install
           args: wrangler
 
+      - name: Build
+        run: yarn build
+
       - name: Test (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: xvfb-run yarn test
@@ -93,9 +96,6 @@ jobs:
       #- name: Test (Macos)
       #  if: matrix.os == 'macos-latest'
       # run: yarn test
-
-      - name: Build
-        run: yarn build
 
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'ubuntu-latest'
