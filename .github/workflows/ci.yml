@@ -6,6 +6,10 @@ on:
   pull_request:
     types: [opened, synchronize]
 
+env:
+  CARGO_INCREMENTAL: 0
+  CI: 1
+  RUST_BACKTRACE: short
 jobs:
   build-test:
     name: Build + Test
@@ -55,8 +59,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - uses: Swatinem/rust-cache@v1
+      - uses: actions/cache@v3
         id: cargo-cache
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Install dependencies
         run: yarn

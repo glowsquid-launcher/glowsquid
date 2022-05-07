@@ -28,3 +28,7 @@ features = ["api-all"]
 [features]
 default = ["custom-protocol"]
 custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+incremental = true
+debug = 0
