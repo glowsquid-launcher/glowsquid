@@ -39,6 +39,7 @@
     "test": {
       "dependsOn": [
         "^build",
+        "build",
         "$OS"
       ],
       "outputs": [],
@@ -53,6 +54,7 @@
     "test#@glowsquid/oxidize": {
       "dependsOn": [
         "^build",
+        "build",
         "$OS"
       ],
       "outputs": [],
