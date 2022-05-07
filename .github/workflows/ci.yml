@@ -8,12 +8,16 @@ on:
 
 env:
   CARGO_INCREMENTAL: 0
-  CI: 1
   RUST_BACKTRACE: short
+
 jobs:
   build-test:
     name: Build + Test
     runs-on: ${{ matrix.os }}
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      OS: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -87,6 +91,12 @@ jobs:
         with:
           command: install
           args: wrangler
+
+      - name: prepare glow-ui
+        run: yarn workspace @glowsquid/glow-ui prepare
+
+      - name: prepare website
+        run: yarn workspace @glowsquid/website prepare
 
       # Tests
       - name: Test (Linux)

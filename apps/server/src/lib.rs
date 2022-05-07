@@ -22,7 +22,7 @@ pub async fn main(req: Request, env: Env, _ctx: worker::Context) -> Result<Respo
 
     router
         .get("/", |_, _| {
-            Response::ok("Check out the main website(coming soon:tm:) for api docs")?.with_cors(
+            Response::ok("Check out the main website for api docs")?.with_cors(
                 &Cors::new()
                     .with_origins(vec!["*"])
                     .with_methods(vec![Method::Get]),

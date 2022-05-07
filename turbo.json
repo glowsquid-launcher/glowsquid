@@ -4,21 +4,65 @@
   "pipeline": {
     "build": {
       "dependsOn": [
-        "^build"
+        "^build",
+        "$OS"
       ],
       "outputs": [
         "dist/**",
         "build/**",
         ".svelte-kit/**",
-        "target/release/*"
+        "package"
+      ],
+      "inputs": [
+        "src/**/*",
+        "static/**/*",
+        "package.json",
+        "wdio.conf.cjs",
+        "svelte.config.js"
+      ]
+    },
+    "build#@glowsquid/oxidize": {
+      "dependsOn": [
+        "^build",
+        "$OS"
+      ],
+      "outputs": [
+        "target/release/*",
+        "target/release/bundle/**/*"
+      ],
+      "inputs": [
+        "src/**",
+        "Cargo.toml",
+        "Cargo.lock"
       ]
     },
     "test": {
       "dependsOn": [
         "^build",
-        "build"
+        "build",
+        "$OS"
       ],
-      "outputs": []
+      "outputs": [],
+      "inputs": [
+        "src/**/*",
+        "static/**/*",
+        "package.json",
+        "wdio.conf.cjs",
+        "svelte.config.js"
+      ]
+    },
+    "test#@glowsquid/oxidize": {
+      "dependsOn": [
+        "^build",
+        "build",
+        "$OS"
+      ],
+      "outputs": [],
+      "inputs": [
+        "src/**",
+        "Cargo.toml",
+        "Cargo.lock"
+      ]
     },
     "dev": {
       "cache": false

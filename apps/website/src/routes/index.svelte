@@ -1,21 +1,9 @@
 <!-- TODO: use tailwind/unocss -->
 <div class="index-page" flex="~ direction=column">
+	<!-- TODO: header -->
 	<div class="top-section">
-		<!-- TODO: Find a background image for this section to make it look nice, then find a font colour for it -->
-		<h1>Glowsquid launcher</h1>
-	</div>
-		<div class="point" />
-	<div class="middle-section">
-			<p>Built on rust and svelte.</p>
-			<h1>Fast</h1>
-			<p>Helpful defaults and easy modpack installation</p>
-			<h1>Useful</h1>
-		<div class="point" />
-		<div class="seperator" />
-			<p>Free, forever.</p>
-			<h1>Open source</h1>
-		<div class="seperator" />
-		<div class="point" />
+		<!-- TODO: Find a background image for this section, find a font colour for it -->
+		<h1>Meet the next-gen minecraft launcher.</h1>
 	</div>
 </div>
 
