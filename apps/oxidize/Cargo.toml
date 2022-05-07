@@ -20,7 +20,7 @@ discord_api = "0.2.3"
 async-trait = "0.1"
 
 [dependencies.tauri]
-version = "1.0.0-rc.6"
+version = "1.0.0-rc.8"
 features = ["api-all"]
 
 [features]
