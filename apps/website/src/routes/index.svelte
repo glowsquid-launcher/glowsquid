@@ -1,8 +1,8 @@
 <!-- TODO: use tailwind/unocss -->
 <div class="index-page" flex="~ direction=column">
 	<div class="top-section">
-		<!-- TODO: Find a background image for this section to make it look nice, then find a font colour for it -->
-		<h1>Glowsquid launcher</h1>
+		<!-- TODO: Find a background image for this section, find a font colour for it -->
+		<h1>Glowsquid</h1>
 	</div>
 		<div class="point" />
 	<div class="middle-section">
