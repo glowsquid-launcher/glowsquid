@@ -4,9 +4,6 @@
 )]
 
 mod commands;
-pub mod microsoft;
-pub(crate) mod mods;
-pub(crate) mod structs;
 use commands::*;
 
 pub const CLIENT_ID: &str = "2aa32806-92e3-4242-babc-392ac0f0fd30";
