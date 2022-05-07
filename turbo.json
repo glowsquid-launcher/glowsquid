@@ -27,7 +27,7 @@
         "$OS"
       ],
       "outputs": [
-        "target/release/**"
+        "target/release/*"
       ],
       "inputs": [
         "src/**",
