@@ -24,7 +24,7 @@ const createNewInstance = () => {
 
     <section>
       <h2 transition:fade={{ duration: animationTime }} class="mb-6">
-        Add New Instance
+        Add Instance
       </h2>
     </section>
 
