@@ -19,6 +19,7 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
+      # Setup
       - name: Check out code
         uses: actions/checkout@v2
         with:
@@ -87,6 +88,7 @@ jobs:
           command: install
           args: wrangler
 
+      # Tests
       - name: Test (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: xvfb-run yarn test
@@ -100,6 +102,7 @@ jobs:
         if: matrix.os == 'macos-latest'
         run: yarn build
 
+      # Artifact uploads
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'ubuntu-latest'
         with:
@@ -107,11 +110,13 @@ jobs:
           path: |
             ./apps/oxidize/target/release/bundle/appimage/glowsquid_*.AppImage
             ./apps/oxidize/target/release/bundle/deb/glowsquid_*.deb
+
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'windows-latest'
         with:
           name: windows-build
           path: ./apps/oxidize/target/release/bundle/msi/*
+
       - uses: actions/upload-artifact@v2
         if: matrix.os == 'macos-latest'
         with:
