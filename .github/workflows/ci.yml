@@ -148,6 +148,9 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: prepare project
+        run: yarn workspace @glowsquid/glow-ui prepare
+
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
