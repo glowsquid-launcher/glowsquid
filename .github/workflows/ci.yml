@@ -93,11 +93,11 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: xvfb-run yarn test
 
-      # Doesnt work for some reason
       - name: Test (Windows)
         if: matrix.os == 'windows-latest'
-        run: yarn build
+        run: yarn test
 
+      # Doesnt work for some reason
       - name: Test (Macos)
         if: matrix.os == 'macos-latest'
         run: yarn build
