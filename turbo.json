@@ -27,7 +27,6 @@
         "$OS"
       ],
       "outputs": [
-        "target/release/*",
         "target/release/bundle/**/*"
       ],
       "inputs": [
