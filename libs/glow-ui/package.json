@@ -14,7 +14,8 @@
     "test": "vitest run --dir ./src",
     "coverage": "vitest run --coverage",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "run-s prepare build-storybook:build",
+    "build-storybook:build": "build-storybook"
   },
   "devDependencies": {
     "@babel/core": "^7.17.10",
