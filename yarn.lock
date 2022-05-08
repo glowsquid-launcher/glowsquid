@@ -2078,12 +2078,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@glowsquid/server@workspace:apps/server":
-  version: 0.0.0-use.local
-  resolution: "@glowsquid/server@workspace:apps/server"
-  languageName: unknown
-  linkType: soft
-
 "@glowsquid/tnt@workspace:*, @glowsquid/tnt@workspace:apps/tnt":
   version: 0.0.0-use.local
   resolution: "@glowsquid/tnt@workspace:apps/tnt"
@@ -2127,6 +2121,7 @@ __metadata:
     eslint: 8.15.0
     eslint-plugin-prettier: ^4.0.0
     eslint-plugin-svelte3: ^4.0.0
+    ohmyfetch: ^0.4.16
     prettier: 2.6.2
     svelte: ^3.48.0
     svelte-check: ^2.7.0
@@ -2134,6 +2129,7 @@ __metadata:
     svelte-preprocess: ^4.10.6
     ua-parser-js: ^1.0.2
     unocss: ^0.33.0
+    vite-plugin-environment: ^1.1.1
   languageName: unknown
   linkType: soft
 
@@ -19285,6 +19281,15 @@ __metadata:
     unist-util-stringify-position: ^2.0.0
     vfile-message: ^2.0.0
   checksum: ee5726e10d170472cde778fc22e0f7499caa096eb85babea5d0ce0941455b721037ee1c9e6ae506ca2803250acd313d0f464328ead0b55cfe7cb6315f1b462d6
+  languageName: node
+  linkType: hard
+
+"vite-plugin-environment@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "vite-plugin-environment@npm:1.1.1"
+  peerDependencies:
+    vite: ^2.7
+  checksum: a2da9dba5d2e12f86639588452008d103f9e27e8fc76380d0d2e7968adc34a2588a041ffb8965e7018547696c5b81f51399aacadfee588758440bb2b3d450054
   languageName: node
   linkType: hard
 

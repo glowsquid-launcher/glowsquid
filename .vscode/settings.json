@@ -104,4 +104,7 @@
     "apps/server/Cargo.toml"
   ],
   "rust-analyzer.experimental.procAttrMacros": true,
+  "docwriter.progress.trackFunctions": false,
+  "docwriter.hotkey.mac": "⌘ + .",
+  "docwriter.style": "JSDoc",
 }
