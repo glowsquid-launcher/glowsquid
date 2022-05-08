@@ -35,6 +35,11 @@ const getAuthToken = async (authCode: string, redirectUri: string, codeType: 're
   }
 }
 
+/**
+ * It takes an access token and returns an XBL token and UHS
+ * @param {string} accessToken - The access token you got from the first step
+ * @returns An object with the token and uhs
+ */
 const getXBLToken = async (accessToken: string): Promise<{
   token: string,
   uhs: string
@@ -50,7 +55,7 @@ const getXBLToken = async (accessToken: string): Promise<{
       RelyingParty: 'http://auth.xboxlive.com',
       TokenType: 'JWT'
     }
-  }).catch((error) => console.log(error.data))
+  })
 
   return ({
     token: res.Token,
@@ -119,6 +124,11 @@ const getMinecraftProfileId = async (token:string): Promise<string> => {
   return res.id
 }
 
+/**
+ * authenticates a user with the Xbox Live API
+ * @param request - request from sveltekit
+ * @returns the minecraft uuid, token, and microsoft refresh token
+ */
 export const get: RequestHandler = async ({ url }) => {
   const code = url.searchParams.get('code')
   const refreshToken = url.searchParams.get('refreshToken')
