@@ -11,7 +11,7 @@
         "dist/**",
         "build/**",
         ".svelte-kit/**",
-        "package"
+        "package/**"
       ],
       "inputs": [
         "src/**/*",
@@ -27,7 +27,7 @@
         "$OS"
       ],
       "outputs": [
-        "target/release/bundle/**/*"
+        "target/release/bundle/**"
       ],
       "inputs": [
         "src/**",
