@@ -1,3 +1,2 @@
 /.svelte-kit
-.env.*
-!.env.example
+.env

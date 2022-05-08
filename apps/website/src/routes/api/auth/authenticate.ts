@@ -164,7 +164,7 @@ export const get: RequestHandler = async ({ url }) => {
   const minecraftId = await getMinecraftProfileId(minecraftToken)
 
   return {
-    status: 201,
+    status: 200,
     body: {
       minecraftId,
       minecraftToken,
