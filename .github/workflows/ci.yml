@@ -18,6 +18,9 @@ jobs:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       OS: ${{ matrix.os }}
+      MICROSOFT_CLIENT_SECRET: ${{ secrets.MICROSOFT_CLIENT_SECRET }}
+      MICROSOFT_CLIENT_ID: ${{ secrets.MICROSOFT_CLIENT_ID }}
+
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -84,13 +87,6 @@ jobs:
         with:
           command: install
           args: tauri-driver
-
-      - name: Install Wrangler
-        if: steps.cargo-cache.outputs.cache-hit != 'true'
-        uses: actions-rs/cargo@v1
-        with:
-          command: install
-          args: wrangler
 
       - name: prepare glow-ui
         run: yarn workspace @glowsquid/glow-ui prepare
