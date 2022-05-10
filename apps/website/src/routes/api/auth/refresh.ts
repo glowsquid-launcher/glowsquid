@@ -7,12 +7,12 @@ import type { RequestHandler } from '@sveltejs/kit'
  * @returns the minecraft uuid, token, and microsoft refresh token
  */
 export const get: RequestHandler = async ({ url }) => {
-  const code = url.searchParams.get('code')
+  const refreshToken = url.searchParams.get('refreshToken')
 
   const redirectUri = url.protocol + '//' + url.host + url.pathname
 
-  if (!code) throw new Error('error.noCode')
-  const oauthTokens = await getAuthToken(code, redirectUri, 'code')
+  if (!refreshToken) throw new Error('error.noCode')
+  const oauthTokens = await getAuthToken(refreshToken, redirectUri, 'refresh_token')
   const XBLToken = await getXBLToken(oauthTokens.accessToken)
   const XSTSToken = await getXSTSToken(XBLToken.token).catch(err => {
     const data = err.data
@@ -35,19 +35,12 @@ export const get: RequestHandler = async ({ url }) => {
   const minecraftToken = await getMinecraftToken(XSTSToken.token, XBLToken.uhs)
   const minecraftId = await getMinecraftProfileId(minecraftToken)
 
-  const state = url.searchParams.get('state')
-  if (!state) throw new Error('error.noState')
-  const port = Number(state)
-
-  const finalUrl = new URL(`http://localhost:${port}/cb`)
-  finalUrl.searchParams.append('minecraftId', minecraftId)
-  finalUrl.searchParams.append('minecraftToken', minecraftToken)
-  finalUrl.searchParams.append('microsoftRefreshToken', oauthTokens.refreshToken)
-
   return {
-    status: 301,
-    headers: {
-      location: finalUrl.href
+    status: 200,
+    body: {
+      minecraftId,
+      minecraftToken,
+      minecraftRefreshToken: oauthTokens.refreshToken
     }
   }
 }
