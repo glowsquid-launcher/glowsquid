@@ -26,7 +26,7 @@ pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), ()>
     if dev {
       format!("localhost:4000/api/auth/start/?port={}", port)
     } else {
-      todo!("get production url")
+        panic!("no production URL in place yet");
     },
     None,
   )

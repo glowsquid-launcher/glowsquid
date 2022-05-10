@@ -1,7 +1,7 @@
 import { invoke as tauriInvoke } from '@tauri-apps/api/tauri'
 import type { Object } from 'ts-toolbelt'
 
-type FunctionType = (arg: Record<string | number | symbol, any>) => any
+type FunctionType = (arg: Record<string | number | symbol, unknown>) => unknown
 
 interface InvokeMap {
   'get_app_path'(): string

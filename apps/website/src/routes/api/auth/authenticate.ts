@@ -23,7 +23,6 @@ const getAuthToken = async (authCode: string, redirectUri: string, codeType: 're
   body.append(codeType, authCode)
   body.append('grant_type', 'authorization_code')
   body.append('redirect_uri', redirectUri)
-  console.log(body.toString())
 
   const res = await $fetch(url.href, {
     method: 'POST',
