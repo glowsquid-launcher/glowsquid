@@ -93,18 +93,21 @@
     "node_modules/minipass-sized/**/.gitignore": false,
     "node_modules/minipass-sized/**/.gitattributes": false,
     "node_modules/minipass-sized/**/coverage-map.js": false,
-    "node_modules/minipass-sized/**/index.js": false
+    "node_modules/minipass-sized/**/index.js": false,
+    "libs/glow-ui/package/storybook-static": true,
+    "libs/glow-ui/package/**/build-storybook.log": true,
+    "node_modules/.cache/turbo/73e195d301ce21b1/apps/server/build/**/*": true,
+    "node_modules/@glowsquid/website/**/.env": true
   },
   "vitest.commandLine": "yarn workspace @glowsquid/glow-ui vitest run --reporter=json",
   "vitest.include": [
     "libs/glow-ui/src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"
   ],
   "rust-analyzer.linkedProjects": [
-    "apps/oxidize/Cargo.toml",
-    "apps/server/Cargo.toml"
+    "apps/oxidize/Cargo.toml"
   ],
   "rust-analyzer.experimental.procAttrMacros": true,
-  "docwriter.progress.trackFunctions": false,
-  "docwriter.hotkey.mac": "⌘ + .",
+  "docwriter.progress.trackFunctions": true,
+  "docwriter.hotkey.windows": "Alt + .",
   "docwriter.style": "JSDoc",
 }

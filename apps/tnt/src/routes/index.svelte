@@ -1,6 +1,9 @@
 <script lang="ts">import { animationTime } from '$lib/animations'
 import { addInstanceModalActive } from '$lib/stores'
 import { fade, fly } from 'svelte/transition'
+import { Button } from '@glowsquid/glow-ui'
+import { dev } from '$app/env'
+import { invoke } from '$lib/invoke'
 
 // get the last 4 used instances
 // eslint-disable-next-line no-unused-vars
@@ -9,6 +12,12 @@ const quickLaunchList = [0, 4, 2, 3]
 // eslint-disable-next-line no-unused-vars
 const createNewInstance = () => {
   addInstanceModalActive.set(true)
+}
+
+function authenticateWithMicrosoft () {
+  invoke('add_new_account', {
+    dev
+  })
 }
 </script>
 
@@ -21,11 +30,15 @@ const createNewInstance = () => {
       in:fly={{ duration: animationTime, x: -1000 }}
       out:fly={{ duration: animationTime, x: 1000 }}
     />
+    
+    <Button on:click={authenticateWithMicrosoft}>
+      Auth with MS
+    </Button>
 
     <section>
-      <h2 transition:fade={{ duration: animationTime }} class="mb-6">
+      <Button class="mb-6">
         Add Instance
-      </h2>
+      </Button>
     </section>
 
     <hr

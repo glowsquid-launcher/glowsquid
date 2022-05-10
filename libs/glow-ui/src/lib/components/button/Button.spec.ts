@@ -32,8 +32,6 @@ describe('Button', () => {
     expect(setStyleAndConfirm(ButtonVariant.Primary)).toBeTruthy()
     expect(setStyleAndConfirm(ButtonVariant.Secondary)).toBeTruthy()
     expect(setStyleAndConfirm(ButtonVariant.Success)).toBeTruthy()
-    expect(setStyleAndConfirm(ButtonVariant.Info)).toBeTruthy()
-    expect(setStyleAndConfirm(ButtonVariant.Warning)).toBeTruthy()
     expect(setStyleAndConfirm(ButtonVariant.Danger)).toBeTruthy()
     expect(setStyleAndConfirm(ButtonVariant.Link)).toBeTruthy()
   })

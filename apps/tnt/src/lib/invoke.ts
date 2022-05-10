@@ -1,19 +1,11 @@
 import { invoke as tauriInvoke } from '@tauri-apps/api/tauri'
 import type { Object } from 'ts-toolbelt'
-import type { Instance } from './instances'
 
-type FunctionType = (arg: Record<string, unknown>) => unknown
+type FunctionType = (arg: Record<string | number | symbol, any>) => any
 
 interface InvokeMap {
-  'get_instance'(args: { name: string }): Instance
-  /**
-   * gets `amount` or all instances
-   *
-   *
-   * @param args amount: The amount of instances. Sorted by recently used
-   * */
-  'get_instances'(args: { amount?: number }): Instance[]
   'get_app_path'(): string
+  'add_new_account'(arg: {dev: boolean}): void
 }
 
 /**

@@ -23,6 +23,7 @@ const getAuthToken = async (authCode: string, redirectUri: string, codeType: 're
   body.append(codeType, authCode)
   body.append('grant_type', 'authorization_code')
   body.append('redirect_uri', redirectUri)
+  console.log(body.toString())
 
   const res = await $fetch(url.href, {
     method: 'POST',
@@ -133,14 +134,12 @@ export const get: RequestHandler = async ({ url }) => {
   const code = url.searchParams.get('code')
   const refreshToken = url.searchParams.get('refreshToken')
 
-  const redirectUri = new URL(url)
-  redirectUri.searchParams.forEach((_v, k) => redirectUri.searchParams.delete(k))
+  const redirectUri = url.protocol + '//' + url.host + url.pathname
 
   const codeType = code ? 'code' : 'refresh_token'
   const codeToSend = code || refreshToken
   if (!codeToSend) throw new Error('No code or refresh token provided')
-  const oauthTokens = await getAuthToken(codeToSend, redirectUri.href, codeType)
-
+  const oauthTokens = await getAuthToken(codeToSend, redirectUri, codeType)
   const XBLToken = await getXBLToken(oauthTokens.accessToken)
   const XSTSToken = await getXSTSToken(XBLToken.token).catch(err => {
     const data = err.data
@@ -163,12 +162,19 @@ export const get: RequestHandler = async ({ url }) => {
   const minecraftToken = await getMinecraftToken(XSTSToken.token, XBLToken.uhs)
   const minecraftId = await getMinecraftProfileId(minecraftToken)
 
+  const state = url.searchParams.get('state')
+  if (!state) throw new Error('error.noState')
+  const port = Number(state)
+
+  const finalUrl = new URL(`http://localhost:${port}/cb`)
+  finalUrl.searchParams.append('minecraftId', minecraftId)
+  finalUrl.searchParams.append('minecraftToken', minecraftToken)
+  finalUrl.searchParams.append('microsoftRefreshToken', oauthTokens.refreshToken)
+
   return {
-    status: 200,
-    body: {
-      minecraftId,
-      minecraftToken,
-      refreshToken: oauthTokens.refreshToken
+    status: 301,
+    headers: {
+      location: finalUrl.href
     }
   }
 }
