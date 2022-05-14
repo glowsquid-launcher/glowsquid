@@ -1,4 +1,4 @@
-use std::{borrow::Cow, collections::HashMap};
+use std::{borrow::Cow, collections::HashMap, fs::File, io::Write};
 
 use tauri::{
   api::{path::app_dir, shell::open},
@@ -23,7 +23,8 @@ pub fn get_app_path() -> String {
 // TODO: proper error handling
 pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), ()> {
   let port = tauri_plugin_oauth::start(None, |url| {
-    let profile = create_account_from_url(&url);
+    let url = Url::parse(&url).unwrap();
+    let profile = create_profile_from_url(url);
     // TODO: save to file
   })
   .unwrap();
@@ -42,8 +43,7 @@ pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), ()>
   Ok(())
 }
 
-fn create_account_from_url(url: &str) -> MinecraftProfile {
-  let url = Url::parse(url).unwrap();
+fn create_profile_from_url(url: Url) -> MinecraftProfile {
   let params = url.query_pairs().collect::<HashMap<_, _>>();
   MinecraftProfile {
     uuid: params
@@ -61,13 +61,19 @@ fn create_account_from_url(url: &str) -> MinecraftProfile {
   }
 }
 
+fn save_profile_to_file(profile: MinecraftProfile, file: &mut File) -> Result<(), ()> {
+  let serialized_profile = serde_json::to_string(&profile).unwrap();
+  file.write_all(serialized_profile.as_bytes()).unwrap();
+  Ok(())
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;
 
   #[test]
   fn can_create_account() {
-    // KEYBOARD MASHING GOOOOOOOO
+    // KEYBOARD MASHING GO BRRRRRRRRR
     let url =
       "localhost:1234/cb?minecraftId=123&microsoftRefreshToken=4dsalkfjsaldgha.sdagkhdsg.ASfg214.56&microsoftAccessToken=78sdafsadkfjlsad.sdafaSAFa.kfhldgshglkdhsag9";
 
@@ -77,7 +83,7 @@ mod tests {
       access_token: "78sdafsadkfjlsad.sdafaSAFa.kfhldgshglkdhsag9".to_string(),
     };
 
-    let result = create_account_from_url(&url);
+    let result = create_profile_from_url(Url::parse(url).unwrap());
 
     assert_eq!(expected, result);
   }
