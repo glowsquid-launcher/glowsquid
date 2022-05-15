@@ -1,17 +1,13 @@
-use std::{borrow::Cow, collections::HashMap, fs::File, io::Write};
-
 use tauri::{
   api::{path::app_dir, shell::open},
-  command, AppHandle, Config, Manager,
+  command, AppHandle, Manager,
 };
 
-use url::Url;
-
-use crate::auth::MinecraftProfile;
+use crate::{auth::process_adding_account, error::AuthError};
 
 #[command]
-pub fn get_app_path() -> String {
-  app_dir(&Config::default())
+pub fn get_app_path(app_handle: AppHandle) -> String {
+  app_dir(&app_handle.config())
     .expect("Could not get app path")
     .join("glowsquid")
     .into_os_string()
@@ -21,11 +17,18 @@ pub fn get_app_path() -> String {
 
 #[command]
 // TODO: proper error handling
-pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), ()> {
-  let port = tauri_plugin_oauth::start(None, |url| {
-    let url = Url::parse(&url).unwrap();
-    let profile = create_profile_from_url(url);
-    // TODO: save to file
+pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), AuthError> {
+  let (sender, reciever) = std::sync::mpsc::channel::<_>();
+  println!("{}", app_dir(&app_handle.config()).unwrap().display());
+
+  let app_handle_clone = app_handle.clone();
+  let port = tauri_plugin_oauth::start(None, move |url| {
+    sender
+      .send(process_adding_account(
+        url,
+        app_dir(&app_handle_clone.config()).expect("Could not get app path"),
+      ))
+      .unwrap();
   })
   .unwrap();
 
@@ -40,51 +43,7 @@ pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), ()>
   )
   .unwrap();
 
+  reciever.recv().unwrap()?;
+
   Ok(())
-}
-
-fn create_profile_from_url(url: Url) -> MinecraftProfile {
-  let params = url.query_pairs().collect::<HashMap<_, _>>();
-  MinecraftProfile {
-    uuid: params
-      .get(&Cow::Borrowed("minecraftId"))
-      .unwrap()
-      .to_string(),
-    refresh_token: params
-      .get(&Cow::Borrowed("microsoftRefreshToken"))
-      .unwrap()
-      .to_string(),
-    access_token: params
-      .get(&Cow::Borrowed("microsoftAccessToken"))
-      .unwrap()
-      .to_string(),
-  }
-}
-
-fn save_profile_to_file(profile: MinecraftProfile, file: &mut File) -> Result<(), ()> {
-  let serialized_profile = serde_json::to_string(&profile).unwrap();
-  file.write_all(serialized_profile.as_bytes()).unwrap();
-  Ok(())
-}
-
-#[cfg(test)]
-mod tests {
-  use super::*;
-
-  #[test]
-  fn can_create_account() {
-    // KEYBOARD MASHING GO BRRRRRRRRR
-    let url =
-      "localhost:1234/cb?minecraftId=123&microsoftRefreshToken=4dsalkfjsaldgha.sdagkhdsg.ASfg214.56&microsoftAccessToken=78sdafsadkfjlsad.sdafaSAFa.kfhldgshglkdhsag9";
-
-    let expected = MinecraftProfile {
-      uuid: "123".to_string(),
-      refresh_token: "4dsalkfjsaldgha.sdagkhdsg.ASfg214.56".to_string(),
-      access_token: "78sdafsadkfjlsad.sdafaSAFa.kfhldgshglkdhsag9".to_string(),
-    };
-
-    let result = create_profile_from_url(Url::parse(url).unwrap());
-
-    assert_eq!(expected, result);
-  }
 }
