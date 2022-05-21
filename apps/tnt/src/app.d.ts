@@ -14,6 +14,7 @@ declare namespace App {
 }
 
 declare module '@glowsquid/glow-ui' {
-  const { setTheme, Button } = await import('../../../libs/glow-ui/package')
-  export { setTheme, Button }
+  export const { Button, ButtonVariant, setTheme } = await import(
+    '../../../libs/glow-ui/src/lib'
+  )
 }

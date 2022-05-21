@@ -2045,9 +2045,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@glowsquid/glow-ui@workspace:*, @glowsquid/glow-ui@workspace:libs/glow-ui/package":
+"@glowsquid/glow-ui@workspace:*, @glowsquid/glow-ui@workspace:libs/glow-ui":
   version: 0.0.0-use.local
-  resolution: "@glowsquid/glow-ui@workspace:libs/glow-ui/package"
+  resolution: "@glowsquid/glow-ui@workspace:libs/glow-ui"
   dependencies:
     "@babel/core": ^7.17.10
     "@glowsquid/eslint-config": "workspace:*"

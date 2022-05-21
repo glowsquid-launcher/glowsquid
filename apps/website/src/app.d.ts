@@ -2,6 +2,7 @@
 import '@sveltejs/kit'
 
 declare module '@glowsquid/glow-ui' {
-  const { setTheme, Button } = await import('../../../libs/glow-ui/package')
-  export { setTheme, Button }
+  export const { setTheme, Button, ButtonVariant } = await import(
+    '../../../libs/glow-ui/src/lib'
+  )
 }
