@@ -1,15 +1,19 @@
 /* eslint-disable no-unused-vars */
-import '@sveltejs/kit'
-type Locales = import('$locales/i18n-types').Locales
 
 declare namespace App {
-    // interface Locals { }
+  type Locales = import('$locales/i18n-types').Locales
+  // interface Locals { }
 
-    // interface Platform { }
+  // interface Platform { }
 
-    interface Session {
-        locale?: Locales
-    }
+  interface Session {
+    locale?: Locales
+  }
 
-    // interface Stuff { }
+  // interface Stuff { }
+}
+
+declare module '@glowsquid/glow-ui' {
+  const { setTheme, Button } = await import('../../../libs/glow-ui/package')
+  export { setTheme, Button }
 }

@@ -11,7 +11,8 @@
   },
   "private": true,
   "workspaces": [
-    "libs/*",
+    "libs/glow-ui/package",
+    "libs/eslint-config",
     "apps/*"
   ],
   "dependencies": {

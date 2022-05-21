@@ -1,9 +1,13 @@
+use reqwest::Url;
 use tauri::{
   api::{path::app_dir, shell::open},
   command, AppHandle, Manager,
 };
 
-use crate::{auth::process_adding_account, error::AuthError};
+use crate::{
+  auth::{process_adding_account, refresh_account as refresh_account_impl},
+  error::AuthError,
+};
 
 #[command]
 pub fn get_app_path(app_handle: AppHandle) -> String {
@@ -16,7 +20,6 @@ pub fn get_app_path(app_handle: AppHandle) -> String {
 }
 
 #[command]
-// TODO: proper error handling
 pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), AuthError> {
   let (sender, reciever) = std::sync::mpsc::channel::<_>();
   println!("{}", app_dir(&app_handle.config()).unwrap().display());
@@ -35,15 +38,35 @@ pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), Aut
   open(
     &app_handle.shell_scope(),
     if dev {
-      format!("localhost:4000/api/auth/start/?port={}", port)
+      format!("http://localhost:4000/api/auth/start/?port={}", port)
     } else {
       panic!("no production URL in place yet");
     },
     None,
   )
-  .unwrap();
+  .map_err(|_| AuthError::CannotOpenInBrowser)?;
 
   reciever.recv().unwrap()?;
+
+  Ok(())
+}
+
+#[command]
+// TODO: Error handling
+pub async fn refresh_account(
+  app_handle: AppHandle,
+  dev: bool,
+  account_id: String,
+) -> Result<(), AuthError> {
+  let app_path = app_dir(&app_handle.config()).unwrap();
+
+  let url = if dev {
+    "http://localhost:4000/api/auth/refresh/"
+  } else {
+    panic!("no production URL in place yet");
+  };
+
+  refresh_account_impl(account_id, app_path, Url::parse(url)?).await?;
 
   Ok(())
 }

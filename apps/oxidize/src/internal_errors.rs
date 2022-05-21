@@ -58,3 +58,23 @@ impl Serialize for InternalIoError {
 }
 
 impl Error for InternalIoError {}
+
+#[derive(Debug)]
+pub struct InternalJsonError(pub serde_json::Error);
+
+impl Display for InternalJsonError {
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    write!(f, "{}", self.0.to_string())
+  }
+}
+
+impl Serialize for InternalJsonError {
+  fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+  where
+    S: serde::Serializer,
+  {
+    serializer.serialize_str(&self.0.to_string())
+  }
+}
+
+impl Error for InternalJsonError {}

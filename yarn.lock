@@ -2045,9 +2045,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@glowsquid/glow-ui@workspace:*, @glowsquid/glow-ui@workspace:libs/glow-ui":
+"@glowsquid/glow-ui@workspace:*, @glowsquid/glow-ui@workspace:libs/glow-ui/package":
   version: 0.0.0-use.local
-  resolution: "@glowsquid/glow-ui@workspace:libs/glow-ui"
+  resolution: "@glowsquid/glow-ui@workspace:libs/glow-ui/package"
   dependencies:
     "@babel/core": ^7.17.10
     "@glowsquid/eslint-config": "workspace:*"
@@ -2100,6 +2100,7 @@ __metadata:
   dependencies:
     "@glowsquid/eslint-config": "workspace:*"
     "@glowsquid/glow-ui": "workspace:*"
+    "@square/svelte-store": ^0.1.4
     "@sveltejs/adapter-static": next
     "@sveltejs/kit": next
     "@tauri-apps/api": ^1.0.0-rc.4
@@ -2488,6 +2489,15 @@ __metadata:
   version: 4.6.0
   resolution: "@sindresorhus/is@npm:4.6.0"
   checksum: 83839f13da2c29d55c97abc3bc2c55b250d33a0447554997a85c539e058e57b8da092da396e252b11ec24a0279a0bed1f537fa26302209327060643e327f81d2
+  languageName: node
+  linkType: hard
+
+"@square/svelte-store@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "@square/svelte-store@npm:0.1.4"
+  dependencies:
+    svelte: ^3.0.0
+  checksum: 8c215f3db4de2d3b734671224f524ea8ae553170f91ba2c3c67501923f1a4df4e1c3c732336e40f1cbd2203b7197516937516e01974c1d5a083be71f7bb1c38d
   languageName: node
   linkType: hard
 
@@ -18035,7 +18045,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svelte@npm:^3.48.0":
+"svelte@npm:^3.0.0, svelte@npm:^3.48.0":
   version: 3.48.0
   resolution: "svelte@npm:3.48.0"
   checksum: d72587582b6967bf083ff7dc254f8067c22b57d4678182b48ca51010e0f3a1d98a33a00365046aee0c70ed3ffc716b73141207ec5ac6c44f1f5e34c5477e61ea

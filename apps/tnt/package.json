@@ -5,6 +5,7 @@
   "devDependencies": {
     "@glowsquid/eslint-config": "workspace:*",
     "@glowsquid/glow-ui": "workspace:*",
+    "@square/svelte-store": "^0.1.4",
     "@sveltejs/adapter-static": "next",
     "@sveltejs/kit": "next",
     "@tauri-apps/api": "^1.0.0-rc.4",

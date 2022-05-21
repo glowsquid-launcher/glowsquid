@@ -16,7 +16,11 @@ fn main() {
 
   tauri::Builder::default()
     .plugin(tauri_plugin_oauth::init())
-    .invoke_handler(tauri::generate_handler![get_app_path, add_new_account])
+    .invoke_handler(tauri::generate_handler![
+      get_app_path,
+      add_new_account,
+      refresh_account
+    ])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }

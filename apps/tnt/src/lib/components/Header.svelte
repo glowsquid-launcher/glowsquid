@@ -1,4 +1,14 @@
-<header>
-    <h1>Glowsquid</h1>
-    <h2>Getting version</h2>
+<script lang="ts">
+  import { versionStore } from '$lib/invoke/misc'
+</script>
+
+<header class="flex flex-row justify-between bg-primary pa-2">
+  <div>
+    <h1 class="text-white text-xl">
+      Glowsquid
+      <span class="text-sm text-white">{$versionStore}</span>
+    </h1>
+  </div>
+  <div>Middle</div>
+  <div>end</div>
 </header>
