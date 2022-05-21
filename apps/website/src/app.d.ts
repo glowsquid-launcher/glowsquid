@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import '@sveltejs/kit'
 
-declare namespace svelte.JSX {
-  import { AttributifyAttributes } from '@unocss/preset-attributify'
-  type HTMLAttributes<T> = AttributifyAttributes;
+declare module '@glowsquid/glow-ui' {
+  const { setTheme, Button } = await import('../../../libs/glow-ui/package')
+  export { setTheme, Button }
 }

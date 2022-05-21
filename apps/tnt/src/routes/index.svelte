@@ -1,7 +1,6 @@
 <script lang="ts">
   import { animationTime } from '$lib/animations'
   import { fade, fly } from 'svelte/transition'
-  import { Button } from '@glowsquid/glow-ui'
 </script>
 
 <div class="flex flex-col content-center">
