@@ -9,8 +9,8 @@
         return 'rounded-xl'
       case ButtonShape.Square:
         return 'rounded-none'
-      case ButtonShape.Pill:
-        return 'rounded-2xl'
+      case ButtonShape.Circle:
+        return 'rounded-full'
     }
   })()
   $: disabled = variant === ButtonVariant.Disabled

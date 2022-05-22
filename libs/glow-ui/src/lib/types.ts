@@ -11,4 +11,5 @@ export enum ButtonShape {
   Square = 'square',
   Rounded = 'rounded',
   Pill = 'pill',
+  Circle = 'circle',
 }

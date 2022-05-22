@@ -23,7 +23,7 @@ module.exports = {
       },
     }),
   ],
-  safelist: ["rounded-xl", "rounded-2xl"],
+  safelist: ["rounded-xl", "rounded-2xl", "rounded-full"],
   theme: {
     // even though I use english(traditional) spelling I'll use english(simplified) as thats what css uses
     colors: {

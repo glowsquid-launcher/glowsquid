@@ -64,7 +64,7 @@
   >
     <div>
       <div class="i-mdi-folder-zip-outline" />
-      Import ZIP
+      Import from ZIP
     </div>
   </Button>
 </Template>
@@ -73,7 +73,7 @@
   name="Basic"
   template="text"
   args={{
-    text: 'Click to set colour',
+    text: 'set colour',
   }}
 />
 

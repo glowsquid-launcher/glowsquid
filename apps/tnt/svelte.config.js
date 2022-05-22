@@ -12,28 +12,28 @@ const config = {
     adapter: adapter({
       pages: './dist/',
       assets: './dist/',
-      fallback: 'index.html'
+      fallback: 'index.html',
     }),
 
     vite: {
       ssr: {
-        noExternal: ['@tauri-apps/api', 'typesafe-i18n']
+        noExternal: ['@tauri-apps/api', 'typesafe-i18n'],
       },
       plugins: [Unocss(unoConfig)],
       esbuild: {
-        target: ['esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89']
+        target: ['esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89'],
       },
       build: {
-        target: ['esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89']
+        target: ['esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89'],
       },
       resolve: {
         alias: {
           $locales: path.resolve('./src/lib/locales'),
-          $lib: path.resolve('./src/lib')
-        }
-      }
-    }
-  }
+          $lib: path.resolve('./src/lib'),
+        },
+      },
+    },
+  },
 }
 
 export default config
