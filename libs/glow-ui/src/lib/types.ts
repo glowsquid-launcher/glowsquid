@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export enum ButtonVariant {
   Primary = 'primary',
   Secondary = 'secondary',
@@ -6,4 +5,10 @@ export enum ButtonVariant {
   Danger = 'danger',
   Link = 'link',
   Disabled = 'disabled',
+}
+
+export enum ButtonShape {
+  Square = 'square',
+  Rounded = 'rounded',
+  Pill = 'pill',
 }
