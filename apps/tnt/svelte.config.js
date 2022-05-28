@@ -2,7 +2,10 @@ import adapter from '@sveltejs/adapter-static'
 import path from 'path'
 import preprocess from 'svelte-preprocess'
 import Unocss from 'unocss/vite'
+import { searchForWorkspaceRoot } from 'vite'
 import unoConfig from '../../uno.config.cjs'
+
+console.log(searchForWorkspaceRoot(process.cwd()))
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -17,7 +20,10 @@ const config = {
 
     vite: {
       ssr: {
-        noExternal: ['@tauri-apps/api', 'typesafe-i18n'],
+        noExternal: ['@tauri-apps/api', 'typesafe-i18n', '@glowsquid/glow-ui'],
+      },
+      optimizeDeps: {
+        exclude: ['@glowsquid/glow-ui'],
       },
       plugins: [Unocss(unoConfig)],
       esbuild: {
@@ -26,10 +32,18 @@ const config = {
       build: {
         target: ['esnext', 'chrome89', 'safari15.1', 'edge89', 'firefox89'],
       },
+      server: {
+        fs: {
+          allow: [searchForWorkspaceRoot(process.cwd())],
+        },
+      },
       resolve: {
         alias: {
           $locales: path.resolve('./src/lib/locales'),
           $lib: path.resolve('./src/lib'),
+          $components: path.resolve('./src/lib/components'),
+          $bridge: path.resolve('./src/lib/bridge'),
+          $state: path.resolve('./src/lib/state.ts'),
         },
       },
     },

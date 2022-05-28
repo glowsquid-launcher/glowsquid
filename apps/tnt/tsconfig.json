@@ -20,7 +20,12 @@
       "$locales": ["src/lib/locales"],
       "$locales/*": ["src/lib/locales/*"],
       "$ui": ["../../libs/glow-ui/src/lib"],
-      "$ui/*": ["../../libs/glow-ui/src/lib/*"]
+      "$ui/*": ["../../libs/glow-ui/src/lib/*"],
+      "$state": ["src/lib/state.ts"],
+      "$components": ["src/lib/components"],
+      "$components/*": ["src/lib/components/*"],
+      "$bridge": ["src/lib/bridge"],
+      "$bridge/*": ["src/lib/bridge/*"]
     }
   }
 }
