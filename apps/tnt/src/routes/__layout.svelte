@@ -11,9 +11,9 @@
 </script>
 
 <script lang="ts">
-  import Header from '$lib/components/Header.svelte'
-  import AddInstanceModal from '$lib/components/modals/AddInstanceModal.svelte'
-  import PageTransition from '$lib/components/PageTransition.svelte'
+  import Header from '$components/Header.svelte'
+  import AddInstanceModal from '$components/modals/AddInstanceModal.svelte'
+  import PageTransition from '$components/PageTransition.svelte'
   import { setTheme } from '@glowsquid/glow-ui'
   // import { getVersion } from '@tauri-apps/api/app';
   import 'uno.css'
