@@ -1,5 +1,3 @@
-const Unocss = require("unocss/vite").default;
-
 const {
   presetUno,
   presetTypography,
@@ -23,7 +21,14 @@ module.exports = {
       },
     }),
   ],
-  safelist: ["rounded-xl", "rounded-2xl", "rounded-full"],
+  safelist: [
+    "rounded-xl",
+    "rounded-2xl",
+    "rounded-full",
+    "i-mdi-chevron-down",
+    "i-mdi-chevron-up",
+    "bg-highlight",
+  ],
   theme: {
     // even though I use english(traditional) spelling I'll use english(simplified) as thats what css uses
     colors: {
