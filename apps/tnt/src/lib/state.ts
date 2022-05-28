@@ -18,7 +18,10 @@ export const toggleInstanceModal = () => {
   })
 }
 
-export const updateCurrentAccount = (account: string) => {
+/**
+ * sets the current active account to the given account ID
+ */
+export const updateCurrentAccount = (account: string): void => {
   state.update((s) => {
     if (s.accounts.list.includes(account)) {
       s.accounts.current = account
