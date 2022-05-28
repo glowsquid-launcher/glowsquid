@@ -24,7 +24,6 @@ thiserror = "1.0.31"
 tempfile = "3.3.0"
 tauri-plugin-oauth = { git = "https://github.com/FabianLars/tauri-plugin-oauth" }
 prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.5.0" }
-prisma-client-rust-cli = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.5.0" }
 
 [dependencies.tauri]
 version = "1.0.0-rc.11"
