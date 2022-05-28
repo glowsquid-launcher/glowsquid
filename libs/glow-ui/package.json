@@ -52,5 +52,7 @@
     "vitest-svelte-kit": "^0.0.6",
     "watch": "^1.0.2"
   },
-  "type": "module"
+  "type": "module",
+  "$schema": "http://json.schemastore.org/package.json",
+  "module": "./package/index.js"
 }
