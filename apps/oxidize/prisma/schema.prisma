@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "cargo prisma"
+  output   = "../src/prisma.rs"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:dev.db"
+}
+
+/// A minecraft account
+model Account {
+  /// The account's unique id
+  id            String   @id
+  /// The account's username
+  username      String   @unique
+  /// The account's access token. To be refreshed when expired
+  accessToken   String
+  /// The account's refresh token. To be used to refresh the access token
+  refreshToken  String
+  /// The time the access token expires. If this is in the past, the access token needs to be refreshed
+  expiresAt     DateTime
+  /// The last time the access token was refreshed
+  lastRefreshed DateTime @updatedAt
+}
+
+/// A modpack
+model Modpack {
+  /// The modpack's id.
+  modpackId         String
+  /// The adapter associated with this modpack.
+  adapter           String
+  /// The modpack's name.
+  name              String
+  /// The path on the filesystem to the modpack's root directory.
+  path              String
+  /// The modpack's version.
+  version           String
+  /// URL to the icon for this modpack.
+  iconUrl           String
+  /// The modpack's description. Can be HTML or Markdown
+  description       String
+  /// The modpack's description format.
+  descriptionFormat String
+  /// A short description of the modpack in plaintext
+  shortDescription  String
+  /// The modpack's author.
+  author            String
+  mods              ModsInModpack[]
+
+  @@id([modpackId, adapter])
+}
+
+model MinecraftMod {
+  /// The mod's id.
+  modId             String          @map("modid")
+  /// The mod's adapter
+  adapter           String
+  /// The mod's name.
+  name              String
+  /// The mod's version. Should be semver compliant.
+  version           String
+  /// The name of the mod file that is in the cache
+  file              String
+  /// The mod's description. Can be HTML or Markdown
+  description       String
+  /// The mod's description format.
+  descriptionFormat String
+  /// A short description of the mod in plaintext
+  shortDescription  String
+  /// The mod's author.
+  author            String
+  /// The modpacks this mod is in
+  modpack           ModsInModpack[]
+
+  @@id([modId, adapter])
+  @@map("Mod")
+}
+
+model ModsInModpack {
+  minecraftMod MinecraftMod @relation(fields: [modId, modAdapter], references: [modId, adapter])
+  modId        String
+  modAdapter   String
+
+  Modpack        Modpack @relation(fields: [modpackId, modpackAdapter], references: [modpackId, adapter])
+  modpackId      String
+  modpackAdapter String
+
+  @@id([modpackId, modId])
+}
