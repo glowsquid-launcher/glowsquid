@@ -14,12 +14,14 @@
     }
   })()
   $: disabled = variant === ButtonVariant.Disabled
+  let clazz = ''
+  export { clazz as class }
 </script>
 
 <button
   on:click
   data-testid="button"
-  class="btn {variant} {cssShape}"
+  class="btn {variant} {cssShape} {clazz}"
   {disabled}
 >
   {#if variant === ButtonVariant.Link}
@@ -50,7 +52,7 @@
   }
 
   .btn {
-    @apply shadow-md font-bold text-white text-size-5  pb-2 pt-2 pl-4 pr-4 transition duration-300 ease-in-out;
+    @apply shadow-md font-bold text-white text-size-5 pa-2 transition duration-300 ease-in-out;
   }
   .btn:not(:disabled) {
     @apply hover-shadow-xl active-shadow-none;
