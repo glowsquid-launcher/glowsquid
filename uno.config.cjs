@@ -33,6 +33,7 @@ module.exports = {
       highlight: "var(--color-highlight)",
       active: "var(--color-active)",
       disabled: "var(--color-disabled)",
+      background: "var(--color-background)",
 
       // ACCENT/UI COMPONENT VARIATION COLOURS
 

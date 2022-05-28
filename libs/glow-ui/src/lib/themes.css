@@ -3,7 +3,7 @@ html.dark {
 
   /* generic colours */
   --color-primary: hsl(180, 83%, 24%);
-  --color-secondary: hsl(180, 64%, 33%);
+  --color-secondary: hsl(180, 64%, 30%);
   --color-active: hsl(180, 58%, 39%);
   --color-highlight: hsl(180, 58%, 36%);
   --color-disabled: hsl(180, 83%, 10%);
