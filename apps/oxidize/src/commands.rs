@@ -5,8 +5,10 @@ use tauri::{
 };
 
 use crate::{
-  auth::{process_adding_account, refresh_account as refresh_account_impl},
+  auth::{process_adding_account, refresh_account, refresh_accounts},
   error::AuthError,
+  prisma::new_client,
+  GlowState,
 };
 
 #[command]
@@ -22,14 +24,12 @@ pub fn get_app_path(app_handle: AppHandle) -> String {
 #[command]
 pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), AuthError> {
   let (sender, reciever) = std::sync::mpsc::channel::<_>();
-  println!("{}", app_dir(&app_handle.config()).unwrap().display());
 
-  let app_handle_clone = app_handle.clone();
   let port = tauri_plugin_oauth::start(None, move |url| {
     sender
       .send(process_adding_account(
+        tauri::async_runtime::block_on(new_client()).unwrap(),
         url,
-        app_dir(&app_handle_clone.config()).expect("Could not get app path"),
       ))
       .unwrap();
   })
@@ -46,27 +46,39 @@ pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), Aut
   )
   .map_err(|_| AuthError::CannotOpenInBrowser)?;
 
-  reciever.recv().unwrap()?;
-
-  Ok(())
+  let v = reciever.recv().unwrap();
+  v.await
 }
 
 #[command]
-// TODO: Error handling
-pub async fn refresh_account(
-  app_handle: AppHandle,
+pub async fn reload_account(
+  state: tauri::State<'_, GlowState>,
   dev: bool,
   account_id: String,
 ) -> Result<(), AuthError> {
-  let app_path = app_dir(&app_handle.config()).unwrap();
-
   let url = if dev {
     "http://localhost:4000/api/auth/refresh/"
   } else {
     panic!("no production URL in place yet");
   };
 
-  refresh_account_impl(account_id, app_path, Url::parse(url)?).await?;
+  refresh_account(&state.db, &account_id, &Url::parse(url)?).await?;
+
+  Ok(())
+}
+
+#[command]
+pub async fn reload_accounts(
+  state: tauri::State<'_, GlowState>,
+  dev: bool,
+) -> Result<(), AuthError> {
+  let url = if dev {
+    "http://localhost:4000/api/auth/refresh/"
+  } else {
+    panic!("no production URL in place yet");
+  };
+
+  refresh_accounts(&state.db, &Url::parse(url).unwrap()).await?;
 
   Ok(())
 }
