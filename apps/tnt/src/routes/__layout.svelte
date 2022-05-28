@@ -15,10 +15,11 @@
   import AddInstanceModal from '$components/modals/AddInstanceModal.svelte'
   import PageTransition from '$components/PageTransition.svelte'
   import { setTheme } from '@glowsquid/glow-ui'
-  // import { getVersion } from '@tauri-apps/api/app';
+
   import 'uno.css'
   import '@unocss/reset/tailwind.css'
   import '$lib/themes/default.css'
+
   import { refreshLocales } from '$lib/util'
   import { onMount } from 'svelte'
 
