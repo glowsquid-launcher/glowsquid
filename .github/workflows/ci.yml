@@ -89,7 +89,7 @@ jobs:
           args: tauri-driver
 
       - name: prepare things
-        run: yarn workspace prepare
+        run: yarn run prepare
 
       # Tests
       - name: Test (Linux)
