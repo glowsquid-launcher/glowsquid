@@ -1,2 +1,2 @@
 [alias]
-prisma = "run --path prisma --"
+prisma = "run --manifest-path prisma/Cargo.toml --"
