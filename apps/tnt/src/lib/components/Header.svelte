@@ -50,19 +50,19 @@
 >
   <div class="cursor-pointer" on:click={() => goto('/')}>
     <h1 class="text-white text-xl">
-      {$LL.app.header.title}
+      {$LL.header.title()}
       <span class="text-sm text-white">{$versionStore}</span>
     </h1>
   </div>
   <div class="flex flex-row divide-background divide-x">
     <Button on:click={() => goto('/browse')} {...buttonStyle}>
-      {$LL.app.header.tabs.browse}
+      {$LL.header.tabs.browse()}
     </Button>
     <Button on:click={() => goto('/')} {...buttonStyle}>
-      {$LL.app.header.tabs.home}
+      {$LL.header.tabs.home()}
     </Button>
     <Button on:click={() => goto('/instances')} {...buttonStyle}>
-      {$LL.app.header.tabs.instances}
+      {$LL.header.tabs.instances()}
     </Button>
   </div>
   <div>
@@ -73,7 +73,7 @@
         {/if}
       </div>
       <span slot="placeholder" class="text-center">
-        {$LL.app.header.accounts.placeholderText}
+        {$LL.header.accounts.placeholderText()}
       </span>
 
       <div
@@ -88,7 +88,7 @@
       </div>
 
       <Button slot="append" class="mt-4 w-full">
-        {$LL.app.header.accounts.addAccount}
+        {$LL.header.accounts.addAccount()}
       </Button>
     </Dropdown>
   </div>

@@ -25,8 +25,10 @@
 
   export let key: string
 
-  onMount(() => setTheme('dark'))
-  refreshLocales()
+  onMount(() => {
+    setTheme('dark')
+    refreshLocales()
+  })
 </script>
 
 <AddInstanceModal />

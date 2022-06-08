@@ -15,71 +15,67 @@ export type Translation = RootTranslation
 export type Translations = RootTranslation
 
 type RootTranslation = {
-	app: {
-		header: {
+	header: {
+		/**
+		 * Glowsquid
+		 */
+		title: string
+		tabs: {
 			/**
-			 * Glowsquid
+			 * Home
 			 */
-			title: string
-			tabs: {
-				/**
-				 * Home
-				 */
-				home: string
-				/**
-				 * Browse
-				 */
-				browse: string
-				/**
-				 * Instances
-				 */
-				instances: string
-			}
-			accounts: {
-				/**
-				 * Select an account
-				 */
-				placeholderText: string
-				/**
-				 * Add new account
-				 */
-				addAccount: string
-			}
+			home: string
+			/**
+			 * Browse
+			 */
+			browse: string
+			/**
+			 * Instances
+			 */
+			instances: string
+		}
+		accounts: {
+			/**
+			 * Select an account
+			 */
+			placeholderText: string
+			/**
+			 * Add new account
+			 */
+			addAccount: string
 		}
 	}
 }
 
 export type TranslationFunctions = {
-	app: {
-		header: {
+	header: {
+		/**
+		 * Glowsquid
+		 */
+		title: () => LocalizedString
+		tabs: {
 			/**
-			 * Glowsquid
+			 * Home
 			 */
-			title: () => LocalizedString
-			tabs: {
-				/**
-				 * Home
-				 */
-				home: () => LocalizedString
-				/**
-				 * Browse
-				 */
-				browse: () => LocalizedString
-				/**
-				 * Instances
-				 */
-				instances: () => LocalizedString
-			}
-			accounts: {
-				/**
-				 * Select an account
-				 */
-				placeholderText: () => LocalizedString
-				/**
-				 * Add new account
-				 */
-				addAccount: () => LocalizedString
-			}
+			home: () => LocalizedString
+			/**
+			 * Browse
+			 */
+			browse: () => LocalizedString
+			/**
+			 * Instances
+			 */
+			instances: () => LocalizedString
+		}
+		accounts: {
+			/**
+			 * Select an account
+			 */
+			placeholderText: () => LocalizedString
+			/**
+			 * Add new account
+			 */
+			addAccount: () => LocalizedString
 		}
 	}
 }
