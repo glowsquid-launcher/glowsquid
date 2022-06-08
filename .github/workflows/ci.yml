@@ -106,7 +106,7 @@ jobs:
         run: yarn build
 
       # Artifact uploads
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: matrix.os == 'ubuntu-latest'
         with:
           name: linux-build
@@ -114,13 +114,13 @@ jobs:
             ./apps/oxidize/target/release/bundle/appimage/glowsquid_*.AppImage
             ./apps/oxidize/target/release/bundle/deb/glowsquid_*.deb
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: matrix.os == 'windows-latest'
         with:
           name: windows-build
           path: ./apps/oxidize/target/release/bundle/msi/*
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: matrix.os == 'macos-latest'
         with:
           name: macos-build
