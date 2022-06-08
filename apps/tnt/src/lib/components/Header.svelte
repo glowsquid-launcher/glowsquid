@@ -3,6 +3,7 @@
   import state, { updateCurrentAccount } from '$state'
   import { $fetch as fetch } from 'ohmyfetch'
   import { goto } from '$app/navigation'
+  import LL from '$locales/i18n-svelte'
   import {
     Button,
     ButtonVariant,
@@ -49,16 +50,20 @@
 >
   <div class="cursor-pointer" on:click={() => goto('/')}>
     <h1 class="text-white text-xl">
-      Glowsquid
+      {$LL.app.header.title}
       <span class="text-sm text-white">{$versionStore}</span>
     </h1>
   </div>
   <div class="flex flex-row divide-background divide-x">
-    <Button on:click={() => goto('/browse')} {...buttonStyle}>Browse</Button>
-    <Button on:click={() => goto('/')} {...buttonStyle}>Home</Button>
-    <Button on:click={() => goto('/instances')} {...buttonStyle}
-      >Instances</Button
-    >
+    <Button on:click={() => goto('/browse')} {...buttonStyle}>
+      {$LL.app.header.tabs.browse}
+    </Button>
+    <Button on:click={() => goto('/')} {...buttonStyle}>
+      {$LL.app.header.tabs.home}
+    </Button>
+    <Button on:click={() => goto('/instances')} {...buttonStyle}>
+      {$LL.app.header.tabs.instances}
+    </Button>
   </div>
   <div>
     <Dropdown class="important-w-64" options={$profileList} selected={account}>
@@ -67,7 +72,9 @@
           <PlayerCard {...$currentProfile} />
         {/if}
       </div>
-      <span slot="placeholder" class="text-center">Select an option</span>
+      <span slot="placeholder" class="text-center">
+        {$LL.app.header.accounts.placeholderText}
+      </span>
 
       <div
         slot="optionTemplate"
@@ -80,7 +87,9 @@
         <PlayerCard {...option} />
       </div>
 
-      <Button slot="append" class="mt-4 w-full">Add new account</Button>
+      <Button slot="append" class="mt-4 w-full">
+        {$LL.app.header.accounts.addAccount}
+      </Button>
     </Dropdown>
   </div>
 </header>
