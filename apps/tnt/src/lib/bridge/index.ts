@@ -2,7 +2,7 @@ import { browser } from '$app/env'
 import { invoke as tauriInvoke } from '@tauri-apps/api/tauri'
 import type { Object } from 'ts-toolbelt'
 
-type FunctionType = (args: any) => unknown
+type FunctionType = (args: any) => any // skipcq: JS-0323
 
 interface InvokeMap {
   'get_app_path'(): string

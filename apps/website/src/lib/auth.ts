@@ -10,9 +10,14 @@ import { $fetch } from 'ohmyfetch'
  *   - token: The token used to authenticate with the Xbox Live API
  *   - uhs: The user's Xbox Live User hash
  */
-export const getAuthToken = async (authCode: string, redirectUri: string, codeType: 'refresh_token' | 'code'): Promise<{
-  accessToken: string,
+export const getAuthToken = async (
+  authCode: string,
+  redirectUri: string,
+  codeType: 'refresh_token' | 'code'
+): Promise<{
+  accessToken: string
   refreshToken: string
+  expiresIn: number
 }> => {
   const url = new URL('https://login.live.com/oauth20_token.srf/')
   const body = new URLSearchParams()
@@ -25,12 +30,13 @@ export const getAuthToken = async (authCode: string, redirectUri: string, codeTy
 
   const res = await $fetch(url.href, {
     method: 'POST',
-    body
+    body,
   })
 
   return {
     accessToken: res.access_token,
-    refreshToken: res.refresh_token
+    refreshToken: res.refresh_token,
+    expiresIn: res.expires_in,
   }
 }
 
@@ -39,8 +45,10 @@ export const getAuthToken = async (authCode: string, redirectUri: string, codeTy
  * @param {string} accessToken - The access token you got from the first step
  * @returns An object with the token and uhs
  */
-export const getXBLToken = async (accessToken: string): Promise<{
-  token: string,
+export const getXBLToken = async (
+  accessToken: string
+): Promise<{
+  token: string
   uhs: string
 }> => {
   const res = await $fetch('https://user.auth.xboxlive.com/user/authenticate', {
@@ -49,45 +57,48 @@ export const getXBLToken = async (accessToken: string): Promise<{
       Properties: {
         AuthMethod: 'RPS',
         SiteName: 'user.auth.xboxlive.com',
-        RpsTicket: `d=${accessToken}`
+        RpsTicket: `d=${accessToken}`,
       },
       RelyingParty: 'http://auth.xboxlive.com',
-      TokenType: 'JWT'
-    }
+      TokenType: 'JWT',
+    },
   })
 
-  return ({
+  return {
     token: res.Token,
-    uhs: res.DisplayClaims.xui[0].uhs
-  })
+    uhs: res.DisplayClaims.xui[0].uhs,
+  }
 }
 
 /**
  * It takes an access token and returns a JWT token and a UHS
  * @param {string} accessToken - The access token you got from XBL
-*/
-export const getXSTSToken = async (accessToken: string): Promise<{
-  token: string,
-  uhs: string}> => {
+ */
+export const getXSTSToken = async (
+  accessToken: string
+): Promise<{
+  token: string
+  uhs: string
+}> => {
   const res = await $fetch('https://xsts.auth.xboxlive.com/xsts/authorize', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json'
+      'Accept': 'application/json',
     },
     body: {
       Properties: {
         SandboxId: 'RETAIL',
-        UserTokens: [accessToken]
+        UserTokens: [accessToken],
       },
       RelyingParty: 'rp://api.minecraftservices.com/',
-      TokenType: 'JWT'
-    }
+      TokenType: 'JWT',
+    },
   })
 
   return {
     token: res.Token,
-    uhs: res.DisplayClaims.xui[0].uhs
+    uhs: res.DisplayClaims.xui[0].uhs,
   }
 }
 
@@ -97,13 +108,19 @@ export const getXSTSToken = async (accessToken: string): Promise<{
  * @param {string} uhs - The User hash from the previous step.
  * @returns the accessToken
  */
-export const getMinecraftToken = async (xstsToken: string, uhs: string): Promise<string> => {
-  const res = await $fetch('https://api.minecraftservices.com/authentication/login_with_xbox', {
-    method: 'POST',
-    body: {
-      identityToken: `XBL3.0 x=${uhs};${xstsToken}`
+export const getMinecraftToken = async (
+  xstsToken: string,
+  uhs: string
+): Promise<string> => {
+  const res = await $fetch(
+    'https://api.minecraftservices.com/authentication/login_with_xbox',
+    {
+      method: 'POST',
+      body: {
+        identityToken: `XBL3.0 x=${uhs};${xstsToken}`,
+      },
     }
-  })
+  )
 
   return res.access_token
 }
@@ -113,12 +130,15 @@ export const getMinecraftToken = async (xstsToken: string, uhs: string): Promise
  * @param {string} token - The token you got from the login request
  * @returns The id of the user's Minecraft profile
  */
-export const getMinecraftProfileId = async (token:string): Promise<string> => {
-  const res = await $fetch('https://api.minecraftservices.com/minecraft/profile', {
-    headers: {
-      Authorization: `Bearer ${token}`
+export const getMinecraftProfileId = async (token: string): Promise<string> => {
+  const res = await $fetch(
+    'https://api.minecraftservices.com/minecraft/profile',
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
-  })
+  )
 
   return res.id
 }

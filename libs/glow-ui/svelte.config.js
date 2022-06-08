@@ -10,13 +10,16 @@ const config = {
 
   kit: {
     adapter: adapter(),
+    package: {
+      exports: (file) => file === 'index.js',
+    },
     vite: {
       test: {
         globals: true,
-        environment: 'jsdom'
-      }
-    }
-  }
+        environment: 'jsdom',
+      },
+    },
+  },
 }
 
 export default config

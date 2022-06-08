@@ -57,7 +57,7 @@
       }
     ],
     "security": {
-      "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"
+      "csp": "default-src style-src: tauri://localhost blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline'"
     }
   }
 }

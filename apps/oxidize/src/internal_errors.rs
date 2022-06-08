@@ -1,5 +1,7 @@
 use std::{error::Error, fmt::Display};
 
+use crate::prisma::QueryError;
+
 use serde::Serialize;
 
 pub fn parse_error_to_i18n(err: &url::ParseError) -> String {
@@ -64,7 +66,7 @@ pub struct InternalJsonError(pub serde_json::Error);
 
 impl Display for InternalJsonError {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-    write!(f, "{}", self.0.to_string())
+    write!(f, "{}", self.0)
   }
 }
 
@@ -78,3 +80,55 @@ impl Serialize for InternalJsonError {
 }
 
 impl Error for InternalJsonError {}
+
+#[derive(Debug)]
+pub struct InternalRequestError(pub reqwest::Error);
+
+impl Display for InternalRequestError {
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    write!(f, "{}", self.0)
+  }
+}
+
+impl Serialize for InternalRequestError {
+  fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+  where
+    S: serde::Serializer,
+  {
+    serializer.serialize_str(&self.0.to_string())
+  }
+}
+
+impl From<reqwest::Error> for InternalRequestError {
+  fn from(err: reqwest::Error) -> Self {
+    InternalRequestError(err)
+  }
+}
+
+impl Error for InternalRequestError {}
+
+#[derive(Debug)]
+pub struct InternalQueryError(pub QueryError);
+
+impl Display for InternalQueryError {
+  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+    write!(f, "{}", self.0)
+  }
+}
+
+impl Serialize for InternalQueryError {
+  fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+  where
+    S: serde::Serializer,
+  {
+    serializer.serialize_str(&self.0.to_string())
+  }
+}
+
+impl From<QueryError> for InternalQueryError {
+  fn from(err: QueryError) -> Self {
+    InternalQueryError(err)
+  }
+}
+
+impl Error for InternalQueryError {}

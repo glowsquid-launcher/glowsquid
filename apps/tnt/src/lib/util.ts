@@ -1,5 +1,9 @@
 import { browser } from '$app/env'
-import { detectLocale, localStorageDetector, navigatorDetector } from 'typesafe-i18n/detectors'
+import {
+  detectLocale,
+  localStorageDetector,
+  navigatorDetector,
+} from 'typesafe-i18n/detectors'
 import { setLocale } from '$locales/i18n-svelte'
 import { baseLocale, locales } from '$locales/i18n-util'
 import { loadLocale } from '$locales/i18n-util.sync'
@@ -19,4 +23,32 @@ export const refreshLocales = (): void => {
     loadLocale(currentLocale)
     setLocale(currentLocale)
   }
+}
+
+export interface PlayerDBMinecraftProfile {
+  code: string
+  message: string
+  data: Data
+  success: boolean
+}
+
+export interface Data {
+  player: Player
+}
+
+export interface Player {
+  meta: Meta
+  username: string
+  id: string
+  raw_id: string
+  avatar: string
+}
+
+export interface Meta {
+  name_history: NameHistory[]
+}
+
+export interface NameHistory {
+  name: string
+  changedToAt?: number
 }

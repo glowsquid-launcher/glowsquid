@@ -1,29 +1,32 @@
-<script context="module" lang="ts">import type { Load } from '@sveltejs/kit'
+<script context="module" lang="ts">
+  import type { Load } from '@sveltejs/kit'
 
-export const load: Load = async ({ url }) => {
-  return {
-    props: {
-      key: url.pathname
+  export const load: Load = async ({ url }) => {
+    return {
+      props: {
+        key: url.pathname,
+      },
     }
   }
-}
 </script>
 
-<script lang="ts">import Header from '$lib/components/Header.svelte'
-import AddInstanceModal from '$lib/components/modals/AddInstanceModal.svelte'
-import PageTransition from '$lib/components/PageTransition.svelte'
-import { setTheme } from '@glowsquid/glow-ui'
-// import { getVersion } from '@tauri-apps/api/app';
-import 'uno.css'
-import '@unocss/reset/tailwind.css'
-import '$lib/themes/default.css'
-import { refreshLocales } from '$lib/util'
-import { onMount } from 'svelte'
+<script lang="ts">
+  import Header from '$components/Header.svelte'
+  import AddInstanceModal from '$components/modals/AddInstanceModal.svelte'
+  import PageTransition from '$components/PageTransition.svelte'
+  import { setTheme } from '@glowsquid/glow-ui'
 
-export let key: string
+  import 'uno.css'
+  import '@unocss/reset/tailwind.css'
+  import '$lib/themes/default.css'
 
-onMount(() => setTheme('dark'))
-refreshLocales()
+  import { refreshLocales } from '$lib/util'
+  import { onMount } from 'svelte'
+
+  export let key: string
+
+  onMount(() => setTheme('dark'))
+  refreshLocales()
 </script>
 
 <AddInstanceModal />

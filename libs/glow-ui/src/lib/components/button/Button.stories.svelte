@@ -1,42 +1,49 @@
-<script lang="ts">import 'uno.css'
-import '$lib/themes.css'
-import '@unocss/reset/tailwind.css'
+<script lang="ts">
+  import 'uno.css'
+  import '$lib/themes.css'
+  import '@unocss/reset/tailwind.css'
 
-import { Meta, Story, Template } from '@storybook/addon-svelte-csf'
-import { ButtonVariant } from '$lib/types'
-import { setTheme } from '$lib/helpers'
+  import { Meta, Story, Template } from '@storybook/addon-svelte-csf'
+  import { ButtonShape, ButtonVariant } from '$lib/types'
+  import { setTheme } from '$lib/helpers'
 
-import Button from './Button.svelte'
-import { onMount } from 'svelte'
+  import Button from './Button.svelte'
+  import { onMount } from 'svelte'
 
-onMount(() => setTheme('dark'))
+  onMount(() => setTheme('dark'))
 </script>
 
 <Meta
   argTypes={{
     variant: {
       options: Object.values(ButtonVariant),
-      control: 'select'
+      control: 'select',
+    },
+
+    shape: {
+      options: Object.values(ButtonShape),
+      control: 'select',
     },
 
     cssTheme: {
       type: 'string',
       options: ['light', 'dark'],
       defaultValue: 'dark',
-      control: 'inline-radio'
+      control: 'inline-radio',
     },
 
     onClick: {
-      action: 'clicked'
-    }
+      action: 'clicked',
+    },
   }}
   component={Button}
   title="Buttons/Basic"
 />
 
-<Template let:args={{ variant, onClick, cssTheme, text }} id="text">
+<Template let:args={{ variant, shape, onClick, cssTheme, text }} id="text">
   <Button
     {variant}
+    {shape}
     on:click={() => {
       setTheme(cssTheme)
       onClick()
@@ -46,9 +53,10 @@ onMount(() => setTheme('dark'))
   >
 </Template>
 
-<Template let:args={{ variant, onClick, cssTheme }} id="complex">
+<Template let:args={{ variant, onClick, shape, cssTheme }} id="complex">
   <Button
     {variant}
+    {shape}
     on:click={() => {
       setTheme(cssTheme)
       onClick()
@@ -56,7 +64,7 @@ onMount(() => setTheme('dark'))
   >
     <div>
       <div class="i-mdi-folder-zip-outline" />
-      Import ZIP
+      Import from ZIP
     </div>
   </Button>
 </Template>
@@ -65,11 +73,8 @@ onMount(() => setTheme('dark'))
   name="Basic"
   template="text"
   args={{
-    text: 'Click to set colour'
+    text: 'set colour',
   }}
 />
 
-<Story
-  name="Complex"
-  template="complex"
-/>
+<Story name="Complex" template="complex" />

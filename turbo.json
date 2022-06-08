@@ -26,6 +26,9 @@
     "dev": {
       "cache": false
     },
+    "prepare": {
+      "cache": false
+    },
     "format": {
       "outputs": []
     }
