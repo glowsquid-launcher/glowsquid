@@ -3,18 +3,7 @@
   windows_subsystem = "windows"
 )]
 
-pub(crate) mod auth;
-pub(crate) mod commands;
-pub(crate) mod error;
-pub(crate) mod internal_errors;
-pub mod playerdb;
-pub(crate) mod prisma;
-use commands::*;
-
-pub const CLIENT_ID: &str = "2aa32806-92e3-4242-babc-392ac0f0fd30";
-pub struct GlowState {
-  pub(crate) db: prisma::PrismaClient,
-}
+use glowsquid::{commands::*, prisma, GlowState};
 
 fn main() {
   pretty_env_logger::init();

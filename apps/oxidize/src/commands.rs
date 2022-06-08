@@ -1,6 +1,7 @@
 use reqwest::Url;
 use tauri::{
   api::{path::app_dir, shell::open},
+  async_runtime::block_on,
   command, AppHandle, Manager,
 };
 
@@ -26,11 +27,9 @@ pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), Aut
   let (sender, reciever) = std::sync::mpsc::channel::<_>();
 
   let port = tauri_plugin_oauth::start(None, move |url| {
+    let client = block_on(new_client()).unwrap();
     sender
-      .send(process_adding_account(
-        tauri::async_runtime::block_on(new_client()).unwrap(),
-        url,
-      ))
+      .send(block_on(process_adding_account(&client, url)))
       .unwrap();
   })
   .unwrap();
@@ -46,8 +45,7 @@ pub async fn add_new_account(app_handle: AppHandle, dev: bool) -> Result<(), Aut
   )
   .map_err(|_| AuthError::CannotOpenInBrowser)?;
 
-  let v = reciever.recv().unwrap();
-  v.await
+  reciever.recv().unwrap()
 }
 
 #[command]
