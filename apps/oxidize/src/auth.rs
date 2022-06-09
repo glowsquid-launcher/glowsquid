@@ -19,7 +19,7 @@ pub struct MinecraftProfile {
 pub async fn process_adding_account(db: &PrismaClient, url: String) -> Result<(), AuthError> {
   let url = Url::parse(&url)?;
   let profile = create_profile_from_url(&url)?;
-  let other_profile_info = get_profile(profile.uuid.clone()).await?;
+  let other_profile_info = get_profile(&profile.uuid).await?;
 
   let current_time = Utc::now();
   let expiry_time = current_time + Duration::seconds(profile.expires_in.into());

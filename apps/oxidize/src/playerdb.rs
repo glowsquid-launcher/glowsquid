@@ -56,7 +56,7 @@ pub struct NameHistory {
   pub(crate) changed_to_at: Option<i64>,
 }
 
-pub(crate) async fn get_profile(uuid: String) -> Result<PlayerDbMinecraftProfile, AuthError> {
+pub async fn get_profile(uuid: &String) -> Result<PlayerDbMinecraftProfile, AuthError> {
   let url = format!("https://playerdb.co/api/player/minecraft/{}", uuid);
 
   let resp = reqwest::get(&url)
