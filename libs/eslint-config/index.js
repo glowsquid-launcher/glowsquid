@@ -6,15 +6,22 @@ module.exports = {
     // vitest has the same api as jest
     jest: true
   },
-  extends: ['standard'],
+  extends: [
+    'standard',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking'
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
+    project: ['tsconfig.json', 'tsconfig.eslint.json'],
     sourceType: 'module'
   },
   ignorePatterns: ['**/node_modules/**', '**/coverage/**', '**/dist/**', '**/package/**', '**/.svelte-kit/**'],
   plugins: ['svelte3', '@typescript-eslint', 'vitest'],
-  rules: {},
+  rules: {
+    indent: ['error', 2]
+  },
   settings: {
     'svelte3/typescript': () => require('typescript')
   },

@@ -1,4 +1,4 @@
-export enum ButtonVariant {
+export enum ColorVariant {
   Primary = 'primary',
   Secondary = 'secondary',
   Success = 'success',

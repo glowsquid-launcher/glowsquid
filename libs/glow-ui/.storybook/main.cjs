@@ -9,6 +9,8 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-svelte-csf',
     '@storybook/addon-a11y',
+    '@storybook/addon-storysource',
+    'storybook-dark-mode'
   ],
   core: {
     builder: '@storybook/builder-vite',

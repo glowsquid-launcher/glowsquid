@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { ButtonShape, ButtonVariant } from '../../types'
+  import { ButtonShape, ColorVariant } from '../../types'
 
-  export let variant: ButtonVariant = ButtonVariant.Primary
+  export let variant: ColorVariant = ColorVariant.Primary
   export let shape: ButtonShape = ButtonShape.Rounded
   $: cssShape = (() => {
     switch (shape) {
@@ -13,7 +13,7 @@
         return 'rounded-full'
     }
   })()
-  $: disabled = variant === ButtonVariant.Disabled
+  $: disabled = variant === ColorVariant.Disabled
   let clazz = ''
   export { clazz as class }
 </script>
@@ -24,7 +24,7 @@
   class="btn {variant} {cssShape} {clazz}"
   {disabled}
 >
-  {#if variant === ButtonVariant.Link}
+  {#if variant === ColorVariant.Link}
     <div class="i-mdi-open-in-new" />
   {/if}
   <slot />

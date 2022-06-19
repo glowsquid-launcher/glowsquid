@@ -11,3 +11,8 @@ msrv = "1.30.0"
 name = "javascript"
 enabled = true
 
+exclude_patterns = [
+  "apps/oxidize/src/prisma.rs",
+  "apps/tnt/src/lib/locales/",
+  "**/node_modules/",
+]
