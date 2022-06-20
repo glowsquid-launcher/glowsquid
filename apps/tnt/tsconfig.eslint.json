@@ -1,0 +1,6 @@
+{
+	"include": [
+		".eslintrc.cjs",
+		"svelte.config.js"
+	]
+}
