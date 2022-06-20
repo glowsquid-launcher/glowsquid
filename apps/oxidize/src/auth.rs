@@ -50,29 +50,29 @@ pub async fn process_adding_account(db: &PrismaClient, url: String) -> Result<()
 }
 
 pub fn create_profile_from_url(url: &Url) -> Result<MinecraftProfile, AuthError> {
-  let mut query = url.query_pairs();
+  let query = url.query_pairs();
 
-  let uuid = query
+  let uuid = query.clone()
     .find(|(k, _v)| k == "minecraftId")
-    .ok_or(AuthError::MissingUUID)?
+    .ok_or_else(|| AuthError::MissingUUID)?
     .1
     .to_string();
 
-  let access_token = query
+  let access_token = query.clone()
     .find(|(k, _v)| k == "minecraftToken")
-    .ok_or(AuthError::MissingAccessToken)?
+    .ok_or_else(|| AuthError::MissingAccessToken)?
     .1
     .to_string();
 
-  let refresh_token = query
+  let refresh_token = query.clone()
     .find(|(k, _v)| k == "microsoftRefreshToken")
-    .ok_or(AuthError::MissingRefreshToken)?
+    .ok_or_else(|| AuthError::MissingRefreshToken)?
     .1
     .to_string();
 
-  let expires_in = query
+  let expires_in = query.clone()
     .find(|(k, _v)| k == "microsoftExpiresIn")
-    .ok_or(AuthError::MissingExpiresIn)?
+    .ok_or_else(|| AuthError::MissingExpiresIn)?
     .1
     .to_string()
     .parse::<u32>()
