@@ -231,6 +231,7 @@ dependencies = [
  "num-bigint 0.3.3",
  "num-integer",
  "num-traits",
+ "serde",
 ]
 
 [[package]]
@@ -3141,6 +3142,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "ordered-float"
+version = "2.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7940cf2ca942593318d07fcf2596cdca60a85c9e7fab408a5e21a4f9dcd40d87"
+dependencies = [
+ "num-traits",
+]
+
+[[package]]
 name = "ordermap"
 version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3610,19 +3620,22 @@ dependencies = [
 
 [[package]]
 name = "prisma-client-rust"
-version = "0.5.1"
-source = "git+https://github.com/Brendonovich/prisma-client-rust?tag=0.5.1#1508f9089aa552d5250e24166534ce54e92ea3b9"
+version = "0.5.2"
+source = "git+https://github.com/Brendonovich/prisma-client-rust?tag=0.5.2#88ba860aedace6ebf0707fa989138fea87cd0d5e"
 dependencies = [
  "bigdecimal 0.2.2",
  "chrono",
  "datamodel",
+ "indexmap",
  "prisma-models",
  "query-connector",
  "query-core",
  "serde",
+ "serde-value",
  "serde_json",
  "thiserror",
  "user-facing-errors",
+ "uuid 0.8.2",
 ]
 
 [[package]]
@@ -4342,6 +4355,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "61ea8d54c77f8315140a05f4c7237403bf38b72704d031543aa1d16abbf517d1"
 dependencies = [
  "serde_derive",
+]
+
+[[package]]
+name = "serde-value"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f3a1a3341211875ef120e117ea7fd5228530ae7e7036a779fdc9117be6b3282c"
+dependencies = [
+ "ordered-float",
+ "serde",
 ]
 
 [[package]]
