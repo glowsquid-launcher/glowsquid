@@ -7,31 +7,31 @@
     TransitionChild,
   } from '@rgossiaux/svelte-headlessui'
   import { createEventDispatcher } from 'svelte'
-  import { ColorVariant } from '$lib/types'
+  import { ModalColorVariant } from '$lib/types'
 
   /**
    * Is the modal opened?
    */
   export let isOpened: boolean
-  export let variant: ColorVariant = ColorVariant.Primary
+  export let variant: ModalColorVariant = ModalColorVariant.primary
 
-  function getHeaderColor(variant: ColorVariant) {
+  function getHeaderColor(variant: ModalColorVariant) {
     switch (variant) {
-      case ColorVariant.Primary:
-        return ColorVariant.Secondary
-      case ColorVariant.Secondary:
-        return ColorVariant.Primary
+      case ModalColorVariant.primary:
+        return ModalColorVariant.secondary
+      case ModalColorVariant.secondary:
+        return ModalColorVariant.primary
       default:
         return variant
     }
   }
 
-  function getBgCol(variant: ColorVariant) {
+  function getBgCol(variant: ModalColorVariant) {
     switch (variant) {
-      case ColorVariant.Secondary:
-        return ColorVariant.Secondary
+      case ModalColorVariant.secondary:
+        return ModalColorVariant.secondary
       default:
-        return ColorVariant.Primary
+        return ModalColorVariant.primary
     }
   }
 

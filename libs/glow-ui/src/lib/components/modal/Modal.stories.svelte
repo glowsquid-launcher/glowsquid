@@ -3,7 +3,7 @@
   import Modal from '$lib/components/modal/Modal.svelte'
 
   import Button from '$lib/components/button/Button.svelte'
-  import { ColorVariant } from '$lib/types'
+  import { ModalColorVariant } from '$lib/types'
 
   let isOpened = false
 </script>
@@ -11,7 +11,7 @@
 <Meta
   argTypes={{
     variant: {
-      options: Object.values(ColorVariant),
+      options: Object.values(ModalColorVariant),
       control: 'select',
     },
 
@@ -37,7 +37,7 @@
           isOpened = false
           onClosed()
         }}
-        variant={ColorVariant.Primary}
+        variant={ModalColorVariant.primary}
       >
         Close
       </Button>
@@ -55,6 +55,6 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque pariatur
 maiores possimus vero, eum dicta in aliquid iste. Tempora ipsa similique
 deleniti accusamus nisi hic vel, necessitatibus suscipit quo dolore!
 	  `,
-    variant: ColorVariant.Primary,
+    variant: ModalColorVariant.primary,
   }}
 />
