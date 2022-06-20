@@ -27,7 +27,7 @@ wiremock = "0.5"
 thiserror = "1"
 tempfile = "3.3"
 tauri-plugin-oauth = { git = "https://github.com/FabianLars/tauri-plugin-oauth" }
-prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.5.1" }
+prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.5.2" }
 
 [dependencies.tauri]
 version = "1.0"
