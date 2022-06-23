@@ -11,6 +11,9 @@ const defaultState = {
 }
 const state = writable(defaultState)
 
+/**
+ * Toggles the visibility of the instance modal
+ */
 export const toggleInstanceModal = () => {
   state.update((s) => {
     s.modals.createInstance = !s.modals.createInstance

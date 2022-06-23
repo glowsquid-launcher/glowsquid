@@ -5,7 +5,7 @@ import type { RequestHandler } from '@sveltejs/kit'
  * @param request - request from sveltekit
  * @returns a redirect to the MS auth url
  */
-export const get: RequestHandler = async ({ url }) => {
+export const get: RequestHandler = ({ url }) => {
   const port = url.searchParams.get('port')
   if (!port) throw new Error('error.noState')
   const msUrl = new URL('https://login.live.com/oauth20_authorize.srf')
