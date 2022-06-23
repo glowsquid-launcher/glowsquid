@@ -13,6 +13,6 @@ enabled = true
 
 exclude_patterns = [
   "apps/oxidize/src/prisma.rs",
-  "apps/tnt/src/lib/locales/",
+  "apps/tnt/src/lib/locales/**",
   "**/node_modules/",
 ]
