@@ -4,19 +4,56 @@ module.exports = {
     es2021: true,
     node: true,
     // vitest has the same api as jest
-    jest: true
+    jest: true,
   },
-  extends: ['standard'],
+  extends: [
+    'standard',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    project: ['tsconfig.json', 'tsconfig.eslint.json'],
+    sourceType: 'module',
   },
-  ignorePatterns: ['**/node_modules/**', '**/coverage/**', '**/dist/**', '**/package/**', '**/.svelte-kit/**'],
-  plugins: ['svelte3', '@typescript-eslint', 'vitest'],
-  rules: {},
+  ignorePatterns: [
+    '**/node_modules/**',
+    '**/coverage/**',
+    '**/dist/**',
+    '**/package/**',
+    '**/.svelte-kit/**',
+  ],
+  plugins: ['svelte3', '@typescript-eslint', 'vitest', 'prettier'],
+  rules: {
+    'indent': ['error', 2],
+    'quote-props': ['error', 'consistent-as-needed'],
+    'comma-dangle': ['off'],
+    'prettier/prettier': [
+      'error',
+      {
+        semi: false,
+        singleQuote: true,
+        tabWidth: 2,
+        quoteProps: 'consistent',
+        endOfLine: 'lf',
+        importOrder: [
+          '^(child_process|crypto|events|fs|http|https|os|path)(\\/(.*))?$',
+          '<THIRD_PARTY_MODULES>',
+          '^~(\\/(.*))?$',
+          '^@(\\/(.*))?$',
+          '^@app(\\/(.*))?$',
+          '^[./]',
+        ],
+        experimentalBabelParserPluginsList: ['jsx', 'typescript'],
+      },
+      {
+        usePrettierrc: false,
+      },
+    ],
+  },
   settings: {
-    'svelte3/typescript': () => require('typescript')
+    'svelte3/typescript': () => require('typescript'),
   },
   overrides: [
     {
@@ -27,8 +64,8 @@ module.exports = {
         'import/no-duplicates': 0,
         'imports/no-mutable-exports': 0,
         'imports/prefer-default-export': 0,
-        'no-use-before-define': 0
-      }
-    }
-  ]
+        'no-use-before-define': 0,
+      },
+    },
+  ],
 }

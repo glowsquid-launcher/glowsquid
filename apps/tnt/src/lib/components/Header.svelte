@@ -6,7 +6,7 @@
   import LL from '$locales/i18n-svelte'
   import {
     Button,
-    ButtonVariant,
+    ColorVariant,
     ButtonShape,
     Dropdown,
   } from '@glowsquid/glow-ui'
@@ -40,7 +40,7 @@
   )
 
   const buttonStyle = {
-    variant: ButtonVariant.Secondary,
+    variant: ColorVariant.Secondary,
     shape: ButtonShape.Square,
   }
 </script>

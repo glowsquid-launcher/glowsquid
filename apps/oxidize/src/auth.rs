@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use crate::{playerdb::get_profile, prisma::PrismaClient};
 use prisma_client_rust::chrono::{Duration, Utc};
 use reqwest::Url;
@@ -52,21 +50,35 @@ pub async fn process_adding_account(db: &PrismaClient, url: String) -> Result<()
 }
 
 pub fn create_profile_from_url(url: &Url) -> Result<MinecraftProfile, AuthError> {
-  let mut query = url
-    .query_pairs()
-    .map(|(k, v)| (k.to_string(), v.to_string()))
-    .collect::<HashMap<_, _>>();
+  let query = url.query_pairs();
 
-  let uuid = query.remove("minecraftId").ok_or(AuthError::MissingUUID)?;
+  let uuid = query
+    .clone()
+    .find(|(k, _v)| k == "minecraftId")
+    .ok_or_else(|| AuthError::MissingUUID)?
+    .1
+    .to_string();
+
   let access_token = query
-    .remove("minecraftToken")
-    .ok_or(AuthError::MissingAccessToken)?;
+    .clone()
+    .find(|(k, _v)| k == "minecraftToken")
+    .ok_or_else(|| AuthError::MissingAccessToken)?
+    .1
+    .to_string();
+
   let refresh_token = query
-    .remove("microsoftRefreshToken")
-    .ok_or(AuthError::MissingRefreshToken)?;
+    .clone()
+    .find(|(k, _v)| k == "microsoftRefreshToken")
+    .ok_or_else(|| AuthError::MissingRefreshToken)?
+    .1
+    .to_string();
+
   let expires_in = query
-    .remove("microsoftExpiresIn")
-    .ok_or(AuthError::MissingExpiresIn)?
+    .clone()
+    .find(|(k, _v)| k == "microsoftExpiresIn")
+    .ok_or_else(|| AuthError::MissingExpiresIn)?
+    .1
+    .to_string()
     .parse::<u32>()
     .map_err(|_| AuthError::MissingExpiresIn)?;
 

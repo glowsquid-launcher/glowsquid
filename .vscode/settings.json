@@ -106,8 +106,8 @@
   "rust-analyzer.linkedProjects": [
     "apps/oxidize/Cargo.toml"
   ],
-  "rust-analyzer.experimental.procAttrMacros": true,
   "docwriter.progress.trackFunctions": true,
   "docwriter.hotkey.windows": "Alt + .",
   "docwriter.style": "JSDoc",
+  "rust-analyzer.procMacro.attributes.enable": true,
 }

@@ -4,7 +4,7 @@
   import '@unocss/reset/tailwind.css'
 
   import { Meta, Story, Template } from '@storybook/addon-svelte-csf'
-  import { ButtonShape, ButtonVariant } from '$lib/types'
+  import { ButtonShape, ColorVariant } from '$lib/types'
   import { setTheme } from '$lib/helpers'
 
   import Button from './Button.svelte'
@@ -16,7 +16,7 @@
 <Meta
   argTypes={{
     variant: {
-      options: Object.values(ButtonVariant),
+      options: Object.values(ColorVariant),
       control: 'select',
     },
 

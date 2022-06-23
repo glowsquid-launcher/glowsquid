@@ -1,14 +1,14 @@
-<script lang="ts">
-  import { slide } from 'svelte/transition'
-  import type { Writable } from 'svelte/store'
+<script lang="ts">import { slide } from 'svelte/transition'
+import type { Writable } from 'svelte/store'
 
-  export let options: any[] = []
-  export let keyName: string | null = null
-  export let selected: Writable<number | null>
-  let clazz = ''
-  export { clazz as class }
+export let options: any[] = []
+export let keyName: string | null = null
+// This is a store as the parent needs access to the selected value
+export let selected: Writable<number | null>
+let clazz = ''
+export { clazz as class }
 
-  let isHidden = true
+let isHidden = true
 </script>
 
 <div class="w-full rounded-lg bg-primary text-white {clazz}">
