@@ -11,14 +11,17 @@ export const get: RequestHandler = async ({ url }) => {
   const msUrl = new URL('https://login.live.com/oauth20_authorize.srf')
   msUrl.searchParams.append('client_id', import.meta.env.MICROSOFT_CLIENT_ID)
   msUrl.searchParams.append('response_type', 'code')
-  msUrl.searchParams.append('redirect_uri', `${url.origin}/api/auth/authenticate`)
+  msUrl.searchParams.append(
+    'redirect_uri',
+    `${url.origin}/api/auth/authenticate`
+  )
   msUrl.searchParams.append('scope', 'XboxLive.signin offline_access')
   msUrl.searchParams.append('state', port)
 
   return {
     status: 302,
     headers: {
-      location: msUrl.href
-    }
+      location: msUrl.href,
+    },
   }
 }

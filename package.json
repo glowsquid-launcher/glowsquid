@@ -22,7 +22,7 @@
 		"@commitlint/cli": "^17.0.2",
 		"@commitlint/config-conventional": "^17.0.2",
 		"@iconify-json/ic": "^1.1.4",
-		"@iconify-json/mdi": "^1.1.21",
+		"@iconify-json/mdi": "^1.1.22",
 		"@tsconfig/svelte": "^3.0.0",
 		"@types/node": "18.0.0",
 		"cz-conventional-changelog": "3.3.0",

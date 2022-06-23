@@ -23,23 +23,24 @@ export const get: RequestHandler = async ({ url }) => {
   const XSTSToken = await getXSTSToken(XBLToken.token).catch((err) => {
     const data = err.data
     switch (data.XErr) {
-      case 2148916233:
-        throw new Error('error.noMicrosoftAccount')
-      case 2148916235:
-        throw new Error('error.microsoftAccountCountryBanned')
-      case 2148916236:
-      case 2148916237:
-        throw new Error(
-          'error.microsoftAccountSouthKoreaAdultVerificationNeeded'
-        )
-      case 2148916238:
-        throw new Error('error.microsoftAccountUnder18')
+    case 2148916233:
+      throw new Error('error.noMicrosoftAccount')
+    case 2148916235:
+      throw new Error('error.microsoftAccountCountryBanned')
+    case 2148916236:
+    case 2148916237:
+      throw new Error(
+        'error.microsoftAccountSouthKoreaAdultVerificationNeeded'
+      )
+    case 2148916238:
+      throw new Error('error.microsoftAccountUnder18')
     }
     throw new Error('error.microsoftUnknownError')
   })
 
-  if (XBLToken.uhs !== XSTSToken.uhs)
+  if (XBLToken.uhs !== XSTSToken.uhs) {
     throw new Error('UHS mismatch. Please try again.')
+  }
 
   const minecraftToken = await getMinecraftToken(XSTSToken.token, XBLToken.uhs)
   const minecraftId = await getMinecraftProfileId(minecraftToken)

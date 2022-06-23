@@ -46,9 +46,9 @@ export interface File {
 }
 
 export interface GameDependencies {
-  minecraft: string
+  'minecraft': string
   'fabric-loader': string
-  forge: string
+  'forge': string
 }
 
 /**

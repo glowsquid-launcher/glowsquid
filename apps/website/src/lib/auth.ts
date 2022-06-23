@@ -28,7 +28,11 @@ export const getAuthToken = async (
   body.append('grant_type', 'authorization_code')
   body.append('redirect_uri', redirectUri)
 
-  const res = await $fetch(url.href, {
+  const res = await $fetch<{
+    access_token: string
+    refresh_token: string
+    expires_in: string
+  }>(url.href, {
     method: 'POST',
     body,
   })
@@ -51,7 +55,14 @@ export const getXBLToken = async (
   token: string
   uhs: string
 }> => {
-  const res = await $fetch('https://user.auth.xboxlive.com/user/authenticate', {
+  const res = await $fetch<{
+    Token: string
+    DisplayClaims: {
+      xui: {
+        uhs: string
+      }[]
+    }
+  }>('https://user.auth.xboxlive.com/user/authenticate', {
     method: 'POST',
     body: {
       Properties: {
@@ -80,7 +91,12 @@ export const getXSTSToken = async (
   token: string
   uhs: string
 }> => {
-  const res = await $fetch('https://xsts.auth.xboxlive.com/xsts/authorize', {
+  const res = await $fetch<{
+    Token: string
+    DisplayClaims: {
+      xui: { uhs: string }[]
+    }
+  }>('https://xsts.auth.xboxlive.com/xsts/authorize', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

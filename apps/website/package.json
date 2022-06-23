@@ -23,7 +23,7 @@
 		"build": "svelte-kit build",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
-		"format": "eslint --fix . --ext .ts,.svelte",
+		"format": "eslint --fix --ext .ts,.svelte",
 		"prepare": "svelte-kit sync"
 	},
 	"dependencies": {
