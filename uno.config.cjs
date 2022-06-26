@@ -23,6 +23,9 @@ module.exports = {
   ],
   safelist: [
     "rounded-xl",
+		"rounded-l-lg",
+		"rounded-r-lg",
+		"rounded-lg",
     "rounded-2xl",
     "rounded-full",
     "i-mdi-chevron-down",

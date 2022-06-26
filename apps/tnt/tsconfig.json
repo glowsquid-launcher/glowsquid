@@ -1,31 +1,23 @@
 {
-  "extends": "./.svelte-kit/tsconfig.json",
-  "compilerOptions": {
-    "moduleResolution": "node",
-    "module": "ESNext",
-    "target": "es2017",
-    "importsNotUsedAsValues": "error",
-    "checkJs": true,
-    "isolatedModules": true,
-    "sourceMap": true,
-    "types": ["svelte", "node", "webdriverio/async", "@wdio/mocha-framework"],
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"],
-      "$locales": ["src/lib/locales"],
-      "$locales/*": ["src/lib/locales/*"],
-      "$ui": ["../../libs/glow-ui/src/lib"],
-      "$ui/*": ["../../libs/glow-ui/src/lib/*"],
-      "$state": ["src/lib/state.ts"],
-      "$components": ["src/lib/components"],
-      "$components/*": ["src/lib/components/*"],
-      "$bridge": ["src/lib/bridge"],
-      "$bridge/*": ["src/lib/bridge/*"]
-    }
-  }
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"moduleResolution": "node",
+		"module": "ESNext",
+		"target": "es2017",
+		"importsNotUsedAsValues": "error",
+		"checkJs": true,
+		"isolatedModules": true,
+		"sourceMap": true,
+		"types": [
+			"svelte",
+			"node",
+			"webdriverio/async",
+			"@wdio/mocha-framework"
+		],
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": "."
+	}
 }

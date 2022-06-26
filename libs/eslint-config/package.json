@@ -16,7 +16,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-svelte3": "^4.0.0",
-    "eslint-plugin-vitest": "^0.0.8"
+    "eslint-plugin-vitest": "^0.0.8",
+    "prettier-plugin-svelte": "^2.7.0"
   },
   "peerDependencies": {
     "eslint": "^8.15.0",

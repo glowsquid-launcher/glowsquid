@@ -11,7 +11,7 @@
 </script>
 
 <div
-  class="flex flex-row items-center gap-2 text-center text-white text-lg rounded-lg {clazz} "
+  class="flex flex-row items-center gap-2 text-center text-white text-lg rounded-lg {clazz}"
 >
   <img
     class="rounded-lg"
