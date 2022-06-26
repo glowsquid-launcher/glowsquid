@@ -20,7 +20,7 @@
     },
   }}
   component={Modal}
-  title="Selection/Dropdown"
+  title="UI/Modal"
 />
 
 <Template let:args={{ headerText, onClosed, variant, description }} id="text">

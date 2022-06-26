@@ -57,5 +57,10 @@
 	},
 	"type": "module",
 	"$schema": "http://json.schemastore.org/package.json",
-	"module": "./package/index.js"
+	"module": "./package/index.js",
+	"dependencies": {
+		"@svelteuidev/composables": "^0.6.8-next.5",
+		"@svelteuidev/core": "^0.6.8-next.5",
+		"@svelteuidev/motion": "^0.6.8-next.5"
+	}
 }

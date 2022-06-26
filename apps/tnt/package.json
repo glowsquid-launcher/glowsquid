@@ -38,6 +38,9 @@
 		"prepare": "svelte-kit sync"
 	},
 	"dependencies": {
+		"@svelteuidev/composables": "^0.6.8-next.5",
+		"@svelteuidev/core": "^0.6.8-next.5",
+		"@svelteuidev/motion": "^0.6.8-next.5",
 		"@wdio/cli": "^7.20.5",
 		"typesafe-i18n": "^5.5.2"
 	}

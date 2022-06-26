@@ -14,7 +14,8 @@
   import Header from '$components/Header.svelte'
   import AddInstanceModal from '$components/modals/AddInstanceModal.svelte'
   import PageTransition from '$components/PageTransition.svelte'
-  import { setTheme } from '@glowsquid/glow-ui'
+  import { AppShell, SvelteUIProvider } from '@svelteuidev/core'
+  import { theme } from '$lib/themes'
 
   import 'uno.css'
   import '@unocss/reset/tailwind.css'
@@ -26,18 +27,31 @@
   export let key: string
 
   onMount(() => {
-    setTheme('dark')
     refreshLocales()
   })
 </script>
 
-<AddInstanceModal />
+<SvelteUIProvider
+  config={{
+    light: { bg: theme.color.background.value, color: 'var(--color-text)' },
+    dark: { bg: theme.color.background.value, color: 'var(--color-text)' },
+  }}
+  themeObserver={null}
+  class={theme}
+  withNormalizeCSS
+  withGlobalStyles
+>
+  <AppShell>
+    <AddInstanceModal />
 
-<div class="h-screen w-screen">
-  <Header />
-  <div class="pt-16">
-    <PageTransition refresh={key}>
-      <slot />
-    </PageTransition>
-  </div>
-</div>
+    <Header slot="header" />
+
+    <slot>
+      <div class="pt-16">
+        <PageTransition refresh={key}>
+          <slot />
+        </PageTransition>
+      </div>
+    </slot>
+  </AppShell>
+</SvelteUIProvider>
