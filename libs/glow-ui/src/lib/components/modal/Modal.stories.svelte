@@ -1,8 +1,10 @@
 <script lang="ts">
   import { Meta, Story, Template } from '@storybook/addon-svelte-csf'
   import Modal from '$lib/components/modal/Modal.svelte'
+  import 'uno.css'
+  import '$lib/themes.css'
 
-  import Button from '$lib/components/button/Button.svelte'
+  // import Button from '$lib/components/button/Button.svelte'
   import { ModalColorVariant } from '$lib/types'
 
   let isOpened = false
@@ -24,7 +26,7 @@
 />
 
 <Template let:args={{ headerText, onClosed, variant, description }} id="text">
-  <Button on:click={() => (isOpened = true)}>open modal</Button>
+  <button on:click={() => (isOpened = true)}>open modal</button>
 
   <Modal {isOpened} on:close={() => (isOpened = false)} {variant}>
     <h2 slot="title">{headerText}</h2>
@@ -32,15 +34,14 @@
     {description}
 
     <div slot="buttons">
-      <Button
+      <button
         on:click={() => {
           isOpened = false
           onClosed()
         }}
-        variant={ModalColorVariant.primary}
       >
-        Close
-      </Button>
+        > Close
+      </button>
     </div>
   </Modal>
 </Template>

@@ -4,6 +4,9 @@
   import { writable } from 'svelte/store'
   import { SvelteUIProvider } from '@svelteuidev/core'
 
+  import 'uno.css'
+  import '$lib/themes.css'
+
   let selected = writable<number | null>(null)
   $: console.log($selected)
 </script>

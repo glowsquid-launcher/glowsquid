@@ -25,6 +25,10 @@
   import { onMount } from 'svelte'
 
   export let key: string
+  const config = {
+    light: { bg: "primary", color: 'var(--color-text)' },
+    dark: { bg: "background", color: 'var(--color-text)' },
+  }
 
   onMount(() => {
     refreshLocales()
@@ -32,16 +36,12 @@
 </script>
 
 <SvelteUIProvider
-  config={{
-    light: { bg: theme.color.background.value, color: 'var(--color-text)' },
-    dark: { bg: theme.color.background.value, color: 'var(--color-text)' },
-  }}
-  themeObserver={null}
+  {config}
   class={theme}
   withNormalizeCSS
   withGlobalStyles
 >
-  <AppShell>
+  <AppShell class="bg-background text-white">
     <AddInstanceModal />
 
     <Header slot="header" />
@@ -55,3 +55,9 @@
     </slot>
   </AppShell>
 </SvelteUIProvider>
+
+<style>
+  :global(html) {
+    background-color: var(--color-background);
+  }
+</style>

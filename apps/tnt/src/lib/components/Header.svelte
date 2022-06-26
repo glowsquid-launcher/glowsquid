@@ -47,9 +47,9 @@
     let roundedType = ''
 
     if (buttonLocation == 'left') {
-      roundedType = 'rounded-l-lg'
+      roundedType = 'important-rounded-l-lg'
     } else if (buttonLocation == 'right') {
-      roundedType = 'rounded-r-lg'
+      roundedType = 'important-rounded-r-lg'
     }
 
     return {
