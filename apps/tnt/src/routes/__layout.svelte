@@ -13,6 +13,7 @@
 <script lang="ts">
   import Header from '$components/Header.svelte'
   import AddInstanceModal from '$components/modals/AddInstanceModal.svelte'
+  import AddAccountModal from '$components/modals/AddNewUser.svelte'
   import PageTransition from '$components/PageTransition.svelte'
   import { AppShell, SvelteUIProvider } from '@svelteuidev/core'
   import { theme } from '$lib/themes'
@@ -26,8 +27,8 @@
 
   export let key: string
   const config = {
-    light: { bg: "primary", color: 'var(--color-text)' },
-    dark: { bg: "background", color: 'var(--color-text)' },
+    light: { bg: 'primary', color: 'var(--color-text)' },
+    dark: { bg: 'background', color: 'var(--color-text)' },
   }
 
   onMount(() => {
@@ -35,23 +36,17 @@
   })
 </script>
 
-<SvelteUIProvider
-  {config}
-  class={theme}
-  withNormalizeCSS
-  withGlobalStyles
->
+<SvelteUIProvider {config} class={theme} withGlobalStyles>
   <AppShell class="bg-background text-white">
-    <AddInstanceModal />
-
     <Header slot="header" />
 
     <slot>
-      <div class="pt-16">
-        <PageTransition refresh={key}>
-          <slot />
-        </PageTransition>
-      </div>
+      <!-- Modals -->
+      <AddInstanceModal />
+
+      <PageTransition refresh={key}>
+        <slot />
+      </PageTransition>
     </slot>
   </AppShell>
 </SvelteUIProvider>

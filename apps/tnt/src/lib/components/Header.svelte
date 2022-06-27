@@ -1,6 +1,7 @@
 <script lang="ts">
   import { versionStore } from '$bridge/misc'
-  import state, { updateCurrentAccount } from '$state'
+  import state, { updateCurrentAccount, toggleNewAccountModal } from '$state'
+  import AddAccountModal from '$components/modals/AddNewUser.svelte'
   import { $fetch as fetch } from 'ohmyfetch'
   import { goto } from '$app/navigation'
   import LL from '$locales/i18n-svelte'
@@ -19,8 +20,9 @@
   import PlayerCard from './cards/PlayerCard.svelte'
   const accountList = derived(state, (state) => state.accounts.list)
   const account = writable<number | null>(null)
+
   $: {
-    if ($account) updateCurrentAccount($accountList[$account])
+    if ($account !== null) updateCurrentAccount($accountList[$account])
   }
 
   const profileList = asyncDerived(accountList, async (list) => {
@@ -94,6 +96,7 @@
 <Header
   class="flex flex-row items-center justify-between bg-primary! px-4 py-2"
 >
+  <AddAccountModal />
   <UnstyledButton on:click={() => goto('/')}>
     <h1 class="text-white text-xl">
       {$LL.header.title()}
@@ -138,7 +141,12 @@
         <PlayerCard {...option} />
       </Center>
 
-      <p slot="append" let:active class={createOptionStyles(active, true)}>
+      <p
+        slot="append"
+        let:active
+        class={createOptionStyles(active, true)}
+        on:click={toggleNewAccountModal}
+      >
         {$LL.header.accounts.addAccount()}
       </p>
     </Dropdown>
