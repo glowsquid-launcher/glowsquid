@@ -10,7 +10,7 @@ edition = "2021"
 build = "src/build.rs"
 
 [build-dependencies]
-tauri-build = { version = "1.0.0-rc.12", features = [] }
+tauri-build = { version = "1.0.1", features = [] }
 
 [dev-dependencies]
 test-context = "0.1"
