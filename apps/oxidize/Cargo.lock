@@ -5037,7 +5037,7 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-oauth"
 version = "0.0.0"
-source = "git+https://github.com/FabianLars/tauri-plugin-oauth#199f0fca559c7e246f024058986780b96f12c7d5"
+source = "git+https://github.com/FabianLars/tauri-plugin-oauth#8b34909c9474649525e147a624d64f187c7343fd"
 dependencies = [
  "httparse",
  "log",
@@ -5552,7 +5552,7 @@ version = "1.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "97fee6b57c6a41524a810daee9286c02d7752c4253064d0b05472833a438f675"
 dependencies = [
- "cfg-if 1.0.0",
+ "cfg-if 0.1.10",
  "rand 0.8.5",
  "static_assertions",
 ]
