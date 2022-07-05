@@ -7,7 +7,7 @@ const defaultState = {
   },
   accounts: {
     current: null as string | null,
-    list: ['52ddf2f1-a59f-4a19-822f-a6157f705320'],
+    list: [] as string[],
   },
 }
 const state = writable(defaultState)

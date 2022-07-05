@@ -12,7 +12,7 @@ const storage = <T>(key: string, initValue: T): Writable<T> => {
   if (!browser) return store
 
   const storedValueStr = localStorage.getItem(key)
-  if (storedValueStr !== null) store.set(JSON.parse(storedValueStr))
+  if (storedValueStr !== null) store.set(JSON.parse(storedValueStr) as T)
 
   store.subscribe((val) => {
     if (val === null || val === undefined) {
@@ -26,7 +26,7 @@ const storage = <T>(key: string, initValue: T): Writable<T> => {
     const storedValueStr = localStorage.getItem(key)
     if (storedValueStr === null) return
 
-    const localValue: T = JSON.parse(storedValueStr)
+    const localValue: T = JSON.parse(storedValueStr) as T
     if (localValue !== get(store)) store.set(localValue)
   })
 
@@ -38,8 +38,8 @@ export const addInstanceModalActive = writable(false)
 export const transitioning = writable(false)
 
 if (browser) {
-  import('./invoke')
-    .then(({ invoke }) => invoke('get_app_path', undefined))
+  import('$bridge')
+    .then(({ default: invoke }) => invoke('get_app_path', undefined))
     .then((path) => instancesPath.set(`${path}instances`))
     // TODO: add error handling via a notification
     .catch((err) => err)

@@ -13,7 +13,6 @@
 <script lang="ts">
   import Header from '$components/Header.svelte'
   import AddInstanceModal from '$components/modals/AddInstanceModal.svelte'
-  import AddAccountModal from '$components/modals/AddNewUser.svelte'
   import PageTransition from '$components/PageTransition.svelte'
   import { AppShell, SvelteUIProvider } from '@svelteuidev/core'
   import { theme } from '$lib/themes'
@@ -41,9 +40,6 @@
     <Header slot="header" />
 
     <slot>
-      <!-- Modals -->
-      <AddInstanceModal />
-
       <PageTransition refresh={key}>
         <slot />
       </PageTransition>
