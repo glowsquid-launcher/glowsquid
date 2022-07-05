@@ -22,6 +22,7 @@
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             rust-bin.stable.latest.default
+            cargo
             binutils
             zlib
             wget
