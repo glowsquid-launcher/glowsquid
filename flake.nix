@@ -22,7 +22,6 @@
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             rust-bin.stable.latest.default
-            cargo
             binutils
             zlib
             wget
@@ -44,6 +43,7 @@
           shellHook = ''
             export OPENSSL_DIR="${pkgs.openssl.dev}"
             export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
+            export WEBKIT_DISABLE_COMPOSITING_MODE=1
           '';
         };
       });
