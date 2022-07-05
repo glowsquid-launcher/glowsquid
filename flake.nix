@@ -38,6 +38,13 @@
             libayatana-appindicator-gtk3
             yarn
             nodejs
+
+            # Language servers
+            rnix-lsp
+            rust-analyzer
+            nodePackages.svelte-language-server
+            nodePackages.typescript-language-server
+            vscode-extensions.dbaeumer.vscode-eslint
           ];
 
           shellHook = ''
