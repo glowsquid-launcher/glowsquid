@@ -13,12 +13,6 @@ const config = {
     package: {
       exports: (file) => file === 'index.js',
     },
-    vite: {
-      test: {
-        globals: true,
-        environment: 'jsdom',
-      },
-    },
   },
 }
 

@@ -21,7 +21,7 @@ module.exports = {
     config.resolve = config.resolve ?? {};
     config.resolve.alias = config.resolve.alias ?? {};
 
-    config.plugins.unshift(Unocss(require('../../../uno.config.cjs')));
+    config.plugins.unshift(Unocss(await import('../../../uno.config.mjs')));
 
     config.resolve.alias.$lib = path.resolve(__dirname, '../src/lib');
     config.resolve.alias.$app =
