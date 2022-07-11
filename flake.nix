@@ -1,7 +1,7 @@
 {
   description = "Environment to package a tauri app.";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/master";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.rust-overlay.url = "github:oxalica/rust-overlay";
 
