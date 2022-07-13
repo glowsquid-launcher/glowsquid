@@ -35,8 +35,14 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-          cache: "yarn"
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2.2.2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
 
       - name: install dependencies (ubuntu only)
         if: matrix.os == 'ubuntu-latest'
@@ -55,17 +61,19 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Get yarn cache directory
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
       - uses: actions/cache@v3
-        id: yarn-cache
+        name: Setup pnpm cache
+        id: pnpm-cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-store-
 
       - uses: actions/cache@v3
         id: cargo-cache
@@ -79,7 +87,7 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm i 
 
       - name: Install tauri-driver
         uses: actions-rs/cargo@v1
@@ -89,21 +97,21 @@ jobs:
           args: tauri-driver
 
       - name: prepare things
-        run: yarn run prepare
+        run: pnpm run prep
 
       # Tests
       - name: Test (Linux)
         if: matrix.os == 'ubuntu-latest'
-        run: xvfb-run yarn test
+        run: xvfb-run pnpm test
 
       # Testing doesn't work
       - name: Test (Windows)
         if: matrix.os == 'windows-latest'
-        run: yarn build
+        run: pnpm build
 
       - name: Test (Macos)
         if: matrix.os == 'macos-latest'
-        run: yarn build
+        run: pnpm build
 
       # Artifact uploads
       - uses: actions/upload-artifact@v3
@@ -139,25 +147,25 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: "yarn"
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
 
       - uses: actions/cache@v3
-        id: yarn-cache
+        name: Setup pnpm cache
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: yarn
+        run: pnpm install
 
       - name: prepare project
-        run: yarn workspace @glowsquid/glow-ui prepare
+        run: pnpm run prep
 
       - name: Publish to Chromatic
         uses: chromaui/action@v1
