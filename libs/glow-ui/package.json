@@ -10,7 +10,7 @@
 		"build": "run-p 'build:*'",
 		"build:sync": "svelte-kit sync",
 		"build:package": "svelte-kit package",
-		"prepare": "svelte-kit sync",
+		"prep": "svelte-kit sync",
 		"format": "eslint --fix --ext .ts,.svelte",
 		"test": "vitest run --dir ./src",
 		"coverage": "vitest run --coverage",

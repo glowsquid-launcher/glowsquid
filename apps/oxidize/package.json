@@ -11,7 +11,7 @@
     "build": "tauri build",
     "build:cargo": "cargo build --release",
     "test": "cargo test --release",
-    "prepare": "cargo prisma db push",
+    "prep": "cargo prisma db push",
     "format": "cargo fmt"
   }
 }

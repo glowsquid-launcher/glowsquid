@@ -6,7 +6,7 @@
 		"build": "turbo run build",
 		"dev": "turbo run dev",
 		"test": "turbo run test",
-		"prep": "turbo run prepare",
+		"prep": "turbo run prep",
 		"format": "turbo run format"
 	},
 	"private": true,

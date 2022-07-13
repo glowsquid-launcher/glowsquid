@@ -25,7 +25,7 @@
 		"package": "svelte-kit package",
 		"preview": "vite preview",
 		"format": "eslint --fix --ext .ts,.svelte",
-		"prepare": "svelte-kit sync"
+		"prep": "svelte-kit sync"
 	},
 	"dependencies": {
 		"ohmyfetch": "^0.4.18"
