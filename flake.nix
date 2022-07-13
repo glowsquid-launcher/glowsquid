@@ -4,9 +4,11 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs/master";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.rust-overlay.url = "github:oxalica/rust-overlay";
+  inputs.tauri-driver.url = "github:tauri-apps/tauri";
+  inputs.tauri-driver.flake = false;
 
   outputs =
-    { nixpkgs, rust-overlay, flake-utils, ... }:
+    { nixpkgs, rust-overlay, flake-utils, tauri-driver, ... }:
     flake-utils.lib.eachSystem
       [ "x86_64-linux" ]
       (system:
@@ -73,6 +75,15 @@
             })
             node
             nodePackages.prisma
+
+            (rustPlatform.buildRustPackage
+              rec {
+                pname = "tauri-driver";
+                version = "0.1.2";
+
+                src = tauri-driver + "/tooling/webdriver";
+                cargoSha256 = "TYEGpZxtSBpEoh5qTRLd8QPWlzAzteA787fNLx+zoBM=";
+              })
 
             # Language servers
             rnix-lsp

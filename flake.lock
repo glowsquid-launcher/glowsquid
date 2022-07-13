@@ -66,7 +66,8 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": "rust-overlay",
+        "tauri-driver": "tauri-driver"
       }
     },
     "rust-overlay": {
@@ -85,6 +86,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "tauri-driver": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1657655737,
+        "narHash": "sha256-ad7eYnR554VER5NptSW4bXIE855E5pxvVyj+V3qecgI=",
+        "owner": "tauri-apps",
+        "repo": "tauri",
+        "rev": "597c98203cad9b45949816659f5f59976328585a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tauri-apps",
+        "repo": "tauri",
         "type": "github"
       }
     }
