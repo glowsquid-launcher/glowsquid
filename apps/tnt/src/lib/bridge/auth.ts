@@ -44,14 +44,14 @@ export async function addAccount(cb: EventCallback<AddAccountProcessPayload>) {
  * @returns A list of accounts
  */
 export async function getAccounts() {
-  return invoke<InternalAccount[]>('get_accounts').then((internAccs) =>
-    internAccs.map<Account>((acc) => ({
-      id: acc.id,
-      username: acc.username,
-      accessToken: acc.accessToken,
-      refreshToken: acc.refreshToken,
-      expiresAt: new Date(acc.expiresAt),
-      lastRefreshed: new Date(acc.lastRefreshed),
-    }))
-  )
+  const internAccs = await invoke<InternalAccount[]>('get_accounts')
+
+  return internAccs.map<Account>((acc) => ({
+    id: acc.id,
+    username: acc.username,
+    accessToken: acc.accessToken,
+    refreshToken: acc.refreshToken,
+    expiresAt: new Date(acc.expiresAt),
+    lastRefreshed: new Date(acc.lastRefreshed),
+  }))
 }
