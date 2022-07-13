@@ -26,7 +26,7 @@
     "dev": {
       "cache": false
     },
-    "prepare": {
+    "prep": {
       "cache": false
     },
     "format": {
