@@ -1,4 +1,4 @@
-html.dark {
+html {
     --color-background: hsl(180, 100%, 14%);
 
     /* generic colours */
@@ -27,9 +27,6 @@ html.dark {
     --color-link: hsl(207, 100%, 40%);
     --color-link-highlight: hsl(207, 100%, 43%);
     --color-link-active: hsl(207, 100%, 47%);
-}
 
-/* unocss no work :( */
-html.dark body {
     background-color: var(--color-background);
 }

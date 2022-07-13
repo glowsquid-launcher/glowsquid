@@ -27,31 +27,4 @@
 		height: calc(100vh / 3 * 2);
 		text-align: center;
 	}
-	.middle-section {
-		color: rgb(186, 186, 186);
-		background-color: rgb(61, 61, 61);
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-		align-items: center;
-		flex-wrap: wrap;
-		padding: 10px;
-		height: calc(100vh / 3);
-	}
-	.middle-section .point {
-		/* Align all text to the centre */
-		text-align: center;
-		width: 15vw;
-		height: 20vh;
-		border-radius: 10px;
-		margin: 10px;
-		padding: 10px;
-	}
-	.middle-section .point h1 {
-		font-size: 2em;
-		margin-bottom: 10px;
-	}
-	.middle-section .point p {
-		font-size: 1em;
-	}
 </style>
