@@ -26,6 +26,10 @@ export interface Account {
   lastRefreshed: Date
 }
 
+/**
+ * Starts the process of adding an account via microsoft authentication
+ * It takes a callback for when the current state of adding the account changes
+ */
 export async function addAccount(cb: EventCallback<AddAccountProcessPayload>) {
   const unlisten = await listen('add_account_process', cb)
   invoke<void>('add_new_account').catch(async (err: string) => {
@@ -35,6 +39,10 @@ export async function addAccount(cb: EventCallback<AddAccountProcessPayload>) {
   return unlisten
 }
 
+/**
+ * Fetches all accounts from the internal database
+ * @returns A list of accounts
+ */
 export async function getAccounts() {
   return invoke<InternalAccount[]>('get_accounts').then((internAccs) =>
     internAccs.map<Account>((acc) => ({

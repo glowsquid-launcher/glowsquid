@@ -48,6 +48,9 @@ export const updateCurrentAccount = (accountId: string): void => {
   })
 }
 
+/**
+ * Refetches the accounts from the internal database and adds them to the store
+ */
 export const updateAccounts = async (): Promise<void> => {
   const newAccounts = await getAccounts()
   state.update((s) => {
