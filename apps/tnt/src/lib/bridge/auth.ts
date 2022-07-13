@@ -33,8 +33,8 @@ export interface Account {
 export async function addAccount(cb: EventCallback<AddAccountProcessPayload>) {
   const unlisten = await listen('add_account_process', cb)
   invoke<void>('add_new_account').catch(async (err: string) => {
-    console.log(err)
     await emit('add_account_process', AddAccountProcessPayload.Failed)
+    throw err
   })
   return unlisten
 }
