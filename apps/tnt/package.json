@@ -28,7 +28,7 @@
 		"vite": "^3.0.0"
 	},
 	"scripts": {
-		"dev": "run-p 'dev:*'",
+		"dev": "run-p dev:sveltekit dev:i18n",
 		"dev:sveltekit": "vite dev",
 		"dev:i18n": "typesafe-i18n",
 		"build": "vite build",

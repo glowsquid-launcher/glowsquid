@@ -3,11 +3,11 @@
 	"version": "0.0.1",
 	"license": "MIT",
 	"scripts": {
-		"dev": "run-p 'dev:*'",
+		"dev": "run-p dev:storybook dev:package dev:test",
 		"dev:storybook": "start-storybook -p 6006",
 		"dev:package": "svelte-kit package --watch",
 		"dev:test": "vitest --dir ./src",
-		"build": "run-p 'build:*'",
+		"build": "run-p build:sync build:package",
 		"build:sync": "svelte-kit sync",
 		"build:package": "svelte-kit package",
 		"prep": "svelte-kit sync",
