@@ -22,14 +22,14 @@
   const account = writable<number | null>(null)
 
   $: {
-    if ($account !== null) updateCurrentAccount($accountList[$account])
+    if ($account !== null) updateCurrentAccount($accountList[$account].id)
   }
 
   const profileList = asyncDerived(accountList, async (list) => {
     return await Promise.all(
       list.map((item) =>
         fetch<PlayerDBMinecraftProfile>(
-          `https://playerdb.co/api/player/minecraft/${item}`
+          `https://playerdb.co/api/player/minecraft/${item.id}`
         )
       )
     ).then((res) => res.map((item) => item.data.player))
@@ -129,7 +129,7 @@
       </div>
 
       <span slot="placeholder" class="text-center text-white">
-        {$LL.header.accounts.placeholderText()}
+        {$LL.accounts.placeholderText()}
       </span>
 
       <Center
@@ -147,7 +147,7 @@
         class={createOptionStyles(active, true)}
         on:click={toggleNewAccountModal}
       >
-        {$LL.header.accounts.addAccount()}
+        {$LL.accounts.addAccount()}
       </p>
     </Dropdown>
   </div>

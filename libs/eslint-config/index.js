@@ -29,6 +29,7 @@ module.exports = {
     'indent': ['error', 2],
     'quote-props': ['error', 'consistent-as-needed'],
     'comma-dangle': ['off'],
+    'space-before-function-paren': ['off'],
     'prettier/prettier': [
       'error',
       {

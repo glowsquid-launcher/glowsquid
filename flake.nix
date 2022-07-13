@@ -17,6 +17,29 @@
             (import rust-overlay)
           ];
         };
+        node = pkgs.nodejs-16_x;
+
+        # hippity hoppitied from https://github.com/concrete-utopia/utopia/blob/master/shell.nix
+        pnpmPkg = pkgs.nodePackages_latest.pnpm.override {
+          nativeBuildInputs = [ pkgs.makeWrapper ];
+          preRebuild = ''
+            sed 's/"link:/"file:/g' --in-place package.json
+          '';
+          postInstall =
+            let
+              pnpmLibPath = pkgs.lib.makeBinPath [
+                node.passthru.python
+                node
+              ];
+            in
+            ''
+              for prog in $out/lib/node_modules/pnpm/bin/*; do
+                wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
+              done
+            '';
+        };
+        pnpm = "${pnpmPkg}/lib/node_modules/pnpm/bin/pnpm.cjs";
+        pnpx = "${pnpmPkg}/lib/node_modules/pnpm/bin/pnpx.cjs";
       in
       rec {
         devShell = pkgs.mkShell {
@@ -27,6 +50,8 @@
             wget
             curl
             openssl
+            libressl
+            glib-networking
             dbus
             squashfsTools
             pkg-config
@@ -36,21 +61,39 @@
             gtk3-x11
             gtksourceview
             libayatana-appindicator-gtk3
-            yarn
-            nodejs
+
+            (pkgs.stdenv.mkDerivation {
+              name = "scripts";
+              phases = "installPhase";
+              installPhase = ''
+                mkdir -p $out/bin
+                ln -s ${pnpm} $out/bin/pnpm
+                ln -s ${pnpx} $out/bin/pnpx
+              '';
+            })
+            node
+            nodePackages.prisma
 
             # Language servers
             rnix-lsp
             rust-analyzer
             nodePackages.svelte-language-server
             nodePackages.typescript-language-server
-            vscode-extensions.dbaeumer.vscode-eslint
+            nodePackages.eslint_d
           ];
 
           shellHook = ''
             export OPENSSL_DIR="${pkgs.openssl.dev}"
             export OPENSSL_LIB_DIR="${pkgs.openssl.out}/lib"
+
+            export PRISMA_MIGRATION_ENGINE_BINARY="${pkgs.prisma-engines}/bin/migration-engine"
+            export PRISMA_QUERY_ENGINE_BINARY="${pkgs.prisma-engines}/bin/query-engine"
+            export PRISMA_QUERY_ENGINE_LIBRARY="${pkgs.prisma-engines}/lib/libquery_engine.node"
+            export PRISMA_INTROSPECTION_ENGINE_BINARY="${pkgs.prisma-engines}/bin/introspection-engine"
+            export PRISMA_FMT_BINARY="${pkgs.prisma-engines}/bin/prisma-fmt"
+
             export WEBKIT_DISABLE_COMPOSITING_MODE=1
+            export GIO_MODULE_DIR=${pkgs.glib-networking}/lib/gio/modules/
           '';
         };
       });

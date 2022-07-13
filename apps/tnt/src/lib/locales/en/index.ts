@@ -8,9 +8,18 @@ const en: Translation = {
       browse: 'Browse',
       instances: 'Instances',
     },
-    accounts: {
-      placeholderText: 'Select an account',
-      addAccount: 'Add new account',
+  },
+  accounts: {
+    placeholderText: 'Select an account',
+    addAccount: 'Add new account',
+    modal: {
+      login: 'Login with microsoft',
+      states: {
+        Complete: 'Completed!',
+        Failed: 'Failed',
+        RequestRecieved: 'Recieved info from browser, adding...',
+        WaitingForBrowser: 'Waiting for browser to send us the info!',
+      },
     },
   },
 }

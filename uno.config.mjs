@@ -58,11 +58,6 @@ const config = {
 			successHighlight: "var(--color-success-highlight)",
 			successActive: "var(--color-success-active)",
 
-			// danger
-			danger: "var(--color-danger)",
-			dangerHighlight: "var(--color-danger-highlight)",
-			dangerActive: "var(--color-danger-active)",
-
 			// link
 			link: "var(--color-link)",
 			linkHighlight: "var(--color-link-highlight)",

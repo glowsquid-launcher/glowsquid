@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "@glowsquid/tnt": "workspace:*",
-    "@tauri-apps/cli": "^1.0.2"
+    "@tauri-apps/cli": "^1.0.3"
   },
   "scripts": {
     "dev": "tauri dev",

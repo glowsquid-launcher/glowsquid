@@ -1,4 +1,5 @@
 import { writable, derived } from 'svelte/store'
+import { type Account, getAccounts } from '$bridge'
 
 const defaultState = {
   modals: {
@@ -6,8 +7,8 @@ const defaultState = {
     addAccount: false,
   },
   accounts: {
-    current: null as string | null,
-    list: [] as string[],
+    current: null as Account | null,
+    list: [] as Account[],
   },
 }
 const state = writable(defaultState)
@@ -35,14 +36,23 @@ export const toggleNewAccountModal = () => {
 /**
  * sets the current active account to the given account ID
  */
-export const updateCurrentAccount = (account: string): void => {
+export const updateCurrentAccount = (accountId: string): void => {
   state.update((s) => {
-    if (s.accounts.list.includes(account)) {
-      s.accounts.current = account
+    const acc = s.accounts.list.find((acc) => acc.id === accountId)
+    if (acc) {
+      s.accounts.current = acc
       return s
     } else {
       throw new Error('Account not found')
     }
+  })
+}
+
+export const updateAccounts = async (): Promise<void> => {
+  const newAccounts = await getAccounts()
+  state.update((s) => {
+    s.accounts.list = newAccounts
+    return s
   })
 }
 

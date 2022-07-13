@@ -12,7 +12,6 @@
 
 <script lang="ts">
   import Header from '$components/Header.svelte'
-  import AddInstanceModal from '$components/modals/AddInstanceModal.svelte'
   import PageTransition from '$components/PageTransition.svelte'
   import { AppShell, SvelteUIProvider } from '@svelteuidev/core'
   import { theme } from '$lib/themes'
@@ -23,6 +22,8 @@
 
   import { refreshLocales } from '$lib/util'
   import { onMount } from 'svelte'
+  import { setInfo } from '$bridge';
+  import { updateAccounts } from '$state';
 
   export let key: string
   const config = {
@@ -30,8 +31,10 @@
     dark: { bg: 'background', color: 'var(--color-text)' },
   }
 
-  onMount(() => {
+  onMount(async () => {
     refreshLocales()
+    await setInfo()
+    await updateAccounts()
   })
 </script>
 
@@ -46,9 +49,3 @@
     </slot>
   </AppShell>
 </SvelteUIProvider>
-
-<style>
-  :global(html) {
-    background-color: var(--color-background);
-  }
-</style>
