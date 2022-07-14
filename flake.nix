@@ -105,6 +105,7 @@
 
             export WEBKIT_DISABLE_COMPOSITING_MODE=1
             export GIO_MODULE_DIR=${pkgs.glib-networking}/lib/gio/modules/
+            export PATH=".extra:$PATH"
           '';
         };
       });

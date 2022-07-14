@@ -9,6 +9,7 @@ importers:
       '@commitlint/config-conventional': ^17.0.3
       '@iconify-json/ic': ^1.1.7
       '@iconify-json/mdi': ^1.1.26
+      '@prisma/language-server': ^4.0.0
       '@tsconfig/svelte': ^3.0.0
       '@types/node': 18.0.4
       cz-conventional-changelog: 3.3.0
@@ -30,6 +31,7 @@ importers:
       '@commitlint/config-conventional': 17.0.3
       '@iconify-json/ic': 1.1.7
       '@iconify-json/mdi': 1.1.27
+      '@prisma/language-server': 4.0.0
       '@tsconfig/svelte': 3.0.0
       '@types/node': 18.0.4
       cz-conventional-changelog: 3.3.0
@@ -2328,6 +2330,23 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
+  /@prisma/language-server/4.0.0:
+    resolution: {integrity: sha512-quCggu8eddXtqnXKfi3HvepW/ZGSLKkgNnkGdjGbWvcuM/BuL6YigAw3zHFESKSlCeoKe5xXTgYMeP4CvdXcPw==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      '@prisma/prisma-fmt-wasm': 3.16.0-49.da41d2bb3406da22087b849f0e911199ba4fbf11
+      '@types/js-levenshtein': 1.1.1
+      js-levenshtein: 1.1.6
+      klona: 2.0.5
+      vscode-languageserver: 8.0.1
+      vscode-languageserver-textdocument: 1.0.5
+    dev: true
+
+  /@prisma/prisma-fmt-wasm/3.16.0-49.da41d2bb3406da22087b849f0e911199ba4fbf11:
+    resolution: {integrity: sha512-kBf9vqXl7/w8lkx/6G0OT6PWhteiLe7twdOd89+3ARoYAaujtiPnNT7dY5671PbZs/zWdBt/QXmQSrBDyyTBHQ==}
+    dev: true
+
   /@rgossiaux/svelte-headlessui/1.0.2_svelte@3.49.0:
     resolution: {integrity: sha512-sauopYTSivhzXe1kAvgawkhyYJcQlK8Li3p0d2OtcCIVprOzdbard5lbqWB4xHDv83zAobt2mR08oizO2poHLQ==}
     peerDependencies:
@@ -4410,6 +4429,10 @@ packages:
     resolution: {integrity: sha512-c3mAZEuK0lvBp8tmuL74XRKn1+y2dcwOUpH7x4WrF6gk1GIgiluDRgMYQtw2OFcBvAJWlt6ASU3tSqxp0Uu0Aw==}
     dependencies:
       '@types/istanbul-lib-report': 3.0.0
+    dev: true
+
+  /@types/js-levenshtein/1.1.1:
+    resolution: {integrity: sha512-qC4bCqYGy1y/NP7dDVr7KJarn+PbX1nSpwA7JXdu0HxT3QYjO8MJ+cntENtHFVy2dRAyBV23OZ6MxsW1AM1L8g==}
     dev: true
 
   /@types/json-buffer/3.0.0:
@@ -10647,6 +10670,11 @@ packages:
     hasBin: true
     dev: true
 
+  /js-levenshtein/1.1.6:
+    resolution: {integrity: sha512-X2BB11YZtrRqY4EnQcLX5Rh373zbK4alC1FW7D7MBhL2gtcC17cTnr6DmfHZeS0s2rTHjUTMMHfG7gO8SSdw+g==}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
   /js-string-escape/1.0.1:
     resolution: {integrity: sha512-Smw4xcfIQ5LVjAOuJCvN/zIodzA/BBSsluuoSykP+lUvScIi4U6RJLfwHet5cxFnCswUjISV8oAXaqaJDY3chg==}
     engines: {node: '>= 0.8'}
@@ -15466,6 +15494,33 @@ packages:
 
   /vm-browserify/1.1.2:
     resolution: {integrity: sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==}
+    dev: true
+
+  /vscode-jsonrpc/8.0.1:
+    resolution: {integrity: sha512-N/WKvghIajmEvXpatSzvTvOIz61ZSmOSa4BRA4pTLi+1+jozquQKP/MkaylP9iB68k73Oua1feLQvH3xQuigiQ==}
+    engines: {node: '>=14.0.0'}
+    dev: true
+
+  /vscode-languageserver-protocol/3.17.1:
+    resolution: {integrity: sha512-BNlAYgQoYwlSgDLJhSG+DeA8G1JyECqRzM2YO6tMmMji3Ad9Mw6AW7vnZMti90qlAKb0LqAlJfSVGEdqMMNzKg==}
+    dependencies:
+      vscode-jsonrpc: 8.0.1
+      vscode-languageserver-types: 3.17.1
+    dev: true
+
+  /vscode-languageserver-textdocument/1.0.5:
+    resolution: {integrity: sha512-1ah7zyQjKBudnMiHbZmxz5bYNM9KKZYz+5VQLj+yr8l+9w3g+WAhCkUkWbhMEdC5u0ub4Ndiye/fDyS8ghIKQg==}
+    dev: true
+
+  /vscode-languageserver-types/3.17.1:
+    resolution: {integrity: sha512-K3HqVRPElLZVVPtMeKlsyL9aK0GxGQpvtAUTfX4k7+iJ4mc1M+JM+zQwkgGy2LzY0f0IAafe8MKqIkJrxfGGjQ==}
+    dev: true
+
+  /vscode-languageserver/8.0.1:
+    resolution: {integrity: sha512-sn7SjBwWm3OlmLtgg7jbM0wBULppyL60rj8K5HF0ny/MzN+GzPBX1kCvYdybhl7UW63V5V5tRVnyB8iwC73lSQ==}
+    hasBin: true
+    dependencies:
+      vscode-languageserver-protocol: 3.17.1
     dev: true
 
   /w3c-hr-time/1.0.2:
