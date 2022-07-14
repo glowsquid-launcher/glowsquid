@@ -31,7 +31,7 @@ export const getAuthToken = async (
   const res = await $fetch<{
     access_token: string
     refresh_token: string
-    expires_in: string
+    expires_in: number
   }>(url.href, {
     method: 'POST',
     body,
@@ -128,15 +128,14 @@ export const getMinecraftToken = async (
   xstsToken: string,
   uhs: string
 ): Promise<string> => {
-  const res = await $fetch(
-    'https://api.minecraftservices.com/authentication/login_with_xbox',
-    {
-      method: 'POST',
-      body: {
-        identityToken: `XBL3.0 x=${uhs};${xstsToken}`,
-      },
-    }
-  )
+  const res = await $fetch<{
+    access_token: string
+  }>('https://api.minecraftservices.com/authentication/login_with_xbox', {
+    method: 'POST',
+    body: {
+      identityToken: `XBL3.0 x=${uhs};${xstsToken}`,
+    },
+  })
 
   return res.access_token
 }
@@ -147,7 +146,7 @@ export const getMinecraftToken = async (
  * @returns The id of the user's Minecraft profile
  */
 export const getMinecraftProfileId = async (token: string): Promise<string> => {
-  const res = await $fetch(
+  const res = await $fetch<{ id: string }>(
     'https://api.minecraftservices.com/minecraft/profile',
     {
       headers: {

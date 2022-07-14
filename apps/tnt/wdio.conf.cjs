@@ -24,7 +24,7 @@ module.exports.config = {
   },
 
   // ensure the rust project is built since we expect this binary to exist for the webdriver sessions
-  onPrepare: () => spawnSync('yarn', ['workspace', '@glowsquid/oxidize', 'build:cargo']),
+  onPrepare: () => spawnSync('pnpm', ['run', '--filter',  '@glowsquid/oxidize', 'build:cargo']),
 
   // ensure we are running `tauri-driver` before the session starts so that we can proxy the webdriver requests
   beforeSession: () =>

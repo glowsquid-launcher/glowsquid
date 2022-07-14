@@ -12,7 +12,6 @@
 
 <script lang="ts">
   import Header from '$components/Header.svelte'
-  import AddInstanceModal from '$components/modals/AddInstanceModal.svelte'
   import PageTransition from '$components/PageTransition.svelte'
   import { AppShell, SvelteUIProvider } from '@svelteuidev/core'
   import { theme } from '$lib/themes'
@@ -23,41 +22,30 @@
 
   import { refreshLocales } from '$lib/util'
   import { onMount } from 'svelte'
+  import { setInfo } from '$bridge';
+  import { updateAccounts } from '$state';
 
   export let key: string
   const config = {
-    light: { bg: "primary", color: 'var(--color-text)' },
-    dark: { bg: "background", color: 'var(--color-text)' },
+    light: { bg: 'primary', color: 'var(--color-text)' },
+    dark: { bg: 'background', color: 'var(--color-text)' },
   }
 
-  onMount(() => {
+  onMount(async () => {
     refreshLocales()
+    await setInfo()
+    await updateAccounts()
   })
 </script>
 
-<SvelteUIProvider
-  {config}
-  class={theme}
-  withNormalizeCSS
-  withGlobalStyles
->
+<SvelteUIProvider {config} class={theme} withGlobalStyles>
   <AppShell class="bg-background text-white">
-    <AddInstanceModal />
-
     <Header slot="header" />
 
     <slot>
-      <div class="pt-16">
-        <PageTransition refresh={key}>
-          <slot />
-        </PageTransition>
-      </div>
+      <PageTransition refresh={key}>
+        <slot />
+      </PageTransition>
     </slot>
   </AppShell>
 </SvelteUIProvider>
-
-<style>
-  :global(html) {
-    background-color: var(--color-background);
-  }
-</style>

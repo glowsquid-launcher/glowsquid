@@ -14,6 +14,36 @@ pub struct MinecraftProfile {
   pub expires_in: u32,
 }
 
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct Account {
+  pub id: String,
+  pub username: String,
+  pub access_token: String,
+  pub refresh_token: String,
+  pub expires_at: String,
+  pub last_refreshed: String
+}
+
+impl From<account::Data> for Account {
+    fn from(data: account::Data) -> Self {
+        Self {
+            id: data.id, 
+            username: data.username,
+            access_token: data.access_token,
+            refresh_token: data.refresh_token,
+            expires_at: data.expires_at.to_rfc3339(),
+            last_refreshed: data.last_refreshed.to_rfc3339(),
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Clone)]
+pub enum AddAccountProcessPayload {
+    WaitingForBrowser,
+    RequestRecieved,
+    Complete,
+}
+
 pub async fn process_adding_account(db: &PrismaClient, url: String) -> Result<(), AuthError> {
   let url = Url::parse(&url)?;
   let profile = create_profile_from_url(&url)?;

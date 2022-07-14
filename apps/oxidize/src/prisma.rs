@@ -17,8 +17,9 @@ use prisma_client_rust::{
 };
 pub use prisma_client_rust::{queries::Error as QueryError, NewClientError};
 use serde::{Deserialize, Serialize};
-use std::{path::Path, sync::Arc};
-static DATAMODEL_STR : & 'static str = "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"cargo prisma\"\n  output   = \"../src/prisma.rs\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:dev.db\"\n}\n\n/// A minecraft account\nmodel Account {\n  /// The account's unique id\n  id            String   @id\n  /// The account's username\n  username      String   @unique\n  /// The account's access token. To be refreshed when expired\n  accessToken   String\n  /// The account's refresh token. To be used to refresh the access token\n  refreshToken  String\n  /// The time the access token expires. If this is in the past, the access token needs to be refreshed\n  expiresAt     DateTime\n  /// The last time the access token was refreshed\n  lastRefreshed DateTime @updatedAt\n}\n\n/// A modpack\nmodel Modpack {\n  /// The modpack's id.\n  modpackId         String\n  /// The adapter associated with this modpack.\n  adapter           String\n  /// The modpack's name.\n  name              String\n  /// The path on the filesystem to the modpack's root directory.\n  path              String\n  /// The modpack's version.\n  version           String\n  /// URL to the icon for this modpack.\n  iconUrl           String\n  /// The modpack's description. Can be HTML or Markdown\n  description       String\n  /// The modpack's description format.\n  descriptionFormat String\n  /// A short description of the modpack in plaintext\n  shortDescription  String\n  /// The modpack's author.\n  author            String\n  mods              ModsInModpack[]\n\n  @@id([modpackId, adapter])\n}\n\nmodel MinecraftMod {\n  /// The mod's id.\n  modId             String          @map(\"modid\")\n  /// The mod's adapter\n  adapter           String\n  /// The mod's name.\n  name              String\n  /// The mod's version. Should be semver compliant.\n  version           String\n  /// The name of the mod file that is in the cache\n  file              String\n  /// The mod's description. Can be HTML or Markdown\n  description       String\n  /// The mod's description format.\n  descriptionFormat String\n  /// A short description of the mod in plaintext\n  shortDescription  String\n  /// The mod's author.\n  author            String\n  /// The modpacks this mod is in\n  modpack           ModsInModpack[]\n\n  @@id([modId, adapter])\n  @@map(\"Mod\")\n}\n\nmodel ModsInModpack {\n  minecraftMod MinecraftMod @relation(fields: [modId, modAdapter], references: [modId, adapter])\n  modId        String\n  modAdapter   String\n\n  Modpack        Modpack @relation(fields: [modpackId, modpackAdapter], references: [modpackId, adapter])\n  modpackId      String\n  modpackAdapter String\n\n  @@id([modpackId, modId])\n}\n" ;
+use std::path::Path;
+use std::sync::Arc;
+static DATAMODEL_STR : & 'static str = "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"cargo prisma\"\n  output   = \"../src/prisma.rs\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:../../dev.db\"\n}\n\n/// A minecraft account\nmodel Account {\n  /// The account's unique id\n  id            String   @id\n  /// The account's username\n  username      String   @unique\n  /// The account's access token. To be refreshed when expired\n  accessToken   String\n  /// The account's refresh token. To be used to refresh the access token\n  refreshToken  String\n  /// The time the access token expires. If this is in the past, the access token needs to be refreshed\n  expiresAt     DateTime\n  /// The last time the access token was refreshed\n  lastRefreshed DateTime @updatedAt\n}\n\n/// A modpack\nmodel Modpack {\n  /// The modpack's id.\n  modpackId         String\n  /// The adapter associated with this modpack.\n  adapter           String\n  /// The modpack's name.\n  name              String\n  /// The path on the filesystem to the modpack's root directory.\n  path              String\n  /// The modpack's version.\n  version           String\n  /// URL to the icon for this modpack.\n  iconUrl           String\n  /// The modpack's description. Can be HTML or Markdown\n  description       String\n  /// The modpack's description format.\n  descriptionFormat String\n  /// A short description of the modpack in plaintext\n  shortDescription  String\n  /// The modpack's author.\n  author            String\n  mods              ModsInModpack[]\n\n  @@id([modpackId, adapter])\n}\n\nmodel MinecraftMod {\n  /// The mod's id.\n  modId             String          @map(\"modid\")\n  /// The mod's adapter\n  adapter           String\n  /// The mod's name.\n  name              String\n  /// The mod's version. Should be semver compliant.\n  version           String\n  /// The name of the mod file that is in the cache\n  file              String\n  /// The mod's description. Can be HTML or Markdown\n  description       String\n  /// The mod's description format.\n  descriptionFormat String\n  /// A short description of the mod in plaintext\n  shortDescription  String\n  /// The mod's author.\n  author            String\n  /// The modpacks this mod is in\n  modpack           ModsInModpack[]\n\n  @@id([modId, adapter])\n  @@map(\"Mod\")\n}\n\nmodel ModsInModpack {\n  minecraftMod MinecraftMod @relation(fields: [modId, modAdapter], references: [modId, adapter])\n  modId        String\n  modAdapter   String\n\n  Modpack        Modpack @relation(fields: [modpackId, modpackAdapter], references: [modpackId, adapter])\n  modpackId      String\n  modpackAdapter String\n\n  @@id([modpackId, modId])\n}\n" ;
 static DATABASE_STR: &'static str = "sqlite";
 pub async fn new_client() -> Result<_prisma::PrismaClient, NewClientError> {
   let config = parse_configuration(DATAMODEL_STR)?.subject;
@@ -65,11 +66,12 @@ pub async fn new_client_with_url(url: &str) -> Result<_prisma::PrismaClient, New
   Ok(PrismaClient::_new(executor, query_schema))
 }
 pub mod account {
-  use super::{_prisma::*, *};
+  use super::_prisma::*;
+  use super::*;
   pub mod id {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -120,9 +122,9 @@ pub mod account {
     }
   }
   pub mod username {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -173,9 +175,9 @@ pub mod account {
     }
   }
   pub mod access_token {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -223,9 +225,9 @@ pub mod account {
     }
   }
   pub mod refresh_token {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -273,9 +275,9 @@ pub mod account {
     }
   }
   pub mod expires_at {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: chrono::DateTime<chrono::FixedOffset>) -> T {
       Set(value).into()
     }
@@ -314,9 +316,9 @@ pub mod account {
     }
   }
   pub mod last_refreshed {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: chrono::DateTime<chrono::FixedOffset>) -> T {
       Set(value).into()
     }
@@ -985,11 +987,12 @@ pub mod account {
   }
 }
 pub mod modpack {
-  use super::{_prisma::*, *};
+  use super::_prisma::*;
+  use super::*;
   pub mod modpack_id {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -1037,9 +1040,9 @@ pub mod modpack {
     }
   }
   pub mod adapter {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -1087,9 +1090,9 @@ pub mod modpack {
     }
   }
   pub mod name {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -1137,9 +1140,9 @@ pub mod modpack {
     }
   }
   pub mod path {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -1187,9 +1190,9 @@ pub mod modpack {
     }
   }
   pub mod version {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -1237,9 +1240,9 @@ pub mod modpack {
     }
   }
   pub mod icon_url {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -1287,9 +1290,9 @@ pub mod modpack {
     }
   }
   pub mod description {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -1337,9 +1340,9 @@ pub mod modpack {
     }
   }
   pub mod description_format {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -1387,9 +1390,9 @@ pub mod modpack {
     }
   }
   pub mod short_description {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -1437,9 +1440,9 @@ pub mod modpack {
     }
   }
   pub mod author {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -1487,9 +1490,9 @@ pub mod modpack {
     }
   }
   pub mod mods {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn some(value: Vec<mods_in_modpack::WhereParam>) -> WhereParam {
       WhereParam::ModsSome(value)
     }
@@ -2609,11 +2612,12 @@ pub mod modpack {
   }
 }
 pub mod minecraft_mod {
-  use super::{_prisma::*, *};
+  use super::_prisma::*;
+  use super::*;
   pub mod mod_id {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -2661,9 +2665,9 @@ pub mod minecraft_mod {
     }
   }
   pub mod adapter {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -2711,9 +2715,9 @@ pub mod minecraft_mod {
     }
   }
   pub mod name {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -2761,9 +2765,9 @@ pub mod minecraft_mod {
     }
   }
   pub mod version {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -2811,9 +2815,9 @@ pub mod minecraft_mod {
     }
   }
   pub mod file {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -2861,9 +2865,9 @@ pub mod minecraft_mod {
     }
   }
   pub mod description {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -2911,9 +2915,9 @@ pub mod minecraft_mod {
     }
   }
   pub mod description_format {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -2961,9 +2965,9 @@ pub mod minecraft_mod {
     }
   }
   pub mod short_description {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -3011,9 +3015,9 @@ pub mod minecraft_mod {
     }
   }
   pub mod author {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -3061,9 +3065,9 @@ pub mod minecraft_mod {
     }
   }
   pub mod modpack {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn some(value: Vec<mods_in_modpack::WhereParam>) -> WhereParam {
       WhereParam::ModpackSome(value)
     }
@@ -4104,11 +4108,12 @@ pub mod minecraft_mod {
   }
 }
 pub mod mods_in_modpack {
-  use super::{_prisma::*, *};
+  use super::_prisma::*;
+  use super::*;
   pub mod minecraft_mod {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn is(value: Vec<minecraft_mod::WhereParam>) -> WhereParam {
       WhereParam::MinecraftModIs(value)
     }
@@ -4145,9 +4150,9 @@ pub mod mods_in_modpack {
     }
   }
   pub mod mod_id {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -4195,9 +4200,9 @@ pub mod mods_in_modpack {
     }
   }
   pub mod mod_adapter {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -4245,9 +4250,9 @@ pub mod mods_in_modpack {
     }
   }
   pub mod modpack {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn is(value: Vec<modpack::WhereParam>) -> WhereParam {
       WhereParam::ModpackIs(value)
     }
@@ -4284,9 +4289,9 @@ pub mod mods_in_modpack {
     }
   }
   pub mod modpack_id {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -4334,9 +4339,9 @@ pub mod mods_in_modpack {
     }
   }
   pub mod modpack_adapter {
-    use super::{
-      super::*, Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam, _prisma::*,
-    };
+    use super::super::*;
+    use super::_prisma::*;
+    use super::{Cursor, OrderByParam, SetParam, UniqueWhereParam, WhereParam, WithParam};
     pub fn set<T: From<Set>>(value: String) -> T {
       Set(value).into()
     }
@@ -4971,7 +4976,8 @@ pub mod _prisma {
     raw, ExecuteRaw, QueryRaw,
   };
   use serde::{Deserialize, Serialize};
-  use std::{fmt, sync::Arc};
+  use std::fmt;
+  use std::sync::Arc;
   pub struct PrismaClient {
     executor: Box<dyn QueryExecutor + Send + Sync + 'static>,
     query_schema: Arc<QuerySchema>,

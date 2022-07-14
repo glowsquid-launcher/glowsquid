@@ -6,14 +6,10 @@
 		"build": "turbo run build",
 		"dev": "turbo run dev",
 		"test": "turbo run test",
-		"prepare": "turbo run prepare",
+		"prep": "turbo run prep",
 		"format": "turbo run format"
 	},
 	"private": true,
-	"workspaces": [
-		"libs/*",
-		"apps/*"
-	],
 	"dependencies": {
 		"tslib": "^2.4.0"
 	},
@@ -21,24 +17,24 @@
 		"@alexanderniebuhr/prettier-plugin-unocss": "^0.0.4",
 		"@commitlint/cli": "^17.0.3",
 		"@commitlint/config-conventional": "^17.0.3",
-		"@iconify-json/ic": "^1.1.6",
-		"@iconify-json/mdi": "^1.1.24",
+		"@iconify-json/ic": "^1.1.7",
+		"@iconify-json/mdi": "^1.1.26",
 		"@tsconfig/svelte": "^3.0.0",
-		"@types/node": "18.0.0",
+		"@types/node": "18.0.3",
 		"cz-conventional-changelog": "3.3.0",
 		"husky": "^8.0.1",
 		"micromatch": "^4.0.5",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^2.7.1",
 		"turbo": "^1.3.1",
-		"typesafe-i18n": "^5.5.2",
+		"typesafe-i18n": "^5.6.0",
 		"typescript": "~4.7.4",
-		"unocss": "^0.41.0"
+		"unocss": "^0.44.1",
+    "vite": "^3.0.0"
 	},
 	"tauri": {
 		"appPath": "./apps/oxidize"
 	},
-	"packageManager": "yarn@3.1.1",
 	"config": {
 		"commitizen": {
 			"path": "./node_modules/cz-conventional-changelog"

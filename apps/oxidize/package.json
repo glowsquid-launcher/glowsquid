@@ -4,14 +4,14 @@
   "private": true,
   "devDependencies": {
     "@glowsquid/tnt": "workspace:*",
-    "@tauri-apps/cli": "^1.0.0"
+    "@tauri-apps/cli": "^1.0.3"
   },
   "scripts": {
     "dev": "tauri dev",
     "build": "tauri build",
     "build:cargo": "cargo build --release",
     "test": "cargo test --release",
-    "prepare": "cargo prisma db push",
+    "prep": "cargo prisma db push",
     "format": "cargo fmt"
   }
 }

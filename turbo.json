@@ -17,8 +17,6 @@
     },
     "test": {
       "dependsOn": [
-        "^build",
-        "build",
         "$OS"
       ],
       "outputs": []
@@ -26,7 +24,7 @@
     "dev": {
       "cache": false
     },
-    "prepare": {
+    "prep": {
       "cache": false
     },
     "format": {

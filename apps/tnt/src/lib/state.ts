@@ -1,12 +1,14 @@
 import { writable, derived } from 'svelte/store'
+import { type Account, getAccounts } from '$bridge'
 
 const defaultState = {
   modals: {
     createInstance: false,
+    addAccount: false,
   },
   accounts: {
-    current: null as string | null,
-    list: ['52ddf2f1-a59f-4a19-822f-a6157f705320'],
+    current: null as Account | null,
+    list: [] as Account[],
   },
 }
 const state = writable(defaultState)
@@ -22,12 +24,23 @@ export const toggleInstanceModal = () => {
 }
 
 /**
+ * Toggles the visibility of the new account modal
+ */
+export const toggleNewAccountModal = () => {
+  state.update((s) => {
+    s.modals.addAccount = !s.modals.addAccount
+    return s
+  })
+}
+
+/**
  * sets the current active account to the given account ID
  */
-export const updateCurrentAccount = (account: string): void => {
+export const updateCurrentAccount = (accountId: string): void => {
   state.update((s) => {
-    if (s.accounts.list.includes(account)) {
-      s.accounts.current = account
+    const acc = s.accounts.list.find((acc) => acc.id === accountId)
+    if (acc) {
+      s.accounts.current = acc
       return s
     } else {
       throw new Error('Account not found')
@@ -35,6 +48,15 @@ export const updateCurrentAccount = (account: string): void => {
   })
 }
 
-const exposedState = derived(state, (v) => v, defaultState)
+/**
+ * Refetches the accounts from the internal database and adds them to the store
+ */
+export const updateAccounts = async (): Promise<void> => {
+  const newAccounts = await getAccounts()
+  state.update((s) => {
+    s.accounts.list = newAccounts
+    return s
+  })
+}
 
-export default exposedState
+export default derived(state, ($state) => $state)

@@ -34,15 +34,39 @@ type RootTranslation = {
 			 */
 			instances: string
 		}
-		accounts: {
+	}
+	accounts: {
+		/**
+		 * Select an account
+		 */
+		placeholderText: string
+		/**
+		 * Add new account
+		 */
+		addAccount: string
+		modal: {
 			/**
-			 * Select an account
+			 * Login with microsoft
 			 */
-			placeholderText: string
-			/**
-			 * Add new account
-			 */
-			addAccount: string
+			login: string
+			states: {
+				/**
+				 * Completed!
+				 */
+				Complete: string
+				/**
+				 * Failed
+				 */
+				Failed: string
+				/**
+				 * Recieved info from browser, adding...
+				 */
+				RequestRecieved: string
+				/**
+				 * Waiting for browser to send us the info!
+				 */
+				WaitingForBrowser: string
+			}
 		}
 	}
 }
@@ -67,15 +91,39 @@ export type TranslationFunctions = {
 			 */
 			instances: () => LocalizedString
 		}
-		accounts: {
+	}
+	accounts: {
+		/**
+		 * Select an account
+		 */
+		placeholderText: () => LocalizedString
+		/**
+		 * Add new account
+		 */
+		addAccount: () => LocalizedString
+		modal: {
 			/**
-			 * Select an account
+			 * Login with microsoft
 			 */
-			placeholderText: () => LocalizedString
-			/**
-			 * Add new account
-			 */
-			addAccount: () => LocalizedString
+			login: () => LocalizedString
+			states: {
+				/**
+				 * Completed!
+				 */
+				Complete: () => LocalizedString
+				/**
+				 * Failed
+				 */
+				Failed: () => LocalizedString
+				/**
+				 * Recieved info from browser, adding...
+				 */
+				RequestRecieved: () => LocalizedString
+				/**
+				 * Waiting for browser to send us the info!
+				 */
+				WaitingForBrowser: () => LocalizedString
+			}
 		}
 	}
 }
