@@ -98,6 +98,9 @@ jobs:
       - name: prepare things
         run: pnpm run prep
 
+      - name: build
+        run: pnpm build
+
       # Tests
       - name: Test (Linux)
         if: matrix.os == 'ubuntu-latest'
@@ -106,11 +109,11 @@ jobs:
       # Testing doesn't work
       - name: Test (Windows)
         if: matrix.os == 'windows-latest'
-        run: pnpm build
+        run: echo 'TODO: windows testing'
 
       - name: Test (Macos)
         if: matrix.os == 'macos-latest'
-        run: pnpm build
+        run: echo 'TODO: windows testing'
 
       # Artifact uploads
       - uses: actions/upload-artifact@v3

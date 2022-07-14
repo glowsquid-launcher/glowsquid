@@ -17,8 +17,6 @@
     },
     "test": {
       "dependsOn": [
-        "^build",
-        "build",
         "$OS"
       ],
       "outputs": []
