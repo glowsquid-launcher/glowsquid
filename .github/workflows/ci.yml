@@ -107,13 +107,13 @@ jobs:
         run: xvfb-run pnpm test
 
       # Testing doesn't work
-      - name: Test (Windows)
-        if: matrix.os == 'windows-latest'
-        run: echo TODO: windows testing
-
-      - name: Test (Macos)
-        if: matrix.os == 'macos-latest'
-        run: echo TODO: windows testing
+      # - name: Test (Windows)
+      #   if: matrix.os == 'windows-latest'
+      #   run: echo TODO: windows testing
+      #
+      # - name: Test (Macos)
+      #   if: matrix.os == 'macos-latest'
+      #   run: echo TODO: windows testing
 
       # Artifact uploads
       - uses: actions/upload-artifact@v3
