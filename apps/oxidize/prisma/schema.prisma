@@ -89,5 +89,5 @@ model ModsInModpack {
   modpackId      String
   modpackAdapter String
 
-  @@id([modpackId, modId])
+  @@id([modpackId, modId, modpackAdapter, modAdapter])
 }

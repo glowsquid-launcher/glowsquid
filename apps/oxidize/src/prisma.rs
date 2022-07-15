@@ -19,7 +19,7 @@ pub use prisma_client_rust::{queries::Error as QueryError, NewClientError};
 use serde::{Deserialize, Serialize};
 use std::path::Path;
 use std::sync::Arc;
-static DATAMODEL_STR : & 'static str = "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"cargo prisma\"\n  output   = \"../src/prisma.rs\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:../../dev.db\"\n}\n\n/// A minecraft account\nmodel Account {\n  /// The account's unique id\n  id            String   @id\n  /// The account's username\n  username      String   @unique\n  /// The account's access token. To be refreshed when expired\n  accessToken   String\n  /// The account's refresh token. To be used to refresh the access token\n  refreshToken  String\n  /// The time the access token expires. If this is in the past, the access token needs to be refreshed\n  expiresAt     DateTime\n  /// The last time the access token was refreshed\n  lastRefreshed DateTime @updatedAt\n}\n\n/// A modpack\nmodel Modpack {\n  /// The modpack's id.\n  modpackId         String\n  /// The adapter associated with this modpack.\n  adapter           String\n  /// The modpack's name.\n  name              String\n  /// The path on the filesystem to the modpack's root directory.\n  path              String\n  /// The modpack's version.\n  version           String\n  /// URL to the icon for this modpack.\n  iconUrl           String\n  /// The modpack's description. Can be HTML or Markdown\n  description       String\n  /// The modpack's description format.\n  descriptionFormat String\n  /// A short description of the modpack in plaintext\n  shortDescription  String\n  /// The modpack's author.\n  author            String\n  mods              ModsInModpack[]\n\n  @@id([modpackId, adapter])\n}\n\nmodel MinecraftMod {\n  /// The mod's id.\n  modId             String          @map(\"modid\")\n  /// The mod's adapter\n  adapter           String\n  /// The mod's name.\n  name              String\n  /// The mod's version. Should be semver compliant.\n  version           String\n  /// The name of the mod file that is in the cache\n  file              String\n  /// The mod's description. Can be HTML or Markdown\n  description       String\n  /// The mod's description format.\n  descriptionFormat String\n  /// A short description of the mod in plaintext\n  shortDescription  String\n  /// The mod's author.\n  author            String\n  /// The modpacks this mod is in\n  modpack           ModsInModpack[]\n\n  @@id([modId, adapter])\n  @@map(\"Mod\")\n}\n\nmodel ModsInModpack {\n  minecraftMod MinecraftMod @relation(fields: [modId, modAdapter], references: [modId, adapter])\n  modId        String\n  modAdapter   String\n\n  Modpack        Modpack @relation(fields: [modpackId, modpackAdapter], references: [modpackId, adapter])\n  modpackId      String\n  modpackAdapter String\n\n  @@id([modpackId, modId])\n}\n" ;
+static DATAMODEL_STR : & 'static str = "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"cargo prisma\"\n  output   = \"../src/prisma.rs\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:../../dev.db\"\n}\n\n/// A minecraft account\nmodel Account {\n  /// The account's unique id\n  id            String   @id\n  /// The account's username\n  username      String   @unique\n  /// The account's access token. To be refreshed when expired\n  accessToken   String\n  /// The account's refresh token. To be used to refresh the access token\n  refreshToken  String\n  /// The time the access token expires. If this is in the past, the access token needs to be refreshed\n  expiresAt     DateTime\n  /// The last time the access token was refreshed\n  lastRefreshed DateTime @updatedAt\n}\n\n/// A modpack\nmodel Modpack {\n  /// The modpack's id.\n  modpackId         String\n  /// The adapter associated with this modpack.\n  adapter           String\n  /// The modpack's name.\n  name              String\n  /// The path on the filesystem to the modpack's root directory.\n  path              String\n  /// The modpack's version.\n  version           String\n  /// URL to the icon for this modpack.\n  iconUrl           String\n  /// The modpack's description. Can be HTML or Markdown\n  description       String\n  /// The modpack's description format.\n  descriptionFormat String\n  /// A short description of the modpack in plaintext\n  shortDescription  String\n  /// The modpack's author.\n  author            String\n  mods              ModsInModpack[]\n\n  @@id([modpackId, adapter])\n}\n\nmodel MinecraftMod {\n  /// The mod's id.\n  modId             String          @map(\"modid\")\n  /// The mod's adapter\n  adapter           String\n  /// The mod's name.\n  name              String\n  /// The mod's version. Should be semver compliant.\n  version           String\n  /// The name of the mod file that is in the cache\n  file              String\n  /// The mod's description. Can be HTML or Markdown\n  description       String\n  /// The mod's description format.\n  descriptionFormat String\n  /// A short description of the mod in plaintext\n  shortDescription  String\n  /// The mod's author.\n  author            String\n  /// The modpacks this mod is in\n  modpack           ModsInModpack[]\n\n  @@id([modId, adapter])\n  @@map(\"Mod\")\n}\n\nmodel ModsInModpack {\n  minecraftMod MinecraftMod @relation(fields: [modId, modAdapter], references: [modId, adapter])\n  modId        String\n  modAdapter   String\n\n  Modpack        Modpack @relation(fields: [modpackId, modpackAdapter], references: [modpackId, adapter])\n  modpackId      String\n  modpackAdapter String\n\n  @@id([modpackId, modId, modpackAdapter, modAdapter])\n}\n" ;
 static DATABASE_STR: &'static str = "sqlite";
 pub async fn new_client() -> Result<_prisma::PrismaClient, NewClientError> {
   let config = parse_configuration(DATAMODEL_STR)?.subject;
@@ -4388,8 +4388,19 @@ pub mod mods_in_modpack {
       }
     }
   }
-  pub fn modpack_id_mod_id<T: From<UniqueWhereParam>>(modpack_id: String, mod_id: String) -> T {
-    UniqueWhereParam::ModpackIdModIdEquals(modpack_id, mod_id).into()
+  pub fn modpack_id_mod_id_modpack_adapter_mod_adapter<T: From<UniqueWhereParam>>(
+    modpack_id: String,
+    mod_id: String,
+    modpack_adapter: String,
+    mod_adapter: String,
+  ) -> T {
+    UniqueWhereParam::ModpackIdModIdModpackAdapterModAdapterEquals(
+      modpack_id,
+      mod_id,
+      modpack_adapter,
+      mod_adapter,
+    )
+    .into()
   }
   pub fn _outputs() -> Vec<Selection> {
     ["modId", "modAdapter", "modpackId", "modpackAdapter"]
@@ -4536,7 +4547,7 @@ pub mod mods_in_modpack {
     Not(Vec<WhereParam>),
     Or(Vec<WhereParam>),
     And(Vec<WhereParam>),
-    ModpackIdModIdEquals(String, String),
+    ModpackIdModIdModpackAdapterModAdapterEquals(String, String, String, String),
     MinecraftModIs(Vec<super::minecraft_mod::WhereParam>),
     MinecraftModIsNot(Vec<super::minecraft_mod::WhereParam>),
     ModIdEquals(String),
@@ -4616,11 +4627,21 @@ pub mod mods_in_modpack {
               .collect(),
           ),
         ),
-        Self::ModpackIdModIdEquals(modpack_id, mod_id) => (
-          "modpackId_modId".to_string(),
+        Self::ModpackIdModIdModpackAdapterModAdapterEquals(
+          modpack_id,
+          mod_id,
+          modpack_adapter,
+          mod_adapter,
+        ) => (
+          "modpackId_modId_modpackAdapter_modAdapter".to_string(),
           SerializedWhereValue::Object(vec![
             ("modpackId".to_string(), PrismaValue::String(modpack_id)),
             ("modId".to_string(), PrismaValue::String(mod_id)),
+            (
+              "modpackAdapter".to_string(),
+              PrismaValue::String(modpack_adapter),
+            ),
+            ("modAdapter".to_string(), PrismaValue::String(mod_adapter)),
           ]),
         ),
         Self::MinecraftModIs(value) => (
@@ -4876,14 +4897,22 @@ pub mod mods_in_modpack {
   }
   #[derive(Clone)]
   pub enum UniqueWhereParam {
-    ModpackIdModIdEquals(String, String),
+    ModpackIdModIdModpackAdapterModAdapterEquals(String, String, String, String),
   }
   impl From<UniqueWhereParam> for WhereParam {
     fn from(value: UniqueWhereParam) -> Self {
       match value {
-        UniqueWhereParam::ModpackIdModIdEquals(modpack_id, mod_id) => {
-          Self::ModpackIdModIdEquals(modpack_id, mod_id)
-        }
+        UniqueWhereParam::ModpackIdModIdModpackAdapterModAdapterEquals(
+          modpack_id,
+          mod_id,
+          modpack_adapter,
+          mod_adapter,
+        ) => Self::ModpackIdModIdModpackAdapterModAdapterEquals(
+          modpack_id,
+          mod_id,
+          modpack_adapter,
+          mod_adapter,
+        ),
       }
     }
   }
