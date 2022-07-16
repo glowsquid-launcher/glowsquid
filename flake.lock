@@ -32,11 +32,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1657489715,
-        "narHash": "sha256-wUPhUYxVt/o4IVK758RKwfKij78hJK+aDYvOy0O4m2M=",
+        "lastModified": 1657976714,
+        "narHash": "sha256-9bs4zc5Obm+BazuwT3yyWMp+K6ksSN9ucbbz/QIYI/Y=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b73c23f9e19dd1582f8806761e0b13a8bf9ab898",
+        "rev": "8a356f3f5a29fb28f98eaeb131da186b36fd625f",
         "type": "github"
       },
       "original": {
@@ -76,11 +76,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1656989406,
-        "narHash": "sha256-w2oW0C6qRUy/VsTKRFEM/7Xxb+nHM+QkVosA3fMRgBM=",
+        "lastModified": 1657939629,
+        "narHash": "sha256-8lX/pZNetbLCN2cW/O+vUz1rG8ig4RaVX5PWe5m4VLA=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "2be2b68fc248883b82d3c7bfa6e5c0caff68223d",
+        "rev": "2cd36d4aef875867ee1d7963541ccb3ae50b358c",
         "type": "github"
       },
       "original": {
@@ -92,11 +92,11 @@
     "tauri-driver": {
       "flake": false,
       "locked": {
-        "lastModified": 1657655737,
-        "narHash": "sha256-ad7eYnR554VER5NptSW4bXIE855E5pxvVyj+V3qecgI=",
+        "lastModified": 1657834595,
+        "narHash": "sha256-uUvMtOE+RgmfxicfizvOeG6w0IeAnNq7Z3U8JhWBOZc=",
         "owner": "tauri-apps",
         "repo": "tauri",
-        "rev": "597c98203cad9b45949816659f5f59976328585a",
+        "rev": "b1d53426d1481524961715ce537f92eca81ae34d",
         "type": "github"
       },
       "original": {
