@@ -41,7 +41,7 @@
 	"dependencies": {
 		"@svelteuidev/composables": "^0.6.9",
 		"@svelteuidev/core": "^0.6.9",
-		"@svelteuidev/motion": "^0.6.9",
+		"@svelteuidev/motion": "^0.7.0",
 		"@unocss/reset": "^0.44.2",
 		"@wdio/cli": "^7.20.5",
 		"typesafe-i18n": "^5.6.0"
