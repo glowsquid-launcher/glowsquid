@@ -12,7 +12,7 @@ import type { RequestHandler } from '@sveltejs/kit'
  * @param request - request from sveltekit
  * @returns the minecraft uuid, token, and microsoft refresh token
  */
-export const get: RequestHandler = async ({ url }) => {
+export const GET: RequestHandler = async ({ url }) => {
   const code = url.searchParams.get('code')
 
   const redirectUri = url.protocol + '//' + url.host + url.pathname
