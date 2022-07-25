@@ -5,6 +5,7 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/glowsquid-launcher/glowsquid?style=for-the-badge)
 [![Discord](https://img.shields.io/discord/805671785487007767?label=Discord&style=for-the-badge)](https://discord.gg/AzwR4KSJW4)
 ![GitHub all releases](https://img.shields.io/github/downloads/glowsquid-launcher/glowsquid/total?style=for-the-badge)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fglowsquid-launcher%2Fglowsquid.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fglowsquid-launcher%2Fglowsquid?ref=badge_shield)
 
 ![GitHub](https://img.shields.io/github/license/glowsquid-launcher/glowsquid?style=for-the-badge)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/glowsquid-launcher/glowsquid?style=for-the-badge)
@@ -37,3 +38,7 @@ You can see the various components of glowsquid and their own READMEs by going i
 ## Ask for help
 
 You can ask questions and get support via our [discord](https://discord.gg/AzwR4KSJW4)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fglowsquid-launcher%2Fglowsquid.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fglowsquid-launcher%2Fglowsquid?ref=badge_large)
