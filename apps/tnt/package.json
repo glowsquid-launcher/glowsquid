@@ -24,7 +24,7 @@
 		"svelte-writable-derived": "^2.1.5",
 		"ts-toolbelt": "^9.6.0",
 		"typescript": "^4.7.4",
-		"unocss": "^0.44.3",
+		"unocss": "^0.45.1",
 		"vite": "^3.0.0"
 	},
 	"scripts": {
