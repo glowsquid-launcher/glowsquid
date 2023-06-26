@@ -1,0 +1,23 @@
+version = 1
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  environment = [
+    "vitest",
+    "nodejs",
+    "browser"
+  ]
+
+[[analyzers]]
+name = "rust"
+
+  [analyzers.meta]
+  msrv = "stable"
+
+[[transformers]]
+name = "rustfmt"
+
+[[transformers]]
+name = "prettier"
