@@ -1,16 +1,16 @@
 :root {
-    --header-font: "IBM Plex Sans", sans-serif;
-    --font: "Manrope Variable", sans-serif;
+  --header-font: 'IBM Plex Sans', sans-serif;
+  --font: 'Manrope Variable', sans-serif;
 
-    --rounding-large: 16px;
+  --rounding-large: 16px;
 }
 
 html,
 body {
-    background-color: var(--background);
-    color: var(--text);
+  background-color: var(--background);
+  color: var(--text);
 
-    font-family: var(--font);
+  font-family: var(--font);
 }
 
 h1,
@@ -19,9 +19,9 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--header-font);
+  font-family: var(--header-font);
 }
 
 p {
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 }
