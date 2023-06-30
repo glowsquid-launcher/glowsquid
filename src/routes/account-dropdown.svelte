@@ -23,10 +23,21 @@
         />
         Some Other account
     </div>
+    <div {...item} use:item.action class="account">
+        <img
+            src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=1"
+            alt="TNTMan1671 Avatar"
+        />
+        Some Other account 2
+    </div>
     <div {...separator} class="separator" />
     <div {...item} use:item.action class="account">
         <iconify-icon icon="pixelarticons:user-plus" />
         Create account
+    </div>
+    <div {...item} use:item.action class="account">
+        <iconify-icon icon="pixelarticons:sliders-2" />
+        Settings
     </div>
     <div {...$arrow} />
 </div>
@@ -56,7 +67,7 @@
 
         display: flex;
         flex-direction: column;
-        gap: 0.2rem;
+        gap: 0.5rem;
         font-size: 1.2rem;
 
         max-height: 400px;
@@ -72,5 +83,8 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        background: var(--primary-bg);
+        border-radius: var(--rounding-small);
+        padding: 0.5rem;
     }
 </style>

@@ -1,19 +1,41 @@
 <script lang="ts">
+    import Button from '$components/button.svelte';
     import Instance from '$components/instance.svelte';
 </script>
 
-<h2>Instances</h2>
+<div class="instance-bar">
+    <h2>Instances</h2>
+    <div class="instances-actions">
+        <Button>
+            <iconify-icon icon="pixelarticons:plus" inline />
+            Add Instance
+        </Button>
+        <Button>
+            <iconify-icon icon="pixelarticons:search" inline />
+            Browse Modpacks
+        </Button>
+    </div>
+</div>
 
 <div class="instances">
-    {#each {length: 40} as _i}
+    {#each { length: 40 } as _i}
         <!-- TODO: Arguments for instance -->
         <Instance />
     {/each}
 </div>
 
 <style>
-    h2 {
+    .instance-bar {
         padding: 0 1rem;
+        display: flex;
+
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .instances-actions {
+        display: flex;
+        gap: 1rem;
     }
 
     .instances {
