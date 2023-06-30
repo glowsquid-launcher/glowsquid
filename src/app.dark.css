@@ -1,8 +1,8 @@
 :root {
-  --text: #f5f2f3;
-  --background: #003333;
+    --text: #f5f2f3;
+    --background: #003333;
 
-  --outline-bg: #1a8038;
-  --primary-bg: #034318;
-  --secondary-bg: #003512;
+    --outline-bg: #1a8038;
+    --primary-bg: #034318;
+    --secondary-bg: #003512;
 }

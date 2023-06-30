@@ -1,5 +1,5 @@
 :root {
-  --font: 'Manrope Variable', sans-serif;
+    --font: 'Manrope Variable', sans-serif;
 
     --rounding-large: 16px;
     --rounding-medium: 12px;
@@ -8,13 +8,13 @@
 
 html,
 body {
-  background-color: var(--background);
-  color: var(--text);
+    background-color: var(--background);
+    color: var(--text);
 
-  font-family: var(--font);
-  margin: 0;
+    font-family: var(--font);
+    margin: 0;
 }
 
 p {
-  font-size: 1.1rem;
+    font-size: 1.1rem;
 }
