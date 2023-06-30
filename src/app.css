@@ -3,6 +3,8 @@
     --font: "Manrope Variable", sans-serif;
 
     --rounding-large: 16px;
+    --rounding-medium: 12px;
+    --rounding-small: 8px;
 }
 
 html,
@@ -11,6 +13,7 @@ body {
     color: var(--text);
 
     font-family: var(--font);
+    margin: 0;
 }
 
 h1,
@@ -19,7 +22,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: var(--header-font);
+    /* font-family: var(--header-font); */
 }
 
 p {
