@@ -1,4 +1,4 @@
-import type {LayoutLoad} from './$types';
+import type { LayoutLoad } from './$types';
 
 /**
  * Loads all instances
@@ -6,10 +6,10 @@ import type {LayoutLoad} from './$types';
 export const load: LayoutLoad = () => {
     return {
         instances: [
-            "modpack-1",
-            "all-of-fabric-5",
-            "all-the-mods-3",
-            "among-us",
+            'modpack-1',
+            'all-of-fabric-5',
+            'all-the-mods-3',
+            'among-us'
         ]
-    }
+    };
 };
