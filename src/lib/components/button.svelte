@@ -8,20 +8,27 @@
     } from '@smui/common/internal';
 
     export let use: ActionArray = [];
+    export let color: 'primary' | 'secondary' | 'red' | 'green' | 'yellow' | 'amber'  = 'primary';
 
     const forwardEvents = forwardEventsBuilder(getCurrentComponent());
 
-    let className = '';
-    export {className as class};
 </script>
 
-<button use:useActions={use} use:forwardEvents class={className}>
-    <slot />
+<button
+    use:useActions={use}
+    use:forwardEvents
+    class:primary={color === 'primary'}
+    class:secondary={color === 'secondary'}
+    class:red={color === 'red'}
+    class:green={color === 'green'}
+    class:yellow={color === 'yellow'}
+    class:amber={color === 'amber'}
+>
+    <slot/>
 </button>
 
 <style lang="scss">
     button {
-        background-color: var(--primary-bg);
         color: var(--text);
         padding: 0.5rem;
         font-size: 1.3rem;
@@ -30,7 +37,31 @@
         cursor: pointer;
 
         &:hover {
-            outline: solid 2px var(--outline-bg);
+            outline: solid 2px var(--outline);
         }
+    }
+
+    .primary {
+        background-color: var(--primary-bg);
+    }
+
+    .secondary {
+        background-color: var(--secondary-bg);
+    }
+
+    .red {
+        background-color: var(--red);
+    }
+
+    .green {
+        background-color: var(--green);
+    }
+
+    .yellow {
+        background-color: var(--yellow);
+    }
+
+    .amber {
+        background-color: var(--amber);
     }
 </style>

@@ -1,43 +1,18 @@
 <script lang="ts">
-    import Button from '$components/button.svelte';
     import Instance from '$components/instance.svelte';
+    import type {PageData} from './$types';
+
+    export let data: PageData
 </script>
 
-<div class="instance-bar">
-    <h2>Instances</h2>
-    <div class="instances-actions">
-        <Button>
-            <iconify-icon icon="pixelarticons:plus" inline />
-            Add Instance
-        </Button>
-        <Button>
-            <iconify-icon icon="pixelarticons:search" inline />
-            Browse Modpacks
-        </Button>
-    </div>
-</div>
-
 <div class="instances">
-    {#each {length: 4} as _, id}
+    {#each data.instances as instanceId (instanceId)}
         <!-- TODO: Arguments for instance -->
-        <Instance id={id.toString()} />
+        <Instance id={instanceId} />
     {/each}
 </div>
 
 <style>
-    .instance-bar {
-        padding: 0 1rem;
-        display: flex;
-
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .instances-actions {
-        display: flex;
-        gap: 1rem;
-    }
-
     .instances {
         padding: 0 1rem;
         /**

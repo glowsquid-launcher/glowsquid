@@ -76,7 +76,7 @@
         background: var(--secondary-bg);
 
         border-radius: var(--rounding-medium);
-        outline: solid 1px var(--outline-bg);
+        outline: solid 1px var(--outline);
     }
 
     .account {

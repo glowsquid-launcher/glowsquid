@@ -1,81 +1,128 @@
 <script lang="ts">
     import type {LayoutData} from './$types';
+    import Button from '$components/button.svelte'
+    import Instance from "$components/instance.svelte";
 
     export let data: LayoutData;
+    const needsUpdate = true;
+
+    $: instances = data
+        .instances
+        .filter((id) => id !== data.id)
+    console.log(instances)
 </script>
 
-<article id="modpack" data-flip-id="modpack-{data.id}">
-    <header>
-        <img
-            id="modpack-icon"
-            src="https://placehold.co/128"
-            alt="Modpack Title icon"
-            data-flip-id="modpack-icon-{data.id}"
-        />
+<div class="instances-container">
+    <aside class="instances-sidebar">
+        {#each instances as id (id)}
+            <!-- TODO: Arguments for instance -->
+            <Instance {id}/>
+        {/each}
+    </aside>
 
-        <hgroup>
-            <h1
-                id="modpack-title"
-                data-flip-id="modpack-title-{data.id}"
+    <article class="instance">
+        <header data-flip-id="modpack-{data.id}" id="modpack">
+            <img
+                alt="Modpack Title icon"
+                class="header-image"
+                data-flip-id="modpack-icon-{data.id}"
+                height="148"
+                id="modpack-icon"
+                src="https://placehold.co/128"
+                width="148"
+            />
+
+            <hgroup>
+                <h1
+                    data-flip-id="modpack-title-{data.id}"
+                    id="modpack-title"
+                >
+                    {data.id}
+                </h1>
+                <h2
+                    data-flip-id="modpack-version-{data.id}"
+                    id="modpack-version"
+                >
+                    1.2.3 | Last Played Yesterday | Last Updated 2 days ago
+                </h2>
+            </hgroup>
+
+            <div class="buttons"
+                 data-flip-id="modpack-buttons-{data.id}"
+                 id="modpack-buttons"
             >
-                Modpack Title
-            </h1>
-            <h2
-                id="modpack-version"
-                data-flip-id="modpack-version-{data.id}"
-            >
-                1.2.3
-            </h2>
+                <Button>
+                    <iconify-icon icon="pixelarticons:play" inline/>
+                    Play
+                </Button>
+                {#if needsUpdate}
+                    <Button color="amber">
+                        <iconify-icon icon="pixelarticons:reload" inline/>
+                        Update
+                    </Button>
+                {/if}
+            </div>
+        </header>
 
-            <p>Last Played Yesterday</p>
-            <p>Last Updated 2 days ago</p>
-        </hgroup>
-    </header>
-
-    <footer
-        id="modpack-buttons"
-        data-flip-id="modpack-buttons-{data.id}"
-    >
-        <button>
-            <iconify-icon icon="pixelarticons:play" inline />
-            Play
-        </button>
-        <button>
-            <iconify-icon icon="pixelarticons:reload" inline />
-            Check for updates
-        </button>
-        <button>
-            <iconify-icon icon="pixelarticons:trash" inline />
-            Delete
-        </button>
-        <button on:click={() => window.history.back()}>
-            <iconify-icon icon="pixelarticons:arrow-left" inline />
-            Back
-        </button>
-    </footer>
-</article>
-
-<slot />
+        <slot/>
+    </article>
+</div>
 
 <style lang="scss">
-    article {
-        margin: 1rem;
-        border: solid 2px var(--outline-bg);
-        background-color: var(--secondary-bg);
-        border-radius: var(--rounding-large);
+    .instances-container {
+        display: grid;
+        grid-template:
+            'sidebar content';
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 1rem;
+    }
 
+    .instances-sidebar {
+        grid-area: sidebar;
         display: flex;
-        align-items: stretch;
-        justify-content: space-between;
+        flex-direction: column;
+        margin-left: 1rem;
+        gap: 1rem;
+        max-width: 24rem;
+    }
+
+    .instance {
+        grid-area: content;
+        margin-right: 1rem;
+    }
+
+    .back {
+        margin-top: 1rem;
+        margin-left: 1rem;
     }
 
     header {
-        padding: 2rem;
-        display: flex;
-        gap: 1rem;
+        border: solid 2px var(--outline);
+        background-color: var(--secondary-bg);
+        border-radius: var(--rounding-large);
+        padding: 1rem;
+
+        display: grid;
+        grid-template:
+            'img title'
+            'img buttons';
+
+        grid-template-columns: auto minmax(0, 1fr);
 
         img {
-            border-radius: var(--rounding-medium);
+            grid-area: img;
+            border-radius: var(--rounding-small);
+            margin-right: 1rem;
+        }
+
+        hgroup {
+            grid-area: title;
+        }
+
+        .buttons {
+            grid-area: buttons;
+            display: flex;
+            gap: 0.5rem;
         }
 
         h1 {
@@ -84,20 +131,8 @@
         }
 
         h2 {
-            margin-top: 0.1rem;
-            margin-bottom: 0.1rem;
-
+            margin: 0;
             font-size: 1.2rem;
-        }
-
-        p {
-            font-size: 1rem;
-            margin-bottom: 0;
-            margin-top: 0;
-        }
-
-        h2,
-        p {
             color: color-mix(in srgb, var(--text) 70%, transparent);
         }
     }
@@ -105,25 +140,5 @@
     footer {
         display: flex;
         flex-direction: column;
-
-        button {
-            text-align: left;
-            font-size: 1.5rem;
-            padding: 0.3rem 0.5rem;
-            border: none;
-            background-color: var(--primary-bg);
-            color: var(--text);
-            border-left: solid 2px var(--outline-bg);
-            border-bottom: solid 2px var(--outline-bg);
-
-            &:first-child {
-                position: relative;
-                border-radius: 0 var(--rounding-large) 0 0;
-            }
-
-            &:last-child {
-                border-radius: 0 0 0 var(--rounding-large);
-            }
-        }
     }
 </style>

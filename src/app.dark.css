@@ -2,7 +2,12 @@
     --text: #f5f2f3;
     --background: #003333;
 
-    --outline-bg: #67D4C0;
+    --outline: #67D4C0;
     --primary-bg: #35A4A2;
     --secondary-bg: #197877;
+
+    --red: #d82430;
+    --green: #1a8038;
+    --yellow: #eab832;
+    --amber: #cc8431;
 }

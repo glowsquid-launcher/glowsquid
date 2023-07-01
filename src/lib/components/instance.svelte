@@ -12,9 +12,10 @@
             alt="Modpack Title icon"
             data-flip-id="modpack-icon-{id}"
         />
+
         <hgroup>
             <h1 id="modpack-title" data-flip-id="modpack-title-{id}">
-                Modpack Title
+                {id}
             </h1>
             <h2
                 id="modpack-version"
@@ -44,6 +45,9 @@
 
 <style lang="scss">
     article {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         background: var(--primary-bg);
         border-radius: var(--rounding-large);
 
@@ -56,6 +60,8 @@
 
             img {
                 border-radius: var(--rounding-medium);
+                aspect-ratio: 1/1;
+                height: 100%;
             }
 
             h1 {
