@@ -32,16 +32,18 @@
           webkitgtk
           librsvg
 
-	  # binaries
-	  nodejs
-	  rustc
-	  cargo
+          # binaries
+          nodejs
+          rustc
+          cargo
 
-	  # lsps
-	  nil
-	  nodePackages.svelte-language-server
-	  nodePackages.typescript-language-server
-	  rust-analyzer
+          # lsps
+          nil
+          nodePackages.svelte-language-server
+          nodePackages.typescript-language-server
+          rust-analyzer
+          marksman
+          alejandra
         ];
       in
       {

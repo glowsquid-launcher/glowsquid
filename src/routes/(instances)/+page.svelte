@@ -18,9 +18,9 @@
 </div>
 
 <div class="instances">
-    {#each { length: 40 } as _i}
+    {#each {length: 4} as _, id}
         <!-- TODO: Arguments for instance -->
-        <Instance />
+        <Instance id={id.toString()} />
     {/each}
 </div>
 

@@ -18,6 +18,7 @@
 		"@sveltejs/adapter-static": "^2.0.2",
 		"@sveltejs/kit": "^1.21.0",
 		"@tauri-apps/cli": "^1.4.0",
+		"@types/gsap": "^3.0.0",
 		"@typescript-eslint/parser": "^5.60.1",
 		"eslint-plugin-perfectionist": "^1.4.0",
 		"eslint-plugin-svelte": "^2.32.2",
@@ -39,6 +40,7 @@
 		"@melt-ui/svelte": "^0.15.0",
 		"@smui/common": "^7.0.0-beta.14",
 		"@tauri-apps/api": "^1.4.0",
+		"gsap": "^3.12.2",
 		"iconify-icon": "^1.0.8"
 	}
 }

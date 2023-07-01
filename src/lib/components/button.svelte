@@ -1,21 +1,21 @@
 <script lang="ts">
     // @ts-ignore Need to use internal Svelte function
-    import { get_current_component } from 'svelte/internal';
-    import type { ActionArray } from '@smui/common/internal';
-    import { useActions } from '@smui/common/internal';
-    import { forwardEventsBuilder } from '@smui/common/internal';
+    import {get_current_component as getCurrentComponent} from 'svelte/internal';
+    import type {ActionArray} from '@smui/common/internal';
+    import {
+        forwardEventsBuilder,
+        useActions
+    } from '@smui/common/internal';
 
     export let use: ActionArray = [];
 
-    const forwardEvents = forwardEventsBuilder(
-        get_current_component()
-    );
+    const forwardEvents = forwardEventsBuilder(getCurrentComponent());
 
     let className = '';
-    export { className as class };
+    export {className as class};
 </script>
 
-<button use:useActions={use} on:click class={className}>
+<button use:useActions={use} use:forwardEvents class={className}>
     <slot />
 </button>
 

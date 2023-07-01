@@ -1,9 +1,27 @@
-<article>
+<script lang="ts">
+    import {goto} from '$app/navigation';
+
+    export let id: string;
+</script>
+
+<article id="modpack" data-flip-id="modpack-{id}">
     <header>
-        <img src="https://placehold.co/64" alt="Modpack Title icon" />
+        <img
+            id="modpack-icon"
+            src="https://placehold.co/64"
+            alt="Modpack Title icon"
+            data-flip-id="modpack-icon-{id}"
+        />
         <hgroup>
-            <h1>Modpack Title</h1>
-            <h2>1.2.3</h2>
+            <h1 id="modpack-title" data-flip-id="modpack-title-{id}">
+                Modpack Title
+            </h1>
+            <h2
+                id="modpack-version"
+                data-flip-id="modpack-version-{id}"
+            >
+                1.2.3
+            </h2>
         </hgroup>
     </header>
 
@@ -12,9 +30,15 @@
         Last updated 5 days ago <br />
     </p>
 
-    <footer>
-        <button>Play</button>
-        <button>Options</button>
+    <footer id="modpack-buttons" data-flip-id="modpack-buttons-{id}">
+        <button>
+            <iconify-icon icon="pixelarticons:play" inline />
+            Play
+        </button>
+        <button on:click={() => goto(`/instances/${id}`)}>
+            <iconify-icon icon="pixelarticons:sliders-2" inline />
+            Options
+        </button>
     </footer>
 </article>
 

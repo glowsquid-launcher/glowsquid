@@ -1,4 +1,5 @@
 module.exports = {
+    env: ['browser', 'node'],
     extends: [
         'plugin:svelte/prettier',
         'plugin:perfectionist/recommended-natural'
