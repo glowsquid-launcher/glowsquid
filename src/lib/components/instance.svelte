@@ -1,5 +1,6 @@
 <script lang="ts">
     import {goto} from '$app/navigation';
+    import Icon from './icon.svelte'
 
     export let id: string;
 </script>
@@ -7,20 +8,15 @@
 <article id="modpack" data-flip-id="modpack-{id}">
     <header>
         <img
-            id="modpack-icon"
             src="https://placehold.co/64"
             alt="Modpack Title icon"
-            data-flip-id="modpack-icon-{id}"
         />
 
         <hgroup>
-            <h1 id="modpack-title" data-flip-id="modpack-title-{id}">
+            <h1>
                 {id}
             </h1>
-            <h2
-                id="modpack-version"
-                data-flip-id="modpack-version-{id}"
-            >
+            <h2>
                 1.2.3
             </h2>
         </hgroup>
@@ -31,13 +27,13 @@
         Last updated 5 days ago <br />
     </p>
 
-    <footer id="modpack-buttons" data-flip-id="modpack-buttons-{id}">
+    <footer>
         <button>
-            <iconify-icon icon="pixelarticons:play" inline />
+            <Icon name="play" />
             Play
         </button>
         <button on:click={() => goto(`/instances/${id}`)}>
-            <iconify-icon icon="pixelarticons:sliders-2" inline />
+            <Icon name="sliders-2" />
             Options
         </button>
     </footer>
@@ -45,9 +41,8 @@
 
 <style lang="scss">
     article {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        display: grid;
+        grid-auto-columns: auto auto auto;
         background: var(--primary-bg);
         border-radius: var(--rounding-large);
 
@@ -92,6 +87,11 @@
             grid-template-columns: 1fr 1fr;
 
             button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5ch;
+
                 padding: 0.8rem 0;
                 font-size: 1.2rem;
                 background: var(--secondary-bg);

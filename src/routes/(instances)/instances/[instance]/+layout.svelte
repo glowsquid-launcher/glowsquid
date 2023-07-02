@@ -25,39 +25,26 @@
             <img
                 alt="Modpack Title icon"
                 class="header-image"
-                data-flip-id="modpack-icon-{data.id}"
-                height="148"
-                id="modpack-icon"
                 src="https://placehold.co/128"
+                height="148"
                 width="148"
             />
 
             <hgroup>
-                <h1
-                    data-flip-id="modpack-title-{data.id}"
-                    id="modpack-title"
-                >
+                <h1>
                     {data.id}
                 </h1>
-                <h2
-                    data-flip-id="modpack-version-{data.id}"
-                    id="modpack-version"
-                >
+                <h2>
                     1.2.3 | Last Played Yesterday | Last Updated 2 days ago
                 </h2>
             </hgroup>
 
-            <div class="buttons"
-                 data-flip-id="modpack-buttons-{data.id}"
-                 id="modpack-buttons"
-            >
-                <Button>
-                    <iconify-icon icon="pixelarticons:play" inline/>
+            <div class="buttons">
+                <Button icon="play">
                     Play
                 </Button>
                 {#if needsUpdate}
-                    <Button color="amber">
-                        <iconify-icon icon="pixelarticons:reload" inline/>
+                    <Button color="amber" icon="reload">
                         Update
                     </Button>
                 {/if}
@@ -89,11 +76,6 @@
     .instance {
         grid-area: content;
         margin-right: 1rem;
-    }
-
-    .back {
-        margin-top: 1rem;
-        margin-left: 1rem;
     }
 
     header {
@@ -135,10 +117,5 @@
             font-size: 1.2rem;
             color: color-mix(in srgb, var(--text) 70%, transparent);
         }
-    }
-
-    footer {
-        display: flex;
-        flex-direction: column;
     }
 </style>

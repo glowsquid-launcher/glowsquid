@@ -1,5 +1,6 @@
 <script lang="ts">
     import {createDropdownMenu} from '@melt-ui/svelte';
+    import Icon from '$components/icon.svelte'
 
     const {arrow, item, menu, separator, trigger} =
         createDropdownMenu();
@@ -12,7 +13,7 @@
     />
     TNTMan1671
 
-    <iconify-icon icon="pixelarticons:chevron-down" />
+    <Icon name="chevron-down" />
 </button>
 
 <div {...$menu} use:menu.action class="menu">
@@ -32,11 +33,11 @@
     </div>
     <div {...separator} class="separator" />
     <div {...item} use:item.action class="account">
-        <iconify-icon icon="pixelarticons:user-plus" />
+        <Icon name="user-plus" />
         Create account
     </div>
     <div {...item} use:item.action class="account">
-        <iconify-icon icon="pixelarticons:sliders-2" />
+        <Icon name="sliders-2" />
         Settings
     </div>
     <div {...$arrow} />

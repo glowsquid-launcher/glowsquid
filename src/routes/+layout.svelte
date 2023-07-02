@@ -20,7 +20,7 @@
             <Input
                 type="text"
                 placeholder="Quick Search (Ctrl+k)"
-                icon="pixelarticons:search"
+                icon="search"
             />
         </div>
         <div>

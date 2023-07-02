@@ -2,8 +2,13 @@
     export let type: string;
     export let placeholder: string;
     export let label: null | string = null;
-
+    /**
+     * The icon to use
+     */
     export let icon: string;
+
+    import Icon from './icon.svelte';
+
     let className: string = '';
     export {className as class};
 </script>
@@ -12,11 +17,11 @@
     {#if label}
         <label>
             {label}
-            <iconify-icon {icon} />
+            <Icon name={icon} />
             <input {type} {placeholder} required class={className} />
         </label>
     {:else}
-        <iconify-icon {icon} />
+        <Icon name={icon} />
         <input class={className} {type} {placeholder} required />
     {/if}
 </div>
@@ -33,11 +38,12 @@
     .input-wrapper {
         display: inline-block;
         position: relative;
+
     }
 
-    iconify-icon {
+    .input-wrapper :global(iconify-icon) {
         position: absolute;
-        top: 8px;
-        right: 0px;
+        top: 6px;
+        right: 0;
     }
 </style>
