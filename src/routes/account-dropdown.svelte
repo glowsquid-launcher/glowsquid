@@ -1,49 +1,56 @@
 <script lang="ts">
     import {createDropdownMenu} from '@melt-ui/svelte';
     import Icon from '$components/icon.svelte'
+    import {slide} from "svelte/transition";
 
-    const {arrow, item, menu, separator, trigger} =
+    const {arrow, item, menu, separator, trigger, open} =
         createDropdownMenu();
 </script>
 
 <button {...$trigger} use:trigger.action>
     <img
-        src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
         alt="TNTMan1671 Avatar"
+        src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
     />
     TNTMan1671
 
-    <Icon name="chevron-down" />
+    <Icon name="chevron-down"/>
 </button>
 
-<div {...$menu} use:menu.action class="menu">
-    <div {...item} use:item.action class="account">
-        <img
-            src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=1"
-            alt="TNTMan1671 Avatar"
-        />
-        Some Other account
+{#if $open}
+    <div {...$menu} use:menu.action class="menu" transition:slide={{axis: 'y'}}>
+        <button {...item} use:item.action class="account">
+            <img
+                src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
+                width="24"
+                height="24"
+                alt="TNTMan1671 Avatar"
+            />
+            Some Other account
+        </button>
+        <button {...item} use:item.action class="account">
+            <img
+                src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
+                width="24"
+                height="24"
+                alt="TNTMan1671 Avatar"
+            />
+            Some Other account 2
+        </button>
+        <div {...separator} class="separator"/>
+        <button {...item} use:item.action class="account">
+            <Icon name="user-plus"/>
+            Create account
+        </button>
+        <button {...item} use:item.action class="account">
+            <Icon name="sliders-2"/>
+            Settings
+        </button>
+        <div {...$arrow}/>
     </div>
-    <div {...item} use:item.action class="account">
-        <img
-            src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=1"
-            alt="TNTMan1671 Avatar"
-        />
-        Some Other account 2
-    </div>
-    <div {...separator} class="separator" />
-    <div {...item} use:item.action class="account">
-        <Icon name="user-plus" />
-        Create account
-    </div>
-    <div {...item} use:item.action class="account">
-        <Icon name="sliders-2" />
-        Settings
-    </div>
-    <div {...$arrow} />
-</div>
+{/if}
 
-<style>
+<style lang="scss">
     button {
         display: flex;
         align-items: center;
@@ -55,6 +62,19 @@
         border: none;
         border-radius: var(--rounding-small);
         color: var(--text);
+
+        &:focus {
+            outline: solid 2px var(--outline);
+        }
+
+    }
+
+    button :global(iconify-icon) {
+        transition: 300ms ease;
+    }
+
+    button[data-state='open'] :global(iconify-icon) {
+        rotate: 180deg;
     }
 
     .separator {
@@ -66,7 +86,7 @@
     .menu {
         z-index: 10;
 
-        display: flex;
+        display: flex !important;
         flex-direction: column;
         gap: 0.5rem;
         font-size: 1.2rem;

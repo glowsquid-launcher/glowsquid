@@ -2,14 +2,56 @@
     import type {LayoutData} from './$types';
     import Button from '$components/button.svelte'
     import Instance from "$components/instance.svelte";
+    import Icon from "$components/icon.svelte";
+    import {createTabs} from "@melt-ui/svelte";
+    import {goto} from "$app/navigation";
+    import {gsap} from "gsap/dist/gsap";
 
     export let data: LayoutData;
     const needsUpdate = true;
 
-    $: instances = data
-        .instances
-        .filter((id) => id !== data.id)
-    console.log(instances)
+    const moveSlider = (tab: HTMLButtonElement | null) => {
+        if (!tab) return;
+
+        gsap.to('.slider', {
+            x: tab.offsetLeft,
+            width: tab.offsetWidth,
+            duration: 0.6,
+            ease: "elastic.out(1,0.4)"
+        })
+    }
+
+    $: instances = data?.instances.filter((id) => id !== data.id)
+    const {root, list, trigger} = createTabs({
+        value: "home",
+        async onChange(change) {
+            // for some reason, moveSlider is undefined the first time this is run. Goofy
+            try {
+                switch (change) {
+                    case 'home':
+                        moveSlider(homeTab)
+                        await goto(`/instances/${data.id}`)
+                        break;
+                    case 'stats':
+                        moveSlider(statsTab)
+                        await goto(`/instances/${data.id}/stats`)
+                        break
+                    case 'settings':
+                        moveSlider(settingsTab)
+                        await goto(`/instances/${data.id}/settings`)
+                        break
+                }
+            } catch (_e) {
+                // no special handling required
+            }
+        }
+    })
+
+    let homeTab: HTMLButtonElement | null = null;
+    let statsTab: HTMLButtonElement | null = null;
+    let settingsTab: HTMLButtonElement | null = null;
+
+    $: moveSlider(homeTab)
 </script>
 
 <div class="instances-container">
@@ -25,8 +67,8 @@
             <img
                 alt="Modpack Title icon"
                 class="header-image"
-                src="https://placehold.co/128"
                 height="148"
+                src="https://placehold.co/128"
                 width="148"
             />
 
@@ -50,12 +92,72 @@
                 {/if}
             </div>
         </header>
+        <div {...$root} class="root">
+            <div {...$list} aria-label="Manage your account" class="list">
+                <div class="slider"/>
+                <button {...$trigger('home')} bind:this={homeTab} class="trigger" use:trigger.action>
+                    <Icon name="bulletlist"/>
+                    Instance Settings
+                </button>
+                <button {...$trigger('stats')} bind:this={statsTab} class="trigger" use:trigger.action>
+                    <Icon name="trending"/>
+                    Stats
+                </button>
+                <button {...$trigger('settings')} bind:this={settingsTab} class="trigger" use:trigger.action>
+                    <Icon name="minecraft-alt" set="arcticons"/>
+                    Minecraft Options
+                </button>
+            </div>
 
-        <slot/>
+            <div class="content">
+                <slot/>
+            </div>
+        </div>
     </article>
 </div>
 
 <style lang="scss">
+    .list {
+        margin: 1rem 0;
+        border-radius: var(--rounding-large);
+        display: grid;
+        position: relative;
+        grid-template-rows: repeat(1, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        background-color: var(--secondary-bg);
+        overflow: hidden;
+
+        .trigger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5ch;
+            background-color: transparent;
+            z-index: 1;
+
+            color: var(--text);
+            padding: 0.5rem 0.3rem;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: var(--rounding-large);
+            cursor: pointer;
+
+            &:hover {
+                outline: solid 2px var(--outline);
+            }
+        }
+    }
+
+    .slider {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: var(--primary-bg);
+        border-radius: var(--rounding-large);
+        height: 100%;
+    }
+
     .instances-container {
         display: grid;
         grid-template:

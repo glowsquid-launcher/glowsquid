@@ -11,3 +11,8 @@
     --yellow: #eab832;
     --amber: #cc8431;
 }
+
+*:focus-visible {
+    outline: solid 2px var(--outline);
+    border-radius: var(--rounding-small);
+}

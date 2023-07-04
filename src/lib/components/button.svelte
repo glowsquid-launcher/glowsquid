@@ -11,6 +11,8 @@
     export let use: ActionArray = [];
     export let color: 'primary' | 'secondary' | 'red' | 'green' | 'yellow' | 'amber'  = 'primary';
     export let icon: string | undefined = undefined;
+    let className = ''
+    export {className as class}
 
     const forwardEvents = forwardEventsBuilder(getCurrentComponent());
 </script>
@@ -18,6 +20,7 @@
 <button
     use:useActions={use}
     use:forwardEvents
+    class={className}
     class:primary={color === 'primary'}
     class:secondary={color === 'secondary'}
     class:red={color === 'red'}
