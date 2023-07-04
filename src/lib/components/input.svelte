@@ -38,7 +38,6 @@
     .input-wrapper {
         display: inline-block;
         position: relative;
-
     }
 
     .input-wrapper :global(iconify-icon) {

@@ -1,11 +1,11 @@
 <script lang="ts">
+    import {createTabs} from '@melt-ui/svelte';
+    import {gsap} from 'gsap/dist/gsap';
     import type {LayoutData} from './$types';
-    import Button from '$components/button.svelte'
-    import Instance from "$components/instance.svelte";
-    import Icon from "$components/icon.svelte";
-    import {createTabs} from "@melt-ui/svelte";
-    import {goto} from "$app/navigation";
-    import {gsap} from "gsap/dist/gsap";
+    import Button from '$components/button.svelte';
+    import Instance from '$components/instance.svelte';
+    import Icon from '$components/icon.svelte';
+    import {goto} from '$app/navigation';
 
     export let data: LayoutData;
     const needsUpdate = true;
@@ -14,51 +14,56 @@
         if (!tab) return;
 
         gsap.to('.slider', {
-            x: tab.offsetLeft,
-            width: tab.offsetWidth,
             duration: 0.6,
-            ease: "elastic.out(1,0.4)"
-        })
-    }
+            ease: 'elastic.out(1,0.6)',
+            width: tab.offsetWidth,
+            x: tab.offsetLeft
+        });
+    };
 
-    $: instances = data?.instances.filter((id) => id !== data.id)
-    const {root, list, trigger} = createTabs({
-        value: "home",
+    $: instances = data?.instances.filter((id) => id !== data.id);
+    const {list, root, trigger} = createTabs({
         async onChange(change) {
-            // for some reason, moveSlider is undefined the first time this is run. Goofy
+            // For some reason, moveSlider is undefined the first time this is run. Goofy
             try {
                 switch (change) {
-                    case 'home':
-                        moveSlider(homeTab)
-                        await goto(`/instances/${data.id}`)
+                    case 'home': {
+                        moveSlider(homeTab);
+                        await goto(`/instances/${data.id}`);
                         break;
-                    case 'stats':
-                        moveSlider(statsTab)
-                        await goto(`/instances/${data.id}/stats`)
-                        break
-                    case 'settings':
-                        moveSlider(settingsTab)
-                        await goto(`/instances/${data.id}/settings`)
-                        break
+                    }
+
+                    case 'stats': {
+                        moveSlider(statsTab);
+                        await goto(`/instances/${data.id}/stats`);
+                        break;
+                    }
+
+                    case 'settings': {
+                        moveSlider(settingsTab);
+                        await goto(`/instances/${data.id}/settings`);
+                        break;
+                    }
                 }
-            } catch (_e) {
-                // no special handling required
+            } catch {
+                // No special handling required
             }
-        }
-    })
+        },
+        value: 'home'
+    });
 
     let homeTab: HTMLButtonElement | null = null;
     let statsTab: HTMLButtonElement | null = null;
     let settingsTab: HTMLButtonElement | null = null;
 
-    $: moveSlider(homeTab)
+    $: moveSlider(homeTab);
 </script>
 
 <div class="instances-container">
     <aside class="instances-sidebar">
         {#each instances as id (id)}
             <!-- TODO: Arguments for instance -->
-            <Instance {id}/>
+            <Instance {id} />
         {/each}
     </aside>
 
@@ -77,14 +82,13 @@
                     {data.id}
                 </h1>
                 <h2>
-                    1.2.3 | Last Played Yesterday | Last Updated 2 days ago
+                    1.2.3 | Last Played Yesterday | Last Updated 2
+                    days ago
                 </h2>
             </hgroup>
 
             <div class="buttons">
-                <Button icon="play">
-                    Play
-                </Button>
+                <Button icon="play">Play</Button>
                 {#if needsUpdate}
                     <Button color="amber" icon="reload">
                         Update
@@ -93,24 +97,43 @@
             </div>
         </header>
         <div {...$root} class="root">
-            <div {...$list} aria-label="Manage your account" class="list">
-                <div class="slider"/>
-                <button {...$trigger('home')} bind:this={homeTab} class="trigger" use:trigger.action>
-                    <Icon name="bulletlist"/>
+            <div
+                {...$list}
+                aria-label="Manage your account"
+                class="list"
+            >
+                <div class="slider" />
+                <button
+                    {...$trigger('home')}
+                    bind:this={homeTab}
+                    class="trigger"
+                    use:trigger.action
+                >
+                    <Icon name="bulletlist" />
                     Instance Settings
                 </button>
-                <button {...$trigger('stats')} bind:this={statsTab} class="trigger" use:trigger.action>
-                    <Icon name="trending"/>
+                <button
+                    {...$trigger('stats')}
+                    bind:this={statsTab}
+                    class="trigger"
+                    use:trigger.action
+                >
+                    <Icon name="trending" />
                     Stats
                 </button>
-                <button {...$trigger('settings')} bind:this={settingsTab} class="trigger" use:trigger.action>
-                    <Icon name="minecraft-alt" set="arcticons"/>
+                <button
+                    {...$trigger('settings')}
+                    bind:this={settingsTab}
+                    class="trigger"
+                    use:trigger.action
+                >
+                    <Icon name="minecraft-alt" set="arcticons" />
                     Minecraft Options
                 </button>
             </div>
 
             <div class="content">
-                <slot/>
+                <slot />
             </div>
         </div>
     </article>
@@ -160,8 +183,7 @@
 
     .instances-container {
         display: grid;
-        grid-template:
-            'sidebar content';
+        grid-template: 'sidebar content';
         grid-template-columns: auto minmax(0, 1fr);
         gap: 1rem;
     }

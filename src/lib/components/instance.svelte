@@ -1,24 +1,19 @@
 <script lang="ts">
+    import Icon from './icon.svelte';
     import {goto} from '$app/navigation';
-    import Icon from './icon.svelte'
 
     export let id: string;
 </script>
 
 <article id="modpack" data-flip-id="modpack-{id}">
     <header>
-        <img
-            src="https://placehold.co/64"
-            alt="Modpack Title icon"
-        />
+        <img src="https://placehold.co/64" alt="Modpack Title icon" />
 
         <hgroup>
             <h1>
                 {id}
             </h1>
-            <h2>
-                1.2.3
-            </h2>
+            <h2>1.2.3</h2>
         </hgroup>
     </header>
 

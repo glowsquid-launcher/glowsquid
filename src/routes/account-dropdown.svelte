@@ -1,9 +1,9 @@
 <script lang="ts">
     import {createDropdownMenu} from '@melt-ui/svelte';
-    import Icon from '$components/icon.svelte'
-    import {slide} from "svelte/transition";
+    import {slide} from 'svelte/transition';
+    import Icon from '$components/icon.svelte';
 
-    const {arrow, item, menu, separator, trigger, open} =
+    const {arrow, item, menu, open, separator, trigger} =
         createDropdownMenu();
 </script>
 
@@ -14,11 +14,16 @@
     />
     TNTMan1671
 
-    <Icon name="chevron-down"/>
+    <Icon name="chevron-down" />
 </button>
 
 {#if $open}
-    <div {...$menu} use:menu.action class="menu" transition:slide={{axis: 'y'}}>
+    <div
+        {...$menu}
+        use:menu.action
+        class="menu"
+        transition:slide={{axis: 'y'}}
+    >
         <button {...item} use:item.action class="account">
             <img
                 src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
@@ -37,16 +42,16 @@
             />
             Some Other account 2
         </button>
-        <div {...separator} class="separator"/>
+        <div {...separator} class="separator" />
         <button {...item} use:item.action class="account">
-            <Icon name="user-plus"/>
+            <Icon name="user-plus" />
             Create account
         </button>
         <button {...item} use:item.action class="account">
-            <Icon name="sliders-2"/>
+            <Icon name="sliders-2" />
             Settings
         </button>
-        <div {...$arrow}/>
+        <div {...$arrow} />
     </div>
 {/if}
 
@@ -66,7 +71,6 @@
         &:focus {
             outline: solid 2px var(--outline);
         }
-
     }
 
     button :global(iconify-icon) {

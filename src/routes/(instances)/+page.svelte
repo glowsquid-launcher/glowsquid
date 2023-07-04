@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Instance from '$components/instance.svelte';
     import type {PageData} from './$types';
+    import Instance from '$components/instance.svelte';
 
-    export let data: PageData
+    export let data: PageData;
 </script>
 
 <div class="instances">

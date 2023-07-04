@@ -6,13 +6,19 @@
         forwardEventsBuilder,
         useActions
     } from '@smui/common/internal';
-    import Icon from './icon.svelte'
+    import Icon from './icon.svelte';
 
     export let use: ActionArray = [];
-    export let color: 'primary' | 'secondary' | 'red' | 'green' | 'yellow' | 'amber'  = 'primary';
-    export let icon: string | undefined = undefined;
-    let className = ''
-    export {className as class}
+    export let color:
+        | 'amber'
+        | 'green'
+        | 'primary'
+        | 'red'
+        | 'secondary'
+        | 'yellow' = 'primary';
+    export let icon: string | undefined;
+    let className = '';
+    export {className as class};
 
     const forwardEvents = forwardEventsBuilder(getCurrentComponent());
 </script>
@@ -31,7 +37,7 @@
     {#if icon}
         <Icon name={icon} />
     {/if}
-    <slot/>
+    <slot />
 </button>
 
 <style lang="scss">

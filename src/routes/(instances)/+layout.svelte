@@ -2,26 +2,25 @@
     import {gsap} from 'gsap/dist/gsap';
     import {Flip} from 'gsap/dist/Flip';
     import {afterNavigate, beforeNavigate} from '$app/navigation';
-    import Button from "$components/button.svelte";
-    import Icon from "$components/icon.svelte"
+    import Button from '$components/button.svelte';
+    import Icon from '$components/icon.svelte';
 
     gsap.registerPlugin(Flip);
     let state: Flip.FlipState | null = null;
-    const targets =
-        '#modpack';
+    const targets = '#modpack';
 
     beforeNavigate(() => {
-        state = Flip.getState(targets)
+        state = Flip.getState(targets);
     });
 
     afterNavigate(async () => {
         if (!state) return;
 
         Flip.from(state, {
-            targets,
             duration: 0.6,
             ease: 'elastic.out(1,1)',
             scale: true,
+            targets
         });
 
         state = null;
@@ -32,17 +31,17 @@
     <h2>Instances</h2>
     <div class="instances-actions">
         <Button>
-            <Icon inline name="plus"/>
+            <Icon inline name="plus" />
             Add Instance
         </Button>
         <Button>
-            <Icon inline name="search"/>
+            <Icon inline name="search" />
             Browse Modpacks
         </Button>
     </div>
 </div>
 
-<slot/>
+<slot />
 
 <style>
     .instance-bar {

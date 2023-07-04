@@ -7,18 +7,18 @@
      * The icon set to use.
      * @default pixelarticons
      */
-    export let set = 'pixelarticons'
+    export let set = 'pixelarticons';
 
     /**
      * The width of the icon
      * @default 24
      */
-    export let width = 24
+    export let width = 24;
     /**
      * The height of the icon
      * @default 24
      */
-    export let height = 24
+    export let height = 24;
     /**
      * Should the icon be inline with text?
      *
