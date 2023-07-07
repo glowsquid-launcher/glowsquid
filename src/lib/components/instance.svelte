@@ -34,32 +34,32 @@
     </footer>
 </article>
 
-<style lang="scss">
+<style>
     article {
         display: grid;
         grid-auto-columns: auto auto auto;
         background: var(--primary-bg);
         border-radius: var(--rounding-large);
 
-        header {
+        & header {
             padding-left: 1rem;
             padding-right: 1rem;
             padding-top: 1rem;
             display: flex;
             gap: 1rem;
 
-            img {
+            & img {
                 border-radius: var(--rounding-medium);
                 aspect-ratio: 1/1;
                 height: 100%;
             }
 
-            h1 {
+            & h1 {
                 font-size: 1.6rem;
                 margin: 0;
             }
 
-            h2 {
+            & h2 {
                 margin-top: 0.25rem;
                 font-size: 1.2rem;
                 margin-bottom: 0;
@@ -71,17 +71,17 @@
             }
         }
 
-        p {
+        & p {
             padding: 1rem;
             margin: 0;
             font-size: 1.2rem;
         }
 
-        footer {
+        & footer {
             display: grid;
             grid-template-columns: 1fr 1fr;
 
-            button {
+            & button {
                 display: flex;
                 align-items: center;
                 justify-content: center;

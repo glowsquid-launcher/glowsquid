@@ -7,7 +7,7 @@
         createDropdownMenu();
 </script>
 
-<button {...$trigger} use:trigger.action>
+<button {...$trigger} use:trigger>
     <img
         alt="TNTMan1671 Avatar"
         src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
@@ -20,11 +20,11 @@
 {#if $open}
     <div
         {...$menu}
-        use:menu.action
+        use:menu
         class="menu"
         transition:slide={{axis: 'y'}}
     >
-        <button {...item} use:item.action class="account">
+        <button {...item} use:item class="account">
             <img
                 src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
                 width="24"
@@ -33,7 +33,7 @@
             />
             Some Other account
         </button>
-        <button {...item} use:item.action class="account">
+        <button {...item} use:item class="account">
             <img
                 src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
                 width="24"
@@ -43,11 +43,11 @@
             Some Other account 2
         </button>
         <div {...separator} class="separator" />
-        <button {...item} use:item.action class="account">
+        <button {...item} use:item class="account">
             <Icon name="user-plus" />
             Create account
         </button>
-        <button {...item} use:item.action class="account">
+        <button {...item} use:item class="account">
             <Icon name="sliders-2" />
             Settings
         </button>

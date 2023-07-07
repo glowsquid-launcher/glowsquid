@@ -1,6 +1,6 @@
 <script lang="ts">
     import {createTabs} from '@melt-ui/svelte';
-    import {gsap} from 'gsap/dist/gsap';
+    import {gsap} from 'gsap';
     import type {LayoutData} from './$types';
     import Button from '$components/button.svelte';
     import Instance from '$components/instance.svelte';
@@ -43,6 +43,12 @@
                         moveSlider(settingsTab);
                         await goto(`/instances/${data.id}/settings`);
                         break;
+                    }
+
+                    default: {
+                        throw new Error(
+                            'Should not be able to select a non-existent tab'
+                        );
                     }
                 }
             } catch {
@@ -107,7 +113,7 @@
                     {...$trigger('home')}
                     bind:this={homeTab}
                     class="trigger"
-                    use:trigger.action
+                    use:trigger
                 >
                     <Icon name="bulletlist" />
                     Instance Settings
@@ -116,7 +122,7 @@
                     {...$trigger('stats')}
                     bind:this={statsTab}
                     class="trigger"
-                    use:trigger.action
+                    use:trigger
                 >
                     <Icon name="trending" />
                     Stats
@@ -125,7 +131,7 @@
                     {...$trigger('settings')}
                     bind:this={settingsTab}
                     class="trigger"
-                    use:trigger.action
+                    use:trigger
                 >
                     <Icon name="minecraft-alt" set="arcticons" />
                     Minecraft Options
@@ -139,7 +145,7 @@
     </article>
 </div>
 
-<style lang="scss">
+<style>
     .list {
         margin: 1rem 0;
         border-radius: var(--rounding-large);
@@ -151,7 +157,7 @@
         background-color: var(--secondary-bg);
         overflow: hidden;
 
-        .trigger {
+        & .trigger {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -166,7 +172,7 @@
             border-radius: var(--rounding-large);
             cursor: pointer;
 
-            &:hover {
+            & :hover {
                 outline: solid 2px var(--outline);
             }
         }
@@ -215,28 +221,28 @@
 
         grid-template-columns: auto minmax(0, 1fr);
 
-        img {
+        & img {
             grid-area: img;
             border-radius: var(--rounding-small);
             margin-right: 1rem;
         }
 
-        hgroup {
+        & hgroup {
             grid-area: title;
         }
 
-        .buttons {
+        & .buttons {
             grid-area: buttons;
             display: flex;
             gap: 0.5rem;
         }
 
-        h1 {
+        & h1 {
             font-size: 2.5rem;
             margin: 0;
         }
 
-        h2 {
+        & h2 {
             margin: 0;
             font-size: 1.2rem;
             color: color-mix(in srgb, var(--text) 70%, transparent);

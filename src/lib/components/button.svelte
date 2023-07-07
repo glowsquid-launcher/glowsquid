@@ -16,7 +16,7 @@
         | 'red'
         | 'secondary'
         | 'yellow' = 'primary';
-    export let icon: string | undefined;
+    export let icon: null | string = null;
     let className = '';
     export {className as class};
 
