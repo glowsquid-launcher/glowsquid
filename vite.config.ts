@@ -1,7 +1,7 @@
-import {sveltekit} from '@sveltejs/kit/vite';
-import {defineConfig} from 'vitest/config';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vitest/config';
 import browserslist from 'browserslist';
-import {browserslistToTargets} from 'lightningcss';
+import { browserslistToTargets } from 'lightningcss';
 
 // https://tauri.app/v1/guides/faq#recommended-browserlist
 const targets = browserslistToTargets(
