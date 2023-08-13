@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type {PageData} from './$types';
+    // Import type {PageData} from './$types';
 
-    export let data: PageData;
+    // Export let data: PageData;
 </script>
 
 ... Settings and stuff go here

@@ -5,7 +5,7 @@ import {browserslistToTargets} from 'lightningcss';
 
 // https://tauri.app/v1/guides/faq#recommended-browserlist
 const targets = browserslistToTargets(
-    browserslist(['es2021', 'last 3 Chrome versions', 'safari 13'])
+    browserslist(['last 3 Chrome versions', 'safari 13'])
 );
 
 export default defineConfig({

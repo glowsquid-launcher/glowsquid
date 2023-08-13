@@ -10,7 +10,13 @@
     import '../app.css';
     import '../app.dark.css';
     import AccountDropdown from './account-dropdown.svelte';
+    import type {LayoutData} from './$types';
     import Input from '$components/input.svelte';
+    import {LL, setLocale} from '$i18n';
+
+    export let data: LayoutData;
+
+    setLocale(data.locale);
 </script>
 
 <header>
@@ -19,7 +25,7 @@
         <div class="quick-search">
             <Input
                 type="text"
-                placeholder="Quick Search (Ctrl+k)"
+                placeholder={$LL.header.quickSearch()}
                 icon="search"
             />
         </div>

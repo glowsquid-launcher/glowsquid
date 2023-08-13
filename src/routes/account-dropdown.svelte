@@ -1,13 +1,18 @@
 <script lang="ts">
-    import {createDropdownMenu} from '@melt-ui/svelte';
-    import {slide} from 'svelte/transition';
+    import {createDropdownMenu, melt} from '@melt-ui/svelte';
+    import {fly} from 'svelte/transition';
     import Icon from '$components/icon.svelte';
+    import LL from '$i18n';
 
-    const {arrow, item, menu, open, separator, trigger} =
-        createDropdownMenu();
+    const {
+        elements: {arrow, item, menu, separator, trigger},
+        states: {open}
+    } = createDropdownMenu({
+        forceVisible: true
+    });
 </script>
 
-<button {...$trigger} use:trigger>
+<button use:melt={$trigger}>
     <img
         alt="TNTMan1671 Avatar"
         src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
@@ -19,12 +24,11 @@
 
 {#if $open}
     <div
-        {...$menu}
-        use:menu
+        use:melt={$menu}
         class="menu"
-        transition:slide={{axis: 'y'}}
+        transition:fly={{duration: 150, y: -10}}
     >
-        <button {...item} use:item class="account">
+        <button use:melt={$item} class="account">
             <img
                 src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
                 width="24"
@@ -33,7 +37,7 @@
             />
             Some Other account
         </button>
-        <button {...item} use:item class="account">
+        <button use:melt={$item} class="account">
             <img
                 src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
                 width="24"
@@ -42,16 +46,16 @@
             />
             Some Other account 2
         </button>
-        <div {...separator} class="separator" />
-        <button {...item} use:item class="account">
+        <div use:melt={$separator} class="separator" />
+        <button use:melt={$item} class="account">
             <Icon name="user-plus" />
-            Create account
+            {$LL.header.accountDropdown.createAccount()}
         </button>
-        <button {...item} use:item class="account">
+        <button use:melt={$item} class="account">
             <Icon name="sliders-2" />
-            Settings
+            {$LL.header.accountDropdown.settings()}
         </button>
-        <div {...$arrow} />
+        <div use:melt={$arrow} />
     </div>
 {/if}
 

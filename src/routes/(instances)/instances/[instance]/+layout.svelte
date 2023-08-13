@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {createTabs} from '@melt-ui/svelte';
+    import {createTabs, melt} from '@melt-ui/svelte';
     import {gsap} from 'gsap';
     import type {LayoutData} from './$types';
     import Button from '$components/button.svelte';
@@ -22,26 +22,28 @@
     };
 
     $: instances = data?.instances.filter((id) => id !== data.id);
-    const {list, root, trigger} = createTabs({
-        async onChange(change) {
+    const {
+        elements: {list, root, trigger}
+    } = createTabs({
+        onValueChange({next}) {
             // For some reason, moveSlider is undefined the first time this is run. Goofy
             try {
-                switch (change) {
+                switch (next) {
                     case 'home': {
                         moveSlider(homeTab);
-                        await goto(`/instances/${data.id}`);
+                        goto(`/instances/${data.id}`);
                         break;
                     }
 
                     case 'stats': {
                         moveSlider(statsTab);
-                        await goto(`/instances/${data.id}/stats`);
+                        goto(`/instances/${data.id}/stats`);
                         break;
                     }
 
                     case 'settings': {
                         moveSlider(settingsTab);
-                        await goto(`/instances/${data.id}/settings`);
+                        goto(`/instances/${data.id}/settings`);
                         break;
                     }
 
@@ -54,8 +56,9 @@
             } catch {
                 // No special handling required
             }
-        },
-        value: 'home'
+
+            return next;
+        }
     });
 
     let homeTab: HTMLButtonElement | null = null;
@@ -102,36 +105,33 @@
                 {/if}
             </div>
         </header>
-        <div {...$root} class="root">
+        <div use:melt={$root} class="root">
             <div
-                {...$list}
+                use:melt={$list}
                 aria-label="Manage your account"
                 class="list"
             >
                 <div class="slider" />
                 <button
-                    {...$trigger('home')}
+                    use:melt={$trigger('home')}
                     bind:this={homeTab}
                     class="trigger"
-                    use:trigger
                 >
                     <Icon name="bulletlist" />
                     Instance Settings
                 </button>
                 <button
-                    {...$trigger('stats')}
+                    use:melt={$trigger('stats')}
                     bind:this={statsTab}
                     class="trigger"
-                    use:trigger
                 >
                     <Icon name="trending" />
                     Stats
                 </button>
                 <button
-                    {...$trigger('settings')}
+                    use:melt={$trigger('settings')}
                     bind:this={settingsTab}
                     class="trigger"
-                    use:trigger
                 >
                     <Icon name="minecraft-alt" set="arcticons" />
                     Minecraft Options

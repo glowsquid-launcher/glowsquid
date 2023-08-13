@@ -1,7 +1,13 @@
 import type { BaseTranslation } from '../i18n-types'
-
-const en = {
-	hi: 'Hi {name:string}! Please leave a star if you like this project: https://github.com/ivanhofer/typesafe-i18n',
-} satisfies BaseTranslation
+const en: BaseTranslation = {
+   "header": {
+      "accountDropdown": {
+         "createAccount": "Create account",
+         "noAccount": "No account selected",
+         "settings": "Settings"
+      },
+      "quickSearch": "Quick search (ctrl + k)"
+   }
+}
 
 export default en
