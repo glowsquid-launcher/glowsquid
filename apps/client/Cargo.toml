@@ -1,11 +1,11 @@
 [package]
-name = "glowsquid"
+name = "client"
 version = "0.1.0"
 description = "Glowsquids launcher"
 authors = ["Suyashtnt <suyashtnt@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/glowsquid-launcher/glowsquid/"
-default-run = "glowsquid"
+default-run = "client"
 edition = "2021"
 rust-version = "1.60"
 

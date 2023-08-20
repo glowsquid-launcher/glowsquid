@@ -42,7 +42,7 @@
       "style": "css",
       "linter": "eslint",
       "unitTestRunner": "vitest",
-      "e2eTestRunner": "cypress"
+      "e2eTestRunner": "playwright"
     }
   }
 }
