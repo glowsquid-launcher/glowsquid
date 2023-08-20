@@ -54,7 +54,17 @@
           "release": true
         }
       }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx tauri dev",
+        "cwd": "apps/client"
+      }
     }
   },
+  "implicitDependencies": [
+    "frontend"
+  ],
   "tags": []
 }
