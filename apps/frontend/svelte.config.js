@@ -32,6 +32,12 @@ const config = {
         },
 
         outDir: `${dir}/.svelte-kit`,
+
+        typescript: {
+          config(cfg) {
+            cfg.extends = "tsconfig.base.json";
+          }
+        }
     },
 
     preprocess: sequence([vitePreprocess(), preprocessMeltUI()]),
