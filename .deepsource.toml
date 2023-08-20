@@ -18,6 +18,3 @@ name = "rust"
 
 [[transformers]]
 name = "rustfmt"
-
-[[transformers]]
-name = "prettier"

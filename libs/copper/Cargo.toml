@@ -1,0 +1,46 @@
+[package]
+name = "copper"
+version = "0.1.0"
+edition = "2021"
+authors = ["suyashtnt <suyashtnt@gmail.com>"]
+description = "Minecraft launcher: rust edition"
+documentation = "https://docs.rs/minecraft-rs"
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/glowsquid-launcher/minecraft-rs#readme"
+repository = "https://github.com/glowsquid-launcher/minecraft-rs"
+keywords = ["minecraft", "launcher", "game"]
+categories = ["api-bindings"]
+
+[dependencies]
+chrono = { version = "0.4.26", default-features = false, features = ["std"] }
+derive_builder = { version = "0.12.0", features = ["clippy"] }
+dunce = "1.0.4"
+error-stack = { version = "0.3.1", features = ["spantrace"] }
+futures = "0.3.28"
+itertools = "0.11.0"
+oauth2 = "4.4.1"
+reqwest = { version = "0.11.18", default-features = false, features = [
+  "rustls-tls",
+  "json",
+  "stream",
+] }
+serde.workspace = true
+serde_json.workspace = true
+test-case = "3.1.0"
+tokio = { version = "1.29.1", features = ["fs", "process", "macros"] }
+tracing = "0.1.37"
+tracing-error = "0.2.0"
+veil = "0.1.6"
+async-trait = "0.1.73"
+
+[dev-dependencies]
+axum = { version = "0.6.20", features = ["tracing"] }
+tokio = { version = "1.29.1", features = ["macros", "rt"] }
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
+indicatif = "0.17.6"
+java-locator = "0.1.5"
+
+# why do you have to do this mojang
+[target.'cfg(target_os = "windows")'.dependencies]
+winsafe = { version = "0.0.17", features = ["kernel"] }

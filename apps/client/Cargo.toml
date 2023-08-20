@@ -1,11 +1,11 @@
 [package]
-name = "app"
+name = "glowsquid"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
-default-run = "app"
+description = "Glowsquids launcher"
+authors = ["Suyashtnt <suyashtnt@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/glowsquid-launcher/glowsquid/"
+default-run = "glowsquid"
 edition = "2021"
 rust-version = "1.60"
 
@@ -15,9 +15,9 @@ rust-version = "1.60"
 tauri-build = { version = "1.4.0", features = [] }
 
 [dependencies]
-serde_json = "1.0"
-serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.4.1", features = [] }
+tauri.workspace = true
+serde.workspace = true
+serde_json.workspace = true
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
