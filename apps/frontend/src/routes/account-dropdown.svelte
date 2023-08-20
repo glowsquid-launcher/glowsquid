@@ -59,7 +59,7 @@
     </div>
 {/if}
 
-<style lang="scss">
+<style>
     button {
         display: flex;
         align-items: center;
@@ -72,7 +72,7 @@
         border-radius: var(--rounding-small);
         color: var(--text);
 
-        &:focus {
+        & :focus {
             outline: solid 2px var(--outline);
         }
     }

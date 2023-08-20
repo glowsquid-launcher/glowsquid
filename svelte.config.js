@@ -13,7 +13,7 @@ const config = {
         }),
 
         alias: {
-            $components: `${dir}/src/components`,
+            $components: `${dir}/src/lib/components`,
             $i18n: `${dir}/src/i18n/i18n-svelte`
         },
 
@@ -35,7 +35,7 @@ const config = {
 
         typescript: {
           config(cfg) {
-            cfg.extends = "tsconfig.base.json";
+            // cfg.extends = "../../../tsconfig.base.json";
           }
         }
     },

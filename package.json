@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
+  "type": "module",
   "devDependencies": {
     "@fontsource-variable/manrope": "^5.0.8",
     "@fontsource/ibm-plex-sans": "^5.0.9",

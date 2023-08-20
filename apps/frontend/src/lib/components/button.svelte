@@ -40,7 +40,7 @@
     <slot />
 </button>
 
-<style lang="scss">
+<style>
     button {
         display: flex;
         align-items: center;
@@ -54,7 +54,7 @@
         border-radius: var(--rounding-small);
         cursor: pointer;
 
-        &:hover {
+        & :hover {
             outline: solid 2px var(--outline);
         }
     }

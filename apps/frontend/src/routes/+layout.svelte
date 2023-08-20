@@ -39,7 +39,7 @@
     <slot />
 </main>
 
-<style lang="scss">
+<style>
     header {
         background: var(--primary-bg);
         padding: 1rem;
@@ -65,11 +65,11 @@
         flex-grow: 1;
         margin: 0 5rem;
 
-        :global(.input-wrapper) {
+        & :global(.input-wrapper) {
             width: 100%;
         }
 
-        :global(input) {
+        & :global(input) {
             width: 100%;
         }
     }
