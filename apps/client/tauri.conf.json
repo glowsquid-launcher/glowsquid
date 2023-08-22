@@ -2,7 +2,7 @@
   "$schema": "../../node_modules/@tauri-apps/cli/schema.json",
   "build": {
     "devPath": "http://localhost:5173",
-    "distDir": "../build"
+    "distDir": "../../dist/apps/frontend"
   },
   "package": {
     "productName": "glowsquid",
@@ -38,7 +38,11 @@
       },
       "resources": [],
       "shortDescription": "",
-      "targets": "all",
+      "targets": [
+        "deb",
+        "msi",
+        "app"
+      ],
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",

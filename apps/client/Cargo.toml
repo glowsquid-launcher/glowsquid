@@ -19,6 +19,9 @@ tauri.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 
+tauri_plugin_copper = { path = "../../libs/tauri_plugin_copper" }
+copper = { path = "../../libs/copper" }
+
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
 # If you use cargo directly instead of tauri's cli you can use this feature flag to switch between tauri's `dev` and `build` modes.

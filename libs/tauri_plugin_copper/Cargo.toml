@@ -9,4 +9,6 @@ tauri.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 
+copper = { path = "../copper" }
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

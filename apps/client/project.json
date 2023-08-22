@@ -5,13 +5,14 @@
   "sourceRoot": "apps/client/src",
   "targets": {
     "build": {
-      "executor": "@monodon/rust:build",
-      "outputs": [
-        "{options.target-dir}"
-      ],
+      "executor": "nx:run-commands",
       "options": {
-        "target-dir": "dist/target/client"
+        "command": "npx tauri build -- --target-dir dist/apps/client",
+        "cwd": "apps/client"
       },
+      "outputs": [
+        "dist/apps/client",
+      ],
       "configurations": {
         "production": {
           "release": true
