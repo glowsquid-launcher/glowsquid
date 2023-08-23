@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "nx run-many --target=serve -p client -p frontend",
     "dev": "npm run serve",
-    "prepare": "nx run-many --target=prepare --all"
+    "prepare": "nx run-many --target=prepare --all",
+    "typesafe-i18n": "typesafe-i18n"
   },
   "private": true,
   "type": "module",

@@ -2,7 +2,7 @@
     import {createDropdownMenu, melt} from '@melt-ui/svelte';
     import {fly} from 'svelte/transition';
     import Icon from '$components/icon.svelte';
-    import LL from '$i18n';
+    import { LL } from '@glowsquid/i18n';
 
     const {
         elements: {arrow, item, menu, separator, trigger},

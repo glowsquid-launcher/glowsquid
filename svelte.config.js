@@ -2,6 +2,7 @@ import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/kit/vite';
 import { preprocessMeltUI } from '@melt-ui/pp';
 import sequence from 'svelte-sequential-preprocessor';
+import baseTsconfig from "./tsconfig.base.json" assert { type: "json" };
 
 const dir = "apps/frontend"
 
@@ -16,7 +17,6 @@ const config = {
 
     alias: {
       $components: `${dir}/src/lib/components`,
-      $i18n: `${dir}/src/i18n/i18n-svelte`
     },
 
     files: {
@@ -37,7 +37,16 @@ const config = {
 
     typescript: {
       config(cfg) {
-        // cfg.extends = "../../../tsconfig.base.json";
+        const paths = Object.fromEntries(
+          Object.entries(baseTsconfig.compilerOptions.paths).map(([key, value]) => {
+            return [key, value.map((v) => `../../../${v}`)];
+          })
+        );
+
+        cfg.compilerOptions.paths = {
+          ...cfg.compilerOptions.paths,
+          ...paths,
+        }
       }
     }
   },

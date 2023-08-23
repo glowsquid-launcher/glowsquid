@@ -15,12 +15,7 @@
       ],
       "outputs": [
         "{workspaceRoot}/dist/target/release"
-      ],
-      "configurations": {
-        "production": {
-          "release": true
-        }
-      }
+      ]
     },
     "test": {
       "executor": "@monodon/rust:test",

@@ -4,9 +4,7 @@ import {
     localStorageDetector,
     navigatorDetector
 } from 'typesafe-i18n/detectors';
-import type {Locales} from '../i18n/i18n-types';
-import {loadLocaleAsync} from '../i18n/i18n-util.async';
-import {locales} from '../i18n/i18n-util.js';
+import { loadLocaleAsync, locales} from '@glowsquid/i18n';
 import type {LayoutLoad} from './$types';
 
 export const ssr = false;

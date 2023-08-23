@@ -12,7 +12,7 @@
     import AccountDropdown from './account-dropdown.svelte';
     import type {LayoutData} from './$types';
     import Input from '$components/input.svelte';
-    import {LL, setLocale} from '$i18n';
+    import {LL, setLocale} from '@glowsquid/i18n';
 
     export let data: LayoutData;
 
