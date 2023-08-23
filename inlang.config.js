@@ -11,6 +11,6 @@ export async function defineConfig(env) {
     );
 
     return {
-        plugins: [typesafeI18nPlugin({}), standardLintRules()]
+        plugins: [typesafeI18nPlugin(), standardLintRules()]
     };
 }
