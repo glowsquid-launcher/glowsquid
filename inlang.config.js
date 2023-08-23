@@ -3,11 +3,11 @@
  */
 export async function defineConfig(env) {
     const {default: typesafeI18nPlugin} = await env.$import(
-        'https://cdn.jsdelivr.net/gh/ivanhofer/inlang-plugin-typesafe-i18n@2/dist/index.js'
+        'https://cdn.jsdelivr.net/gh/ivanhofer/inlang-plugin-typesafe-i18n@latest/dist/index.js'
     );
 
     const {default: standardLintRules} = await env.$import(
-        'https://cdn.jsdelivr.net/gh/inlang/standard-lint-rules@2/dist/index.js'
+        'https://cdn.jsdelivr.net/gh/inlang/standard-lint-rules@latest/dist/index.js'
     );
 
     return {
