@@ -1,7 +1,3 @@
 # i18n
 
-This library was generated with [Nx](https://nx.dev).
-
-
-
-
+i18n config for glowsquid. Contains all translatable strings and their translations.
