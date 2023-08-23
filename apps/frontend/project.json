@@ -14,6 +14,9 @@
       "options": {
         "outputPath": "dist/apps/frontend"
       },
+      "dependsOn": [
+        "^prepare"
+      ],
       "configurations": {
         "development": {
           "mode": "development"
@@ -21,6 +24,15 @@
         "production": {
           "mode": "production"
         }
+      }
+    },
+    "prepare": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/dist/frontend"
+      ],
+      "options": {
+        "command": "npx svelte-kit sync"
       }
     },
     "serve": {
@@ -58,7 +70,7 @@
     "test": {
       "executor": "@nx/vite:test",
       "outputs": [
-        "coverage/apps/frontend"
+        "{workspaceRoot}/coverage/apps/frontend"
       ],
       "options": {
         "passWithNoTests": true,
@@ -74,7 +86,7 @@
         "lintFilePatterns": [
           "apps/frontend/**/*.{ts,svelte,spec.ts}"
         ],
-        "ignorePath": "apps/frontend/.gitignore"
+        "ignorePath": ".gitignore"
       }
     }
   }

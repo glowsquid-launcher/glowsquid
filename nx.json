@@ -18,6 +18,10 @@
     "build": {
       "dependsOn": [
         "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
       ]
     },
     "test": {
@@ -44,5 +48,15 @@
       "unitTestRunner": "vitest",
       "e2eTestRunner": "playwright"
     }
+  },
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "sharedGlobals": [],
+    "production": [
+      "default"
+    ]
   }
 }

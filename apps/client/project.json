@@ -7,11 +7,14 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx tauri build -- --target-dir dist/apps/client",
+        "command": "npx tauri build",
         "cwd": "apps/client"
       },
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": [
-        "dist/apps/client",
+        "{workspaceRoot}/dist/target/release"
       ],
       "configurations": {
         "production": {

@@ -1,10 +1,11 @@
 {
-  "name": "@org/source",
+  "name": "@glowsquid/source",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "serve": "nx run-many --target=serve -p client -p frontend",
-    "dev": "npm run serve"
+    "dev": "npm run serve",
+    "prepare": "nx run-many --target=prepare --all"
   },
   "private": true,
   "type": "module",
@@ -35,6 +36,7 @@
     "@vitest/ui": "~0.34.2",
     "eslint": "~8.47.0",
     "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-svelte": "^2.33.0",
     "gsap": "^3.12.2",
     "iconify-icon": "^1.0.8",
     "jsdom": "~22.1.0",
@@ -42,6 +44,7 @@
     "nx": "16.7.2",
     "nx-cloud": "latest",
     "prettier": "^3.0.2",
+    "svelte": "^4.2.0",
     "svelte-sequential-preprocessor": "^2.0.1",
     "swc-loader": "0.2.3",
     "typesafe-i18n": "^5.26.1",

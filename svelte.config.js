@@ -33,7 +33,7 @@ const config = {
       serviceWorker: `${dir}/src/service-worker`,
     },
 
-    outDir: `${dir}/.svelte-kit`,
+    outDir: `dist/frontend/.svelte-kit`,
 
     typescript: {
       config(cfg) {
