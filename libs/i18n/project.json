@@ -12,6 +12,24 @@
       "options": {
         "command": "npx typesafe-i18n --no-watch"
       }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx typesafe-i18n"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @inlang/cli lint"
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @inlang/cli lint"
+      }
     }
   },
   "tags": []
