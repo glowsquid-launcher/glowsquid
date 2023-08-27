@@ -1,10 +1,10 @@
 {
   "name": "@glowsquid/tauri-plugin-copper",
   "version": "0.0.1",
-  "dependencies": {
+  "devDependencies": {
     "vite": "~4.4.9",
     "@nx/vite": "^16.7.3",
-    "vite-plugin-dts": "~2.3.0"
+    "vite-plugin-dts": "~3.5.2"
   },
   "main": "./index.js",
   "module": "./index.mjs",
