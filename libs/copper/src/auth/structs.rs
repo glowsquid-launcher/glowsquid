@@ -127,6 +127,7 @@ impl MinecraftToken {
 }
 
 #[derive(Debug, Deserialize, Clone)]
+#[allow(dead_code)]
 pub struct MinecraftProfile {
     id: String,
     name: String,
@@ -142,6 +143,7 @@ impl MinecraftProfile {
 }
 
 #[derive(Debug, Deserialize, Clone)]
+#[allow(dead_code)]
 pub struct Skin {
     id: String,
     state: String,

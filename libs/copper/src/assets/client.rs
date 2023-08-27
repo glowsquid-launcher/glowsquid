@@ -6,7 +6,7 @@ use std::{
     sync::Arc,
 };
 
-use error_stack::{IntoReport, Result as ErrorStackResult, ResultExt};
+use error_stack::{report, Result as ErrorStackResult, ResultExt};
 use futures::{stream, StreamExt, TryStreamExt};
 use serde::{Deserialize, Serialize};
 use serde_json::to_string;
@@ -48,24 +48,20 @@ impl Manifest {
     pub async fn save_to_disk(&self, path: &Path) -> error_stack::Result<(), SaveError> {
         debug!("Saving manifest to disk");
         debug!("Serializing manifest to JSON");
-        let value = to_string(self)
-            .into_report()
-            .change_context(SaveError::SerializeError)?;
+        let value = to_string(self).change_context(SaveError::SerializeError)?;
 
-        let directory = path.parent().ok_or(SaveError::IOError).into_report()?;
+        let directory = path.parent().ok_or_else(|| report!(SaveError::IOError))?;
 
         if !directory.exists() {
             debug!("Creating directory {}", directory.display());
             fs::create_dir_all(directory)
                 .await
-                .into_report()
                 .change_context(SaveError::IOError)?;
         }
 
         debug!("Writing manifest to {}", path.display());
         fs::write(path, value)
             .await
-            .into_report()
             .change_context(SaveError::IOError)
     }
 }
@@ -273,7 +269,6 @@ impl Downloader for ClassDownloader {
         if self
             .path
             .try_exists()
-            .into_report()
             .change_context(DownloadError::IoError)?
         {
             return Ok(());
@@ -284,36 +279,29 @@ impl Downloader for ClassDownloader {
             .get(&item.url)
             .send()
             .await
-            .into_report()
             .change_context(DownloadError::ReqwestError)?
             .bytes_stream();
 
         let parent_dir = self
             .path
             .parent()
-            .ok_or(DownloadError::IoError)
-            .into_report()?;
+            .ok_or_else(|| report!(DownloadError::IoError))?;
 
         tokio::fs::create_dir_all(parent_dir)
             .await
-            .into_report()
             .change_context(DownloadError::IoError)?;
 
         let mut file = tokio::fs::File::create(&self.path)
             .await
-            .into_report()
             .change_context(DownloadError::IoError)?;
 
         let mut downloaded: u64 = 0;
 
         while let Some(item) = response.next().await {
-            let item = item
-                .into_report()
-                .change_context(DownloadError::ReqwestError)?;
+            let item = item.change_context(DownloadError::ReqwestError)?;
 
             file.write_all(&item)
                 .await
-                .into_report()
                 .change_context(DownloadError::IoError)?;
 
             let new = min(downloaded + (item.len() as u64), self.class.size);
@@ -323,7 +311,6 @@ impl Downloader for ClassDownloader {
                 .as_ref()
                 .ok_or(DownloadError::ChannelError)?
                 .send(DownloadMessage::DownloadProgress(self.class.clone(), new))
-                .into_report()
                 .change_context(DownloadError::ChannelError)?;
         }
 
@@ -331,7 +318,6 @@ impl Downloader for ClassDownloader {
             .as_ref()
             .ok_or(DownloadError::ChannelError)?
             .send(DownloadMessage::Downloaded(self.class.clone()))
-            .into_report()
             .change_context(DownloadError::ChannelError)
     }
 
@@ -342,7 +328,6 @@ impl Downloader for ClassDownloader {
             .as_ref()
             .ok_or(DownloadError::ChannelError)?
             .send(DownloadMessage::DownloadedAll)
-            .into_report()
             .change_context(DownloadError::ChannelError)?;
 
         Ok(())
@@ -387,11 +372,7 @@ impl Artifact {
     ) -> ErrorStackResult<(), DownloadError> {
         let path = library_path.join(self.path());
 
-        if path
-            .try_exists()
-            .into_report()
-            .change_context(DownloadError::IoError)?
-        {
+        if path.try_exists().change_context(DownloadError::IoError)? {
             return Ok(());
         }
 
@@ -399,32 +380,28 @@ impl Artifact {
             .get(&self.url)
             .send()
             .await
-            .into_report()
             .change_context(DownloadError::ReqwestError)?
             .bytes_stream();
 
-        let parent_dir = path.parent().ok_or(DownloadError::IoError).into_report()?;
+        let parent_dir = path
+            .parent()
+            .ok_or_else(|| report!(DownloadError::IoError))?;
 
         tokio::fs::create_dir_all(parent_dir)
             .await
-            .into_report()
             .change_context(DownloadError::IoError)?;
 
         let mut file = tokio::fs::File::create(path)
             .await
-            .into_report()
             .change_context(DownloadError::IoError)?;
 
         let mut downloaded: u64 = 0;
 
         while let Some(item) = response.next().await {
-            let item = item
-                .into_report()
-                .change_context(DownloadError::ReqwestError)?;
+            let item = item.change_context(DownloadError::ReqwestError)?;
 
             file.write_all(&item)
                 .await
-                .into_report()
                 .change_context(DownloadError::IoError)?;
 
             let new = min(downloaded + (item.len() as u64), self.size);
@@ -432,7 +409,6 @@ impl Artifact {
 
             sender
                 .send(DownloadMessage::DownloadProgress(self.clone(), new))
-                .into_report()
                 .change_context(DownloadError::ChannelError)?;
         }
 
@@ -462,6 +438,10 @@ impl Rule {
         self.os.as_ref()
     }
 
+    /// Returns whether the rule passes for the current OS.
+    ///
+    /// # Panics
+    /// Panics if the OS is not recognised. Please report this
     pub fn passes(&self) -> bool {
         match self.action() {
             Action::Allow => {
@@ -471,7 +451,7 @@ impl Rule {
 
                 let arch_rule = match os.arch().map(String::as_str) {
                     Some("x86") => cfg!(target_arch = "x86"),
-                    Some(_) => todo!("Unknown arch"),
+                    Some(arch) => todo!("Unknown arch: {arch}. Please report this error to https://github.com/glowsquid-launcher/glowsquid"),
                     None => true,
                 };
 
@@ -870,7 +850,6 @@ impl Downloader for LibraryDownloader {
             .as_ref()
             .ok_or(DownloadError::ChannelError)?
             .send(DownloadMessage::Downloaded(item.clone()))
-            .into_report()
             .change_context(DownloadError::ChannelError)
     }
 
@@ -912,7 +891,6 @@ impl Downloader for LibraryDownloader {
         tasks
             .try_collect::<Vec<_>>()
             .await
-            .into_report()
             .change_context(DownloadError::JoinError)?
             .into_iter()
             .collect::<Result<_, _>>()?;
@@ -922,7 +900,6 @@ impl Downloader for LibraryDownloader {
             .clone()
             .ok_or(DownloadError::ChannelError)?
             .send(DownloadMessage::DownloadedAll)
-            .into_report()
             .change_context(DownloadError::ChannelError)?;
 
         Ok(())

@@ -1,4 +1,4 @@
-use error_stack::{IntoReport, Result, ResultExt};
+use error_stack::{report, Result, ResultExt};
 use futures::{stream, StreamExt, TryStreamExt};
 use serde::{Deserialize, Serialize};
 use std::{cmp::min, collections::HashMap, path::PathBuf, sync::Arc};
@@ -70,7 +70,6 @@ impl Downloader for AssetDownloader {
             .as_ref()
             .ok_or(DownloadError::ChannelError)?
             .send(DownloadMessage::Downloaded(item.clone()))
-            .into_report()
             .change_context(DownloadError::ChannelError)
     }
 
@@ -86,7 +85,6 @@ impl Downloader for AssetDownloader {
         tasks
             .try_collect::<Vec<_>>()
             .await
-            .into_report()
             .change_context(DownloadError::JoinError)?
             .into_iter()
             .collect::<Result<_, _>>()?;
@@ -96,7 +94,6 @@ impl Downloader for AssetDownloader {
             .clone()
             .ok_or(DownloadError::ChannelError)?
             .send(DownloadMessage::DownloadedAll)
-            .into_report()
             .change_context(DownloadError::ChannelError)?;
 
         Ok(())
@@ -135,11 +132,7 @@ impl Object {
         client: &reqwest::Client,
         sender: &UnboundedSender<DownloadMessage<Self>>,
     ) -> Result<(), DownloadError> {
-        if path
-            .try_exists()
-            .into_report()
-            .change_context(DownloadError::IoError)?
-        {
+        if path.try_exists().change_context(DownloadError::IoError)? {
             return Ok(());
         }
 
@@ -153,32 +146,28 @@ impl Object {
             .get(&url)
             .send()
             .await
-            .into_report()
             .change_context(DownloadError::ReqwestError)?
             .bytes_stream();
 
-        let parent_dir = path.parent().ok_or(DownloadError::IoError).into_report()?;
+        let parent_dir = path
+            .parent()
+            .ok_or_else(|| report!(DownloadError::IoError))?;
 
         tokio::fs::create_dir_all(parent_dir)
             .await
-            .into_report()
             .change_context(DownloadError::IoError)?;
 
         let mut file = tokio::fs::File::create(path)
             .await
-            .into_report()
             .change_context(DownloadError::IoError)?;
 
         let mut downloaded: u64 = 0;
 
         while let Some(item) = response.next().await {
-            let item = item
-                .into_report()
-                .change_context(DownloadError::ReqwestError)?;
+            let item = item.change_context(DownloadError::ReqwestError)?;
 
             file.write_all(&item)
                 .await
-                .into_report()
                 .change_context(DownloadError::IoError)?;
 
             let new = min(downloaded + (item.len() as u64), self.size());
@@ -186,7 +175,6 @@ impl Object {
 
             sender
                 .send(DownloadMessage::DownloadProgress(self.clone(), new))
-                .into_report()
                 .change_context(DownloadError::ChannelError)?;
         }
 

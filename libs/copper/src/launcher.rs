@@ -1,5 +1,5 @@
 use derive_builder::Builder;
-use error_stack::{IntoReport, Result, ResultExt};
+use error_stack::{Result, ResultExt};
 use std::{
     error::Error as ErrorTrait,
     fmt::{self, Display, Formatter},
@@ -177,7 +177,6 @@ impl Launcher {
             .arg(main_class)
             .args(&mut game_args)
             .spawn()
-            .into_report()
             .change_context(Error::ProcessError)?;
 
         let stdout = process.stdout.take().ok_or(Error::CannotGetStdout)?;
@@ -397,6 +396,10 @@ impl DownloaderTrait for Downloader {
         }
     }
 
+    /// Downloads all the assets, libraries, and client
+    ///
+    /// # Panics
+    /// Panics if the sender is not set, which shouldn't ever happen.
     async fn download_all(self: Arc<Self>) -> Result<(), DownloadError> {
         let asset_downloader = Arc::new(self.asset_downloader.clone());
         let library_downloader = Arc::new(self.library_downloader.clone());
@@ -407,9 +410,8 @@ impl DownloaderTrait for Downloader {
         let client = tokio::spawn(async move { client_downloader.download_all().await });
 
         // wait for both to finish
-        let (assets, libraries, client) = tokio::try_join!(assets, libraries, client)
-            .into_report()
-            .change_context(DownloadError::JoinError)?;
+        let (assets, libraries, client) =
+            tokio::try_join!(assets, libraries, client).change_context(DownloadError::JoinError)?;
 
         assets?;
         libraries?;
@@ -419,7 +421,6 @@ impl DownloaderTrait for Downloader {
             .as_ref()
             .unwrap()
             .send(DownloadMessage::DownloadedAll)
-            .into_report()
             .change_context(DownloadError::ChannelError)?;
 
         Ok(())

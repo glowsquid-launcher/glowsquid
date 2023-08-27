@@ -4,11 +4,11 @@ version = "0.1.0"
 edition = "2021"
 authors = ["suyashtnt <suyashtnt@gmail.com>"]
 description = "Minecraft launcher: rust edition"
-documentation = "https://docs.rs/minecraft-rs"
+documentation = "https://docs.rs/copper"
 readme = "README.md"
 license = "MIT"
-homepage = "https://github.com/glowsquid-launcher/minecraft-rs#readme"
-repository = "https://github.com/glowsquid-launcher/minecraft-rs"
+homepage = "https://github.com/glowsquid-launcher/glowsquid#readme"
+repository = "https://github.com/glowsquid-launcher/glowsquid"
 keywords = ["minecraft", "launcher", "game"]
 categories = ["api-bindings"]
 

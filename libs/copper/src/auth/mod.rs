@@ -1,5 +1,5 @@
 use chrono::{Duration, Utc};
-use error_stack::{ensure, IntoReport, Result, ResultExt};
+use error_stack::{ensure, Report, Result, ResultExt};
 use oauth2::{
     basic::{BasicClient, BasicTokenType},
     reqwest::async_http_client,
@@ -85,7 +85,6 @@ impl MSauth {
             }))
             .send()
             .await
-            .into_report()
             .change_context(XboxError::FetchError)?;
 
         trace!("Recieved {xbox_live_request:#?}");
@@ -94,7 +93,6 @@ impl MSauth {
         xbox_live_request
             .json()
             .await
-            .into_report()
             .change_context(XboxError::DeserializeError)
     }
 
@@ -118,7 +116,6 @@ impl MSauth {
             }))
             .send()
             .await
-            .into_report()
             .attach_printable("Failed to send xsts request")
             .change_context(XboxError::FetchError)?;
 
@@ -128,7 +125,6 @@ impl MSauth {
         xsts_request
             .json()
             .await
-            .into_report()
             .attach_printable("Failed to deserialize body")
             .change_context(XboxError::DeserializeError)
     }
@@ -155,7 +151,6 @@ impl MSauth {
         let xbox_live_user_hash = &xbox_live_response
             .uhs()
             .ok_or(MinecraftTokenError::XboxLiveError)
-            .into_report()
             .attach_printable("No xui claims found")?;
 
         trace!("Recieved {xbox_live_user_hash:#?}");
@@ -171,7 +166,6 @@ impl MSauth {
         let xsts_user_hash = &xsts_response
             .uhs()
             .ok_or(MinecraftTokenError::XstsError)
-            .into_report()
             .attach_printable("No xui claims found")?;
 
         ensure!(
@@ -189,7 +183,6 @@ impl MSauth {
             }))
             .send()
             .await
-            .into_report()
             .attach_printable("Failed to send minecraft request")
             .change_context(MinecraftTokenError::FetchError)?;
 
@@ -199,7 +192,6 @@ impl MSauth {
         let response = minecraft_request
             .json::<MinecraftResponse>()
             .await
-            .into_report()
             .attach_printable("Failed to deserialize body")
             .change_context(MinecraftTokenError::DeserializeError)?;
 
@@ -230,7 +222,6 @@ impl MSauth {
             .set_pkce_verifier(pkce)
             .request_async(async_http_client)
             .await
-            .into_report()
             .change_context(OauthError::TokenFetchError)
     }
 
@@ -250,7 +241,7 @@ impl MSauth {
             .await?
             .json()
             .await
-            .into_report()
+            .map_err(Report::from)
     }
 
     /// Refreshes a microsoft access token
@@ -266,14 +257,12 @@ impl MSauth {
         let refresh_token = response
             .refresh_token()
             .ok_or(OauthError::InvalidCode)
-            .into_report()
             .attach_printable("No refresh token found")?;
 
         self.0
             .exchange_refresh_token(refresh_token)
             .request_async(async_http_client)
             .await
-            .into_report()
             .change_context(OauthError::TokenFetchError)
     }
 }

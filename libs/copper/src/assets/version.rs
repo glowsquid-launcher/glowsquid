@@ -4,7 +4,7 @@ use std::{
     fmt::{Display, Formatter},
 };
 
-use error_stack::{IntoReport, ResultExt};
+use error_stack::ResultExt;
 use serde::{Deserialize, Serialize};
 
 use super::client;
@@ -101,11 +101,9 @@ impl Version {
     pub async fn download(&self) -> error_stack::Result<client::Manifest, GetError> {
         reqwest::get(&self.url)
             .await
-            .into_report()
             .change_context(GetError::Request)?
             .json::<client::Manifest>()
             .await
-            .into_report()
             .change_context(GetError::CannotParse)
     }
 }
