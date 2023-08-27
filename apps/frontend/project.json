@@ -84,7 +84,8 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "apps/frontend/**/*.{ts,svelte,spec.ts}"
+          "apps/frontend/**/*.{ts,svelte,spec.ts}",
+          "apps/frontend/package.json"
         ],
         "ignorePath": ".gitignore"
       }

@@ -1,7 +1,4 @@
 <script lang="ts">
-    // eslint-disable-next-line eslint-comments/disable-enable-pair
-    /* eslint-disable import/no-unassigned-import */
-
     import 'iconify-icon';
     import '@fontsource-variable/manrope';
     import '@fontsource/ibm-plex-sans/300.css';

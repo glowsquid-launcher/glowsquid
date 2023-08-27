@@ -257,6 +257,8 @@ impl DownloaderTrait for Downloader {
     type DownloadItem = DownloadItem;
 
     #[allow(clippy::too_many_lines)]
+    /// # Panics
+    /// Panics if the sender is not set, which shouldn't ever happen.
     fn create_channel(&mut self) -> UnboundedReceiver<DownloadMessage<Self::DownloadItem>> {
         let (sender, reciever) = mpsc::unbounded_channel();
         self.sender = Some(sender);

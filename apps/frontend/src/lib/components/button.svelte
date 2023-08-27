@@ -1,5 +1,5 @@
 <script lang="ts">
-    // @ts-ignore Need to use internal Svelte function
+    // @ts-expect-error to use internal Svelte function
     import {get_current_component as getCurrentComponent} from 'svelte/internal';
     import type {ActionArray} from '@smui/common/internal';
     import {

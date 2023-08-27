@@ -16,6 +16,15 @@ module.exports = {
       parserOptions: {
         parser: '@typescript-eslint/parser'
       }
+    },
+    {
+      files: [
+        "*.json"
+      ],
+      parser: "jsonc-eslint-parser",
+      rules: {
+        "@nx/dependency-checks": "error"
+      }
     }
   ],
   parserOptions: {

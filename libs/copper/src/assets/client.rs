@@ -896,7 +896,7 @@ impl Downloader for LibraryDownloader {
                     if let Some(native) = object
                         .downloads()
                         .classifiers()
-                        .and_then(|c| c.current_os())
+                        .and_then(Classifiers::current_os)
                     {
                         match cloned_self.download(native.clone()).await {
                             Ok(it) => it,

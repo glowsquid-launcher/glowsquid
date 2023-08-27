@@ -45,12 +45,14 @@
     "nx": "16.7.3",
     "nx-cloud": "latest",
     "prettier": "^3.0.2",
+    "prettier-plugin-svelte": "^3.0.3",
     "svelte": "^4.2.0",
     "svelte-sequential-preprocessor": "^2.0.1",
     "swc-loader": "0.2.3",
     "typesafe-i18n": "^5.26.1",
     "typescript": "~5.1.6",
     "vite": "~4.4.9",
+    "vite-plugin-dts": "~2.3.0",
     "vitest": "~0.34.2"
   },
   "dependencies": {
