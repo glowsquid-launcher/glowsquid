@@ -2,14 +2,14 @@
     --text: #f5f2f3;
     --background: oklch(25% 0.05 200);
 
-    --outline: oklch(70% 0.1 180);
-    --primary-bg: oklch(55% 0.1 190);
-    --secondary-bg: oklch(44% 0.083 190);
+    --outline: oklch(60% 0.1 180);
+    --primary-bg: oklch(45% 0.1 188);
+    --secondary-bg: oklch(32% 0.1 190);
 
-    --red: #d82430;
-    --green: #1a8038;
-    --yellow: #eab832;
-    --amber: #cc8431;
+    --red: oklch(45.9% 0.173 27);
+    --green: oklch(48% 0.14 147.5);
+    --yellow: oklch(82.6% 0.158 86.68);
+    --amber: oklch(63.2% 0.131 57.2);
 }
 
 *:focus-visible {
