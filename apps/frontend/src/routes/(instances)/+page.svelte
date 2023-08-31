@@ -1,49 +1,36 @@
 <script lang="ts">
     import type {PageData} from './$types';
     import Instance from '$components/instance.svelte';
+    import { getContext } from 'svelte';
+    import type { Writable } from 'svelte/store';
 
     export let data: PageData;
+
+    $: isMinified = getContext<Writable<boolean>>('instances-minified');
 </script>
 
-<div class="instances">
+<div class="instances" class:collapsed={$isMinified}>
     {#each data.instances as instanceId (instanceId)}
         <!-- TODO: Arguments for instance -->
-        <Instance id={instanceId} />
+        <Instance id={instanceId} collapsed={$isMinified} />
     {/each}
 </div>
 
 <style>
     .instances {
         padding: 0 1rem;
-        /**
-     * User input values.
-     */
-        --grid-layout-gap: 2rem;
-        --grid-column-count: 6;
-        --grid-item--min-width: 280px;
 
-        /**
-     * Calculated values.
-     */
-        --gap-count: calc(var(--grid-column-count) - 1);
-        --total-gap-width: calc(
-            var(--gap-count) * var(--grid-layout-gap)
-        );
-        --grid-item--max-width: calc(
-            (100% - var(--total-gap-width)) / var(--grid-column-count)
-        );
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
 
-        display: grid;
-        grid-template-columns: repeat(
-            auto-fill,
-            minmax(
-                max(
-                    var(--grid-item--min-width),
-                    var(--grid-item--max-width)
-                ),
-                1fr
-            )
-        );
-        grid-gap: var(--grid-layout-gap);
+    }
+
+    .instances :global(article) {
+        flex: 1 1 280px;
+    }
+
+    .instances :global(article.collapsed) {
+        flex: 0 0 64px;
     }
 </style>

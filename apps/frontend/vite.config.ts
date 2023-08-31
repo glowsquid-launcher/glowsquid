@@ -29,6 +29,11 @@ export default defineConfig({
       nxViteTsPaths(),
       sveltekit()
     ],
+    server: {
+      fs: {
+        allow: ['.']
+      }
+    },
     test: {
         include: ['src/**/*.{test,spec}.{js,ts}']
     }

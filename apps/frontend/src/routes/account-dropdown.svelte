@@ -81,7 +81,7 @@
         transition: 300ms ease;
     }
 
-    button[data-state='open'] :global(iconify-icon) {
+    button:is([data-state='open']) :global(iconify-icon) {
         rotate: 180deg;
     }
 

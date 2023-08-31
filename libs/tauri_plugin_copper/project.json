@@ -5,7 +5,7 @@
   "sourceRoot": "libs/tauri_plugin_copper/src",
   "targets": {
     "build": {
-      "executor": "@monodon/rust:build",
+      "executor": "@monodon/rust:test",
       "outputs": [
         "{options.target-dir}"
       ],
@@ -14,7 +14,7 @@
       },
       "configurations": {
         "production": {
-          "release": true
+          "release": false
         }
       }
     },

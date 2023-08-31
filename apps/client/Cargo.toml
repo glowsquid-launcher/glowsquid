@@ -19,8 +19,16 @@ tauri.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 
+specta.workspace = true
+tauri-specta.workspace = true
+
 tauri_plugin_copper = { path = "../../libs/tauri_plugin_copper" }
 copper = { path = "../../libs/copper" }
+
+tauri-plugin-stronghold = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+iota-crypto = { version = "0.23.0", default-features = false, features = [
+  "blake2b",
+] }
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.

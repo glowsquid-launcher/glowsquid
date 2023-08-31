@@ -4,6 +4,8 @@
     import {afterNavigate, beforeNavigate} from '$app/navigation';
     import Button from '$components/button.svelte';
     import Icon from '$components/icon.svelte';
+  import { setContext } from 'svelte';
+  import { writable } from 'svelte/store';
 
     gsap.registerPlugin(Flip);
     let state: Flip.FlipState | null = null;
@@ -25,11 +27,22 @@
 
         state = null;
     });
+
+    let instancesMinified = writable(false);
+    $: setContext('instances-minified', instancesMinified);
 </script>
 
 <div class="instance-bar">
-    <h2>Instances</h2>
     <div class="instances-actions">
+      <h2>
+        Instances
+      </h2>
+    </div>
+    <div class="instances-actions">
+        <Button on:click={() => $instancesMinified = !$instancesMinified}>
+            <Icon inline name={instancesMinified ? "plus" : 'minus'} />
+            {instancesMinified ? 'Expand' : 'Collapse'} Instances
+        </Button>
         <Button>
             <Icon inline name="plus" />
             Add Instance

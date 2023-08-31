@@ -1,10 +1,10 @@
 :root {
     --text: #f5f2f3;
-    --background: #003333;
+    --background: oklch(25% 0.05 200);
 
-    --outline: #67D4C0;
-    --primary-bg: #35A4A2;
-    --secondary-bg: #197877;
+    --outline: oklch(70% 0.1 180);
+    --primary-bg: oklch(55% 0.1 190);
+    --secondary-bg: oklch(44% 0.083 190);
 
     --red: #d82430;
     --green: #1a8038;

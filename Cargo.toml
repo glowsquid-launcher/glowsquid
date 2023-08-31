@@ -8,5 +8,10 @@ serde_json = "1.0.105"
 serde = { version = "1.0.188", features = ["derive"] }
 tauri = { version = "1.4.1", features = [] }
 
+specta = { version = "=2.0.0-rc.1", features = ["tauri", "functions"] }
+tauri-specta = { git = "https://github.com/oscartbeaumont/tauri-specta", branch = "v2", features = [
+  "typescript",
+] }
+
 [profile.release]
 lto = true

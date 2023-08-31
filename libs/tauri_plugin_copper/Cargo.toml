@@ -17,4 +17,7 @@ tauri.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 
+specta.workspace = true
+tauri-specta.workspace = true
+
 copper = { path = "../copper" }

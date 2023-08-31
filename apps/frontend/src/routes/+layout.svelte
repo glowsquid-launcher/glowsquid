@@ -10,10 +10,13 @@
     import type {LayoutData} from './$types';
     import Input from '$components/input.svelte';
     import {LL, setLocale} from '@glowsquid/i18n';
+    import {testConnection} from '$lib/bridge'
 
     export let data: LayoutData;
 
     setLocale(data.locale);
+
+    testConnection().catch(console.error)
 </script>
 
 <header>

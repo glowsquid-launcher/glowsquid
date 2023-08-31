@@ -6,6 +6,8 @@
     import Instance from '$components/instance.svelte';
     import Icon from '$components/icon.svelte';
     import {goto} from '$app/navigation';
+  import { getContext } from 'svelte';
+  import type { Writable } from 'svelte/store';
 
     export let data: LayoutData;
     const needsUpdate = true;
@@ -66,13 +68,16 @@
     let settingsTab: HTMLButtonElement | null = null;
 
     $: moveSlider(homeTab);
+
+
+    $: isMinified = getContext<Writable<boolean>>('instances-minified');
 </script>
 
 <div class="instances-container">
     <aside class="instances-sidebar">
         {#each instances as id (id)}
             <!-- TODO: Arguments for instance -->
-            <Instance {id} />
+            <Instance {id} collapsed={$isMinified} />
         {/each}
     </aside>
 
@@ -201,6 +206,10 @@
         margin-left: 1rem;
         gap: 1rem;
         max-width: 24rem;
+
+        padding: 0.5rem;
+        border: 2px solid var(--primary-bg);
+        border-radius: var(--rounding-large);
     }
 
     .instance {
