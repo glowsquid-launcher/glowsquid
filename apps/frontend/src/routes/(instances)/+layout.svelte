@@ -40,8 +40,8 @@
     </div>
     <div class="instances-actions">
         <Button on:click={() => $instancesMinified = !$instancesMinified}>
-            <Icon inline name={instancesMinified ? "plus" : 'minus'} />
-            {instancesMinified ? 'Expand' : 'Collapse'} Instances
+            <Icon inline name={$instancesMinified ? "plus" : 'minus'} />
+            {$instancesMinified ? 'Expand' : 'Collapse'} Instances
         </Button>
         <Button>
             <Icon inline name="plus" />
