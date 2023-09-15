@@ -12,6 +12,6 @@
 
 Currently, this is being used as the launcher backend for the Glowsquid launcher.
 
-
 ## TODO
+
 - Full tauri bindings

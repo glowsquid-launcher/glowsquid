@@ -10,18 +10,12 @@
         "command": "npx tauri build",
         "cwd": "apps/client"
       },
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "{workspaceRoot}/dist/target/release"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": ["{workspaceRoot}/dist/target/release"]
     },
     "test": {
       "executor": "@monodon/rust:test",
-      "outputs": [
-        "{options.target-dir}"
-      ],
+      "outputs": ["{options.target-dir}"],
       "options": {
         "target-dir": "dist/target/client"
       },
@@ -33,18 +27,14 @@
     },
     "lint": {
       "executor": "@monodon/rust:lint",
-      "outputs": [
-        "{options.target-dir}"
-      ],
+      "outputs": ["{options.target-dir}"],
       "options": {
         "target-dir": "dist/target/client"
       }
     },
     "run": {
       "executor": "@monodon/rust:run",
-      "outputs": [
-        "{options.target-dir}"
-      ],
+      "outputs": ["{options.target-dir}"],
       "options": {
         "target-dir": "dist/target/client"
       },
@@ -62,8 +52,6 @@
       }
     }
   },
-  "implicitDependencies": [
-    "frontend"
-  ],
+  "implicitDependencies": ["frontend"],
   "tags": []
 }

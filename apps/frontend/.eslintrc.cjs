@@ -5,10 +5,15 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
-    "plugin:svelte/recommended",
+    'plugin:svelte/recommended'
   ],
   plugins: ['@typescript-eslint'],
-  ignorePatterns: ['!**/*', '*.cjs', 'vite.config.ts', 'node_modules'],
+  ignorePatterns: [
+    '!**/*',
+    '*.cjs',
+    'vite.config.ts',
+    'node_modules'
+  ],
   overrides: [
     {
       files: ['*.svelte'],
@@ -18,12 +23,10 @@ module.exports = {
       }
     },
     {
-      files: [
-        "*.json"
-      ],
-      parser: "jsonc-eslint-parser",
+      files: ['*.json'],
+      parser: 'jsonc-eslint-parser',
       rules: {
-        "@nx/dependency-checks": "error"
+        '@nx/dependency-checks': 'error'
       }
     }
   ],
@@ -35,6 +38,6 @@ module.exports = {
   env: {
     browser: true,
     es2017: true,
-    node: true,
-  },
+    node: true
+  }
 };

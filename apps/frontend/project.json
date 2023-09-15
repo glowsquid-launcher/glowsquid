@@ -7,16 +7,12 @@
   "targets": {
     "build": {
       "executor": "@nx/vite:build",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/apps/frontend"
       },
-      "dependsOn": [
-        "^prepare"
-      ],
+      "dependsOn": ["^prepare"],
       "configurations": {
         "development": {
           "mode": "development"
@@ -28,9 +24,7 @@
     },
     "prepare": {
       "executor": "nx:run-commands",
-      "outputs": [
-        "{workspaceRoot}/dist/frontend"
-      ],
+      "outputs": ["{workspaceRoot}/dist/frontend"],
       "options": {
         "command": "npx svelte-kit sync"
       }
@@ -69,9 +63,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": [
-        "{workspaceRoot}/coverage/apps/frontend"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/frontend"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/apps/frontend"
@@ -79,9 +71,7 @@
     },
     "lint": {
       "executor": "@nx/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "apps/frontend/**/*.{ts,svelte,spec.ts}",

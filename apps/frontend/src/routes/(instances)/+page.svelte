@@ -23,7 +23,6 @@
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
-
     }
 
     .instances :global(article) {

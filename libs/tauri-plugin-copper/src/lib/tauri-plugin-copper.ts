@@ -1,1 +1,1 @@
-export * as bindings from "./bindings"
+export * as bindings from './bindings';

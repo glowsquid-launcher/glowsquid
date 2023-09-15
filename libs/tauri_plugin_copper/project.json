@@ -6,9 +6,7 @@
   "targets": {
     "build": {
       "executor": "@monodon/rust:test",
-      "outputs": [
-        "{options.target-dir}"
-      ],
+      "outputs": ["{options.target-dir}"],
       "options": {
         "target-dir": "dist/target/tauri_plugin_copper"
       },
@@ -20,9 +18,7 @@
     },
     "test": {
       "executor": "@monodon/rust:test",
-      "outputs": [
-        "{options.target-dir}"
-      ],
+      "outputs": ["{options.target-dir}"],
       "options": {
         "target-dir": "dist/target/tauri_plugin_copper"
       },
@@ -34,9 +30,7 @@
     },
     "lint": {
       "executor": "@monodon/rust:lint",
-      "outputs": [
-        "{options.target-dir}"
-      ],
+      "outputs": ["{options.target-dir}"],
       "options": {
         "target-dir": "dist/target/tauri_plugin_copper"
       }

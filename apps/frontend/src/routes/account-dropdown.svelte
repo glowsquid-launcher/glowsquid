@@ -106,6 +106,7 @@
 
         border-radius: var(--rounding-medium);
         outline: solid 1px var(--outline);
+        box-shadow: 8.0px 16.0px 16.0px oklch(0% 0 0 / 25%);
     }
 
     .account {

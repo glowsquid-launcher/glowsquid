@@ -1,4 +1,5 @@
 # Glowsquid Launcher
+
 ![Lines of code](https://img.shields.io/tokei/lines/github/glowsquid-launcher/glowsquid?style=for-the-badge)
 ![Discord](https://img.shields.io/discord/1050624267592663050?style=for-the-badge)
 

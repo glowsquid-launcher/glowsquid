@@ -38,11 +38,7 @@
       },
       "resources": [],
       "shortDescription": "",
-      "targets": [
-        "deb",
-        "msi",
-        "app"
-      ],
+      "targets": ["deb", "msi", "app"],
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
