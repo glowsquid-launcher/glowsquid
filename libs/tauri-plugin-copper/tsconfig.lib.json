@@ -9,8 +9,7 @@
     ]
   },
   "include": [
-    "src/**/*.ts",
-    "src/vite.config.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",

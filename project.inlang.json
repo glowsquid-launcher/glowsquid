@@ -1,0 +1,17 @@
+{
+    "$schema": "https://inlang.com/schema/project-settings",
+    "sourceLanguageTag": "en",
+    "languageTags": [
+        "en"
+    ],
+    "modules": [
+        "https://cdn.jsdelivr.net/npm/@inlang/plugin-json@4/dist/index.js",
+        "https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-empty-pattern@1/dist/index.js",
+        "https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-identical-pattern@1/dist/index.js",
+        "https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-without-source@1/dist/index.js",
+        "https://cdn.jsdelivr.net/npm/@inlang/message-lint-rule-missing-translation@1/dist/index.js"
+    ],
+    "plugin.inlang.json": {
+        "pathPattern": ".direnv/flake-inputs/08h2h51hi504b0n2ak6jn7b4hrfrn1h7-source/nixos/modules/i18n/{languageTag}.json"
+    }
+}

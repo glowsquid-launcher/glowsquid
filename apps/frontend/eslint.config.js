@@ -1,8 +1,8 @@
 import { join } from "path";
-import baseConfig from "../../eslint.config.js";
 import { fileURLToPath } from "url";
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
-export default baseConfig(
+import { createConfig } from "../../eslint.config.js";
+
+export default createConfig(
     join(fileURLToPath(import.meta.url), '..', 'tsconfig.json')
 )

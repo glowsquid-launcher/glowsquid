@@ -7,7 +7,9 @@ import perfectionistNatural from 'eslint-plugin-perfectionist/configs/recommende
 import prettierPlugin from 'eslint-plugin-prettier';
 import sveltePlugin from 'eslint-plugin-svelte';
 import jsoncParser from 'jsonc-eslint-parser';
+import { join } from 'path';
 import svelteParser from 'svelte-eslint-parser';
+import { fileURLToPath } from 'url';
 
 const prettierConfig = {
 	overrides: [
@@ -30,90 +32,92 @@ const prettierConfig = {
  * @param {string} tsconfigPath path to tsconfig.json. Usually join(fileURLToPath(import.meta.url), '..', 'tsconfig.json')
  * @returns {import("eslint").Linter.FlatConfig[]}
  */
-export default function createConfig(tsconfigPath) {
-  return [
-    js.configs.recommended,
-    {
-      plugins: {
-        '@nx': nxPlugin,
-        '@typescript-eslint': typescriptPlugin
-      },
-      rules: {
-        ...typescriptPlugin.configs.recommended.rules,
-        'arrow-body-style': 'off',
-        'no-undef': 'off',
-        '@nx/enforce-module-boundaries': [
-          'error',
-          {
-            allow: [],
-            depConstraints: [
-              {
-                onlyDependOnLibsWithTags: ['*'],
-                sourceTag: '*'
-              }
-            ],
-            enforceBuildableLibDependency: true
-          }
-        ],
-        'prefer-arrow-callback': 'off'
-      }
-    },
-    {
-      files: ['**/*.ts'],
-      languageOptions: {
-        parser: typescriptParser,
-        parserOptions: {
-          ecmaVersion: 2020,
-          extraFileExtensions: ['.svelte'],
-          project: tsconfigPath,
-          sourceType: 'module'
-        }
-      }
-    },
-    {
-      files: ['**/*.svelte'],
-      languageOptions: {
-        parser: svelteParser,
-        parserOptions: {
-          parser: typescriptParser
-        }
-      },
-      plugins: {
-        // prettier: prettierPlugin,
-        svelte: sveltePlugin
-      },
-      processor: 'svelte/svelte',
-      rules: {
-        ...sveltePlugin.configs.recommended.rules
-        // ...sveltePlugin.configs.prettier.rules,
-      }
-    },
-    {
-      files: ['*.json'],
-      plugins: {
-        '@nx': nxPlugin,
-      },
-      languageOptions: {
-        parser: jsoncParser
-      },
-      rules: { '@nx/dependency-checks': 'error' }
-    },
-    {
-      files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
-      plugins: {
-        prettier: prettierPlugin
-      },
-      rules: {
-        'prettier/prettier': [
-          'error',
-          prettierConfig,
-          {
-            usePrettierrc: false
-          }
-        ]
-      }
-    },
-    perfectionistNatural,
-    prettier
-  ];
+export function createConfig(tsconfigPath) {
+	return [
+		js.configs.recommended,
+		{
+			plugins: {
+				'@nx': nxPlugin,
+				'@typescript-eslint': typescriptPlugin
+			},
+			rules: {
+				...typescriptPlugin.configs.recommended.rules,
+				'@nx/enforce-module-boundaries': [
+					'error',
+					{
+						allow: [],
+						depConstraints: [
+							{
+								onlyDependOnLibsWithTags: ['*'],
+								sourceTag: '*'
+							}
+						],
+						enforceBuildableLibDependency: true
+					}
+				],
+				'arrow-body-style': 'off',
+				'no-undef': 'off',
+				'prefer-arrow-callback': 'off'
+			}
+		},
+		{
+			files: ['**/*.ts'],
+			languageOptions: {
+				parser: typescriptParser,
+				parserOptions: {
+					ecmaVersion: 2020,
+					extraFileExtensions: ['.svelte'],
+					project: tsconfigPath,
+					sourceType: 'module'
+				}
+			}
+		},
+		{
+			files: ['**/*.svelte'],
+			languageOptions: {
+				parser: svelteParser,
+				parserOptions: {
+					parser: typescriptParser
+				}
+			},
+			plugins: {
+				// prettier: prettierPlugin,
+				svelte: sveltePlugin
+			},
+			processor: 'svelte/svelte',
+			rules: {
+				...sveltePlugin.configs.recommended.rules
+				// ...sveltePlugin.configs.prettier.rules,
+			}
+		},
+		{
+			files: ['*.json'],
+			languageOptions: {
+				parser: jsoncParser
+			},
+			plugins: {
+				'@nx': nxPlugin
+			},
+			rules: { '@nx/dependency-checks': 'error' }
+		},
+		{
+			files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+			plugins: {
+				prettier: prettierPlugin
+			},
+			rules: {
+				'prettier/prettier': [
+					'error',
+					prettierConfig,
+					{
+						usePrettierrc: false
+					}
+				]
+			}
+		},
+		perfectionistNatural,
+		prettier
+	];
 }
+
+export default createConfig(join(fileURLToPath(import.meta.url), '..', 'tsconfig.base.json'));

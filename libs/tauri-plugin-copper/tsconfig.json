@@ -8,10 +8,16 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vitest"]
+    "types": [
+      "vitest"
+    ]
   },
   "files": [],
-  "include": [],
+  "include": [
+    "src/**/*.ts",
+    "vite.config.ts",
+    "eslint.config.js"
+  ],
   "references": [
     {
       "path": "./tsconfig.lib.json"
