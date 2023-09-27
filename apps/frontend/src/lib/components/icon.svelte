@@ -27,4 +27,4 @@
     export let inline = true;
 </script>
 
-<iconify-icon icon="{set}:{name}" {inline} {width} {height} />
+<iconify-icon {height} icon="{set}:{name}" {inline} {width} />

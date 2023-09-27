@@ -54,6 +54,7 @@
         # binaries
         nodejs
         rustTC
+        nodePackages.pnpm
 
         # lsps
         nil

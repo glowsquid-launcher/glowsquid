@@ -1,4 +1,4 @@
-import type { LayoutLoad } from './$types';
+import type { LayoutLoad } from "./$types";
 
 /**
  * Loads data for instance page
@@ -6,6 +6,6 @@ import type { LayoutLoad } from './$types';
  */
 export const load: LayoutLoad = ({ params }) => {
   return {
-    id: params.instance
+    id: params.instance,
   };
 };

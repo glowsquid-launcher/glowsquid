@@ -1,9 +1,9 @@
 <script lang="ts">
-    import {gsap} from 'gsap/dist/gsap';
-    import {Flip} from 'gsap/dist/Flip';
     import {afterNavigate, beforeNavigate} from '$app/navigation';
     import Button from '$components/button.svelte';
     import Icon from '$components/icon.svelte';
+    import {Flip} from 'gsap/dist/Flip';
+    import {gsap} from 'gsap/dist/gsap';
     import { setContext } from 'svelte';
     import { writable } from 'svelte/store';
 

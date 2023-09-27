@@ -1,8 +1,10 @@
 <script lang="ts">
-    import type {PageData} from './$types';
+    import type { Writable } from 'svelte/store';
+
     import Instance from '$components/instance.svelte';
     import { getContext } from 'svelte';
-    import type { Writable } from 'svelte/store';
+
+    import type {PageData} from './$types';
 
     export let data: PageData;
 
@@ -12,7 +14,7 @@
 <div class="instances" class:collapsed={$isMinified}>
     {#each data.instances as instanceId (instanceId)}
         <!-- TODO: Arguments for instance -->
-        <Instance id={instanceId} collapsed={$isMinified} />
+        <Instance collapsed={$isMinified} id={instanceId} />
     {/each}
 </div>
 

@@ -1,6 +1,7 @@
 {
   "name": "@glowsquid/tauri-plugin-copper",
   "version": "0.0.1",
+  "type": "module",
   "devDependencies": {
     "vite": "~4.4.9",
     "@nx/vite": "^16.7.3",

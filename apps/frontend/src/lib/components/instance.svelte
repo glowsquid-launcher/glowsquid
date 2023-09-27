@@ -1,15 +1,16 @@
 <script lang="ts">
-    import Icon from './icon.svelte';
     import {goto} from '$app/navigation';
+
+    import Icon from './icon.svelte';
 
     export let id: string;
     export let collapsed: boolean = false;
 </script>
 
-<article id="modpack" data-flip-id="modpack-{id}" class:collapsed>
+<article class:collapsed data-flip-id="modpack-{id}" id="modpack">
     <header>
         <div class="image-button">
-          <img src="https://placehold.co/64" alt="Modpack Title icon" />
+          <img alt="Modpack Title icon" src="https://placehold.co/64" />
 
           <div class="overlay">
             <button>

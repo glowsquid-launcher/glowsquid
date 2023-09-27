@@ -18,11 +18,11 @@
         <label>
             {label}
             <Icon name={icon} />
-            <input {type} {placeholder} required class={className} />
+            <input class={className} {placeholder} required {type} />
         </label>
     {:else}
         <Icon name={icon} />
-        <input class={className} {type} {placeholder} required />
+        <input class={className} {placeholder} required {type} />
     {/if}
 </div>
 

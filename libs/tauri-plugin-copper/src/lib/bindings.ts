@@ -3,10 +3,7 @@
 
 declare global {
   interface Window {
-    __TAURI_INVOKE__(
-      cmd: string,
-      args?: Record<string, unknown>
-    ): Promise<any>;
+    __TAURI_INVOKE__(cmd: string, args?: Record<string, unknown>): Promise<any>;
   }
 }
 
@@ -14,5 +11,5 @@ declare global {
 const invoke = () => window.__TAURI_INVOKE__;
 
 export async function testConnection(): Promise<null> {
-  return await invoke()('plugin:copper|test_connection');
+  return await invoke()("plugin:copper|test_connection");
 }

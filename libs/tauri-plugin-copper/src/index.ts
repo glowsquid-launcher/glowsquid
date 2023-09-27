@@ -1,1 +1,1 @@
-export * from './lib/tauri-plugin-copper';
+export * from "./lib/tauri-plugin-copper";

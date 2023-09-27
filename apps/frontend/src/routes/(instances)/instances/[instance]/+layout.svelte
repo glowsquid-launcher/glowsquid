@@ -1,14 +1,16 @@
 <script lang="ts">
-    import {createTabs, melt} from '@melt-ui/svelte';
-    import type {LayoutData} from './$types';
-    import Button from '$components/button.svelte';
-    import Instance from '$components/instance.svelte';
-    import Icon from '$components/icon.svelte';
-    import {goto} from '$app/navigation';
-    import { getContext } from 'svelte';
     import type { Writable } from 'svelte/store';
+
+    import {goto} from '$app/navigation';
+    import Button from '$components/button.svelte';
+    import Icon from '$components/icon.svelte';
+    import Instance from '$components/instance.svelte';
+    import {createTabs, melt} from '@melt-ui/svelte';
+    import { getContext } from 'svelte';
     import { backOut } from 'svelte/easing';
     import { crossfade } from 'svelte/transition';
+
+    import type {LayoutData} from './$types';
 
     export let data: LayoutData;
     const needsUpdate = true;
@@ -56,7 +58,7 @@
     <aside class="instances-sidebar">
         {#each instances as id (id)}
             <!-- TODO: Arguments for instance -->
-            <Instance {id} collapsed={$isMinified} />
+            <Instance collapsed={$isMinified} {id} />
         {/each}
     </aside>
 
@@ -89,15 +91,15 @@
                 {/if}
             </div>
         </header>
-        <div use:melt={$root} class="root">
+        <div class="root" use:melt={$root}>
             <div
-                use:melt={$list}
                 aria-label="Manage your account"
                 class="list"
+                use:melt={$list}
             >
                 <button
-                    use:melt={$trigger('home')}
                     class="trigger"
+                    use:melt={$trigger('home')}
                 >
                     {#if $value === 'home'}
                         <div
@@ -110,8 +112,8 @@
                     Instance Settings
                 </button>
                 <button
-                    use:melt={$trigger('stats')}
                     class="trigger"
+                    use:melt={$trigger('stats')}
                 >
                     {#if $value === 'stats'}
                         <div
@@ -124,8 +126,8 @@
                     Stats
                 </button>
                 <button
-                    use:melt={$trigger('settings')}
                     class="trigger"
+                    use:melt={$trigger('settings')}
                 >
                     {#if $value === 'settings'}
                         <div

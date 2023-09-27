@@ -1,17 +1,15 @@
 <script lang="ts">
-    import 'iconify-icon';
-    import '@fontsource-variable/manrope';
+    import Input from '$components/input.svelte';
+    import {testConnection} from '$lib/bridge'
     import '@fontsource/ibm-plex-sans/300.css';
     import '@fontsource/ibm-plex-sans/400.css';
     import '@fontsource/ibm-plex-sans/500.css';
-    import '../app.css';
-    import '../app.dark.css';
-    import AccountDropdown from './account-dropdown.svelte';
-    import type {LayoutData} from './$types';
-    import Input from '$components/input.svelte';
-    import {testConnection} from '$lib/bridge'
+    import '@fontsource-variable/manrope';
+    import 'iconify-icon';
 
-    export let data: LayoutData;
+    import '../app.css';
+    import "../app.dark.css";
+    import AccountDropdown from './account-dropdown.svelte';
 
     testConnection().catch(console.error)
 </script>
@@ -21,9 +19,9 @@
         <h1><a href="/">Glowsquid</a></h1>
         <div class="quick-search">
             <Input
-                type="text"
-                placeholder={"Quick Search"}
                 icon="search"
+                placeholder={"Quick Search"}
+                type="text"
             />
         </div>
         <div>

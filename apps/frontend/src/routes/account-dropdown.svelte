@@ -1,7 +1,7 @@
 <script lang="ts">
+    import Icon from '$components/icon.svelte';
     import {createDropdownMenu, melt} from '@melt-ui/svelte';
     import {fly} from 'svelte/transition';
-    import Icon from '$components/icon.svelte';
 
     const {
         elements: {arrow, item, menu, separator, trigger},
@@ -23,34 +23,34 @@
 
 {#if $open}
     <div
-        use:melt={$menu}
         class="menu"
         transition:fly={{duration: 150, y: -10}}
+        use:melt={$menu}
     >
-        <button use:melt={$item} class="account">
+        <button class="account" use:melt={$item}>
             <img
+                alt="TNTMan1671 Avatar"
+                height="24"
                 src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
                 width="24"
-                height="24"
-                alt="TNTMan1671 Avatar"
             />
             Some Other account
         </button>
-        <button use:melt={$item} class="account">
+        <button class="account" use:melt={$item}>
             <img
+                alt="TNTMan1671 Avatar"
+                height="24"
                 src="https://crafatar.com/renders/head/52ddf2f1a59f4a19822fa6157f705320?scale=2"
                 width="24"
-                height="24"
-                alt="TNTMan1671 Avatar"
             />
             Some Other account 2
         </button>
-        <div use:melt={$separator} class="separator" />
-        <button use:melt={$item} class="account">
+        <div class="separator" use:melt={$separator} />
+        <button class="account" use:melt={$item}>
             <Icon name="user-plus" />
             {"Create Account"}
         </button>
-        <button use:melt={$item} class="account">
+        <button class="account" use:melt={$item}>
             <Icon name="sliders-2" />
             {"Settings"}
         </button>

@@ -1,11 +1,13 @@
 <script lang="ts">
-    // @ts-expect-error to use internal Svelte function
-    import {get_current_component as getCurrentComponent} from 'svelte/internal';
     import type {ActionArray} from '@smui/common/internal';
+
     import {
         forwardEventsBuilder,
         useActions
     } from '@smui/common/internal';
+    // @ts-expect-error to use internal Svelte function
+    import {get_current_component as getCurrentComponent} from 'svelte/internal';
+
     import Icon from './icon.svelte';
 
     export let use: ActionArray = [];
@@ -24,15 +26,15 @@
 </script>
 
 <button
-    use:useActions={use}
-    use:forwardEvents
     class={className}
-    class:primary={color === 'primary'}
-    class:secondary={color === 'secondary'}
-    class:red={color === 'red'}
-    class:green={color === 'green'}
-    class:yellow={color === 'yellow'}
     class:amber={color === 'amber'}
+    class:green={color === 'green'}
+    class:primary={color === 'primary'}
+    class:red={color === 'red'}
+    class:secondary={color === 'secondary'}
+    class:yellow={color === 'yellow'}
+    use:forwardEvents
+    use:useActions={use}
 >
     {#if icon}
         <Icon name={icon} />

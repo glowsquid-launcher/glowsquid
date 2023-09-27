@@ -1,6 +1,6 @@
-import { bindings } from '@glowsquid/tauri-plugin-copper';
-import { testConnection as testBindingConnection } from './bindings';
-export * from './accounts';
+import { bindings } from "@glowsquid/tauri-plugin-copper";
+import { testConnection as testBindingConnection } from "./bindings";
+export * from "./accounts";
 
 /**
  * Tests the connection between the frontend and tauri
