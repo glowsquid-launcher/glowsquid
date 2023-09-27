@@ -4,8 +4,8 @@
     import {afterNavigate, beforeNavigate} from '$app/navigation';
     import Button from '$components/button.svelte';
     import Icon from '$components/icon.svelte';
-  import { setContext } from 'svelte';
-  import { writable } from 'svelte/store';
+    import { setContext } from 'svelte';
+    import { writable } from 'svelte/store';
 
     gsap.registerPlugin(Flip);
     let state: Flip.FlipState | null = null;

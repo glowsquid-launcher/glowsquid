@@ -2,7 +2,6 @@
     import {createDropdownMenu, melt} from '@melt-ui/svelte';
     import {fly} from 'svelte/transition';
     import Icon from '$components/icon.svelte';
-    import { LL } from '@glowsquid/i18n';
 
     const {
         elements: {arrow, item, menu, separator, trigger},
@@ -49,11 +48,11 @@
         <div use:melt={$separator} class="separator" />
         <button use:melt={$item} class="account">
             <Icon name="user-plus" />
-            {$LL.header.accountDropdown.createAccount()}
+            {"Create Account"}
         </button>
         <button use:melt={$item} class="account">
             <Icon name="sliders-2" />
-            {$LL.header.accountDropdown.settings()}
+            {"Settings"}
         </button>
         <div use:melt={$arrow} />
     </div>

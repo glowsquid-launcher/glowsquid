@@ -9,12 +9,9 @@
     import AccountDropdown from './account-dropdown.svelte';
     import type {LayoutData} from './$types';
     import Input from '$components/input.svelte';
-    import {LL, setLocale} from '@glowsquid/i18n';
     import {testConnection} from '$lib/bridge'
 
     export let data: LayoutData;
-
-    setLocale(data.locale);
 
     testConnection().catch(console.error)
 </script>
@@ -25,7 +22,7 @@
         <div class="quick-search">
             <Input
                 type="text"
-                placeholder={$LL.header.quickSearch()}
+                placeholder={"Quick Search"}
                 icon="search"
             />
         </div>

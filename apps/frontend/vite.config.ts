@@ -28,7 +28,8 @@ export default defineConfig({
   plugins: [nxViteTsPaths(), sveltekit()],
   server: {
     fs: {
-      allow: ['.']
+      allow: ['.'],
+      deny: ['dist', '.direnv']
     }
   },
   test: {
