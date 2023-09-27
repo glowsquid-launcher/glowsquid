@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "serve": "nx run-many --target=serve -p client -p frontend -p i18n",
+    "serve": "nx run-many --target=serve -p client -p frontend",
     "dev": "npm run serve",
-    "prepare": "nx run-many --target=prepare --all",
-    "typesafe-i18n": "typesafe-i18n"
+    "prepare": "nx run-many --target=prepare --all"
   },
   "private": true,
   "type": "module",
@@ -49,7 +48,6 @@
     "svelte": "^4.2.0",
     "svelte-sequential-preprocessor": "^2.0.1",
     "swc-loader": "0.2.3",
-    "typesafe-i18n": "^5.26.2",
     "typescript": "~5.2.2",
     "vite": "~4.4.9",
     "vite-plugin-dts": "~3.5.3",

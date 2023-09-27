@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "type": "module",
   "devDependencies": {
-    "typesafe-i18n": "^5.26.1",
     "@sveltejs/kit": "^1.23.0",
     "vitest": "~0.34.2",
     "browserslist": "4.21.10",
