@@ -1,8 +1,8 @@
+import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import { sveltekit } from "@sveltejs/kit/vite";
-import { defineConfig } from "vitest/config";
 import browserslist from "browserslist";
 import { browserslistToTargets } from "lightningcss";
-import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
+import { defineConfig } from "vitest/config";
 
 // https://tauri.app/v1/guides/faq#recommended-browserlist
 const targets = browserslistToTargets(
@@ -10,11 +10,11 @@ const targets = browserslistToTargets(
 );
 
 export default defineConfig({
-  cacheDir: "../../node_modules/.vite/frontend",
   build: {
     cssMinify: "lightningcss",
     target: ["es2021", "safari13"],
   },
+  cacheDir: "../../node_modules/.vite/frontend",
   css: {
     devSourcemap: true,
     lightningcss: {
@@ -33,6 +33,13 @@ export default defineConfig({
     },
   },
   test: {
-    include: ["src/**/*.{test,spec}.{js,ts}"],
+    cache: {
+      dir: "../../node_modules/.vitest",
+    },
+    coverage: {
+      provider: 'v8'
+    },
+    globals: true,
+    include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
   },
 });

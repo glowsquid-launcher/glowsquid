@@ -48,6 +48,7 @@ const config = {
         cfg.include.push("../../../apps/frontend/vite.config.ts");
         cfg.include.push("../../../svelte.config.js");
         cfg.include.push("../../../apps/frontend/eslint.config.js");
+        cfg.include.push("../../../apps/frontend/src/app.d.ts");
 
         cfg.compilerOptions.paths = {
           ...cfg.compilerOptions.paths,

@@ -3,8 +3,16 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "composite": true,
-    "types": ["vitest/globals", "vitest/importMeta", "vite/client", "node"]
+    "types": [
+      "vitest/globals",
+      "vitest/importMeta",
+      "vite/client",
+      "node"
+    ]
   },
-  "include": ["**/*.spec.ts", "**/*.spec.js", "**/*.d.ts"]
+  "include": [
+    "**/*.spec.ts",
+    "**/*.spec.js",
+    "**/*.d.ts"
+  ]
 }

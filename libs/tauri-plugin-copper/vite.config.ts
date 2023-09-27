@@ -28,8 +28,7 @@ export default defineConfig({
   plugins: [
     dts({
       entryRoot: "src",
-      skipDiagnostics: true,
-      tsConfigFilePath: path.join(__dirname, "tsconfig.lib.json"),
+      tsconfigPath: path.join(__dirname, "tsconfig.lib.json"),
     }),
 
     nxViteTsPaths(),
@@ -39,7 +38,10 @@ export default defineConfig({
     cache: {
       dir: "../../node_modules/.vitest",
     },
-    environment: "node",
+    coverage: {
+      provider: 'v8'
+    },
+    environment: "jsdom",
     globals: true,
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
   },

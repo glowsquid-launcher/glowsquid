@@ -1,1 +1,1 @@
-export * from "./lib/tauri-plugin-copper";
+export * as bindings from "./lib/bindings";

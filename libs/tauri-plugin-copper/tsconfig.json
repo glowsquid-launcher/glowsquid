@@ -13,11 +13,7 @@
     ]
   },
   "files": [],
-  "include": [
-    "src/**/*.ts",
-    "vite.config.ts",
-    "eslint.config.js"
-  ],
+  "include": [],
   "references": [
     {
       "path": "./tsconfig.lib.json"

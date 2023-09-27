@@ -1,4 +1,5 @@
 import { bindings } from "@glowsquid/tauri-plugin-copper";
+
 import { testConnection as testBindingConnection } from "./bindings";
 export * from "./accounts";
 

@@ -29,7 +29,7 @@ const prettierConfig = {
 
 /**
  *
- * @param {string} tsconfigPath path to tsconfig.json. Usually join(fileURLToPath(import.meta.url), '..', 'tsconfig.json')
+ * @param {string[]} tsconfigPath path to tsconfig.json (or multiple). Usually join(fileURLToPath(import.meta.url), '..', 'tsconfig.json')
  * @returns {import("eslint").Linter.FlatConfig[]}
  */
 export function createConfig(tsconfigPath) {
