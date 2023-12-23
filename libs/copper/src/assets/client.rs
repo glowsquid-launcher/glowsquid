@@ -855,6 +855,9 @@ impl Downloader for LibraryDownloader {
 
     async fn download_all(self: Arc<Self>) -> error_stack::Result<(), DownloadError> {
         let new_self = self.clone();
+
+        // bug: this doesn't work if you filter first
+        #[allow(clippy::iter_overeager_cloned)]
         let libraries = new_self
             .libraries
             .iter()

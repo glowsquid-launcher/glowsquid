@@ -1,5 +1,6 @@
 use std::{
     collections::HashMap,
+    future::IntoFuture,
     net::SocketAddr,
     path::PathBuf,
     sync::{Arc, OnceLock},
@@ -10,6 +11,7 @@ use axum::{
     routing::get,
     Router,
 };
+
 use copper::{
     assets::version,
     auth::{
@@ -22,7 +24,7 @@ use copper::{
 use error_stack::Report;
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 use oauth2::{CsrfToken, PkceCodeVerifier};
-use tokio::{io::AsyncBufReadExt, sync::mpsc};
+use tokio::{io::AsyncBufReadExt, net::TcpListener, task};
 use tracing::{error, info};
 use tracing_subscriber::{fmt::format::PrettyFields, prelude::*};
 
@@ -46,12 +48,12 @@ static TOKEN: OnceLock<MinecraftToken> = OnceLock::new();
 
 #[derive(Clone)]
 struct AppState {
-    shutdown_signal: mpsc::Sender<()>,
     oauth: MSauth,
 }
 
 #[tokio::main]
 async fn main() {
+    todo!("This example is not working due to axum 0.7 having cursed graceful shutdowns. Please read the code instead of running it");
     // some setup for logging
     Report::set_color_mode(error_stack::fmt::ColorMode::Color);
 
@@ -83,22 +85,15 @@ async fn main() {
 
     info!("Initializing server...");
 
-    // some server setup. You will probably need to set it up using your preferred framework of
-    // choice
-    let (shutdown, send) = mpsc::channel(1);
     let router = Router::new()
         .route("/code", get(get_code))
         .with_state(AppState {
-            shutdown_signal: shutdown,
             oauth: oauth.clone(),
         });
 
-    let listener = SocketAddr::from(([127, 0, 0, 1], 3000));
-    let server = tokio::spawn(
-        axum::Server::bind(&listener)
-            .serve(router.into_make_service())
-            .with_graceful_shutdown(shutdown_server(send)),
-    );
+    let socket_addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let listener = TcpListener::bind(&socket_addr).await.unwrap();
+    let server = task::spawn(axum::serve(listener, router.into_make_service()).into_future());
 
     info!("Server initialized on port 3000!...");
 
@@ -282,11 +277,6 @@ async fn main() {
     game_manager.exit_handle.await.unwrap();
 }
 
-async fn shutdown_server(mut signal_to_shutdown: mpsc::Receiver<()>) {
-    signal_to_shutdown.recv().await.unwrap();
-    info!("Shutting down auth server...");
-}
-
 async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) {
     info!("Received code: {:?}. Authenticating...", code);
 
@@ -312,5 +302,4 @@ async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) 
         .expect("To be able to get token");
 
     TOKEN.set(token).expect("To be able to set token");
-    state.shutdown_signal.send(()).await.unwrap();
 }

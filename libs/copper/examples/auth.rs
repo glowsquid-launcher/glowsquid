@@ -1,4 +1,4 @@
-use std::{net::SocketAddr, sync::OnceLock};
+use std::{future::IntoFuture, net::SocketAddr, sync::OnceLock};
 
 use axum::{
     extract::{Query, State},
@@ -8,7 +8,7 @@ use axum::{
 use copper::auth::{structs::OauthCode, MSauth};
 use error_stack::Report;
 use oauth2::{CsrfToken, PkceCodeVerifier};
-use tokio::{sync::mpsc, task};
+use tokio::{net::TcpListener, task};
 use tracing::info;
 use tracing_subscriber::{fmt::format::PrettyFields, prelude::*};
 
@@ -29,7 +29,6 @@ static PKCE_VERIFIER: OnceLock<PkceCodeVerifier> = OnceLock::new();
 
 #[derive(Clone)]
 struct AppState {
-    shutdown_signal: mpsc::Sender<()>,
     oauth: MSauth,
 }
 
@@ -66,20 +65,15 @@ async fn main() {
 
     // some server setup. You will probably need to set it up using your preferred framework of
     // choice
-    let (shutdown, send) = mpsc::channel(1);
     let router = Router::new()
         .route("/code", get(get_code))
         .with_state(AppState {
-            shutdown_signal: shutdown,
             oauth: oauth.clone(),
         });
 
-    let listener = SocketAddr::from(([127, 0, 0, 1], 3000));
-    let server = task::spawn(
-        axum::Server::bind(&listener)
-            .serve(router.into_make_service())
-            .with_graceful_shutdown(shutdown_server(send)),
-    );
+    let socket_addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let listener = TcpListener::bind(&socket_addr).await.unwrap();
+    let server = task::spawn(axum::serve(listener, router.into_make_service()).into_future());
 
     info!("Initializing initialized on port 3000!...");
 
@@ -102,12 +96,7 @@ async fn main() {
 
     info!("Please go to this url to authenticate: {}", auth_url);
 
-    server.await.unwrap().unwrap()
-}
-
-async fn shutdown_server(mut signal_to_shutdown: mpsc::Receiver<()>) {
-    signal_to_shutdown.recv().await.unwrap();
-    info!("Shutting down...");
+    server.await.unwrap().unwrap();
 }
 
 async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) {
@@ -151,6 +140,5 @@ async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) 
 
     info!("Authenticated! Token: {:?}", token);
 
-    info!("sending signal to shut down server");
-    state.shutdown_signal.send(()).await.unwrap();
+    info!("You can now run ctrl+c to exit the program");
 }
