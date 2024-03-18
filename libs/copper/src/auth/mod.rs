@@ -199,7 +199,9 @@ impl MSauth {
             access_token: response.access_token,
             username: response.username,
             ms_token,
-            expires_at: Utc::now() + Duration::seconds(response.expires_in),
+            expires_at: Utc::now()
+                + Duration::try_seconds(response.expires_in)
+                    .expect("Failed to convert the expiry time into seconds."),
         })
     }
 

@@ -2,12 +2,20 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"],
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ],
       "cache": true
     },
     "test": {
-      "inputs": ["default", "^default"],
+      "inputs": [
+        "default",
+        "^default"
+      ],
       "cache": true
     },
     "lint": {
@@ -23,7 +31,9 @@
       "cache": true
     }
   },
-  "plugins": ["@monodon/rust"],
+  "plugins": [
+    "@monodon/rust"
+  ],
   "generators": {
     "@nx/web:application": {
       "style": "css",
@@ -33,7 +43,10 @@
     }
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "sharedGlobals": [],
     "production": [
       "default",
@@ -42,5 +55,6 @@
       "!{projectRoot}/eslint.config.js"
     ]
   },
-  "nxCloudAccessToken": "MGY3ZjgyMzUtYWExMS00YTk3LWExYzctNDYxZmYxMDdhZTc5fHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "MGY3ZjgyMzUtYWExMS00YTk3LWExYzctNDYxZmYxMDdhZTc5fHJlYWQtd3JpdGU=",
+  "useInferencePlugins": false
 }
