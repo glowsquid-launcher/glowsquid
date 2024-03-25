@@ -98,7 +98,7 @@ jobs:
           exit 0
 
       - name: Stop CI run
-        run: npx nx-cloud complete-ci-run.
+        run: npx nx-cloud complete-ci-run
 
   agents:
     name: Agent ${{ matrix.agent }}
