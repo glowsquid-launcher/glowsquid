@@ -66,6 +66,9 @@ jobs:
       - run: pnpm i --frozen-lockfile
 
       - uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: 'dev'
+
       # This line is needed for nx affected to work when CI is running on a PR
       - name: Checkout default branch
         if: github.ref != 'refs/heads/dev'
