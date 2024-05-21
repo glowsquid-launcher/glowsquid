@@ -15,8 +15,8 @@
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@monodon/rust": "^1.4.0",
-    "@repo/eslint-config": "workspace:*",
-    "@moonrepo/cli": "^1.24.4"
+    "@moonrepo/cli": "^1.24.6",
+    "@repo/eslint-config": "workspace:*"
   },
   "packageManager": "pnpm@9.0.6",
   "engines": {
