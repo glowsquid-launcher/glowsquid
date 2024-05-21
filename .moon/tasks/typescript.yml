@@ -1,0 +1,11 @@
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+fileGroups:
+  sources:
+    - 'src/**/*'
+
+tasks:
+  lint:
+    command: 'eslint .'
+  format:
+    command: 'eslint --fix .'

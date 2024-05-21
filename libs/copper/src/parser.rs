@@ -219,7 +219,7 @@ impl<'a> MinecraftArgs<'a> {
     }
 
     fn quickplay_check<T: Fn(&Quickplay) -> bool>(&self, x: bool, qp: T) -> bool {
-        x == self.launcher.quickplay().map(qp).unwrap_or_default()
+        x == self.launcher.quickplay().is_some_and(qp)
     }
 
     fn minecraft_rule_passes(&self, rule: &client::GameRule) -> bool {

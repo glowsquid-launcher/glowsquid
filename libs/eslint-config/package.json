@@ -1,0 +1,20 @@
+{
+  "name": "@repo/eslint-config",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./index.js",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "eslint-config-prettier": "^9.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/eslint": "^8.56.7",
+    "@types/eslint-config-prettier": "^6.11.3",
+    "@types/eslint__js": "^8.42.3",
+    "eslint-plugin-svelte": "2.38.0",
+    "svelte": "^4.2.15",
+    "typescript-eslint": "^7.5.0"
+  }
+}

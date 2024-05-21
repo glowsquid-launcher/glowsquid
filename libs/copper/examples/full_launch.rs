@@ -24,7 +24,7 @@ use copper::{
 use error_stack::Report;
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 use oauth2::{CsrfToken, PkceCodeVerifier};
-use tokio::{io::AsyncBufReadExt, net::TcpListener, task};
+use tokio::{io::AsyncBufReadExt, net::TcpListener, sync::mpsc, task};
 use tracing::{error, info};
 use tracing_subscriber::{fmt::format::PrettyFields, prelude::*};
 
@@ -40,7 +40,7 @@ extern crate tracing_subscriber;
 // glowsquids details. If you are going to make your own app, please do not use these.
 // these are just for ease of use.
 const CLIENT_ID: &str = "2aa32806-92e3-4242-babc-392ac0f0fd30";
-const CLIENT_SECRET: &str = "a8F8Q~v58Hfe4nypPkCoiVSCEBG3WKcnYx9uXc-2";
+const CLIENT_SECRET: &str = "nky8Q~8lORwTC0OjdxVsgZSs0hCdTcEdec3hNbaP";
 
 static CSRF_TOKEN: OnceLock<CsrfToken> = OnceLock::new();
 static PKCE_VERIFIER: OnceLock<PkceCodeVerifier> = OnceLock::new();
@@ -49,16 +49,17 @@ static TOKEN: OnceLock<MinecraftToken> = OnceLock::new();
 #[derive(Clone)]
 struct AppState {
     oauth: MSauth,
+    shutdown_send: Arc<mpsc::Sender<()>>,
 }
 
 #[tokio::main]
 async fn main() {
-    todo!("This example is not working due to axum 0.7 having cursed graceful shutdowns. Please read the code instead of running it");
     // some setup for logging
     Report::set_color_mode(error_stack::fmt::ColorMode::Color);
 
     let error_handler = tracing_error::ErrorLayer::new(PrettyFields::new());
 
+    let (shutdown_sender, mut shutdown_recv) = mpsc::channel(1);
     tracing_subscriber::fmt()
         .pretty()
         .with_env_filter(
@@ -89,11 +90,16 @@ async fn main() {
         .route("/code", get(get_code))
         .with_state(AppState {
             oauth: oauth.clone(),
+            shutdown_send: Arc::new(shutdown_sender),
         });
 
     let socket_addr = SocketAddr::from(([127, 0, 0, 1], 3000));
     let listener = TcpListener::bind(&socket_addr).await.unwrap();
-    let server = task::spawn(axum::serve(listener, router.into_make_service()).into_future());
+    let server = task::spawn(
+        axum::serve(listener, router.into_make_service())
+            .with_graceful_shutdown(async move { shutdown_recv.recv().await.unwrap() })
+            .into_future(),
+    );
 
     info!("Server initialized on port 3000!...");
 
@@ -150,7 +156,7 @@ async fn main() {
         is_demo_user: false,
     };
 
-    let java_home = PathBuf::from(java_locator::locate_java_home().unwrap());
+    let java_home = PathBuf::from(java_locator::locate_java_home().expect("Java not found"));
     let java_path = match std::env::consts::OS {
         "windows" => java_home.join("bin").join("javaw.exe"),
         _ => java_home.join("bin").join("java"),
@@ -302,4 +308,9 @@ async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) 
         .expect("To be able to get token");
 
     TOKEN.set(token).expect("To be able to set token");
+    state
+        .shutdown_send
+        .send(())
+        .await
+        .expect("To be able to send shutdown signal");
 }

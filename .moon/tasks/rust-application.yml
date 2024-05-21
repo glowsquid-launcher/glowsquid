@@ -1,0 +1,21 @@
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+tasks:
+  build:
+    command: "cargo build --release"
+    inputs:
+      - '@globs(sources)'
+    deps:
+      - '^:build'
+  preview:
+    command: "cargo run --release"
+    deps:
+      - build
+      - '^:build'
+      - '^:preview'
+    local: true
+  test:
+    command: 'cargo test'
+    inputs:
+      - '@globs(sources)'
+      - '@globs(tests)'

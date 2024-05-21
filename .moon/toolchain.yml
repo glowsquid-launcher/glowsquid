@@ -1,0 +1,45 @@
+# https://moonrepo.dev/docs/config/toolchain
+$schema: "https://moonrepo.dev/schemas/toolchain.json"
+
+node:
+  # We suggest using the latest active LTS version: https://nodejs.org/en/about/releases
+  version: "20"
+
+  packageManager: "pnpm"
+
+  # Update whenever new major version is out
+  pnpm:
+    version: "9.0.6"
+
+  # Add `node.version` as a constraint in the root `package.json` `engines`.
+  addEnginesConstraint: true
+
+  # Currently buggy and dedupes even with up to date lockfiles
+  dedupeOnLockfileChange: false
+
+  dependencyVersionFormat: "workspace"
+
+  inferTasksFromScripts: false
+
+  # Support the "one version policy" by only declaring dependencies in the root `package.json`.
+  # rootPackageOnly: true
+
+  # Sync a project's relationships as `dependencies` within the project's `package.json`.
+  syncProjectWorkspaceDependencies: true
+
+# Configures Rust within the toolchain.
+rust:
+  version: "stable"
+  bins: ["cargo-watch"]
+  components: ["rustfmt", "rust-src", "rust-analyzer"]
+  targets: []
+
+  syncToolchainConfig: true
+
+typescript:
+  createMissingConfig: true
+  includeProjectReferenceSources: true
+  includeSharedTypes: true
+  routeOutDirToCache: false
+  syncProjectReferences: true
+  syncProjectReferencesToPaths: true

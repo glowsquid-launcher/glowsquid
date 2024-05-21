@@ -34,8 +34,12 @@ yarn-error.log
 testem.log
 /typings
 /.direnv
-/.nx
+/target
 
 # System Files
 .DS_Store
 Thumbs.db
+
+# moon
+.moon/cache
+.moon/docker

@@ -20,7 +20,7 @@ error-stack = { version = "0.4.1", features = ["spantrace"] }
 futures = "0.3.30"
 itertools = "0.12.1"
 oauth2 = "4.4.2"
-reqwest = { version = "0.11.26", default-features = false, features = [
+reqwest = { version = "0.12.4", default-features = false, features = [
   "rustls-tls",
   "json",
   "stream",
@@ -28,15 +28,14 @@ reqwest = { version = "0.11.26", default-features = false, features = [
 serde.workspace = true
 serde_json.workspace = true
 test-case = "3.3.1"
-tokio = { version = "1.36.0", features = ["fs", "process", "macros"] }
+tokio = { version = "1.37.0", features = ["fs", "process", "macros"] }
 tracing = "0.1.40"
 tracing-error = "0.2.0"
 veil = "0.1.7"
-async-trait = "0.1.78"
 
 [dev-dependencies]
-axum = { version = "0.7.4", features = ["tracing"] }
-tokio = { version = "1.36.0", features = ["macros", "rt-multi-thread"] }
+axum = { version = "0.7.5", features = ["tracing"] }
+tokio = { version = "1.37.0", features = ["macros", "rt-multi-thread"] }
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 indicatif = "0.17.8"
 java-locator = "0.1.5"

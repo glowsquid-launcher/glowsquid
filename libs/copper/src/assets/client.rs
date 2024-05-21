@@ -255,7 +255,6 @@ impl ClassDownloader {
     }
 }
 
-#[async_trait::async_trait]
 impl Downloader for ClassDownloader {
     type DownloadItem = DownloadClass;
 
@@ -827,7 +826,6 @@ impl LibraryDownloader {
     }
 }
 
-#[async_trait::async_trait]
 impl Downloader for LibraryDownloader {
     type DownloadItem = Artifact;
 

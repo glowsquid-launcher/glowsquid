@@ -251,7 +251,6 @@ impl Downloader {
 }
 
 /// Downloads _everything_ needed to launch the game
-#[async_trait::async_trait]
 impl DownloaderTrait for Downloader {
     type DownloadItem = DownloadItem;
 

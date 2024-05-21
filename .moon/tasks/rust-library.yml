@@ -1,0 +1,8 @@
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+tasks:
+  test:
+    command: 'cargo test'
+    inputs:
+      - '@globs(sources)'
+      - '@globs(tests)'

@@ -1,0 +1,16 @@
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+
+tasks:
+  build:
+    deps:
+      - '^:build'
+  preview:
+    deps:
+      - build
+      - '^:build'
+      - '^:preview'
+    local: true
+  dev:
+    deps:
+      - '^:dev'
+    local: true

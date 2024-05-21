@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
     rust-overlay = {
@@ -24,37 +24,22 @@
         overlays = [(import rust-overlay)];
       };
 
-      rustTC = pkgs.rust-bin.stable.latest.default.override {
-        extensions = ["rustfmt" "rust-analyzer" "rust-src"];
-      };
+      rustTC = pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
 
       libraries = with pkgs; [
-        webkitgtk
-        gtk3
-        cairo
-        gdk-pixbuf
-        glib
-        dbus
         openssl_3
-        librsvg
+        pkg-config
       ];
 
       packages = with pkgs; [
-        curl
-        wget
-        pkg-config
-        dbus
-        openssl_3
-        glib
-        gtk3
-        libsoup
-        webkitgtk
-        librsvg
-
         # binaries
         nodejs
+        corepack
         rustTC
-        nodePackages.pnpm
+        cargo-watch
+        cargo-binstall # just in case
+        playwright-driver.browsers
+        temurin-jre-bin-21
 
         # lsps
         nil
@@ -66,10 +51,13 @@
     in {
       devShell = pkgs.mkShell {
         buildInputs = packages;
+        nativeBuildInputs = libraries;
 
-        shellHook = ''
-          export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath libraries}:$LD_LIBRARY_PATH
-        '';
+        PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
+        PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = true;
+        LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath libraries;
+        PKG_CONFIG_PATH = pkgs.lib.makeLibraryPath libraries;
+        RUST_SRC_PATH = "${rustTC}/lib/rustlib/src/rust/library/";
       };
     });
 }

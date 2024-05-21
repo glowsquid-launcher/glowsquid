@@ -22,7 +22,7 @@ extern crate tracing_subscriber;
 // glowsquids details. If you are going to make your own app, please do not use these.
 // these are just for ease of use.
 const CLIENT_ID: &str = "2aa32806-92e3-4242-babc-392ac0f0fd30";
-const CLIENT_SECRET: &str = "a8F8Q~v58Hfe4nypPkCoiVSCEBG3WKcnYx9uXc-2";
+const CLIENT_SECRET: &str = "nky8Q~8lORwTC0OjdxVsgZSs0hCdTcEdec3hNbaP";
 
 static CSRF_TOKEN: OnceLock<CsrfToken> = OnceLock::new();
 static PKCE_VERIFIER: OnceLock<PkceCodeVerifier> = OnceLock::new();

@@ -2,6 +2,7 @@ use error_stack::Result;
 use std::{
     error::Error,
     fmt::{self, Display, Formatter},
+    future::Future,
     sync::Arc,
 };
 
@@ -39,7 +40,6 @@ pub enum DownloadMessage<T> {
     DownloadProgress(T, u64),
 }
 
-#[async_trait::async_trait]
 pub trait Downloader {
     type DownloadItem;
 
@@ -50,12 +50,15 @@ pub trait Downloader {
     ///
     /// See the downloaders documentation for more information. Usually appends the path to the
     /// main directory.
-    async fn download(&self, item: Self::DownloadItem) -> Result<(), DownloadError>;
+    fn download(
+        &self,
+        item: Self::DownloadItem,
+    ) -> impl Future<Output = Result<(), DownloadError>> + Send;
 
     /// Downloads all files for this specific downloader. Requires an Arc for multithreading
     /// purposes
     ///
     /// See the downloaders documentation for more information. Usually appends the path to the
     /// main directory.
-    async fn download_all(self: Arc<Self>) -> Result<(), DownloadError>;
+    fn download_all(self: Arc<Self>) -> impl Future<Output = Result<(), DownloadError>> + Send;
 }

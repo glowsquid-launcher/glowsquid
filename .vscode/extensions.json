@@ -1,3 +1,10 @@
 {
-  "recommendations": ["nrwl.angular-console", "dbaeumer.vscode-eslint"]
+  "recommendations": [
+    "vivaxy.vscode-conventional-commits",
+    "rust-lang.rust-analyzer",
+    "svelte.svelte-vscode",
+    "tamasfe.even-better-toml",
+    "moonrepo.moon-console",
+    "vitest.explorer"
+  ]
 }

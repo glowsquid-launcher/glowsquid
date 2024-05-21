@@ -1,3 +1,36 @@
 {
-  "conventionalCommits.scopes": ["i18n"]
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.format.enable": true,
+  "eslint.enable": true,
+  "rust-analyzer.testExplorer": true,
+  "rust-analyzer.interpret.tests": true,
+  "rust-analyzer.check.command": "clippy",
+  "eslint.validate": [
+    "svelte",
+    "typescript",
+    "javascript",
+    "json",
+    "yaml"
+  ],
+  "eslint.probe": [
+    "svelte",
+    "typescript",
+    "javascript",
+    "json",
+    "yaml"
+  ],
+  "conventionalCommits.scopes": [
+    "copper"
+  ],
+  "yaml.schemas": {
+    "https://moonrepo.dev/schemas/workspace.json": ".moon/workspace.yml",
+    "https://moonrepo.dev/schemas/project.json": "**/moon.yml",
+    "https://moonrepo.dev/schemas/tasks.json": ".moon/tasks/*.yml"
+  },
+  "rust-analyzer.showUnlinkedFileNotification": false
 }

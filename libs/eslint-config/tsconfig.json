@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.options.json",
+  "include": [
+    "**/*"
+  ],
+  "references": [],
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "paths": {}
+  }
+}

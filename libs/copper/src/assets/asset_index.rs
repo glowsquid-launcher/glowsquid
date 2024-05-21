@@ -43,7 +43,6 @@ impl AssetDownloader {
     }
 }
 
-#[async_trait::async_trait]
 impl Downloader for AssetDownloader {
     type DownloadItem = Object;
 

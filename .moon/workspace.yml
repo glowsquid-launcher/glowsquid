@@ -1,0 +1,24 @@
+$schema: https://moonrepo.dev/schemas/workspace.json
+projects:
+  - apps/*
+  - libs/*
+
+vcs:
+  manager: "git"
+  defaultBranch: "main"
+  syncHooks: true
+  hooks:
+    pre-commit:
+      - "pnpm moon run :lint :format --affected --status=staged"
+    commit-msg:
+      - "pnpm commitlint --edit $1"
+
+runner:
+  archivableTargets:
+    - ":check"
+    - ":lint"
+    - ":test"
+    - ":lint-clippy"
+    - ":lint-format"
+    - ":test-unit"
+    - ":test-intergration"
