@@ -21,7 +21,7 @@ use winsafe::IsWindows10OrGreater;
 use crate::{
     assets::{
         asset_index::{AssetDownloader, Assets, Object},
-        client::{self, Artifact, ClassDownloader, DownloadClass, Library, LibraryDownloader},
+        client::{self, Artifact, ClassDownloader, DownloadClass, Jvm, Library, LibraryDownloader},
     },
     auth::{
         structs::{MinecraftProfile, MinecraftToken},
@@ -496,5 +496,12 @@ impl Launcher {
     #[must_use]
     pub const fn quickplay(&self) -> Option<&Quickplay> {
         self.quickplay.as_ref()
+    }
+}
+
+/// Manipulation methods for the launcher
+impl Launcher {
+    pub fn add_jvm_argument(&mut self, arg: Jvm) {
+        self.manifest.arguments_mut().jvm.push(arg);
     }
 }

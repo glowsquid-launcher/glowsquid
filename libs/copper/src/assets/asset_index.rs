@@ -1,17 +1,54 @@
 use error_stack::{report, Result, ResultExt};
 use futures::{stream, StreamExt, TryStreamExt};
 use serde::{Deserialize, Serialize};
-use std::{cmp::min, collections::HashMap, path::PathBuf, sync::Arc};
+use serde_json::to_string;
+use std::{
+    cmp::min,
+    collections::HashMap,
+    path::{Path, PathBuf},
+    sync::Arc,
+};
 use tokio::{
+    fs,
     io::AsyncWriteExt,
     sync::mpsc::{unbounded_channel, UnboundedReceiver, UnboundedSender},
 };
+use tracing::debug;
 
 use crate::downloader::{DownloadError, DownloadMessage, Downloader};
+
+use super::client::SaveError;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Assets {
     objects: HashMap<String, Object>,
+}
+
+impl Assets {
+    /// Saves the manifest to disk.
+    ///
+    /// # Errors
+    /// Returns a [`SaveError`] if the manifest could not be serialized or if an IO error occurred.
+    #[tracing::instrument]
+    pub async fn save_to_disk(&self, path: &Path) -> error_stack::Result<(), SaveError> {
+        debug!("Saving Asset index to disk");
+        debug!("Serializing index to JSON");
+        let value = to_string(self).change_context(SaveError::SerializeError)?;
+
+        let directory = path.parent().ok_or_else(|| report!(SaveError::IOError))?;
+
+        if !directory.exists() {
+            debug!("Creating directory {}", directory.display());
+            fs::create_dir_all(directory)
+                .await
+                .change_context(SaveError::IOError)?;
+        }
+
+        debug!("Writing asset index to {}", path.display());
+        fs::write(path, value)
+            .await
+            .change_context(SaveError::IOError)
+    }
 }
 
 #[derive(Debug, Clone)]

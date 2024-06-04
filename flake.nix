@@ -29,6 +29,10 @@
       libraries = with pkgs; [
         openssl_3
         pkg-config
+        libGL
+        mesa_drivers
+        glfw-wayland
+        libglvnd
       ];
 
       packages = with pkgs; [

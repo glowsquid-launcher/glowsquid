@@ -133,6 +133,17 @@ impl Manifest {
         )
     }
 
+    /// Gets the mutable arguments for a manifest
+    ///
+    /// # Panics
+    /// Panics if there are no jvm arguments. This is a TODO
+    #[must_use]
+    pub(crate) fn arguments_mut(&mut self) -> &mut Arguments {
+        self.arguments.as_mut().unwrap_or_else(|| {
+            todo!("Handle older versions of minecraft that don't have new argument syntax")
+        })
+    }
+
     /// Gets the asset index for a manifest
     #[must_use]
     pub const fn asset_index(&self) -> &AssetIndex {

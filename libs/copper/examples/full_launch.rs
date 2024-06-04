@@ -185,9 +185,19 @@ async fn main() {
         .build()
         .unwrap();
 
+    // launcher.add_jvm_argument(Jvm::String(
+    //     "-Dorg.lwjgl.glfw.libname=glfw_wayland".to_string(),
+    // ));
+
     info!("Launcher created. Downloading files");
 
     let index = manifest.asset_index().download().await.unwrap();
+
+    let index_dir = minecraft_dir.join("assets").join("indexes");
+    index
+        .save_to_disk(&index_dir.join("Vanilla.json"))
+        .await
+        .unwrap();
 
     let mut downloader =
         launcher::Downloader::new(&launcher, index, manifest.libraries().to_vec(), 16);
