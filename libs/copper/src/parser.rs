@@ -53,6 +53,7 @@ impl<'a> JvmArgs<'a> {
             "${natives_directory}",
             self.launcher
                 .libraries_directory()
+                .join("natives")
                 .to_str()
                 .unwrap_or_default(),
         )
@@ -104,6 +105,17 @@ impl<'a> MinecraftArgs<'a> {
         Self { launcher, manifest }
     }
 
+    fn is_excluded_minecraft_arg(arg_str: &str) -> bool {
+      let excluded = [
+        "--xuid",
+        "${auth_xuid}",
+        "--clientId",
+        "${clientid}",
+      ];
+
+      excluded.contains(&arg_str)
+    }
+
     #[must_use]
     #[tracing::instrument(skip(self))]
     pub fn parse_minecraft_args(&self) -> Vec<String> {
@@ -150,6 +162,11 @@ impl<'a> MinecraftArgs<'a> {
     #[tracing::instrument(skip(self))]
     fn parse_minecraft_arg_str(&self, minecraft_arg: &str) -> String {
         debug!("Parsing minecraft arg: {}", minecraft_arg);
+
+        // if excluded return emptry String
+        if Self::is_excluded_minecraft_arg(minecraft_arg) {
+            return String::new();
+        }
 
         minecraft_arg
             .replace(

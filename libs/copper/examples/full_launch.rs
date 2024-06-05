@@ -122,7 +122,11 @@ async fn main() {
 
     info!("Please go to this url to authenticate: {}", auth_url);
 
-    server.await.unwrap().unwrap();
+    tokio::spawn(server);
+
+    while TOKEN.get().is_none() {
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    }
 
     info!("Authenticated! Token: {:?}", TOKEN.get());
 
@@ -171,7 +175,7 @@ async fn main() {
         .libraries_directory(minecraft_dir.join("libraries"))
         .version_manifest_path(manifest_dir.join(format!("{}.json", latest.id())))
         .is_snapshot(false)
-        .version_name("Vanilla")
+        .version_name(latest.id())
         .ram_size(RamSize {
             min: "1024Mb".to_string(),
             max: "4096Mb".to_string(),
@@ -183,10 +187,15 @@ async fn main() {
         .http_client(reqwest::Client::new())
         .manifest(manifest.clone())
         .build()
+
         .unwrap();
 
-    // launcher.add_jvm_argument(Jvm::String(
-    //     "-Dorg.lwjgl.glfw.libname=glfw_wayland".to_string(),
+    // launcher.add_jvm_argument(copper::assets::client::Jvm::String(
+    //   "-Dorg.lwjgl.util.Debug=true".to_string()
+    // ));
+
+    // launcher.add_jvm_argument(copper::assets::client::Jvm::String(
+    //     "-Dorg.lwjgl.glfw.libname=glfw_wayland".to_string()
     // ));
 
     info!("Launcher created. Downloading files");
@@ -195,7 +204,7 @@ async fn main() {
 
     let index_dir = minecraft_dir.join("assets").join("indexes");
     index
-        .save_to_disk(&index_dir.join("Vanilla.json"))
+        .save_to_disk(&index_dir.join(format!("{}.json", latest.id())))
         .await
         .unwrap();
 
@@ -318,6 +327,8 @@ async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) 
         .expect("To be able to get token");
 
     TOKEN.set(token).expect("To be able to set token");
+
+    info!("Got token. Returning to process");
     state
         .shutdown_send
         .send(())

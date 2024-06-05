@@ -92,6 +92,7 @@ impl Downloader for AssetDownloader {
     async fn download(&self, item: Self::DownloadItem) -> Result<(), DownloadError> {
         let path = self
             .assets_directory
+            .join("objects")
             .join(item.hash_start())
             .join(&item.hash);
 
@@ -226,8 +227,9 @@ impl Object {
     }
 
     #[must_use]
+    /// Gives the first two characters of the hash
     pub fn hash_start(&self) -> &str {
-        &self.hash[..2]
+      &self.hash[..2]
     }
 
     #[must_use]

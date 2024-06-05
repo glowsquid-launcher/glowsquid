@@ -14,15 +14,17 @@ pub enum DownloadError {
     IoError,
     JoinError,
     ChannelError,
+    ExtractionError
 }
 
 impl Display for DownloadError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         f.write_str(match self {
-            Self::ReqwestError => "reqwest error",
-            Self::IoError => "io error",
-            Self::JoinError => "join error",
-            Self::ChannelError => "channel error",
+            Self::ReqwestError => "Reqwest Error",
+            Self::IoError => "I/O Error",
+            Self::JoinError => "Join Error",
+            Self::ChannelError => "Channel Error",
+            Self::ExtractionError => "Extraction Error"
         })
     }
 }

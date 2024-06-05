@@ -15,7 +15,10 @@ use tokio::{
     io::AsyncWriteExt,
     sync::mpsc::{self, UnboundedReceiver, UnboundedSender},
 };
-use tracing::debug;
+use tracing::{debug, info};
+
+#[cfg(target_os = "windows")]
+use winsafe::IsWindows10OrGreater;
 
 use crate::downloader::{DownloadError, DownloadMessage, Downloader};
 
@@ -248,7 +251,6 @@ impl DownloadClass {
 #[derive(Debug, Clone)]
 pub struct ClassDownloader {
     client: reqwest::Client,
-
     class: DownloadClass,
     path: PathBuf,
     sender: Option<UnboundedSender<DownloadMessage<DownloadClass>>>,
@@ -469,11 +471,9 @@ impl Rule {
                     // windows users pls test
                     #[cfg(target_os = "windows")]
                     Some("windows") => {
-                        if let Some(ver) = &rule.os.version {
-                            if ver != "^10\\." {
-                                panic!("unrecognised windows version: {:?}, please report to https://github.com/glowsquid-launcher/copper/issues with the version you are using", ver);
-                            }
+                        assert!(!os.version.as_ref().is_some_and(|ver| ver != "^10\\."), "unrecognised windows version: {:?}, please report to https://github.com/glowsquid-launcher/glowsquid/issues with the version you are using", os.version);
 
+                        if os.version.as_ref().is_some_and(|ver| ver == "^10\\.") {
                             IsWindows10OrGreater().unwrap_or(false)
                         } else {
                             true
@@ -835,6 +835,46 @@ impl LibraryDownloader {
             max_concurrent_downloads,
         }
     }
+
+    async fn extract_native(
+        native: &Artifact,
+        object: &Library,
+        libraries_directory: &Path,
+    ) -> error_stack::Result<(), DownloadError> {
+        if object
+            .extract
+            .as_ref()
+            .is_some_and(|ex| !ex.exclude.is_empty())
+        {
+            todo!("Handle extraction exclude rules");
+        }
+
+        let path = libraries_directory.join(native.path());
+
+        if path.try_exists().change_context(DownloadError::IoError)? {
+            return Ok(());
+        }
+
+        let file = std::fs::File::open(&path).change_context(DownloadError::IoError)?;
+
+        let mut archive =
+            zip::ZipArchive::new(file).change_context(DownloadError::ExtractionError)?;
+
+        // format is {libraries_dir}/{os}/{arch}
+        let os = std::env::consts::OS;
+        let arch = std::env::consts::ARCH.replace("x86_64", "x64");
+        let native_extract_dir = libraries_directory.join(os).join(arch);
+
+        fs::create_dir_all(&native_extract_dir)
+            .await
+            .change_context(DownloadError::IoError)?;
+
+        archive
+            .extract(&native_extract_dir)
+            .change_context(DownloadError::ExtractionError)?;
+
+        Ok(())
+    }
 }
 
 impl Downloader for LibraryDownloader {
@@ -879,7 +919,7 @@ impl Downloader for LibraryDownloader {
                 tokio::spawn(async move {
                     if let Some(artifact) = object.downloads().artifact() {
                         match cloned_self.download(artifact.clone()).await {
-                            Ok(it) => it,
+                            Ok(()) => (),
                             Err(err) => return Err(err),
                         };
                     };
@@ -889,8 +929,18 @@ impl Downloader for LibraryDownloader {
                         .classifiers()
                         .and_then(Classifiers::current_os)
                     {
+                        info!("Downloading classifier artifact: {}", native.path());
                         match cloned_self.download(native.clone()).await {
-                            Ok(it) => it,
+                            Ok(()) => {
+                                if object.extract.is_some() {
+                                    Self::extract_native(
+                                        native,
+                                        &object,
+                                        &cloned_self.libraries_directory,
+                                    )
+                                    .await?;
+                                }
+                            }
                             Err(err) => return Err(err),
                         };
                     };
