@@ -32,5 +32,8 @@
     "https://moonrepo.dev/schemas/project.json": "**/moon.yml",
     "https://moonrepo.dev/schemas/tasks.json": ".moon/tasks/*.yml"
   },
-  "rust-analyzer.showUnlinkedFileNotification": false
+  "rust-analyzer.showUnlinkedFileNotification": false,
+  "cSpell.words": [
+    "reqwest"
+  ]
 }

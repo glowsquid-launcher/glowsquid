@@ -35,6 +35,8 @@ testem.log
 /typings
 /.direnv
 /target
+/.minecraft
+/logs
 
 # System Files
 .DS_Store
