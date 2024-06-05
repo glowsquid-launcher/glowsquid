@@ -106,14 +106,9 @@ impl<'a> MinecraftArgs<'a> {
     }
 
     fn is_excluded_minecraft_arg(arg_str: &str) -> bool {
-      let excluded = [
-        "--xuid",
-        "${auth_xuid}",
-        "--clientId",
-        "${clientid}",
-      ];
+        let excluded = ["--xuid", "${auth_xuid}", "--clientId", "${clientid}"];
 
-      excluded.contains(&arg_str)
+        excluded.contains(&arg_str)
     }
 
     #[must_use]
@@ -194,10 +189,7 @@ impl<'a> MinecraftArgs<'a> {
             )
             .replace(
                 "${auth_uuid}",
-                &self.launcher
-                    .authentication_details()
-                    .auth_details
-                    .id,
+                &self.launcher.authentication_details().auth_details.id,
             )
             .replace(
                 "${auth_access_token}",

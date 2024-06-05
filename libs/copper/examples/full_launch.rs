@@ -185,7 +185,6 @@ async fn main() {
         .http_client(reqwest::Client::new())
         .manifest(manifest.clone())
         .build()
-
         .unwrap();
 
     // launcher.add_jvm_argument(copper::assets::client::Jvm::String(

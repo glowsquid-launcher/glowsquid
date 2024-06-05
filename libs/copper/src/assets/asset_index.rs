@@ -229,7 +229,7 @@ impl Object {
     #[must_use]
     /// Gives the first two characters of the hash
     pub fn hash_start(&self) -> &str {
-      &self.hash[..2]
+        &self.hash[..2]
     }
 
     #[must_use]

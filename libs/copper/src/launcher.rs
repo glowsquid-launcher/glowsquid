@@ -20,10 +20,7 @@ use crate::{
         asset_index::{AssetDownloader, Assets, Object},
         client::{self, Artifact, ClassDownloader, DownloadClass, Jvm, Library, LibraryDownloader},
     },
-    auth::{
-        structs::MinecraftToken,
-        MSauth,
-    },
+    auth::{structs::MinecraftToken, MSauth},
     downloader::{DownloadError, DownloadMessage, Downloader as DownloaderTrait},
     parser::{JvmArgs, MinecraftArgs},
 };

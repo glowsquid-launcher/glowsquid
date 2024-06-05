@@ -14,7 +14,7 @@ pub enum DownloadError {
     IoError,
     JoinError,
     ChannelError,
-    ExtractionError
+    ExtractionError,
 }
 
 impl Display for DownloadError {
@@ -24,7 +24,7 @@ impl Display for DownloadError {
             Self::IoError => "I/O Error",
             Self::JoinError => "Join Error",
             Self::ChannelError => "Channel Error",
-            Self::ExtractionError => "Extraction Error"
+            Self::ExtractionError => "Extraction Error",
         })
     }
 }
