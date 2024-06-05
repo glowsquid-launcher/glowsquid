@@ -159,8 +159,8 @@ impl Launcher {
         let mut game_args = MinecraftArgs::new(self, &self.manifest).parse_minecraft_args();
         let mut jvm_args = JvmArgs::new(self, &self.manifest).parse_jvm_args();
 
-        info!("Game args: {:?}", game_args);
-        info!("JVM args: {:?}", jvm_args);
+        debug!("Game args: {:?}", game_args);
+        debug!("JVM args: {:?}", jvm_args);
 
         let main_class = self.manifest.main_class();
 
