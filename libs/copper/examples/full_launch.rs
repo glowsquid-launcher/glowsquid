@@ -151,12 +151,10 @@ async fn main() {
         .unwrap();
 
     let token = TOKEN.get().unwrap();
-    let profile = oauth.get_minecraft_profile(token).await.unwrap();
 
     let auth_details = AuthenticationDetails {
         authenticator: oauth,
         auth_details: token.clone(),
-        minecraft_profile: profile,
         is_demo_user: false,
     };
 

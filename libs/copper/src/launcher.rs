@@ -21,7 +21,7 @@ use crate::{
         client::{self, Artifact, ClassDownloader, DownloadClass, Jvm, Library, LibraryDownloader},
     },
     auth::{
-        structs::{MinecraftProfile, MinecraftToken},
+        structs::MinecraftToken,
         MSauth,
     },
     downloader::{DownloadError, DownloadMessage, Downloader as DownloaderTrait},
@@ -32,7 +32,6 @@ use crate::{
 pub struct AuthenticationDetails {
     pub authenticator: MSauth,
     pub auth_details: MinecraftToken,
-    pub minecraft_profile: MinecraftProfile,
     pub is_demo_user: bool,
 }
 

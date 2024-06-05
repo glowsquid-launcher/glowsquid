@@ -77,6 +77,7 @@ pub(in crate::auth) struct MinecraftResponse {
 #[derive(Redact, Clone)]
 pub struct MinecraftToken {
     pub username: String,
+    pub id: String,
     #[redact]
     pub access_token: String,
     #[redact]
@@ -129,8 +130,8 @@ impl MinecraftToken {
 #[derive(Debug, Deserialize, Clone)]
 #[allow(dead_code)]
 pub struct MinecraftProfile {
-    id: String,
-    name: String,
+    pub(in crate::auth) id: String,
+    pub(in crate::auth) name: String,
     skins: Vec<Skin>,
     capes: Vec<Option<serde_json::Value>>,
 }
@@ -138,7 +139,12 @@ pub struct MinecraftProfile {
 impl MinecraftProfile {
     #[must_use]
     pub fn id(&self) -> &str {
-        self.id.as_ref()
+        &self.id
+    }
+
+    #[must_use]
+    pub fn name(&self) -> &str {
+        &self.name
     }
 }
 

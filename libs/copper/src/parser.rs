@@ -194,10 +194,10 @@ impl<'a> MinecraftArgs<'a> {
             )
             .replace(
                 "${auth_uuid}",
-                self.launcher
+                &self.launcher
                     .authentication_details()
-                    .minecraft_profile
-                    .id(),
+                    .auth_details
+                    .id,
             )
             .replace(
                 "${auth_access_token}",

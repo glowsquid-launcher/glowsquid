@@ -146,21 +146,21 @@ impl MSauth {
             .await
             .change_context(MinecraftTokenError::XboxLiveError)?;
 
-        trace!("Recieved {xbox_live_response:#?}");
+        debug!("Recieved {xbox_live_response:#?}");
 
         let xbox_live_user_hash = &xbox_live_response
             .uhs()
             .ok_or(MinecraftTokenError::XboxLiveError)
             .attach_printable("No xui claims found")?;
 
-        trace!("Recieved {xbox_live_user_hash:#?}");
+        debug!("Recieved {xbox_live_user_hash:#?}");
 
         let xsts_response = self
             .get_xsts_token(&xbox_live_response)
             .await
             .change_context(MinecraftTokenError::XstsError)?;
 
-        trace!("Recieved {xsts_response:#?}");
+        debug!("Recieved {xsts_response:#?}");
 
         let xsts_token = &xsts_response.token();
         let xsts_user_hash = &xsts_response
@@ -175,7 +175,7 @@ impl MSauth {
 
         debug!("Sending minecraft token request");
 
-        let minecraft_request = self
+        let minecraft_token_request = self
             .1
             .post("https://api.minecraftservices.com/authentication/login_with_xbox")
             .json(&json!({
@@ -183,24 +183,44 @@ impl MSauth {
             }))
             .send()
             .await
-            .attach_printable("Failed to send minecraft request")
+            .attach_printable("Failed to send minecraft token request")
             .change_context(MinecraftTokenError::FetchError)?;
 
-        trace!("Recieved {minecraft_request:#?}");
-        debug!("Parsing minecraft token request");
+        trace!("Recieved {minecraft_token_request:#?}");
 
-        let response = minecraft_request
+        let minecraft_token_response = minecraft_token_request
             .json::<MinecraftResponse>()
             .await
             .attach_printable("Failed to deserialize body")
             .change_context(MinecraftTokenError::DeserializeError)?;
 
+        debug!("token request response: {minecraft_token_response:#?}");
+        debug!("Getting minecraft profile");
+
+        let minecraft_profile_request = self
+            .1
+            .get("https://api.minecraftservices.com/minecraft/profile")
+            .bearer_auth(&minecraft_token_response.access_token)
+            .send()
+            .await
+            .attach_printable("Failed to send minecraft profile request")
+            .change_context(MinecraftTokenError::FetchError)?;
+
+        trace!("Recieved {minecraft_profile_request:#?}");
+
+        let minecraft_profile_response = minecraft_profile_request
+            .json::<MinecraftProfile>()
+            .await
+            .attach_printable("Failed to deserialize body")
+            .change_context(MinecraftTokenError::DeserializeError)?;
+
         Ok(MinecraftToken {
-            access_token: response.access_token,
-            username: response.username,
+            access_token: minecraft_token_response.access_token,
+            username: minecraft_profile_response.name,
+            id: minecraft_profile_response.id,
             ms_token,
             expires_at: Utc::now()
-                + Duration::try_seconds(response.expires_in)
+                + Duration::try_seconds(minecraft_token_response.expires_in)
                     .expect("Failed to convert the expiry time into seconds."),
         })
     }
