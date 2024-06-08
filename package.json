@@ -1,24 +1,25 @@
 {
-  "name": "@glowsquid/source",
-  "version": "0.0.0",
-  "license": "MIT",
-  "scripts": {
-    "build": "moon run :build",
-    "test": "moon run :test",
-    "lint": "moon run :lint",
-    "updater": "pnpm update -i -r --latest",
-    "format": "moon run :format"
-  },
-  "private": true,
-  "type": "module",
-  "devDependencies": {
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.2.2",
-    "@monodon/rust": "^1.4.0",
-    "@moonrepo/cli": "^1.24.6",
-    "@repo/eslint-config": "workspace:*"
-  },
-  "engines": {
-    "node": "~20"
-  }
+    "name": "@glowsquid/source",
+    "version": "0.0.0",
+    "license": "MIT",
+    "scripts": {
+        "build": "moon run :build",
+        "test": "moon run :test",
+        "lint": "moon run :lint",
+        "updater": "pnpm update -i -r --latest",
+        "format": "moon run :format"
+    },
+    "private": true,
+    "type": "module",
+    "devDependencies": {
+        "@commitlint/cli": "^19.3.0",
+        "@commitlint/config-conventional": "^19.2.2",
+        "@monodon/rust": "^1.4.0",
+        "@moonrepo/cli": "^1.25.3",
+        "@repo/eslint-config": "workspace:*"
+    },
+    "engines": {
+        "node": "~20"
+    },
+    "packageManager": "pnpm@~9"
 }
