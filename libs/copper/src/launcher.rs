@@ -16,20 +16,39 @@ use tokio::{
 use tracing::{debug, error, info};
 
 use crate::{
-    assets::{
+    api::{
         asset_index::{AssetDownloader, Assets, Object},
-        client::{self, Artifact, ClassDownloader, DownloadClass, Jvm, Library, LibraryDownloader},
+        client::{Artifact, ClassDownloader, DownloadClass, JvmArgument},
     },
     auth::{structs::MinecraftToken, MSauth},
+    client,
     downloader::{DownloadError, DownloadMessage, Downloader as DownloaderTrait},
-    parser::{JvmArgs, MinecraftArgs},
+    parser::{JvmArgsParser, MinecraftArgsParser},
 };
 
 #[derive(Debug, Clone)]
 pub struct AuthenticationDetails {
-    pub authenticator: MSauth,
-    pub auth_details: MinecraftToken,
-    pub is_demo_user: bool,
+    authenticator: MSauth,
+    auth_details: MinecraftToken,
+    is_demo_user: bool,
+}
+
+impl AuthenticationDetails {
+    pub fn new(authenticator: MSauth, auth_details: MinecraftToken, is_demo_user: bool) -> Self {
+        Self {
+            authenticator,
+            auth_details,
+            is_demo_user,
+        }
+    }
+
+    pub(crate) fn auth_details(&self) -> &MinecraftToken {
+        &self.auth_details
+    }
+
+    pub fn is_demo_user(&self) -> bool {
+        self.is_demo_user
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -100,9 +119,9 @@ pub struct Launcher {
     version_name: String,
     /// The min/max amount of ram to use
     ram_size: RamSize,
-    /// The path to javaw.exe
+    /// The path to the java executable
     java_path: PathBuf,
-    /// The launcher name (e.g glowsquid)
+    /// The launcher name
     launcher_name: String,
     /// The launcher version
     launcher_version: String,
@@ -111,7 +130,7 @@ pub struct Launcher {
     /// The reqwest client
     http_client: reqwest::Client,
     /// The manifest the launcher will use
-    manifest: client::Manifest,
+    manifest: client::manifest::Manifest,
 }
 
 #[derive(Debug)]
@@ -146,6 +165,7 @@ impl Launcher {
         debug!("Launching game");
 
         if self.authentication_details.auth_details.is_expired() {
+            info!("Authentication token expired, refreshing");
             self.authentication_details
                 .auth_details
                 .refresh(&self.authentication_details.authenticator)
@@ -153,8 +173,8 @@ impl Launcher {
                 .change_context(Error::AuthError)?;
         }
 
-        let mut game_args = MinecraftArgs::new(self, &self.manifest).parse_minecraft_args();
-        let mut jvm_args = JvmArgs::new(self, &self.manifest).parse_jvm_args();
+        let mut game_args = MinecraftArgsParser::new(self, &self.manifest).parse_minecraft_args();
+        let mut jvm_args = JvmArgsParser::new(self, &self.manifest).parse_jvm_args();
 
         debug!("Game args: {:?}", game_args);
         debug!("JVM args: {:?}", jvm_args);
@@ -187,12 +207,19 @@ impl Launcher {
             exit_handle: exit,
         })
     }
+
+    pub fn manifest(&self) -> &client::manifest::Manifest {
+        &self.manifest
+    }
 }
 
 #[derive(Debug)]
 pub enum DownloadItem {
+    /// An asset object was downloaded
     Asset(Object),
+    /// A library artifact was downloaded
     Library(Artifact),
+    /// A client file was downloaded
     Client(DownloadClass),
 }
 
@@ -202,18 +229,13 @@ pub struct Downloader {
     sender: Option<UnboundedSender<DownloadMessage<DownloadItem>>>,
 
     asset_downloader: AssetDownloader,
-    library_downloader: LibraryDownloader,
+    library_downloader: client::library::LibraryDownloader,
     client_download: ClassDownloader,
 }
 
 impl Downloader {
     #[must_use]
-    pub fn new(
-        launcher: &Launcher,
-        assets: Assets,
-        libraries: Vec<Library>,
-        max_concurrent_downloads: usize,
-    ) -> Self {
+    pub fn new(launcher: &Launcher, assets: Assets, max_concurrent_downloads: usize) -> Self {
         let asset_downloader = AssetDownloader::new(
             assets,
             launcher.assets_directory.clone(),
@@ -221,8 +243,8 @@ impl Downloader {
             max_concurrent_downloads / 2,
         );
 
-        let library_downloader = LibraryDownloader::new(
-            libraries,
+        let library_downloader = client::library::LibraryDownloader::new(
+            launcher.manifest.libraries().to_vec(),
             launcher.libraries_directory.clone(),
             launcher.http_client.clone(),
             max_concurrent_downloads / 2,
@@ -380,14 +402,6 @@ impl DownloaderTrait for Downloader {
         reciever
     }
 
-    async fn download(&self, item: Self::DownloadItem) -> Result<(), DownloadError> {
-        match item {
-            DownloadItem::Asset(object) => self.asset_downloader.download(object).await,
-            DownloadItem::Library(library) => self.library_downloader.download(library).await,
-            DownloadItem::Client(client) => self.client_download.download(client).await,
-        }
-    }
-
     /// Downloads all the assets, libraries, and client
     ///
     /// # Panics
@@ -494,7 +508,7 @@ impl Launcher {
 
 /// Manipulation methods for the launcher
 impl Launcher {
-    pub fn add_jvm_argument(&mut self, arg: Jvm) {
-        self.manifest.arguments_mut().jvm.push(arg);
+    pub fn add_jvm_argument(&mut self, arg: JvmArgument) {
+        self.manifest.add_jvm_argument(arg)
     }
 }

@@ -6,7 +6,7 @@ use std::{
     sync::Arc,
 };
 
-use tokio::sync::mpsc::UnboundedReceiver;
+use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
 
 #[derive(Debug)]
 pub enum DownloadError {
@@ -42,20 +42,14 @@ pub enum DownloadMessage<T> {
     DownloadProgress(T, u64),
 }
 
+pub type DownloadChannelSender<T> = UnboundedSender<DownloadMessage<T>>;
+pub type DownloadChannelReceiver<T> = UnboundedReceiver<DownloadMessage<T>>;
+
 pub trait Downloader {
     type DownloadItem;
 
     /// Creates a channel for downloading
-    fn create_channel(&mut self) -> UnboundedReceiver<DownloadMessage<Self::DownloadItem>>;
-
-    /// Downloads an object
-    ///
-    /// See the downloaders documentation for more information. Usually appends the path to the
-    /// main directory.
-    fn download(
-        &self,
-        item: Self::DownloadItem,
-    ) -> impl Future<Output = Result<(), DownloadError>> + Send;
+    fn create_channel(&mut self) -> DownloadChannelReceiver<Self::DownloadItem>;
 
     /// Downloads all files for this specific downloader. Requires an Arc for multithreading
     /// purposes

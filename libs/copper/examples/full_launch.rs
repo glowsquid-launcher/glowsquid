@@ -13,11 +13,12 @@ use axum::{
 };
 
 use copper::{
-    assets::version,
+    api::version,
     auth::{
         structs::{MinecraftToken, OauthCode},
         MSauth,
     },
+    client,
     downloader::{DownloadMessage, Downloader},
     launcher::{self, AuthenticationDetails, LauncherBuilder, RamSize},
 };
@@ -152,17 +153,15 @@ async fn main() {
 
     let token = TOKEN.get().unwrap();
 
-    let auth_details = AuthenticationDetails {
-        authenticator: oauth,
-        auth_details: token.clone(),
-        is_demo_user: false,
-    };
+    let auth_details = AuthenticationDetails::new(oauth, token.clone(), false);
 
     let java_home = PathBuf::from(java_locator::locate_java_home().expect("Java not found"));
     let java_path = match std::env::consts::OS {
         "windows" => java_home.join("bin").join("javaw.exe"),
         _ => java_home.join("bin").join("java"),
     };
+
+    let launcher_manifest: client::manifest::Manifest = manifest.try_into().unwrap();
 
     let mut launcher = LauncherBuilder::default()
         .authentication_details(auth_details)
@@ -183,7 +182,7 @@ async fn main() {
         .launcher_version(env!("CARGO_PKG_VERSION").to_string())
         .quickplay(None)
         .http_client(reqwest::Client::new())
-        .manifest(manifest.clone())
+        .manifest(launcher_manifest.clone())
         .build()
         .unwrap();
 
@@ -197,16 +196,15 @@ async fn main() {
 
     info!("Launcher created. Downloading files");
 
-    let index = manifest.asset_index().download().await.unwrap();
+    let index = launcher_manifest.asset_index().download().await.unwrap();
 
     let index_dir = minecraft_dir.join("assets").join("indexes");
     index
-        .save_to_disk(&index_dir.join(format!("{}.json", latest.id())))
+        .save_to_disk(&index_dir.join(format!("{}.json", launcher_manifest.assets())))
         .await
         .unwrap();
 
-    let mut downloader =
-        launcher::Downloader::new(&launcher, index, manifest.libraries().to_vec(), 16);
+    let mut downloader = launcher::Downloader::new(&launcher, index, 16);
     let mut reciever = downloader.create_channel();
 
     let mut bars = HashMap::new();
@@ -229,7 +227,7 @@ async fn main() {
             DownloadMessage::Downloaded(object) => {
                 let hash = match object {
                     launcher::DownloadItem::Asset(asset) => asset.hash().to_owned(),
-                    launcher::DownloadItem::Library(library) => library.sha1().to_owned(),
+                    launcher::DownloadItem::Library(artifact) => artifact.sha1().to_owned(),
                     launcher::DownloadItem::Client(_) => "client".to_owned(),
                 };
 
@@ -249,13 +247,13 @@ async fn main() {
             DownloadMessage::DownloadProgress(object, how_much) => {
                 let hash = match object {
                     launcher::DownloadItem::Asset(ref asset) => asset.hash().to_owned(),
-                    launcher::DownloadItem::Library(ref library) => library.sha1().to_owned(),
+                    launcher::DownloadItem::Library(ref artifact) => artifact.sha1().to_owned(),
                     launcher::DownloadItem::Client(_) => "client".to_owned(),
                 };
 
                 let size = match object {
                     launcher::DownloadItem::Asset(asset) => asset.size(),
-                    launcher::DownloadItem::Library(library) => library.size(),
+                    launcher::DownloadItem::Library(artifact) => artifact.size(),
                     launcher::DownloadItem::Client(client) => client.size(),
                 };
 

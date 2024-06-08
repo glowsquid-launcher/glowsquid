@@ -4,6 +4,7 @@
       "mode": "auto"
     }
   ],
+  "editor.formatOnSave": true,
   "eslint.experimental.useFlatConfig": true,
   "eslint.format.enable": true,
   "eslint.enable": true,
@@ -34,6 +35,9 @@
   },
   "rust-analyzer.showUnlinkedFileNotification": false,
   "cSpell.words": [
-    "reqwest"
+    "Mojang",
+    "quickplay",
+    "reqwest",
+    "Singleplayer"
   ]
 }

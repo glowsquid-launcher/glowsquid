@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::assets::client::{
-    Arguments, AssetIndex, Downloads, JavaVersion, Library, Logging, Type,
-};
+use crate::api::client::{Arguments, AssetIndex, Downloads, JavaVersion, Library, Logging, Type};
 
 #[derive(Debug, Serialize, Deserialize, Clone, Default)]
 #[serde(rename_all = "camelCase", default)]

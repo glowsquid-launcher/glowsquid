@@ -1,7 +1,8 @@
 use std::{collections::HashMap, sync::Arc};
 
 use copper::{
-    assets::{asset_index::AssetDownloader, version},
+    api::{asset_index::AssetDownloader, version},
+    client,
     downloader::{DownloadMessage, Downloader},
 };
 use error_stack::Report;
@@ -42,7 +43,7 @@ async fn main() {
     let latest = manifest.latest_release();
     info!("Downloading manifest for latest release: {}", latest.id());
 
-    let manifest = latest.download().await.unwrap();
+    let manifest: client::manifest::Manifest = latest.download().await.unwrap().try_into().unwrap();
     info!("Downloaded manifest for latest release: {}", latest.id());
     info!("Downloading asset index");
 

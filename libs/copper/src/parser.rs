@@ -4,41 +4,40 @@ use itertools::Itertools;
 use tracing::debug;
 
 use crate::{
-    assets::client::{self, Args, Artifact, Classifiers, Library, Rule},
+    api::client::{Action, Artifact, GameArgument, GameRule, JvmArgument, Rule, Value},
+    client,
     launcher::{Launcher, Quickplay},
 };
 
-pub struct JvmArgs<'a> {
+pub struct JvmArgsParser<'a> {
     launcher: &'a Launcher,
-    manifest: &'a client::Manifest,
+    manifest: &'a client::manifest::Manifest,
 }
 
-impl<'a> JvmArgs<'a> {
+impl<'a> JvmArgsParser<'a> {
     #[must_use]
-    pub const fn new(launcher: &'a Launcher, manifest: &'a client::Manifest) -> Self {
+    pub const fn new(launcher: &'a Launcher, manifest: &'a client::manifest::Manifest) -> Self {
         Self { launcher, manifest }
     }
 
     #[must_use]
     pub fn parse_jvm_args(&self) -> Vec<String> {
-        let Args::Arguments(args) = self.manifest.get_arguments() else {
-            return Vec::new();
-        };
+        let args = self.manifest.arguments();
 
         let jvm = args.jvm();
         jvm.iter()
             .map(|arg| match arg {
-                client::Jvm::String(arg) => self.parse_java_arg_str(arg),
-                client::Jvm::Class(class) => {
-                    let passes = class.rules().iter().all(Rule::passes);
+                JvmArgument::String(arg) => self.parse_java_arg_str(arg),
+                JvmArgument::Class(class) => {
+                    let passes = class.rules.iter().all(Rule::passes);
 
                     if !passes {
                         return String::new();
                     };
 
-                    match class.value() {
-                        client::Value::String(s) => self.parse_java_arg_str(s),
-                        client::Value::StringArray(a) => {
+                    match &class.value {
+                        Value::String(s) => self.parse_java_arg_str(&s),
+                        Value::StringArray(a) => {
                             a.iter().map(|v| self.parse_java_arg_str(v)).join(" ")
                         }
                     }
@@ -75,12 +74,10 @@ impl<'a> JvmArgs<'a> {
             .join(if cfg!(windows) { ";" } else { ":" })
     }
 
-    fn get_lib_path(&self, lib: &Library) -> Vec<String> {
-        let download = lib.downloads();
-
+    fn get_lib_path(&self, lib: &client::library::Library) -> Vec<String> {
         let paths = [
-            download.classifiers().and_then(Classifiers::current_os),
-            download.artifact(),
+            lib.native_for_current_os(),
+            lib.downloads().artifact.as_ref(),
         ];
 
         paths
@@ -94,14 +91,14 @@ impl<'a> JvmArgs<'a> {
     }
 }
 
-pub struct MinecraftArgs<'a> {
+pub struct MinecraftArgsParser<'a> {
     launcher: &'a Launcher,
-    manifest: &'a client::Manifest,
+    manifest: &'a client::manifest::Manifest,
 }
 
-impl<'a> MinecraftArgs<'a> {
+impl<'a> MinecraftArgsParser<'a> {
     #[must_use]
-    pub const fn new(launcher: &'a Launcher, manifest: &'a client::Manifest) -> Self {
+    pub const fn new(launcher: &'a Launcher, manifest: &'a client::manifest::Manifest) -> Self {
         Self { launcher, manifest }
     }
 
@@ -115,43 +112,32 @@ impl<'a> MinecraftArgs<'a> {
     #[tracing::instrument(skip(self))]
     pub fn parse_minecraft_args(&self) -> Vec<String> {
         debug!("Parsing minecraft args");
-        let args = self.manifest.get_arguments();
+        self.manifest
+            .arguments()
+            .game()
+            .iter()
+            .map(|arg| match arg {
+                GameArgument::GameClass(class) => {
+                    let passes = class
+                        .rules()
+                        .iter()
+                        .all(|rule| self.minecraft_rule_passes(rule));
 
-        match args {
-            client::Args::MinecraftArguments(minecraft_args) => {
-                debug!("Minecraft args: {}", minecraft_args);
-                vec![self.parse_minecraft_arg_str(minecraft_args)]
-            }
-            client::Args::Arguments(args) => {
-                debug!("Arguments: {:?}", args);
-                let game_args = args.game();
+                    if !passes {
+                        return String::new();
+                    };
 
-                game_args
-                    .iter()
-                    .map(|arg| match arg {
-                        client::Game::GameClass(class) => {
-                            let passes = class
-                                .rules()
-                                .iter()
-                                .all(|rule| self.minecraft_rule_passes(rule));
-
-                            if !passes {
-                                return String::new();
-                            };
-
-                            match class.value() {
-                                client::Value::String(s) => self.parse_minecraft_arg_str(s),
-                                client::Value::StringArray(a) => {
-                                    a.iter().map(|v| self.parse_minecraft_arg_str(v)).join(" ")
-                                }
-                            }
+                    match class.value() {
+                        Value::String(s) => self.parse_minecraft_arg_str(s),
+                        Value::StringArray(a) => {
+                            a.iter().map(|v| self.parse_minecraft_arg_str(v)).join(" ")
                         }
-                        client::Game::String(arg) => self.parse_minecraft_arg_str(arg),
-                    })
-                    .filter(|s| !s.is_empty())
-                    .collect()
-            }
-        }
+                    }
+                }
+                GameArgument::String(arg) => self.parse_minecraft_arg_str(arg),
+            })
+            .filter(|s| !s.is_empty())
+            .collect()
     }
 
     #[tracing::instrument(skip(self))]
@@ -166,7 +152,11 @@ impl<'a> MinecraftArgs<'a> {
         minecraft_arg
             .replace(
                 "${auth_player_name}",
-                &self.launcher.authentication_details().auth_details.username,
+                &self
+                    .launcher
+                    .authentication_details()
+                    .auth_details()
+                    .username,
             )
             .replace(
                 "${version_name}",
@@ -183,20 +173,17 @@ impl<'a> MinecraftArgs<'a> {
                     .to_str()
                     .unwrap_or_default(),
             )
-            .replace(
-                "${assets_index_name}",
-                &self.launcher.version_name().replace([' ', ':'], "_"),
-            )
+            .replace("${assets_index_name}", self.launcher.manifest().assets())
             .replace(
                 "${auth_uuid}",
-                &self.launcher.authentication_details().auth_details.id,
+                &self.launcher.authentication_details().auth_details().id,
             )
             .replace(
                 "${auth_access_token}",
                 &self
                     .launcher
                     .authentication_details()
-                    .auth_details
+                    .auth_details()
                     .access_token,
             )
             .replace("${user_type}", "msa") // copper only supports MSA
@@ -231,13 +218,13 @@ impl<'a> MinecraftArgs<'a> {
         x == self.launcher.quickplay().is_some_and(qp)
     }
 
-    fn minecraft_rule_passes(&self, rule: &client::GameRule) -> bool {
+    fn minecraft_rule_passes(&self, rule: &GameRule) -> bool {
         match rule.action() {
-            client::Action::Allow => {
+            Action::Allow => {
                 let features = rule.features();
 
                 let demo_check = features.demo_user().map_or(true, |demo_user| {
-                    demo_user == self.launcher.authentication_details().is_demo_user
+                    demo_user == self.launcher.authentication_details().is_demo_user()
                 });
 
                 let support_check =
@@ -271,7 +258,7 @@ impl<'a> MinecraftArgs<'a> {
                     && quickplay_realms_check
                     && custom_resolution_check
             }
-            client::Action::Disallow => {
+            Action::Disallow => {
                 todo!("disallow rules are not supported yet, as none exist")
             }
         }

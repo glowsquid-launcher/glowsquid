@@ -2,6 +2,7 @@ use error_stack::{report, Result, ResultExt};
 use futures::{stream, StreamExt, TryStreamExt};
 use serde::{Deserialize, Serialize};
 use serde_json::to_string;
+use sha1::{Digest, Sha1};
 use std::{
     cmp::min,
     collections::HashMap,
@@ -78,23 +79,25 @@ impl AssetDownloader {
             max_concurrent_downloads,
         }
     }
-}
 
-impl Downloader for AssetDownloader {
-    type DownloadItem = Object;
-
-    fn create_channel(&mut self) -> UnboundedReceiver<DownloadMessage<Self::DownloadItem>> {
-        let (sender, receiver) = unbounded_channel();
-        self.sender = Some(sender);
-        receiver
-    }
-
-    async fn download(&self, item: Self::DownloadItem) -> Result<(), DownloadError> {
+    pub(crate) async fn download(&self, item: Object) -> Result<(), DownloadError> {
         let path = self
             .assets_directory
             .join("objects")
             .join(item.hash_start())
             .join(&item.hash);
+
+        if path.try_exists().change_context(DownloadError::IoError)? {
+            let mut file = std::fs::File::open(&path).change_context(DownloadError::IoError)?;
+            let mut hasher = Sha1::new();
+            std::io::copy(&mut file, &mut hasher).change_context(DownloadError::IoError)?;
+
+            let file_hash = hasher.finalize();
+
+            if item.hash() == hex::encode(file_hash) {
+                return Ok(());
+            }
+        }
 
         item.download(
             path,
@@ -108,6 +111,16 @@ impl Downloader for AssetDownloader {
             .ok_or(DownloadError::ChannelError)?
             .send(DownloadMessage::Downloaded(item.clone()))
             .change_context(DownloadError::ChannelError)
+    }
+}
+
+impl Downloader for AssetDownloader {
+    type DownloadItem = Object;
+
+    fn create_channel(&mut self) -> UnboundedReceiver<DownloadMessage<Self::DownloadItem>> {
+        let (sender, receiver) = unbounded_channel();
+        self.sender = Some(sender);
+        receiver
     }
 
     async fn download_all(self: Arc<Self>) -> Result<(), DownloadError> {
@@ -151,7 +164,6 @@ pub struct Object {
     size: u64,
 }
 
-/// High-level API
 impl Object {
     /// Downloads the object to the specified path using the specified client
     ///
@@ -159,20 +171,16 @@ impl Object {
     /// If you want to download to the assets directory with the appended path, use
     /// [`Assets::download_object`]
     ///
-    /// It will NOT redownload the file if it already exists
+    /// It will redownload the file if it already exists
     ///
     /// # Errors
     /// Errors if the download fails or if the file cannot be created
-    pub async fn download(
+    async fn download(
         &self,
         path: PathBuf,
         client: &reqwest::Client,
         sender: &UnboundedSender<DownloadMessage<Self>>,
     ) -> Result<(), DownloadError> {
-        if path.try_exists().change_context(DownloadError::IoError)? {
-            return Ok(());
-        }
-
         let url = format!(
             "https://resources.download.minecraft.net/{}/{}",
             self.hash_start(),
