@@ -18,7 +18,6 @@
     "@moonrepo/cli": "^1.24.6",
     "@repo/eslint-config": "workspace:*"
   },
-  "packageManager": "pnpm@~9",
   "engines": {
     "node": "~20"
   }
