@@ -5,7 +5,7 @@ use axum::{
     routing::get,
     Router,
 };
-use copper::auth::{structs::OauthCode, MSauth};
+use copper::client::auth::{AuthenticationInfo, MicrosoftAuthenticator, MinecraftToken, OauthCode};
 use error_stack::Report;
 use oauth2::{CsrfToken, PkceCodeVerifier};
 use tokio::{net::TcpListener, task};
@@ -29,7 +29,7 @@ static PKCE_VERIFIER: OnceLock<PkceCodeVerifier> = OnceLock::new();
 
 #[derive(Clone)]
 struct AppState {
-    oauth: MSauth,
+    oauth: MicrosoftAuthenticator,
 }
 
 #[tokio::main]
@@ -51,10 +51,12 @@ async fn main() {
         .init();
 
     info!("Initializing oauth2 client...");
+
     // now lets start!
     // we need a redirect uri so that the oauth server can redirect the user back to our server
     let redirect_uri = "http://localhost:3000/code".to_string();
-    let oauth = MSauth::new(
+    let (oauth, authentication_info) = MicrosoftAuthenticator::new(
+        reqwest::Client::new(),
         redirect_uri,
         CLIENT_ID.to_string(),
         CLIENT_SECRET.to_string(),
@@ -82,24 +84,28 @@ async fn main() {
     // read more about it at https://en.wikipedia.org/wiki/Cross-site_request_forgery
     // the tl;dr is that it is a security measure to prevent malicious websites from impersonating
     // us
-    let (auth_url, csrf_token, pkce) = oauth.get_auth_info();
+    let AuthenticationInfo {
+        url,
+        csrf_token,
+        pkce_verifier,
+    } = authentication_info;
 
     // now that we have the verifier and token, we can set it so it can be accessed by the server
     // this is not the best way to do it, but it is the easiest
     PKCE_VERIFIER
-        .set(pkce)
+        .set(pkce_verifier)
         .expect("To be able to set pkce verifier");
 
     CSRF_TOKEN
         .set(csrf_token)
         .expect("To be able to set csrf token");
 
-    info!("Please go to this url to authenticate: {}", auth_url);
+    info!("Please go to this url to authenticate: {}", url);
 
     server.await.unwrap().unwrap();
 }
 
-async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) {
+async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) -> MinecraftToken {
     info!("Received code: {:?}. Authenticating...", code);
 
     let csrf = CSRF_TOKEN
@@ -141,4 +147,6 @@ async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) 
     info!("Authenticated! Token: {:?}", token);
 
     info!("You can now run ctrl+c to exit the program");
+
+    return token;
 }

@@ -17,21 +17,27 @@ use tracing::{debug, error, info};
 
 use crate::{
     api::client::{Artifact, ClassDownloader, DownloadClass, JvmArgument},
-    auth::{structs::MinecraftToken, MSauth},
-    client,
+    client::{
+        self,
+        auth::{MicrosoftAuthenticator, MinecraftToken},
+    },
     downloader::{DownloadError, DownloadMessage, Downloader as DownloaderTrait},
     parser::{JvmArgsParser, MinecraftArgsParser},
 };
 
 #[derive(Debug, Clone)]
 pub struct AuthenticationDetails {
-    authenticator: MSauth,
+    authenticator: MicrosoftAuthenticator,
     auth_details: MinecraftToken,
     is_demo_user: bool,
 }
 
 impl AuthenticationDetails {
-    pub fn new(authenticator: MSauth, auth_details: MinecraftToken, is_demo_user: bool) -> Self {
+    pub fn new(
+        authenticator: MicrosoftAuthenticator,
+        auth_details: MinecraftToken,
+        is_demo_user: bool,
+    ) -> Self {
         Self {
             authenticator,
             auth_details,
