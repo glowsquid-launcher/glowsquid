@@ -1,7 +1,7 @@
+moon = "1.25.6"
+node = "~20"
+pnpm = "~9"
 rust = "stable"
-pnpm = "9"
-node = "20"
-moon = "1"
 
 [plugins]
 moon = "https://raw.githubusercontent.com/moonrepo/moon/master/proto-plugin.toml"
