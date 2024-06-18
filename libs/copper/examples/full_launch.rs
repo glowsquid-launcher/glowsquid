@@ -37,7 +37,7 @@ extern crate tokio;
 extern crate tracing;
 extern crate tracing_subscriber;
 
-// glowsquids details. If you are going to make your own app, please do not use these.
+// Glowsquids details. If you are going to make your own app, please do not use these.
 // these are just for ease of use.
 const CLIENT_ID: &str = "2aa32806-92e3-4242-babc-392ac0f0fd30";
 const CLIENT_SECRET: &str = "nky8Q~8lORwTC0OjdxVsgZSs0hCdTcEdec3hNbaP";

@@ -19,7 +19,7 @@ extern crate tokio;
 extern crate tracing;
 extern crate tracing_subscriber;
 
-// glowsquids details. If you are going to make your own app, please do not use these.
+// Glowsquids details. If you are going to make your own app, please do not use these.
 // these are just for ease of use.
 const CLIENT_ID: &str = "2aa32806-92e3-4242-babc-392ac0f0fd30";
 const CLIENT_SECRET: &str = "nky8Q~8lORwTC0OjdxVsgZSs0hCdTcEdec3hNbaP";
@@ -55,6 +55,9 @@ async fn main() {
     // now lets start!
     // we need a redirect uri so that the oauth server can redirect the user back to our server
     let redirect_uri = "http://localhost:3000/code".to_string();
+
+    // This creates the actual authenticator.
+    // This is the main struct that will be used to authenticate with Microsoft and Mojang APIs
     let (oauth, authentication_info) = MicrosoftAuthenticator::new(
         reqwest::Client::new(),
         redirect_uri,
@@ -105,9 +108,13 @@ async fn main() {
     server.await.unwrap().unwrap();
 }
 
-async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) -> MinecraftToken {
+async fn get_code(
+    Query(code): Query<OauthCode>,
+    State(state): State<AppState>,
+) -> axum::Json<MinecraftToken> {
     info!("Received code: {:?}. Authenticating...", code);
 
+    // Retrieve the csrf token and pkce verifier
     let csrf = CSRF_TOKEN
         .get()
         .expect("To be able to get CSRF token")
@@ -117,13 +124,18 @@ async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) 
         .get()
         .expect("To be able to get pkce verifier");
 
+    // get the microsoft access token
+    // this is the token that will be used to get the minecraft token and refresh it if needed
+    //
+    // the csrf token is used to prevent Cross Site Request Forgery
+    // and the pkce verifier is used to prevent man in the middle attacks by making sure there is a consistent auth code throughout the process
     let ms_token = state
         .oauth
         .get_ms_access_token(code, csrf, pkce)
         .await
         .expect("To be able to get token");
 
-    let token = state
+    let mut token = state
         .oauth
         .get_minecraft_token(ms_token.clone())
         .await
@@ -132,21 +144,11 @@ async fn get_code(Query(code): Query<OauthCode>, State(state): State<AppState>) 
     info!("Authenticated! Token: {:?}", token);
     info!("testing refresh");
 
-    let ms_token = state
-        .oauth
-        .refresh_ms_access_token(&ms_token)
-        .await
-        .expect("To be able to refresh token");
-
-    let token = state
-        .oauth
-        .get_minecraft_token(ms_token.clone())
-        .await
-        .expect("To be able to get token");
-
-    info!("Authenticated! Token: {:?}", token);
+    // This is how you'd refresh the ms code and token if you need to
+    token.refresh(&state.oauth).await.unwrap();
+    info!("Sucessful Refresh! New token: {:?}", token);
 
     info!("You can now run ctrl+c to exit the program");
 
-    return token;
+    return axum::Json(token);
 }
