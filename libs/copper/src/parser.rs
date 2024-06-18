@@ -9,12 +9,12 @@ use crate::{
     launcher::{Launcher, Quickplay},
 };
 
-pub struct JvmArgsParser<'a> {
+pub struct JvmArgs<'a> {
     launcher: &'a Launcher,
     manifest: &'a client::manifest::Manifest,
 }
 
-impl<'a> JvmArgsParser<'a> {
+impl<'a> JvmArgs<'a> {
     #[must_use]
     pub const fn new(launcher: &'a Launcher, manifest: &'a client::manifest::Manifest) -> Self {
         Self { launcher, manifest }
@@ -36,7 +36,7 @@ impl<'a> JvmArgsParser<'a> {
                     };
 
                     match &class.value {
-                        Value::String(s) => self.parse_java_arg_str(&s),
+                        Value::String(s) => self.parse_java_arg_str(s),
                         Value::StringArray(a) => {
                             a.iter().map(|v| self.parse_java_arg_str(v)).join(" ")
                         }
@@ -91,12 +91,12 @@ impl<'a> JvmArgsParser<'a> {
     }
 }
 
-pub struct MinecraftArgsParser<'a> {
+pub struct MinecraftArgs<'a> {
     launcher: &'a Launcher,
     manifest: &'a client::manifest::Manifest,
 }
 
-impl<'a> MinecraftArgsParser<'a> {
+impl<'a> MinecraftArgs<'a> {
     #[must_use]
     pub const fn new(launcher: &'a Launcher, manifest: &'a client::manifest::Manifest) -> Self {
         Self { launcher, manifest }

@@ -12,7 +12,7 @@ use tokio::{fs, sync::mpsc};
 use crate::{
     api::{self, client::Artifact},
     downloader::{
-        DownloadChannelReceiver, DownloadChannelSender, DownloadError, DownloadMessage, Downloader,
+        self, DownloadChannelReceiver, DownloadChannelSender, DownloadError, DownloadMessage,
     },
 };
 
@@ -77,6 +77,7 @@ impl fmt::Display for LauncherLibraryError {
 impl Error for LauncherLibraryError {}
 
 impl Library {
+    #[must_use]
     pub fn canonical_name(&self) -> String {
         format!("{}:{}:{}", self.package, self.name, self.version)
     }
@@ -86,12 +87,19 @@ impl Library {
         self.rules.iter().all(api::client::Rule::passes)
     }
 
-    pub(crate) fn downloads(&self) -> &api::client::LibraryDownloads {
+    #[must_use]
+    pub(crate) const fn downloads(&self) -> &api::client::LibraryDownloads {
         &self.downloads
     }
 
     /// Downloads the library artifacts and classifiers to the specified base directory,
     /// appending the required path to the base directory (`{artifact.path}/{artifact.name}`)
+    ///
+    /// # Errors
+    /// Errors if:
+    /// - The download fails. The server could be down, the request was blocked, etc.
+    /// - The file cannot be created. This could be due to a lack of permissions, storage space, etc.
+    /// - If there is a native, the native couldn't be extracted. This could be due to a lack of permissions, storage space, etc.
     pub async fn download(
         &self,
         base_path: &Path,
@@ -138,7 +146,7 @@ impl Library {
             todo!("Handle extraction exclude rules");
         }
 
-        let path = base_path.join(&native.path());
+        let path = base_path.join(native.path());
 
         if !path.try_exists().change_context(DownloadError::IoError)? {
             return Err(report!(DownloadError::ExtractionError)
@@ -168,7 +176,7 @@ impl Library {
 }
 
 #[derive(Debug, Clone)]
-pub struct LibraryDownloader {
+pub struct Downloader {
     libraries: Vec<Library>,
     libraries_directory: PathBuf,
 
@@ -178,7 +186,7 @@ pub struct LibraryDownloader {
     max_concurrent_downloads: usize,
 }
 
-impl LibraryDownloader {
+impl Downloader {
     #[must_use]
     pub fn new(
         libraries: Vec<Library>,
@@ -196,7 +204,7 @@ impl LibraryDownloader {
     }
 }
 
-impl Downloader for LibraryDownloader {
+impl downloader::Downloader for Downloader {
     type DownloadItem = Artifact;
 
     fn create_channel(&mut self) -> DownloadChannelReceiver<Self::DownloadItem> {

@@ -22,7 +22,7 @@ use crate::{
         auth::{MicrosoftAuthenticator, MinecraftToken},
     },
     downloader::{DownloadError, DownloadMessage, Downloader as DownloaderTrait},
-    parser::{JvmArgsParser, MinecraftArgsParser},
+    parser,
 };
 
 #[derive(Debug, Clone)]
@@ -33,7 +33,8 @@ pub struct AuthenticationDetails {
 }
 
 impl AuthenticationDetails {
-    pub fn new(
+    #[must_use]
+    pub const fn new(
         authenticator: MicrosoftAuthenticator,
         auth_details: MinecraftToken,
         is_demo_user: bool,
@@ -45,11 +46,12 @@ impl AuthenticationDetails {
         }
     }
 
-    pub(crate) fn auth_details(&self) -> &MinecraftToken {
+    pub(crate) const fn auth_details(&self) -> &MinecraftToken {
         &self.auth_details
     }
 
-    pub fn is_demo_user(&self) -> bool {
+    #[must_use]
+    pub const fn is_demo_user(&self) -> bool {
         self.is_demo_user
     }
 }
@@ -176,8 +178,8 @@ impl Launcher {
                 .change_context(Error::AuthError)?;
         }
 
-        let mut game_args = MinecraftArgsParser::new(self, &self.manifest).parse_minecraft_args();
-        let mut jvm_args = JvmArgsParser::new(self, &self.manifest).parse_jvm_args();
+        let mut game_args = parser::MinecraftArgs::new(self, &self.manifest).parse_minecraft_args();
+        let mut jvm_args = parser::JvmArgs::new(self, &self.manifest).parse_jvm_args();
 
         debug!("Game args: {:?}", game_args);
         debug!("JVM args: {:?}", jvm_args);
@@ -211,7 +213,8 @@ impl Launcher {
         })
     }
 
-    pub fn manifest(&self) -> &client::manifest::Manifest {
+    #[must_use]
+    pub const fn manifest(&self) -> &client::manifest::Manifest {
         &self.manifest
     }
 }
@@ -231,8 +234,8 @@ pub struct Downloader {
     /// The sender for the download channel
     sender: Option<UnboundedSender<DownloadMessage<DownloadItem>>>,
 
-    asset_downloader: client::assets::AssetDownloader,
-    library_downloader: client::library::LibraryDownloader,
+    asset_downloader: client::assets::Downloader,
+    library_downloader: client::library::Downloader,
     client_download: ClassDownloader,
 }
 
@@ -243,14 +246,14 @@ impl Downloader {
         assets: client::assets::Assets,
         max_concurrent_downloads: usize,
     ) -> Self {
-        let asset_downloader = client::assets::AssetDownloader::new(
+        let asset_downloader = client::assets::Downloader::new(
             assets,
             launcher.assets_directory.clone(),
             launcher.http_client.clone(),
             max_concurrent_downloads / 2,
         );
 
-        let library_downloader = client::library::LibraryDownloader::new(
+        let library_downloader = client::library::Downloader::new(
             launcher.manifest.libraries().to_vec(),
             launcher.libraries_directory.clone(),
             launcher.http_client.clone(),
@@ -516,6 +519,6 @@ impl Launcher {
 /// Manipulation methods for the launcher
 impl Launcher {
     pub fn add_jvm_argument(&mut self, arg: JvmArgument) {
-        self.manifest.add_jvm_argument(arg)
+        self.manifest.add_jvm_argument(arg);
     }
 }

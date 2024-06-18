@@ -12,7 +12,7 @@ use tokio::{io::AsyncWriteExt, sync::mpsc};
 
 use crate::{
     api,
-    downloader::{DownloadChannelSender, DownloadError, DownloadMessage, Downloader},
+    downloader::{self, DownloadChannelSender, DownloadError, DownloadMessage},
 };
 
 #[derive(Debug, Clone)]
@@ -134,7 +134,7 @@ pub struct Assets(HashMap<String, Object>);
 
 impl From<api::asset_index::Assets> for Assets {
     fn from(value: api::asset_index::Assets) -> Self {
-        Assets(
+        Self(
             value
                 .objects
                 .into_iter()
@@ -145,7 +145,7 @@ impl From<api::asset_index::Assets> for Assets {
 }
 
 #[derive(Debug, Clone)]
-pub struct AssetDownloader {
+pub struct Downloader {
     assets: Assets,
     assets_directory: PathBuf,
 
@@ -155,9 +155,9 @@ pub struct AssetDownloader {
     max_concurrent_downloads: usize,
 }
 
-impl AssetDownloader {
+impl Downloader {
     #[must_use]
-    pub fn new(
+    pub const fn new(
         assets: Assets,
         assets_directory: PathBuf,
         client: reqwest::Client,
@@ -173,7 +173,7 @@ impl AssetDownloader {
     }
 }
 
-impl Downloader for AssetDownloader {
+impl downloader::Downloader for Downloader {
     type DownloadItem = Object;
 
     fn create_channel(&mut self) -> crate::downloader::DownloadChannelReceiver<Self::DownloadItem> {
@@ -194,11 +194,11 @@ impl Downloader for AssetDownloader {
                         .download(
                             &cloned_self.assets_directory,
                             &cloned_self.client,
-                            &cloned_self.sender.as_ref().unwrap(),
+                            cloned_self.sender.as_ref().unwrap(),
                         )
                         .await
                     {
-                        Ok(_) => cloned_self
+                        Ok(()) => cloned_self
                             .sender
                             .as_ref()
                             .ok_or(DownloadError::ChannelError)?

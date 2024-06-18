@@ -478,6 +478,7 @@ impl MinecraftProfile {
         self.skins.iter().find(|skin| skin.id == id)
     }
 
+    #[must_use]
     pub fn skins(&self) -> &[Skin] {
         &self.skins
     }
@@ -493,7 +494,7 @@ pub struct Skin {
 
 impl Skin {
     #[must_use]
-    pub fn variant(&self) -> SkinVariant {
+    pub const fn variant(&self) -> SkinVariant {
         self.variant
     }
 

@@ -194,6 +194,7 @@ pub struct ClassDownloader {
 
 impl ClassDownloader {
     #[must_use]
+    /// Creates a new instance of the class downloader
     pub const fn new(client: reqwest::Client, class: DownloadClass, path: PathBuf) -> Self {
         Self {
             client,
@@ -203,6 +204,12 @@ impl ClassDownloader {
         }
     }
 
+    /// Downloads the class file
+    ///
+    /// # Errors
+    /// Errors if:
+    /// - The file could not be downloaded. This could be due to a network error.
+    /// - An IO error occurred. This could be due to lack of permissions, storage space, etc.
     pub async fn download(&self, item: DownloadClass) -> ErrorStackResult<(), DownloadError> {
         if self
             .path
@@ -291,15 +298,18 @@ pub struct Artifact {
 }
 
 impl Artifact {
+    #[must_use]
     pub fn path(&self) -> &str {
         &self.path
     }
 
+    #[must_use]
     pub fn sha1(&self) -> &str {
         &self.sha1
     }
 
-    pub fn size(&self) -> u64 {
+    #[must_use]
+    pub const fn size(&self) -> u64 {
         self.size
     }
 

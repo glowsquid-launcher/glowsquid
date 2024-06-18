@@ -40,31 +40,38 @@ pub struct Manifest {
 }
 
 impl Manifest {
-    pub fn logging(&self) -> &Logging {
+    #[must_use]
+    pub const fn logging(&self) -> &Logging {
         &self.logging
     }
 
-    pub fn manifest_type(&self) -> &Type {
+    #[must_use]
+    pub const fn manifest_type(&self) -> &Type {
         &self.manifest_type
     }
 
-    pub fn java_version(&self) -> &JavaVersion {
+    #[must_use]
+    pub const fn java_version(&self) -> &JavaVersion {
         &self.java_version
     }
 
-    pub fn arguments(&self) -> &Arguments {
+    #[must_use]
+    pub const fn arguments(&self) -> &Arguments {
         &self.arguments
     }
 
+    #[must_use]
     pub fn libraries(&self) -> &[Library] {
         &self.libraries
     }
 
+    #[must_use]
     pub fn main_class(&self) -> &str {
         &self.main_class
     }
 
-    pub fn downloads(&self) -> &Downloads {
+    #[must_use]
+    pub const fn downloads(&self) -> &Downloads {
         &self.downloads
     }
 
@@ -72,21 +79,24 @@ impl Manifest {
         self.arguments.jvm.push(arg);
     }
 
-    pub fn asset_index(&self) -> &AssetIndex {
+    #[must_use]
+    pub const fn asset_index(&self) -> &AssetIndex {
         &self.asset_index
     }
 
+    #[must_use]
     pub fn assets(&self) -> &str {
         &self.assets
     }
 
+    #[must_use]
     pub fn id(&self) -> &str {
         &self.id
     }
 }
 
 impl TryFrom<api::client::Manifest> for Manifest {
-    type Error = Report<ManifestConversionError>;
+    type Error = Report<ConversionError>;
 
     fn try_from(value: api::client::Manifest) -> Result<Self, Self::Error> {
         let java_version = value.java_version.unwrap_or(JavaVersion {
@@ -98,26 +108,29 @@ impl TryFrom<api::client::Manifest> for Manifest {
             .libraries
             .into_iter()
             .map(|library| {
-                Library::try_from(library)
-                    .change_context(ManifestConversionError::LibraryConversionError)
+                Library::try_from(library).change_context(ConversionError::LibraryConversionError)
             })
-            .collect::<Result<Vec<Library>, Report<ManifestConversionError>>>()?;
+            .collect::<Result<Vec<Library>, Report<ConversionError>>>()?;
 
+        // bug: this cannot be written as let ... else as we're returning something from both branches
+        #[allow(clippy::manual_let_else)]
         let arguments = match value.arguments {
             Some(args) => args,
             None => Arguments {
                 game: value
                     .minecraft_arguments
-                    .ok_or(report!(ManifestConversionError::MissingArguments))?
+                    .ok_or(report!(ConversionError::MissingArguments))?
                     .split_whitespace()
-                    .map(|arg| arg.to_string())
+                    .map(ToString::to_string)
                     .map(GameArgument::String)
                     .collect(),
-                jvm: todo!(),
+                jvm: todo!(
+                    "Figure out best default jvm arguments for the game for pre 1.13 versions"
+                ),
             },
         };
 
-        Ok(Manifest {
+        Ok(Self {
             asset_index: value.asset_index,
             assets: value.assets,
             downloads: value.downloads,
@@ -135,12 +148,12 @@ impl TryFrom<api::client::Manifest> for Manifest {
 }
 
 #[derive(Debug)]
-pub enum ManifestConversionError {
+pub enum ConversionError {
     LibraryConversionError,
     MissingArguments,
 }
 
-impl fmt::Display for ManifestConversionError {
+impl fmt::Display for ConversionError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::LibraryConversionError => f.write_str("Failed to convert a library to LauncherLibrary"),
@@ -149,4 +162,4 @@ impl fmt::Display for ManifestConversionError {
     }
 }
 
-impl Error for ManifestConversionError {}
+impl Error for ConversionError {}
