@@ -90,10 +90,8 @@ impl Library {
         &self.downloads
     }
 
-    /// Downloads the library artifacts and classifiers to the specified base directory
-    ///
-    /// They will be downloaded in the following format:
-    /// {base path}/{artifact path}/{artifact name}
+    /// Downloads the library artifacts and classifiers to the specified base directory,
+    /// appending the required path to the base directory (`{artifact.path}/{artifact.name}`)
     pub async fn download(
         &self,
         base_path: &Path,

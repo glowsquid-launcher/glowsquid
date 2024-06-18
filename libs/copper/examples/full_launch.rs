@@ -204,7 +204,7 @@ async fn main() {
         .await
         .unwrap();
 
-    let mut downloader = launcher::Downloader::new(&launcher, index, 16);
+    let mut downloader = launcher::Downloader::new(&launcher, index.into(), 16);
     let mut reciever = downloader.create_channel();
 
     let mut bars = HashMap::new();

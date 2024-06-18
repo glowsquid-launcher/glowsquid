@@ -21,7 +21,7 @@ use tracing::debug;
 #[cfg(target_os = "windows")]
 use winsafe::IsWindows10OrGreater;
 
-use crate::downloader::{DownloadError, DownloadMessage, Downloader};
+use crate::downloader::{DownloadChannelSender, DownloadError, DownloadMessage, Downloader};
 
 use super::asset_index::Assets;
 
@@ -303,7 +303,7 @@ impl Artifact {
         self.size
     }
 
-    /// Downloads the artifact to the given path, appending the path to the given path.
+    /// Downloads the artifact to the given path, appending the library's path to the given library directory.
     ///
     /// If there is no artifact or it already exists with the correct hash, it won't be redownloaded
     ///
@@ -311,11 +311,11 @@ impl Artifact {
     /// This function will return an error if the artifact is not downloaded successfully.
     pub async fn download(
         &self,
-        library_path: &Path,
+        library_directory: &Path,
         client: &reqwest::Client,
-        sender: &UnboundedSender<DownloadMessage<Self>>,
+        sender: &DownloadChannelSender<Self>,
     ) -> ErrorStackResult<(), DownloadError> {
-        let path = library_path.join(&self.path);
+        let path = library_directory.join(&self.path);
 
         if path.try_exists().change_context(DownloadError::IoError)? {
             let mut file = std::fs::File::open(&path).change_context(DownloadError::IoError)?;

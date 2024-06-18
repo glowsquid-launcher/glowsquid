@@ -16,10 +16,7 @@ use tokio::{
 use tracing::{debug, error, info};
 
 use crate::{
-    api::{
-        asset_index::{AssetDownloader, Assets, Object},
-        client::{Artifact, ClassDownloader, DownloadClass, JvmArgument},
-    },
+    api::client::{Artifact, ClassDownloader, DownloadClass, JvmArgument},
     auth::{structs::MinecraftToken, MSauth},
     client,
     downloader::{DownloadError, DownloadMessage, Downloader as DownloaderTrait},
@@ -216,7 +213,7 @@ impl Launcher {
 #[derive(Debug)]
 pub enum DownloadItem {
     /// An asset object was downloaded
-    Asset(Object),
+    Asset(client::assets::Object),
     /// A library artifact was downloaded
     Library(Artifact),
     /// A client file was downloaded
@@ -228,15 +225,19 @@ pub struct Downloader {
     /// The sender for the download channel
     sender: Option<UnboundedSender<DownloadMessage<DownloadItem>>>,
 
-    asset_downloader: AssetDownloader,
+    asset_downloader: client::assets::AssetDownloader,
     library_downloader: client::library::LibraryDownloader,
     client_download: ClassDownloader,
 }
 
 impl Downloader {
     #[must_use]
-    pub fn new(launcher: &Launcher, assets: Assets, max_concurrent_downloads: usize) -> Self {
-        let asset_downloader = AssetDownloader::new(
+    pub fn new(
+        launcher: &Launcher,
+        assets: client::assets::Assets,
+        max_concurrent_downloads: usize,
+    ) -> Self {
+        let asset_downloader = client::assets::AssetDownloader::new(
             assets,
             launcher.assets_directory.clone(),
             launcher.http_client.clone(),

@@ -9,11 +9,17 @@ use std::{
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender};
 
 #[derive(Debug)]
+/// An error that can occur when downloading a file
 pub enum DownloadError {
+    /// An error occured when requesting/downloading the file
     ReqwestError,
+    /// An I/O error occured when writing or reading the file
     IoError,
+    /// An error occured when joining the download task
     JoinError,
+    /// An error occured during channel communication (such as sending progress updates)
     ChannelError,
+    /// An error occured when extracting the downloaded file (if applicable)
     ExtractionError,
 }
 

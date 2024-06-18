@@ -1,8 +1,8 @@
 use std::{collections::HashMap, sync::Arc};
 
 use copper::{
-    api::{asset_index::AssetDownloader, version},
-    client,
+    api::version,
+    client::{self, assets::AssetDownloader},
     downloader::{DownloadMessage, Downloader},
 };
 use error_stack::Report;
@@ -53,7 +53,7 @@ async fn main() {
 
     let index = manifest.asset_index().download().await.unwrap();
 
-    let mut download_index = AssetDownloader::new(index, assets, reqwest::Client::new(), 16);
+    let mut download_index = AssetDownloader::new(index.into(), assets, reqwest::Client::new(), 16);
     let mut reciever = download_index.create_channel();
 
     info!("Downloaded asset index");
