@@ -2,6 +2,7 @@
   "recommendations": [
     "vivaxy.vscode-conventional-commits",
     "rust-lang.rust-analyzer",
+    "tauri-apps.tauri-vscode",
     "svelte.svelte-vscode",
     "tamasfe.even-better-toml",
     "moonrepo.moon-console",

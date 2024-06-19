@@ -1,0 +1,26 @@
+$schema: 'https://moonrepo.dev/schemas/project.json'
+
+project:
+  name: UI
+  description: Common UI components and utilities
+
+type: library
+stack: frontend
+language: typescript
+platform: node
+
+tasks:
+  dev:
+    command: "svelte-kit sync && cargo watch -s 'vite build && svelte-package && publint'"
+    local: true
+    options:
+      mergeArgs: 'replace'
+  build:
+    command: 'vite build && svelte-kit sync && svelte-package && publint'
+    outputs:
+      - 'dist/**/*'
+    options:
+      mergeArgs: 'replace'
+
+tags:
+  - sveltekit

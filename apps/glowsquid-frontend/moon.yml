@@ -1,0 +1,13 @@
+$schema: "https://moonrepo.dev/schemas/project.json"
+
+project:
+  name: Glowsquid Frontend
+  description: Frontend code for Glowsquid
+
+type: library
+stack: frontend
+language: typescript
+platform: node
+
+tags:
+  - sveltekit

@@ -1,0 +1,22 @@
+[package]
+name = "glowsquid"
+version = "0.0.0"
+description = "Next-gen hyperspeed Minecraft launcher"
+authors = ["Suyashtnt <suyashtnt@gmail.com>"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "1", features = [] }
+
+[dependencies]
+tauri = { version = "1", features = ["shell-open"] }
+copper = { path = "../../libs/copper" }
+
+serde.workspace = true
+serde_json.workspace = true
+
+[features]
+# This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]

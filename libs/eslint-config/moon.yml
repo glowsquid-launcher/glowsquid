@@ -5,3 +5,7 @@ project:
 type: configuration
 language: typescript
 platform: node
+
+tasks:
+  dev:
+    local: true

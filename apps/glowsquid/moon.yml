@@ -1,0 +1,45 @@
+$schema: 'https://moonrepo.dev/schemas/project.json'
+
+fileGroups:
+  sources:
+    - 'src/**/*'
+    - 'icons/**/*'
+    - 'tauri.conf.json'
+    - 'Cargo.toml'
+
+project:
+  name: Glowsquid
+  description: Tauri code and actual app for Glowsquid
+
+type: application
+stack: frontend
+language: typescript
+platform: rust
+
+tasks:
+  dev:
+    command: noop
+    deps:
+      - dev-tauri
+      - ^:dev
+    local: true
+  dev-tauri:
+    command: 'cargo tauri dev'
+    local: true
+  build:
+    command: 'tauri build'
+    deps:
+      - ^:build
+    outputs:
+      - '/target/release/glowsquid*'
+      - '!/target/release/glowsquid.d'
+      - '!/target/release/glowsquid.pdb'
+      - '/target/release/bundle/**/*'
+    options:
+      mergeArgs: 'replace'
+
+tags:
+  - tauri
+
+dependsOn:
+  - glowsquid-frontend

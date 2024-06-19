@@ -23,7 +23,7 @@ node:
 # Configures Rust within the toolchain.
 rust:
   version: "stable"
-  bins: ["cargo-watch"]
+  bins: ["cargo-watch", "tauri-cli"]
   components: ["rustfmt", "rust-src", "rust-analyzer"]
   targets: []
 
@@ -35,4 +35,4 @@ typescript:
   includeSharedTypes: true
   routeOutDirToCache: false
   syncProjectReferences: true
-  syncProjectReferencesToPaths: true
+  syncProjectReferencesToPaths: false

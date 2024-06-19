@@ -1,0 +1,22 @@
+{
+	"name": "glowsquid",
+	"version": "0.0.0",
+	"description": "",
+	"type": "module",
+	"license": "MIT",
+	"dependencies": {
+		"@tauri-apps/api": "^1"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^3.0.1",
+		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"@tauri-apps/cli": "^1",
+		"@repo/ui": "workspace:*",
+		"svelte": "^4.2.7",
+		"svelte-check": "^3.6.0",
+		"tslib": "^2.6.3",
+		"typescript": "^5.0.0",
+		"vite": "^5.0.3"
+	}
+}
