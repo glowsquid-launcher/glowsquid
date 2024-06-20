@@ -37,6 +37,10 @@ tasks:
       - '/target/release/bundle/**/*'
     options:
       mergeArgs: 'replace'
+  coverage:
+    deps:
+      # tauri proc macro moment
+      - glowsquid-frontend:build
 
 tags:
   - tauri

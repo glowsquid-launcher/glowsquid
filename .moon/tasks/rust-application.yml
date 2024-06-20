@@ -20,9 +20,7 @@ tasks:
       - '@globs(sources)'
       - '@globs(tests)'
   coverage:
-    command: 'cargo llvm-cov nextest --all-features --workspace --codecov --output-path codecov.json'
-    deps:
-      - build
+    command: 'cargo llvm-cov nextest --all-features --codecov --output-path codecov.json'
     inputs:
       - '@globs(sources)'
       - '@globs(tests)'
