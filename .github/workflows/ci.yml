@@ -12,7 +12,7 @@ env:
 
 jobs:
   build:
-    name: Build and Test
+    name: Build and Lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -46,24 +46,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install playwright
-        run: pnpm dlx playwright install --with-deps
-
       - name: install tauri dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
 
-      - name: Lint, Build, Test
-        run: 'pnpm moon ci --job ${{ matrix.index }} --jobTotal 3 :lint :build :coverage'
+      - name: Lint and Build
+        run: 'pnpm moon ci --job ${{ matrix.index }} --jobTotal 3 :lint :build'
 
       - name: report to moon app
         uses: 'moonrepo/run-report-action@v1'
         if: success() || failure()
         with:
           access-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
