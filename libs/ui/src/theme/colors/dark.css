@@ -1,0 +1,22 @@
+/* based of kleur for now */
+:root {
+    --bg-base: oklch(13% 0.03 284);
+    --fg-base: oklch(88% 0.03 284);
+
+    --bg-surface: oklch(15% 0.05 284);
+    --fg-surface: oklch(90% 0.05 284);
+
+    --bg-overlay: oklch(20% 0.05 284);
+    --fg-overlay: oklch(94% 0.07 284);
+
+    --bg-primary: oklch(35% 0.2 284);
+    --fg-primary: oklch(77% 0.2 284);
+
+    --red: oklch(62% 0.2 27);
+    --orange: oklch(77% 0.2 83)
+    --secondary: oklch(77% 0.2 240);
+    --blue: oklch(77% 0.2 240);
+    --teal: oklch(77% 0.2 190);
+    --green: oklch(77% 0.2 152);
+    --muted: oklch(30% 0.04 284);
+}

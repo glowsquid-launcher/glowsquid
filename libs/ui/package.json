@@ -1,33 +1,36 @@
 {
-	"name": "@repo/ui",
-	"version": "0.0.1",
-	"exports": {
-		".": {
-			"types": "./src/index.ts",
-			"svelte": "./src/index.ts"
-		}
-	},
-	"files": [
-		"dist",
-		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
-	],
-	"peerDependencies": {
-		"svelte": "^4.0.0"
-	},
-	"devDependencies": {
-		"@repo/eslint-config": "workspace:*",
-		"@sveltejs/vite-plugin-svelte": "^3.0.0",
-		"@testing-library/jest-dom": "^6.4.6",
-		"@testing-library/svelte": "^5.1.0",
-		"@types/eslint": "^8.56.7",
-		"@vitest/coverage-v8": "^1.6.0",
-		"jsdom": "^24.1.0",
-		"svelte": "^4.2.7",
-		"typescript": "^5.0.0",
-		"vitest": "^1.6.0"
-	},
-	"svelte": "./src/index.ts",
-	"types": "./src/index.ts",
-	"type": "module"
+    "name": "@repo/ui",
+    "version": "0.0.1",
+    "exports": {
+        ".": {
+            "types": "./src/index.ts",
+            "svelte": "./src/index.ts"
+        },
+        "./theme/": "./src/theme/"
+    },
+    "files": [
+        "dist",
+        "!dist/**/*.test.*",
+        "!dist/**/*.spec.*"
+    ],
+    "peerDependencies": {
+        "svelte": "^4.0.0"
+    },
+    "devDependencies": {
+        "@melt-ui/pp": "^0.3.2",
+        "@melt-ui/svelte": "^0.81.0",
+        "@repo/eslint-config": "workspace:*",
+        "@sveltejs/vite-plugin-svelte": "^3.0.0",
+        "@testing-library/jest-dom": "^6.4.6",
+        "@testing-library/svelte": "^5.1.0",
+        "@types/eslint": "^8.56.7",
+        "@vitest/coverage-v8": "^1.6.0",
+        "jsdom": "^24.1.0",
+        "svelte": "^4.2.7",
+        "typescript": "^5.0.0",
+        "vitest": "^1.6.0"
+    },
+    "svelte": "./src/index.ts",
+    "types": "./src/index.ts",
+    "type": "module"
 }
