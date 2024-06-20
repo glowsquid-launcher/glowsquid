@@ -9,46 +9,30 @@ fileGroups:
 
 tasks:
   dev:
-    command: "vite dev"
+    command: 'vite dev'
     deps:
       - '^:dev'
     local: true
   preview:
-    command: "vite preview"
+    command: 'vite preview'
     deps:
       - build
       - '^:build'
       - '^:preview'
     local: true
   build:
-    command: "vite build"
+    command: 'vite build'
     inputs:
       - '@globs(sources)'
     outputs:
-      - "dist" 
+      - 'dist'
   check:
-    command: "svelte-check --tsconfig ./tsconfig.json"
+    command: 'svelte-check --tsconfig ./tsconfig.json'
     inputs:
       - '@globs(sources)'
     deps:
       - sync
   sync:
-    command: "svelte-kit sync"
+    command: 'svelte-kit sync'
     inputs:
       - '@globs(sources)'
-  test:
-    command: noop
-    deps:
-      - test-intergration
-      - test-unit
-  test-intergration:
-    command: "playwright test"
-    inputs:
-      - '@globs(sources)'
-      - '@globs(tests)'
-  test-unit:
-    command: "vitest run"
-    inputs:
-      - '@globs(sources)'
-      - '@globs(tests)'
-  

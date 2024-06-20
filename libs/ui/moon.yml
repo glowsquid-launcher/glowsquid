@@ -10,17 +10,11 @@ language: typescript
 platform: node
 
 tasks:
-  dev:
-    command: "svelte-kit sync && cargo watch -s 'vite build && svelte-package && publint'"
-    local: true
-    options:
-      mergeArgs: 'replace'
-  build:
-    command: 'vite build && svelte-kit sync && svelte-package && publint'
+  test:
+    command: pnpm vitest run --coverage
+    inputs:
+      - src/**/*.ts
+      - vitest.config.ts
+      - package.json
     outputs:
-      - 'dist/**/*'
-    options:
-      mergeArgs: 'replace'
-
-tags:
-  - sveltekit
+      - coverage/

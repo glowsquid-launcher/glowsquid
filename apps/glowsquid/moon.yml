@@ -13,7 +13,7 @@ project:
 
 type: application
 stack: frontend
-language: typescript
+language: rust
 platform: rust
 
 tasks:
