@@ -18,7 +18,6 @@ runner:
     - ':check'
     - ':lint'
     - ':test'
-    - ':coverage'
     - ':lint-clippy'
     - ':lint-format'
     - ':test-unit'
