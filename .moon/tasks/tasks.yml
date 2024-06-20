@@ -3,14 +3,14 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 tasks:
   build:
     deps:
-      - '^:build'
+      - ^:build
   preview:
     deps:
       - build
-      - '^:build'
-      - '^:preview'
+      - ^:build
+      - ^:preview
     local: true
   dev:
     deps:
-      - '^:dev'
+      - ^:dev
     local: true
