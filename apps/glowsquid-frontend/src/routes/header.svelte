@@ -1,5 +1,5 @@
 <script lang="ts">
-
+	import AccountDropdown from "./accountDropdown.svelte";
 </script>
 
 <header>
@@ -10,9 +10,7 @@
 
         <input type="text" placeholder="Search anything..." />
 
-        <div>
-            TODO: accounts dropdown
-        </div>
+        <AccountDropdown />
     </nav>
 </header>
 
@@ -41,11 +39,11 @@
     }
 
     input {
-        outline: var(--size-thin) solid var(--muted);
         border: none;
         border-radius: var(--rounded-md);
         background-color: var(--bg-overlay);
         padding: var(--size-thin) var(--size-md);
+        height: calc(var(--size-md) * 2.2);
         flex: 1;
     }
 </style>
