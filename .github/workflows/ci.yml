@@ -49,6 +49,11 @@ jobs:
       - name: Install playwright
         run: pnpm dlx playwright install --with-deps
 
+      - name: install tauri dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
       - name: Lint, Build, Test
         run: 'pnpm moon ci --job ${{ matrix.index }} --jobTotal 3 :lint :build :coverage'
 
