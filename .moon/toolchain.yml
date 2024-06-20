@@ -24,7 +24,7 @@ node:
 rust:
   version: 'stable'
   bins: ['cargo-watch', 'tauri-cli', 'cargo-nextest', 'cargo-llvm-cov']
-  components: ['rustfmt', 'rust-src', 'rust-analyzer']
+  components: ['rustfmt', 'rust-src', 'rust-analyzer', 'llvm-tools-preview']
   targets: []
 
   syncToolchainConfig: true
