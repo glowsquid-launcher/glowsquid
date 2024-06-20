@@ -4,21 +4,21 @@ projects:
   - libs/*
 
 vcs:
-  manager: "git"
-  defaultBranch: "main"
+  manager: 'git'
+  defaultBranch: 'dev'
   syncHooks: true
   hooks:
     pre-commit:
-      - "pnpm moon run :lint :format --affected --status=staged"
+      - 'pnpm moon run :lint :format --affected --status=staged'
     commit-msg:
-      - "pnpm commitlint --edit $1"
+      - 'pnpm commitlint --edit $1'
 
 runner:
   archivableTargets:
-    - ":check"
-    - ":lint"
-    - ":test"
-    - ":lint-clippy"
-    - ":lint-format"
-    - ":test-unit"
-    - ":test-intergration"
+    - ':check'
+    - ':lint'
+    - ':test'
+    - ':lint-clippy'
+    - ':lint-format'
+    - ':test-unit'
+    - ':test-intergration'
