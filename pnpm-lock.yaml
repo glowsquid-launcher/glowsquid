@@ -23,6 +23,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:libs/eslint-config
+      vitest:
+        specifier: ^1.6.0
+        version: 1.6.0(@types/node@20.14.5)(jsdom@24.1.0)
 
   apps/glowsquid-frontend:
     dependencies:

@@ -16,7 +16,8 @@
         "@commitlint/config-conventional": "^19.2.2",
         "@monodon/rust": "^1.4.0",
         "@moonrepo/cli": "^1.25.6",
-        "@repo/eslint-config": "workspace:*"
+        "@repo/eslint-config": "workspace:*",
+        "vitest": "^1.6.0"
     },
     "engines": {
         "node": "~20"
