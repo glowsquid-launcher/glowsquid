@@ -1,8 +1,8 @@
 # https://moonrepo.dev/docs/config/toolchain
-$schema: "https://moonrepo.dev/schemas/toolchain.json"
+$schema: 'https://moonrepo.dev/schemas/toolchain.json'
 
 node:
-  packageManager: "pnpm"
+  packageManager: 'pnpm'
 
   # Add `node.version` as a constraint in the root `package.json` `engines`.
   addEnginesConstraint: true
@@ -10,7 +10,7 @@ node:
   # Currently buggy and dedupes even with up to date lockfiles
   dedupeOnLockfileChange: false
 
-  dependencyVersionFormat: "workspace"
+  dependencyVersionFormat: 'workspace'
 
   inferTasksFromScripts: false
 
@@ -22,9 +22,9 @@ node:
 
 # Configures Rust within the toolchain.
 rust:
-  version: "stable"
-  bins: ["cargo-watch", "tauri-cli"]
-  components: ["rustfmt", "rust-src", "rust-analyzer"]
+  version: 'stable'
+  bins: ['cargo-watch', 'tauri-cli', 'cargo-nextest', 'cargo-llvm-cov']
+  components: ['rustfmt', 'rust-src', 'rust-analyzer']
   targets: []
 
   syncToolchainConfig: true

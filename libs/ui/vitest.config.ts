@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [svelte(), svelteTesting()],
 	test: {
 		coverage: {
-			reporter: ['json']
+			reporter: ['json', 'lcov']
 		},
 		environment: 'jsdom',
 		setupFiles: ['./setup-vitest.js']

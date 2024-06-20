@@ -11,6 +11,12 @@ platform: node
 
 tasks:
   test:
+    command: pnpm vitest run
+    inputs:
+      - src/**/*.ts
+      - vitest.config.ts
+      - package.json
+  coverage:
     command: pnpm vitest run --coverage
     inputs:
       - src/**/*.ts

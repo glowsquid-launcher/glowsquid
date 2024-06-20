@@ -2,20 +2,27 @@ $schema: 'https://moonrepo.dev/schemas/tasks.json'
 
 tasks:
   build:
-    command: "cargo build --release"
+    command: 'cargo build --release'
     inputs:
       - '@globs(sources)'
     deps:
       - '^:build'
   preview:
-    command: "cargo run --release"
+    command: 'cargo run --release'
     deps:
       - build
       - '^:build'
       - '^:preview'
     local: true
   test:
-    command: 'cargo test'
+    command: 'cargo nextest run'
     inputs:
       - '@globs(sources)'
       - '@globs(tests)'
+  coverage:
+    command: 'cargo llvm-cov nextest --all-features --workspace --codecov --output-path codecov.json'
+    inputs:
+      - '@globs(sources)'
+      - '@globs(tests)'
+    outputs:
+      - 'codecov.json'

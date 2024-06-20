@@ -2,3 +2,4 @@
 /.direnv
 /.minecraft
 neovide_backtrace.log
+codecov.json
