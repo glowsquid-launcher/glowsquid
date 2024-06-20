@@ -23,12 +23,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Cache Rust
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install binstall
+        uses: cargo-bins/cargo-binstall@main
+
       - uses: 'moonrepo/setup-toolchain@v0'
         with:
           auto-install: true
-
-      - name: Cache Rust
-        uses: Swatinem/rust-cache@v2
 
       - name: Get pnpm store directory
         shell: bash
