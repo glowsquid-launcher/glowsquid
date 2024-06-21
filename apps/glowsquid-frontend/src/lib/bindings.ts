@@ -7,9 +7,29 @@
 async greet(name: string) : Promise<string> {
 return await TAURI_INVOKE("greet", { name });
 },
-async addAccount() : Promise<Result<MinecraftProfile, Error<AuthError>>> {
+/**
+ * Add a new account
+ * 
+ * # Returns
+ * returns the index of the account that was added
+ */
+async addAccount() : Promise<Result<number, Error<AuthError>>> {
 try {
     return { status: "ok", data: await TAURI_INVOKE("add_account") };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Switch to a different account
+ * 
+ * # Returns
+ * returns Ok(()) if the account was switched successfully, otherwise returns Err(())
+ */
+async switchToAccount(accountIndex: number) : Promise<Result<null, null>> {
+try {
+    return { status: "ok", data: await TAURI_INVOKE("switch_to_account", { accountIndex }) };
 } catch (e) {
     if(e instanceof Error) throw e;
     else return { status: "error", error: e  as any };
@@ -29,21 +49,24 @@ try {
 
 export type AuthError = "MsToken" | "MinecraftToken" | "MinecraftProfile"
 /**
- * The state that the frontend will have access to
+ * State of currently authenticated profiles
  */
-export type AuthState = { profiles: MinecraftProfile[]; 
+export type AuthState = { 
+/**
+ * All the profiles that the user has added
+ */
+profiles: MinecraftProfile[]; 
 /**
  * Index of the currently selected profile
  */
-currentProfile: number | null }
+currentProfileIndex: number | null }
 export type Cape = { id: string; state: UsageState; url: string; alias: string }
 /**
  * A custom error type that wraps around a error-stack error, converting it from Report<T> to Error<T>
  * 
  * Also known as the most unholy error type known to crabkind
  */
-export type Error<T> = { error: T; report: JsonValue }
-export type JsonValue = null | boolean | number | string | JsonValue[] | { [key in string]: JsonValue }
+export type Error<T> = { error: T; report: any }
 export type MinecraftProfile = { id: string; name: string; skins: Skin[]; capes: Cape[] }
 export type Skin = { id: string; state: UsageState; url: string; variant: SkinVariant }
 export type SkinVariant = "CLASSIC" | "SLIM"

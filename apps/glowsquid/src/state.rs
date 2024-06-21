@@ -1,4 +1,8 @@
-use std::{ops::Deref, sync::Arc, thread::panicking};
+use std::{
+    ops::{Deref, DerefMut},
+    sync::Arc,
+    thread::panicking,
+};
 
 use serde::Serialize;
 use specta::Type;
@@ -17,6 +21,20 @@ pub struct State<T: Serialize + Type + Clone> {
 
 impl<T: Serialize + Type + Clone> State<T> {
     pub fn new(key: &str, value: T, handle: AppHandle) -> Self {
+        if let Err(e) = handle.emit(
+            "state_change",
+            StateUpdate {
+                key: key.to_owned(),
+                value: value.clone(),
+            },
+        ) {
+            if panicking() {
+                eprintln!("Failed to send state update to frontend: {}", e);
+            } else {
+                panic!("Failed to send state update to frontend: {}", e);
+            }
+        }
+
         Self {
             key: key.to_string(),
             inner: Arc::new(Mutex::new(value)),
@@ -24,10 +42,26 @@ impl<T: Serialize + Type + Clone> State<T> {
         }
     }
 
+    pub async fn sync(&self) {
+        if let Err(e) = self.tauri_handle.emit(
+            "state_change",
+            StateUpdate {
+                key: self.key.clone(),
+                value: self.inner.lock().await.clone(),
+            },
+        ) {
+            if panicking() {
+                eprintln!("Failed to send state update to frontend: {}", e);
+            } else {
+                panic!("Failed to send state update to frontend: {}", e);
+            }
+        }
+    }
+
     /// Gets a lock on the state
     ///
     /// This returns a Guard that will unlock the state when dropped and will send any changes to the frontend
-    pub async fn get(&self) -> StateGuard<T> {
+    pub async fn lock(&self) -> StateGuard<T> {
         StateGuard {
             inner: self.inner.lock().await,
             key: self.key.clone(),
@@ -71,5 +105,11 @@ impl<'a, T: Serialize + Type + Clone> Deref for StateGuard<'a, T> {
 
     fn deref(&self) -> &Self::Target {
         &self.inner
+    }
+}
+
+impl<'a, T: Serialize + Type + Clone> DerefMut for StateGuard<'a, T> {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.inner
     }
 }

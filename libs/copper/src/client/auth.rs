@@ -462,6 +462,16 @@ pub struct MinecraftProfile {
 
 impl MinecraftProfile {
     #[must_use]
+    pub fn id(&self) -> &str {
+        &self.id
+    }
+
+    #[must_use]
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    #[must_use]
     pub fn current_skin(&self) -> Option<&Skin> {
         self.skins
             .iter()

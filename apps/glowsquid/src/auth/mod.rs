@@ -4,11 +4,13 @@ pub mod state;
 use std::{future::IntoFuture, sync::Arc};
 
 use axum::{routing, Router};
-use copper::client::auth::{MicrosoftAuthenticator, MinecraftProfile};
+use copper::client::auth::MicrosoftAuthenticator;
 use tauri::{async_runtime, AppHandle};
 use tokio::net::TcpListener;
 
 use error_stack::ResultExt;
+
+use crate::error::Error;
 
 // Glowsquids details. If you're making your own app, please do not use these.
 // These are just for ease of use/packaging.
@@ -17,10 +19,30 @@ const CLIENT_SECRET: &str = "nky8Q~8lORwTC0OjdxVsgZSs0hCdTcEdec3hNbaP";
 
 #[tauri::command]
 #[specta::specta]
+/// Switch to a different account
+///
+/// # Returns
+/// returns Ok(()) if the account was switched successfully, otherwise returns Err(())
+pub async fn switch_to_account(
+    state: tauri::State<'_, state::State>,
+    account_index: u8,
+) -> Result<(), ()> {
+    if state.switch_to(account_index).await {
+        Ok(())
+    } else {
+        Err(())
+    }
+}
+
+#[tauri::command]
+#[specta::specta]
+/// Add a new account
+///
+/// # Returns
+/// returns the index of the account that was added
 pub async fn add_account(
     state: tauri::State<'_, state::State>,
-    app: AppHandle,
-) -> Result<MinecraftProfile, crate::error::Error<server::AuthError>> {
+) -> Result<u8, Error<server::AuthError>> {
     // setup the server
     let listener = TcpListener::bind(("127.0.0.1", 0)).await.unwrap();
     let port = listener.local_addr().unwrap().port();
@@ -54,16 +76,18 @@ pub async fn add_account(
 
     open::that(authentication_info.url.as_str()).expect("Failed to open browser");
 
-    let minecraft_token = recv_token.recv().await.unwrap()?;
-
-    // TODO: save token to database and update state
+    let token = recv_token.recv().await.unwrap()?;
 
     // shutdown the server
     server_task.abort();
 
-    oauth
-        .get_minecraft_profile(&minecraft_token)
+    let profile = oauth
+        .get_minecraft_profile(&token)
         .await
         .change_context(server::AuthError::MinecraftProfile)
-        .map_err(Into::into)
+        .map_err(Into::<Error<_>>::into)?;
+
+    let idx = state.add_account(token, profile).await;
+
+    Ok(idx)
 }

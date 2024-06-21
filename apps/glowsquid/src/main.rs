@@ -20,7 +20,11 @@ fn main() {
     let invoke_handler = {
         let builder = tauri_specta::ts::builder()
             .types(TypeCollection::default().register::<auth::state::AuthState>())
-            .commands(tauri_specta::collect_commands![greet, add_account]);
+            .commands(tauri_specta::collect_commands![
+                greet,
+                add_account,
+                switch_to_account
+            ]);
 
         #[cfg(debug_assertions)] // <- Only export on non-release builds
         let builder = builder.path("../glowsquid-frontend/src/lib/bindings.ts");
@@ -30,7 +34,13 @@ fn main() {
 
     tauri::Builder::default()
         .setup(|app| {
-            app.manage(block_on(auth::state::State::new(app.app_handle())));
+            let handle = app.app_handle().clone();
+            app.listen("sync_ready", move |_| {
+                if !handle.manage(block_on(auth::state::State::new(&handle))) {
+                    println!("Syncing auth state");
+                    block_on(handle.state::<auth::state::State>().sync());
+                }
+            });
 
             Ok(())
         })

@@ -1,5 +1,5 @@
 use crate::state;
-use copper::client::auth::MinecraftProfile;
+use copper::client::auth::{MinecraftProfile, MinecraftToken};
 use once_cell::sync::OnceCell;
 use serde::Serialize;
 use specta::Type;
@@ -16,11 +16,12 @@ pub struct State {
 
 #[derive(Clone, Serialize, Type)]
 #[serde(rename_all = "camelCase")]
-/// The state that the frontend will have access to
+/// State of currently authenticated profiles
 pub struct AuthState {
+    /// All the profiles that the user has added
     profiles: Vec<MinecraftProfile>,
     /// Index of the currently selected profile
-    current_profile: Option<u8>,
+    current_profile_index: Option<u8>,
 }
 
 impl State {
@@ -38,7 +39,7 @@ impl State {
         // TODO: load profiles from database
         let frontend_state = AuthState {
             profiles: vec![],
-            current_profile: None,
+            current_profile_index: None,
         };
 
         Self {
@@ -46,5 +47,34 @@ impl State {
             connection,
             frontend_state: state::State::new("auth", frontend_state, app_handle.clone()),
         }
+    }
+
+    pub async fn sync(&self) {
+        self.frontend_state.sync().await;
+    }
+
+    pub async fn switch_to(&self, account_index: u8) -> bool {
+        let mut state = self.frontend_state.lock().await;
+
+        if account_index >= state.profiles.len() as u8 {
+            return false;
+        }
+
+        state.current_profile_index = Some(account_index);
+
+        true
+    }
+
+    pub async fn add_account(&self, token: MinecraftToken, profile: MinecraftProfile) -> u8 {
+        let mut state = self.frontend_state.lock().await;
+
+        // TODO: save token to database
+
+        if let Some(idx) = state.profiles.iter().position(|p| p.id() == profile.id()) {
+            return idx.try_into().unwrap();
+        }
+        state.profiles.push(profile);
+
+        state.profiles.len() as u8 - 1
     }
 }

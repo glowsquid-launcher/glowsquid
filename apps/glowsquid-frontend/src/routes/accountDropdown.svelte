@@ -1,11 +1,12 @@
 <script lang="ts">
-    import { createDropdownMenu, melt } from '@melt-ui/svelte'
+    import { createDropdownMenu, melt, name } from '@melt-ui/svelte'
     import { fly } from 'svelte/transition'
 
     import DownArrow from '~icons/material-symbols/keyboard-arrow-down'
     import Settings from '~icons/material-symbols/settings-outline'
     import Plus from '~icons/material-symbols/add'
 	import { commands } from '$lib/bindings'
+	import { authState } from "$lib/state.svelte";
 
     const addAccount = (e: Event) => {
         console.log('Add account')
@@ -13,13 +14,31 @@
         commands.addAccount()
             .then((response) => {
                 if (response.status === 'ok') {
-                    console.log('Account added', response.data)
+                    console.log('Account added', response.data);
+                    switchTo(response.data);
                 }
                 else {
-                    console.error('Failed to add account', response.error.error, response.error.report)
+                    console.error('Failed to add account', response.error.error, response.error.report);
                 }
             })
     }
+
+    const switchTo = (index: number) => (e: Event) => {
+        console.log('Switch to account', index)
+
+        commands.switchToAccount(index)
+            .then((response) => {
+                if (response.status === 'ok') {
+                    console.log('Account switched')
+                }
+                else {
+                    console.error('Failed to switch account')
+                }
+            })
+    }
+
+    const profiles = $derived(authState.value.profiles)
+    const currentProfile = $derived(authState.value.currentProfileIndex !== null ? profiles[authState.value.currentProfileIndex] : null)
 
     const {
         elements: { trigger, menu, item, separator },
@@ -30,19 +49,27 @@
     })
 </script>
 
+{#snippet account(account: string)}
+    <img
+        alt="{account}'s avatar"
+        src="https://minepic.org/avatar/{account}/32"
+        width="32"
+        height="32"
+    >
+
+    <p>{account}</p>
+{/snippet}
+
 <button
     class="dropdown-button"
     use:melt={$trigger}
     aria-label="Open account dropdown"
 >
-    <img
-        alt="TNTMan1671's avatar"
-        src="https://minepic.org/avatar/TNTMan1671/32"
-        width="32"
-        height="32"
-    >
-
-    <p>TNTMan1671</p>
+    {#if currentProfile}
+        {@render account(currentProfile.name)}
+    {:else}
+        <p>No Account</p>
+    {/if}
 
     <DownArrow class="account-arrow" />
 </button>
@@ -52,31 +79,13 @@
         use:melt={$menu}
         transition:fly={{ duration: 150, y: -10 }}
     >
-        <li use:melt={$item}>
-            <button>
-                <img
-                    alt="TNTMan1671's avatar"
-                    src="https://minepic.org/avatar/TNTMan1671/32"
-                    width="32"
-                    height="32"
-                >
-
-                <p>TNTMan1671</p>
-            </button>
-        </li>
-
-        <li use:melt={$item}>
-            <button>
-                <img
-                    alt="KrazyMiner001's avatar"
-                    src="https://minepic.org/avatar/KrazyMiner001/32"
-                    width="32"
-                    height="32"
-                >
-
-                <p>KrazyMiner001</p>
-            </button>
-        </li>
+        {#each profiles as profile, idx}
+            <li use:melt={$item}>
+                <button onclick={switchTo(idx)}>
+                    {@render account(profile.name)}
+                </button>
+            </li>
+        {/each}
 
         <hr use:melt={$separator}>
 

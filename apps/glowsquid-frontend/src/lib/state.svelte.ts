@@ -1,15 +1,23 @@
-import { listen } from "@tauri-apps/api/event";
+import { emit, listen } from "@tauri-apps/api/event";
 import { Map } from "svelte/reactivity";
 import type { AuthState } from './bindings'
 
 const internalStateStore = new Map<string, unknown>();
 
-export const setupStateListener = () => {
-    listen<{ key: string, value: unknown }>("state_update", (event) => internalStateStore.set(event.payload.key, event.payload.value));
+export const setupState = async () => {
+    listen<{ key: string, value: unknown }>("state_change", (event) => {
+        const { key, value } = event.payload;
+        console.debug("state_change", { key, value })
+        internalStateStore.set(key, value)
+    });
+
+    emit("sync_ready")
 }
 
 const tauriState = <T>(key: string, defaultValue: T) => {
-    internalStateStore.set(key, defaultValue);
+    if (!internalStateStore.has(key)) {
+        internalStateStore.set(key, defaultValue);
+    }
 
     return {
         get value() {
@@ -20,5 +28,5 @@ const tauriState = <T>(key: string, defaultValue: T) => {
 
 export const authState = tauriState<AuthState>("auth", {
     profiles: [],
-    currentProfile: null,
+    currentProfileIndex: null,
 })
