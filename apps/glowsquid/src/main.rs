@@ -2,9 +2,11 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod auth;
-mod error;
+pub mod error;
+pub mod state;
 
 use auth::*;
+use specta::TypeCollection;
 use tauri::{async_runtime::block_on, Manager};
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -17,6 +19,7 @@ fn greet(name: &str) -> String {
 fn main() {
     let invoke_handler = {
         let builder = tauri_specta::ts::builder()
+            .types(TypeCollection::default().register::<auth::state::AuthState>())
             .commands(tauri_specta::collect_commands![greet, add_account]);
 
         #[cfg(debug_assertions)] // <- Only export on non-release builds
@@ -27,7 +30,7 @@ fn main() {
 
     tauri::Builder::default()
         .setup(|app| {
-            app.manage(block_on(AuthState::new(app.app_handle())));
+            app.manage(block_on(auth::state::State::new(app.app_handle())));
 
             Ok(())
         })

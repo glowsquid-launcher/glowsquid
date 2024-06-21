@@ -1,13 +1,12 @@
 pub mod server;
+pub mod state;
 
 use std::{future::IntoFuture, sync::Arc};
 
 use axum::{routing, Router};
 use copper::client::auth::{MicrosoftAuthenticator, MinecraftProfile};
-use once_cell::sync::OnceCell;
-use tauri::{async_runtime, AppHandle, Manager, State};
+use tauri::{async_runtime, AppHandle};
 use tokio::net::TcpListener;
-use tokio_rusqlite::Connection;
 
 use error_stack::ResultExt;
 
@@ -16,36 +15,10 @@ use error_stack::ResultExt;
 const CLIENT_ID: &str = "2aa32806-92e3-4242-babc-392ac0f0fd30";
 const CLIENT_SECRET: &str = "nky8Q~8lORwTC0OjdxVsgZSs0hCdTcEdec3hNbaP";
 
-#[derive(Clone)]
-pub struct AuthState {
-    /// If the user decided to enable authentication
-    password_hash: OnceCell<String>,
-    connection: Connection,
-}
-
-impl AuthState {
-    pub async fn new(app_handle: &AppHandle) -> Self {
-        let db_path = app_handle
-            .path()
-            .app_data_dir()
-            .unwrap()
-            .join("glowsquid.db");
-
-        let connection = Connection::open(db_path)
-            .await
-            .expect("Failed to open database");
-
-        Self {
-            password_hash: OnceCell::new(),
-            connection,
-        }
-    }
-}
-
 #[tauri::command]
 #[specta::specta]
 pub async fn add_account(
-    state: State<'_, AuthState>,
+    state: tauri::State<'_, state::State>,
     app: AppHandle,
 ) -> Result<MinecraftProfile, crate::error::Error<server::AuthError>> {
     // setup the server
@@ -91,6 +64,6 @@ pub async fn add_account(
     oauth
         .get_minecraft_profile(&minecraft_token)
         .await
-        .change_context(AuthError::MinecraftProfile)
+        .change_context(server::AuthError::MinecraftProfile)
         .map_err(Into::into)
 }

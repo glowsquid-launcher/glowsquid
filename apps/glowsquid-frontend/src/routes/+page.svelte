@@ -1,6 +1,6 @@
 <script lang="ts">
     import { invoke } from '@tauri-apps/api/core'
-    import { commands } from "$lib/bindings"
+    import { commands } from '$lib/bindings'
     import { Input, Message, Button } from '@repo/ui'
 
     let name = $state('')

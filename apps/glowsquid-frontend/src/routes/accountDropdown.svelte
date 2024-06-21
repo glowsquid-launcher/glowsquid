@@ -14,7 +14,8 @@
             .then((response) => {
                 if (response.status === 'ok') {
                     console.log('Account added', response.data)
-                } else {
+                }
+                else {
                     console.error('Failed to add account', response.error.error, response.error.report)
                 }
             })

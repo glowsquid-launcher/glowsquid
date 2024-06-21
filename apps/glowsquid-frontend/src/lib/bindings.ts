@@ -28,6 +28,14 @@ try {
 /** user-defined types **/
 
 export type AuthError = "MsToken" | "MinecraftToken" | "MinecraftProfile"
+/**
+ * The state that the frontend will have access to
+ */
+export type AuthState = { profiles: MinecraftProfile[]; 
+/**
+ * Index of the currently selected profile
+ */
+currentProfile: number | null }
 export type Cape = { id: string; state: UsageState; url: string; alias: string }
 /**
  * A custom error type that wraps around a error-stack error, converting it from Report<T> to Error<T>

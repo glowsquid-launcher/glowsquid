@@ -451,7 +451,8 @@ impl MinecraftToken {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug, Type)]
+// TODO: implement Type + Clone for more than when needed
+#[derive(Serialize, Deserialize, Debug, Type, Clone)]
 pub struct MinecraftProfile {
     id: String,
     name: String,
@@ -485,8 +486,7 @@ impl MinecraftProfile {
     }
 }
 
-// todo: add more Type implementations other than what is needed for the auth code
-#[derive(Serialize, Deserialize, Debug, Type)]
+#[derive(Serialize, Deserialize, Debug, Type, Clone)]
 pub struct Skin {
     id: String,
     state: UsageState,
@@ -518,7 +518,7 @@ pub enum SkinVariant {
     Slim,
 }
 
-#[derive(Serialize, Deserialize, Debug, Type)]
+#[derive(Serialize, Deserialize, Debug, Type, Clone)]
 pub struct Cape {
     id: String,
     state: UsageState,
