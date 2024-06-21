@@ -5,6 +5,19 @@
     import DownArrow from '~icons/material-symbols/keyboard-arrow-down'
     import Settings from '~icons/material-symbols/settings-outline'
     import Plus from '~icons/material-symbols/add'
+	import { invoke } from '@tauri-apps/api/core';
+
+    const addAccount = (e: Event) => {
+        console.log('Add account')
+
+        invoke("add_account")
+        .then((response) => {
+            console.log(`Success`, response)
+        })
+        .catch((error) => {
+            console.error(`Error`, error)
+        })
+    }
 
     const {
         elements: { trigger, menu, item, separator },
@@ -66,7 +79,7 @@
         <hr use:melt={$separator}>
 
         <li use:melt={$item}>
-            <button>
+            <button onclick={addAccount}>
                 <Plus />
 
                 <p>Add account</p>

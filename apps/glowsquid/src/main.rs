@@ -19,7 +19,7 @@ fn main() {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![greet, start_add_account])
+        .invoke_handler(tauri::generate_handler![greet, add_account])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

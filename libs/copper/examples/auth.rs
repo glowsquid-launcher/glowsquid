@@ -150,5 +150,5 @@ async fn get_code(
 
     info!("You can now run ctrl+c to exit the program");
 
-    return axum::Json(token);
+    axum::Json(token)
 }

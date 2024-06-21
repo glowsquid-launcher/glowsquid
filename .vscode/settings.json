@@ -38,8 +38,10 @@
   "rust-analyzer.showUnlinkedFileNotification": false,
   "cSpell.words": [
     "Mojang",
+    "Pkce",
     "quickplay",
     "reqwest",
-    "Singleplayer"
+    "Singleplayer",
+    "Tauri"
   ]
 }

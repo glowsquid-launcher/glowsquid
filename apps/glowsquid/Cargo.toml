@@ -16,10 +16,20 @@ copper = { path = "../../libs/copper" }
 
 serde.workspace = true
 serde_json.workspace = true
+
+oauth2.workspace = true
+error-stack.workspace = true
+reqwest.workspace = true
+
 rusqlite = { version = "0.31.0", features = ["bundled"] }
-rusqlite_migration = { version = "1.2.0", features = ["alpha-async-tokio-rusqlite"] }
+rusqlite_migration = { version = "1.2.0", features = [
+    "alpha-async-tokio-rusqlite",
+] }
 tokio-rusqlite = "0.5.1"
 once_cell = "1.19.0"
+axum = "0.7.5"
+tokio = "1.38.0"
+open = "5.1.4"
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!

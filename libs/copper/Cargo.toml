@@ -13,21 +13,19 @@ keywords = ["minecraft", "launcher", "game"]
 categories = ["api-bindings"]
 
 [dependencies]
+serde.workspace = true
+serde_json.workspace = true
+
+error-stack.workspace = true
+oauth2.workspace = true
+reqwest.workspace = true
+
 chrono = { version = "0.4.35", default-features = false, features = ["std"] }
 derive_builder = { version = "0.20.0", features = ["clippy"] }
 dunce = "1.0.4"
-error-stack = { version = "0.4.1", features = ["spantrace"] }
 futures = "0.3.30"
 hex = "0.4.3"
 itertools = "0.13.0"
-oauth2 = "4.4.2"
-reqwest = { version = "0.12.4", default-features = false, features = [
-  "rustls-tls",
-  "json",
-  "stream",
-] }
-serde.workspace = true
-serde_json.workspace = true
 sha1 = "0.10.6"
 test-case = "3.3.1"
 tokio = { version = "1.37.0", features = ["fs", "process", "macros"] }
