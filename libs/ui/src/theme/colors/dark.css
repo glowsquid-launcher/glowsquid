@@ -1,5 +1,6 @@
 /* based of kleur for now */
 :root {
+    /** base colors */
     --bg-base: oklch(13% 0.03 284);
     --fg-base: oklch(88% 0.03 284);
 
@@ -12,11 +13,19 @@
     --bg-primary: oklch(35% 0.2 284);
     --fg-primary: oklch(77% 0.2 284);
 
+
+    /** foreground colors */
+
     --red: oklch(62% 0.2 27);
     --orange: oklch(77% 0.2 83)
     --secondary: oklch(77% 0.2 240);
     --blue: oklch(77% 0.2 240);
     --teal: oklch(77% 0.2 190);
     --green: oklch(77% 0.2 152);
+
+    /** meaningful colors */
+    --success: var(--green);
+    --warning: var(--orange);
+    --danger: var(--red);
     --muted: oklch(30% 0.04 284);
 }

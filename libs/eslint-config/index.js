@@ -9,6 +9,12 @@ export default [
 	...svelte.configs['flat/recommended'],
 	prettier,
 	/** @type {import("eslint").Linter.FlatConfig} */ ({
+		files: ['**/*.ts', '**/*.svelte'],
+        rules: {
+            "no-undef": "off",
+        }
+    }),
+	/** @type {import("eslint").Linter.FlatConfig} */ ({
 		files: ['**/*.ts'],
 		languageOptions: {
 			parser: tseslint.parser,
@@ -26,5 +32,6 @@ export default [
 				parser: tseslint.parser
 			}
 		}
-	})
+	}),
+
 ];

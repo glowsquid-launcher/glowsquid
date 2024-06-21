@@ -6,7 +6,6 @@
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
-        "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
         "moduleResolution": "bundler"
@@ -15,8 +14,5 @@
         {
             "path": "../../libs/ui"
         }
-    ],
-    "include": [
-        "../../libs/ui/**/*"
     ]
 }

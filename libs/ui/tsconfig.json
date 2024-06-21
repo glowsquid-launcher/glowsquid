@@ -1,20 +1,19 @@
 {
-	"compilerOptions": {
-		"allowJs": true,
-		"checkJs": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"sourceMap": true,
-		"strict": true,
-		"module": "NodeNext",
-		"moduleResolution": "Bundler"
-	},
-	"references": [
-		{
-			"path": "../eslint-config"
-		}
-	],
-	"include": ["../eslint-config/**/*"]
+    "compilerOptions": {
+        "allowJs": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strict": true,
+        "module": "Preserve",
+        "composite": true,
+        "moduleResolution": "Bundler"
+    },
+    "references": [
+        {
+            "path": "../eslint-config"
+        }
+    ]
 }

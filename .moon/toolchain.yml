@@ -31,7 +31,7 @@ rust:
 
 typescript:
   createMissingConfig: true
-  includeProjectReferenceSources: true
+  includeProjectReferenceSources: false
   includeSharedTypes: true
   routeOutDirToCache: false
   syncProjectReferences: true

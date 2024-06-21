@@ -2,14 +2,20 @@ html,
 body {
     background-color: var(--bg-base);
     color: var(--fg-base);
+    font-size: var(--font-size-base);
 }
 
 body {
     min-height: 100vh;
 }
 
-button {
-    cursor: pointer;
+button
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    font-size: var(--font-size-base);
 }
 
 /*
@@ -47,13 +53,6 @@ svg {
     max-width: 100%;
 }
 
-input,
-button,
-textarea,
-select {
-    font: inherit;
-}
-
 p,
 h1,
 h2,
@@ -65,7 +64,7 @@ h6 {
 }
 
 p {
-    font-size: var(----font-size-base)
+    font-size: var(--font-size-base)
 }
 
 small {

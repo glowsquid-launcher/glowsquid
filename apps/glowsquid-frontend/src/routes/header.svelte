@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { Input } from "@repo/ui";
 	import AccountDropdown from "./accountDropdown.svelte";
+
+    import Search from "~icons/material-symbols/search";
 </script>
 
 <header>
@@ -8,7 +11,11 @@
             <a href="/">Glowsquid</a>
         </h1>
 
-        <input type="text" placeholder="Search anything..." />
+        <Input type="text" placeholder="Search anything...">
+            {#snippet startIcon()}
+                <Search />
+            {/snippet}
+        </Input>
 
         <AccountDropdown />
     </nav>
@@ -36,14 +43,14 @@
                 text-decoration: underline;
             }
         }
+
+        & :global(div:has(input)) {
+            flex: 1;
+
+            & :global(input) {
+                width: 100%;
+            }
+        }
     }
 
-    input {
-        border: none;
-        border-radius: var(--rounded-md);
-        background-color: var(--bg-overlay);
-        padding: var(--size-thin) var(--size-md);
-        height: calc(var(--size-md) * 2.2);
-        flex: 1;
-    }
 </style>

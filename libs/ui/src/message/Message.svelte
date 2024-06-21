@@ -1,5 +1,11 @@
 <script lang="ts">
-	export let sponsor: string;
+	import type { HTMLAttributes } from "svelte/elements";
+
+    interface Props extends HTMLAttributes<HTMLParagraphElement> {
+        sponsor: string;
+    }
+
+    const { sponsor, ...rest }: Props = $props();
 </script>
 
-<p>This app is sponsored by {sponsor}!</p>
+<p {...rest}>This app is sponsored by {sponsor}!</p>

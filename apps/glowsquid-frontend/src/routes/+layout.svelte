@@ -6,11 +6,14 @@
     import "@repo/ui/theme/sizing/default.css";
     import "@repo/ui/theme/fonts/recursive.css";
     import "./app.css";
+	import type { Snippet } from 'svelte';
+
+    const { children }: { children: Snippet } = $props();
 </script>
 
 
 <Header />
 
 <main>
-    <slot />
+    {@render children()}
 </main>

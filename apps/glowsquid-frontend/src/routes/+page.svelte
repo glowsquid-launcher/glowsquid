@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { invoke } from '@tauri-apps/api/tauri';
-	import { Message } from '@repo/ui';
+	import { Input, Message, Button } from '@repo/ui';
 
-	let name = '';
-	let greetMsg = '';
+	let name = $state('');
+	let greetMsg = $state('');
 
-	async function greet() {
+	async function greet(e: Event) {
+        e.preventDefault();
+
 		// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 		greetMsg = await invoke('greet', { name });
 	}
@@ -14,9 +16,9 @@
 <div class="container">
 	<h1>Welcome to Glowsquid!</h1>
 
-	<form class="row" on:submit|preventDefault={greet}>
-		<input id="greet-input" placeholder="Enter a name..." bind:value={name} />
-		<button type="submit">Greet</button>
+	<form class="row" onsubmit={greet}>
+		<Input placeholder="Enter a name..." bind:value={name} />
+		<Button type="submit">Greet</Button>
 	</form>
 
 	<p>{greetMsg}</p>
@@ -37,33 +39,11 @@
 	.row {
 		display: flex;
 		justify-content: center;
+
+        gap: var(--size-sm);
 	}
 
 	h1 {
 		text-align: center;
-	}
-
-	input,
-	button {
-		border-radius: 8px;
-		border: 1px solid transparent;
-		padding: 0.6em 1.2em;
-		font-size: 1em;
-		font-weight: 500;
-		font-family: inherit;
-		color: #0f0f0f;
-		background-color: #ffffff;
-		transition: border-color 0.25s;
-		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-	}
-
-
-	input,
-	button {
-		outline: none;
-	}
-
-	#greet-input {
-		margin-right: 5px;
 	}
 </style>
