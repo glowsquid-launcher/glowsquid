@@ -4,6 +4,7 @@
   "type": "module",
   "main": "./index.js",
   "dependencies": {
+    "@stylistic/eslint-plugin": "^2.2.2",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
     "eslint-config-prettier": "^9.1.0"

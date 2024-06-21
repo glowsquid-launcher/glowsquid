@@ -1,2 +1,2 @@
-import configEslint from "./index.js"
+import configEslint from './index.js'
 export default configEslint

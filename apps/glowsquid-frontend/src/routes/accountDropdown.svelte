@@ -1,17 +1,17 @@
 <script lang="ts">
-    import { createDropdownMenu, melt } from "@melt-ui/svelte"
-	import { fly } from "svelte/transition";
+    import { createDropdownMenu, melt } from '@melt-ui/svelte'
+    import { fly } from 'svelte/transition'
 
-    import DownArrow from "~icons/material-symbols/keyboard-arrow-down"
-    import Settings from "~icons/material-symbols/settings-outline"
-    import Plus from "~icons/material-symbols/add"
+    import DownArrow from '~icons/material-symbols/keyboard-arrow-down'
+    import Settings from '~icons/material-symbols/settings-outline'
+    import Plus from '~icons/material-symbols/add'
 
     const {
         elements: { trigger, menu, item, separator },
         states: { open },
     } = createDropdownMenu({
         forceVisible: true,
-        loop: true
+        loop: true,
     })
 </script>
 
