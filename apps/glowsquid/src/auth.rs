@@ -1,20 +1,16 @@
-use std::{
-    error::Error,
-    fmt,
-    future::IntoFuture,
-    net::{IpAddr, Ipv4Addr, SocketAddr},
-    sync::Arc,
-};
+use std::{error::Error, fmt, future::IntoFuture, sync::Arc};
 
 use axum::{extract, response::IntoResponse, routing, Router};
 use copper::client::auth::{MicrosoftAuthenticator, MinecraftProfile, MinecraftToken, OauthCode};
 use oauth2::{CsrfToken, PkceCodeVerifier};
 use once_cell::sync::OnceCell;
+use serde::Serialize;
+use specta::Type;
 use tauri::{async_runtime, AppHandle, Manager, State};
 use tokio::net::TcpListener;
 use tokio_rusqlite::Connection;
 
-use error_stack::{Result, ResultExt};
+use error_stack::ResultExt;
 
 // Glowsquids details. If you're making your own app, please do not use these.
 // These are just for ease of use/packaging.
@@ -47,19 +43,14 @@ impl AuthState {
     }
 }
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
+#[specta::specta]
 pub async fn add_account(
     state: State<'_, AuthState>,
     app: AppHandle,
-) -> Result<MinecraftProfile, AuthError> {
+) -> Result<MinecraftProfile, crate::error::Error<AuthError>> {
     // setup the server
-    let listener = TcpListener::bind((
-        "127.0.0.1",
-        get_available_port().expect("Failed to get available port"),
-    ))
-    .await
-    .unwrap();
+    let listener = TcpListener::bind(("127.0.0.1", 0)).await.unwrap();
     let port = listener.local_addr().unwrap().port();
 
     let redirect_uri = format!("http://localhost:{}/code", port);
@@ -102,9 +93,10 @@ pub async fn add_account(
         .get_minecraft_profile(&minecraft_token)
         .await
         .change_context(AuthError::MinecraftProfile)
+        .map_err(Into::into)
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy, Type, Serialize)]
 pub enum AuthError {
     MsToken,
     MinecraftToken,
@@ -128,13 +120,13 @@ struct AuthServerState {
     oauth: MicrosoftAuthenticator,
     csrf_token: CsrfToken,
     pkce_verifier: Arc<PkceCodeVerifier>,
-    send_token: async_runtime::Sender<Result<MinecraftToken, AuthError>>,
+    send_token: async_runtime::Sender<error_stack::Result<MinecraftToken, AuthError>>,
 }
 
 async fn get_code(
     extract::Query(code): extract::Query<OauthCode>,
     extract::State(state): extract::State<AuthServerState>,
-) -> std::result::Result<&'static str, impl IntoResponse> {
+) -> Result<&'static str, impl IntoResponse> {
     let ms_token = match state
         .oauth
         .get_ms_access_token(code, state.csrf_token, &state.pkce_verifier)
@@ -170,12 +162,4 @@ async fn get_code(
     state.send_token.send(Ok(token)).await.unwrap();
 
     Ok("Authenticated! You can now close this window and go back to Glowsquid.")
-}
-
-fn get_available_port() -> Option<u16> {
-    (8000..9000).find(|port| port_is_available(*port))
-}
-
-fn port_is_available(port: u16) -> bool {
-    std::net::TcpListener::bind(("127.0.0.1", port)).is_ok()
 }

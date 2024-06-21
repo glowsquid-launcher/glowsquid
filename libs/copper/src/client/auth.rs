@@ -10,6 +10,7 @@ use oauth2::{
 };
 use serde::{Deserialize, Serialize};
 use serde_json::json;
+use specta::Type;
 use std::{error::Error, fmt::Display};
 use tracing::{debug, trace};
 use veil::Redact;
@@ -450,7 +451,7 @@ impl MinecraftToken {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Type)]
 pub struct MinecraftProfile {
     id: String,
     name: String,
@@ -463,14 +464,14 @@ impl MinecraftProfile {
     pub fn current_skin(&self) -> Option<&Skin> {
         self.skins
             .iter()
-            .find(|skin| skin.state == UsageState::ACTIVE)
+            .find(|skin| skin.state == UsageState::Active)
     }
 
     #[must_use]
     pub fn current_cape(&self) -> Option<&Cape> {
         self.capes
             .iter()
-            .find(|cape| cape.state == UsageState::ACTIVE)
+            .find(|cape| cape.state == UsageState::Active)
     }
 
     #[must_use]
@@ -484,7 +485,8 @@ impl MinecraftProfile {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+// todo: add more Type implementations other than what is needed for the auth code
+#[derive(Serialize, Deserialize, Debug, Type)]
 pub struct Skin {
     id: String,
     state: UsageState,
@@ -509,14 +511,14 @@ impl Skin {
     }
 }
 
-#[derive(Serialize, Deserialize, Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Eq, Clone, Copy, Type)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum SkinVariant {
     Classic,
     Slim,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Type)]
 pub struct Cape {
     id: String,
     state: UsageState,
@@ -524,9 +526,9 @@ pub struct Cape {
     alias: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Eq, Clone, Copy, Type)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum UsageState {
-    ACTIVE,
-    INACTIVE,
+    Active,
+    Inactive,
 }

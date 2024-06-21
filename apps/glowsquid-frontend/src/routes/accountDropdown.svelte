@@ -5,17 +5,18 @@
     import DownArrow from '~icons/material-symbols/keyboard-arrow-down'
     import Settings from '~icons/material-symbols/settings-outline'
     import Plus from '~icons/material-symbols/add'
-	import { invoke } from '@tauri-apps/api/core'
+	import { commands } from '$lib/bindings'
 
     const addAccount = (e: Event) => {
         console.log('Add account')
 
-        invoke('add_account')
+        commands.addAccount()
             .then((response) => {
-                console.log(`Success`, response)
-            })
-            .catch((error) => {
-                console.error(`Error`, error)
+                if (response.status === 'ok') {
+                    console.log('Account added', response.data)
+                } else {
+                    console.error('Failed to add account', response.error.error, response.error.report)
+                }
             })
     }
 

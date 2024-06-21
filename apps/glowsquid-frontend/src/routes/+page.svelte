@@ -1,5 +1,6 @@
 <script lang="ts">
     import { invoke } from '@tauri-apps/api/core'
+    import { commands } from "$lib/bindings"
     import { Input, Message, Button } from '@repo/ui'
 
     let name = $state('')
@@ -9,7 +10,7 @@
         e.preventDefault()
 
         // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-        greetMsg = await invoke('greet', { name })
+        greetMsg = await commands.greet(name)
     }
 </script>
 
