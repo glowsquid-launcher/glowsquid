@@ -2,12 +2,13 @@ import { beforeAll, expect, test, vi } from 'vitest'
 import { randomFillSync } from 'crypto'
 
 import { mockIPC } from '@tauri-apps/api/mocks'
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 
 // jsdom doesn't come with a WebCrypto implementation
 beforeAll(() => {
     Object.defineProperty(window, 'crypto', {
         value: {
+            // @ts-expect-error buffer is fine
             getRandomValues: (buffer) => {
                 return randomFillSync(buffer)
             },

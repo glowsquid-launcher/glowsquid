@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { invoke } from '@tauri-apps/api/tauri'
+    import { invoke } from '@tauri-apps/api/core'
     import { Input, Message, Button } from '@repo/ui'
 
     let name = $state('')

@@ -5,7 +5,7 @@
 	"type": "module",
 	"license": "MIT",
 	"dependencies": {
-		"@tauri-apps/api": "^1"
+		"@tauri-apps/api": "2.0.0-beta.13"
 	},
 	"devDependencies": {
 		"@iconify-json/material-symbols": "^1.1.82",
@@ -15,7 +15,7 @@
 		"@sveltejs/adapter-static": "^3.0.1",
 		"@sveltejs/kit": "^2.5.17",
 		"@sveltejs/vite-plugin-svelte": "^3.1.1",
-		"@tauri-apps/cli": "^1",
+		"@tauri-apps/cli": "2.0.0-beta.20",
 		"@testing-library/jest-dom": "^6.4.6",
 		"@testing-library/svelte": "^5.1.0",
 		"jsdom": "^24.1.0",

@@ -23,7 +23,7 @@ node:
 # Configures Rust within the toolchain.
 rust:
   version: 'stable'
-  bins: ['cargo-watch', 'tauri-cli', 'cargo-nextest', 'cargo-llvm-cov']
+  bins: ['cargo-watch', 'tauri-cli@^2.0.0-beta', 'cargo-nextest', 'cargo-llvm-cov']
   components: ['rustfmt', 'rust-src', 'rust-analyzer', 'llvm-tools-preview']
   targets: []
 
