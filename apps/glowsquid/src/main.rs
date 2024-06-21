@@ -4,6 +4,7 @@
 mod auth;
 
 use auth::*;
+use tauri::{async_runtime::block_on, Manager};
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -13,8 +14,12 @@ fn greet(name: &str) -> String {
 
 fn main() {
     tauri::Builder::default()
-        .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![greet, start_auth])
+        .setup(|app| {
+            app.manage(block_on(AuthState::new(app.app_handle())));
+
+            Ok(())
+        })
+        .invoke_handler(tauri::generate_handler![greet, start_add_account])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

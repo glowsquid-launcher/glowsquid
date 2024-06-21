@@ -12,14 +12,34 @@
   "rust-analyzer.testExplorer": true,
   "rust-analyzer.interpret.tests": true,
   "rust-analyzer.check.command": "clippy",
-  "eslint.validate": ["svelte", "typescript", "javascript", "json", "yaml"],
-  "eslint.probe": ["svelte", "typescript", "javascript", "json", "yaml"],
-  "conventionalCommits.scopes": ["copper"],
+  "eslint.validate": [
+    "svelte",
+    "typescript",
+    "javascript",
+    "json",
+    "yaml"
+  ],
+  "eslint.probe": [
+    "svelte",
+    "typescript",
+    "javascript",
+    "json",
+    "yaml"
+  ],
+  "conventionalCommits.scopes": [
+    "copper",
+    "glowsquid"
+  ],
   "yaml.schemas": {
     "https://moonrepo.dev/schemas/workspace.json": ".moon/workspace.yml",
     "https://moonrepo.dev/schemas/project.json": "**/moon.yml",
     "https://moonrepo.dev/schemas/tasks.json": ".moon/tasks/*.yml"
   },
   "rust-analyzer.showUnlinkedFileNotification": false,
-  "cSpell.words": ["Mojang", "quickplay", "reqwest", "Singleplayer"]
+  "cSpell.words": [
+    "Mojang",
+    "quickplay",
+    "reqwest",
+    "Singleplayer"
+  ]
 }
