@@ -5,18 +5,18 @@
     import DownArrow from '~icons/material-symbols/keyboard-arrow-down'
     import Settings from '~icons/material-symbols/settings-outline'
     import Plus from '~icons/material-symbols/add'
-	import { invoke } from '@tauri-apps/api/core';
+	import { invoke } from '@tauri-apps/api/core'
 
     const addAccount = (e: Event) => {
         console.log('Add account')
 
-        invoke("add_account")
-        .then((response) => {
-            console.log(`Success`, response)
-        })
-        .catch((error) => {
-            console.error(`Error`, error)
-        })
+        invoke('add_account')
+            .then((response) => {
+                console.log(`Success`, response)
+            })
+            .catch((error) => {
+                console.error(`Error`, error)
+            })
     }
 
     const {
