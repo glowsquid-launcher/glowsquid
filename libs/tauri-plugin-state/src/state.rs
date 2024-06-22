@@ -9,11 +9,12 @@ use specta::Type;
 use tauri::{async_runtime::Mutex, AppHandle, Manager};
 use tokio::sync::MutexGuard;
 
-const STATE_CHANGE_EVENT: &str = "plugin:state-state_change";
+const STATE_CHANGE_EVENT: &str = "plugin:state-change";
 
-/// A rust <-> svelte bridge that allows for easy state management on the rust side
+/// A tauri <-> frontend state bridge
 ///
-/// This is to only be read by the svelte side, and is only writable by rust
+/// This is to only readable by the frontend, and is only writable by tauri
+/// See the `StateGuard` for a way to write to the state from tauri.
 #[derive(Debug, Clone)]
 pub struct State<T: Serialize + Type + Clone> {
     key: String,
@@ -22,6 +23,14 @@ pub struct State<T: Serialize + Type + Clone> {
 }
 
 impl<T: Serialize + Type + Clone> State<T> {
+    /// Creates a new state object and syncs the initial value to the frontend
+    ///
+    /// # Arguments
+    /// - `key` - The key to use for the state
+    /// - `value` - The initial value of the state
+    /// - `handle` - The tauri handle to use for sending updates to the frontend
+    ///
+    /// See usage from [`tauri_plugin_state::init`]
     pub fn new(key: &str, value: T, handle: AppHandle) -> Self {
         if let Err(e) = handle.emit(
             STATE_CHANGE_EVENT,
@@ -40,6 +49,12 @@ impl<T: Serialize + Type + Clone> State<T> {
         }
     }
 
+    /// Force syncs the current state to the frontend
+    ///
+    /// This is useful if you absolutely want to make sure the frontend has the latest state
+    ///
+    /// # Locking
+    /// This will lock the state, so make sure to not call this while holding a lock on the state
     pub async fn sync(&self) {
         if let Err(e) = self.tauri_handle.emit(
             STATE_CHANGE_EVENT,
@@ -58,7 +73,10 @@ impl<T: Serialize + Type + Clone> State<T> {
 
     /// Gets a lock on the state
     ///
-    /// This returns a Guard that will unlock the state when dropped and will send any changes to the frontend
+    /// This returns a [`StateGuard`] that will unlock the state when dropped and will send any changes to the frontend
+    ///
+    /// # Locking
+    /// This, as the name implies, locks the state, so make sure to not call this while holding a lock on the state
     pub async fn lock(&self) -> StateGuard<T> {
         StateGuard {
             inner: self.inner.lock().await,
@@ -68,6 +86,11 @@ impl<T: Serialize + Type + Clone> State<T> {
     }
 }
 
+/// A guard for a state object
+///
+/// This will send any changes to the frontend when dropped
+///
+/// See [`State::lock`] for more information
 pub struct StateGuard<'a, T: Serialize + Type + Clone> {
     inner: MutexGuard<'a, T>,
     key: String,
@@ -75,7 +98,7 @@ pub struct StateGuard<'a, T: Serialize + Type + Clone> {
 }
 
 #[derive(Serialize, Clone, Type)]
-pub struct StateUpdate<T: Serialize + Type + Clone> {
+struct StateUpdate<T: Serialize + Type + Clone> {
     key: String,
     value: T,
 }

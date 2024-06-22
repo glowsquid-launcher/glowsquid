@@ -1,7 +1,7 @@
 {
     "name": "tauri-plugin-state",
-    "version": "0.0.0",
-    "author": "You",
+    "version": "0.1.0",
+    "author": "Suyashtnt",
     "description": "",
     "type": "module",
     "types": "./dist-js/index.d.ts",

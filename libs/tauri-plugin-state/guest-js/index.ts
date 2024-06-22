@@ -14,12 +14,12 @@ export const setupState = (mapImpl: Map<string, unknown> = new Map()) => {
 
     internalStateStore = mapImpl
 
-    listen<{ key: string, value: unknown }>('plugin:state-state_change', (event) => {
+    listen<{ key: string, value: unknown }>('plugin:state-change', (event) => {
         const { key, value } = event.payload
         internalStateStore?.set(key, value)
     })
 
-    emit('plugin:state-sync_ready')
+    emit('plugin:state-ready')
 }
 
 /**
