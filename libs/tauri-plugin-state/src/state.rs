@@ -9,6 +9,8 @@ use specta::Type;
 use tauri::{async_runtime::Mutex, AppHandle, Manager};
 use tokio::sync::MutexGuard;
 
+const STATE_CHANGE_EVENT: &str = "plugin:state-state_change";
+
 /// A rust <-> svelte bridge that allows for easy state management on the rust side
 ///
 /// This is to only be read by the svelte side, and is only writable by rust
@@ -22,17 +24,13 @@ pub struct State<T: Serialize + Type + Clone> {
 impl<T: Serialize + Type + Clone> State<T> {
     pub fn new(key: &str, value: T, handle: AppHandle) -> Self {
         if let Err(e) = handle.emit(
-            "state_change",
+            STATE_CHANGE_EVENT,
             StateUpdate {
                 key: key.to_owned(),
                 value: value.clone(),
             },
         ) {
-            if panicking() {
-                eprintln!("Failed to send state update to frontend: {}", e);
-            } else {
-                panic!("Failed to send state update to frontend: {}", e);
-            }
+            panic!("Failed to send state update to frontend: {}", e);
         }
 
         Self {
@@ -44,7 +42,7 @@ impl<T: Serialize + Type + Clone> State<T> {
 
     pub async fn sync(&self) {
         if let Err(e) = self.tauri_handle.emit(
-            "state_change",
+            STATE_CHANGE_EVENT,
             StateUpdate {
                 key: self.key.clone(),
                 value: self.inner.lock().await.clone(),
@@ -85,7 +83,7 @@ pub struct StateUpdate<T: Serialize + Type + Clone> {
 impl<T: Serialize + Type + Clone> Drop for StateGuard<'_, T> {
     fn drop(&mut self) {
         if let Err(e) = self.app_handle.emit(
-            "state_change",
+            STATE_CHANGE_EVENT,
             StateUpdate {
                 key: self.key.clone(),
                 value: self.inner.clone(),

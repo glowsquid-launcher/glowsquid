@@ -6,12 +6,13 @@
     import "@repo/ui/theme/sizing/default.css";
     import "@repo/ui/theme/fonts/recursive.css";
     import "./app.css";
-	import type { Snippet } from 'svelte';
-	import { setupState } from '$lib/state.svelte';
+	import { type Snippet } from 'svelte';
+    import { setupState  } from 'tauri-plugin-state';
+    import { Map } from "svelte/reactivity";
+
+    setupState(new Map())
 
     const { children }: { children: Snippet } = $props();
-
-    setupState()
 </script>
 
 

@@ -1457,6 +1457,7 @@ dependencies = [
  "specta",
  "tauri",
  "tauri-build",
+ "tauri-plugin-state",
  "tauri-specta",
  "tokio",
  "tokio-rusqlite",
@@ -4081,6 +4082,36 @@ dependencies = [
  "syn 2.0.67",
  "tauri-codegen",
  "tauri-utils",
+]
+
+[[package]]
+name = "tauri-plugin"
+version = "2.0.0-beta.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7c8385fd0a4f661f5652b0d9e2d7256187d553bb174f88564d10ebcfa6a3af53"
+dependencies = [
+ "anyhow",
+ "glob",
+ "plist",
+ "schemars",
+ "serde",
+ "serde_json",
+ "tauri-utils",
+ "toml 0.8.2",
+ "walkdir",
+]
+
+[[package]]
+name = "tauri-plugin-state"
+version = "0.0.0"
+dependencies = [
+ "serde",
+ "specta",
+ "tauri",
+ "tauri-plugin",
+ "tauri-specta",
+ "thiserror",
+ "tokio",
 ]
 
 [[package]]

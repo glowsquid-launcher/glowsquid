@@ -3,7 +3,6 @@
 
 mod auth;
 pub mod error;
-pub mod state;
 
 use auth::*;
 use specta::TypeCollection;
@@ -33,17 +32,12 @@ fn main() {
     };
 
     tauri::Builder::default()
-        .setup(|app| {
+        .plugin(tauri_plugin_state::init(|app| {
             let handle = app.app_handle().clone();
-            app.listen("sync_ready", move |_| {
-                if !handle.manage(block_on(auth::state::State::new(&handle))) {
-                    println!("Syncing auth state");
-                    block_on(handle.state::<auth::state::State>().sync());
-                }
-            });
-
-            Ok(())
-        })
+            if !handle.manage(block_on(auth::state::State::new(&handle))) {
+                block_on(handle.state::<auth::state::State>().sync());
+            }
+        }))
         .invoke_handler(invoke_handler)
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

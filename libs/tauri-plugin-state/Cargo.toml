@@ -1,0 +1,20 @@
+[package]
+name = "tauri-plugin-state"
+version = "0.0.0"
+authors = ["Suyashtnt <Suyashtnt@gmail.com>"]
+description = ""
+edition = "2021"
+rust-version = "1.70"
+exclude = ["/webview-dist", "/webview-src", "/node_modules"]
+links = "tauri-plugin-state"
+
+[dependencies]
+tauri = { version = "=2.0.0-beta.22", features = [] }
+specta.workspace = true
+tauri-specta.workspace = true
+serde.workspace = true
+thiserror = "1.0"
+tokio = "1.38.0"
+
+[build-dependencies]
+tauri-plugin = { version = "2.0.0-beta.17", features = ["build"] }

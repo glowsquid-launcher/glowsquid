@@ -1,0 +1,20 @@
+$schema: 'https://moonrepo.dev/schemas/project.json'
+
+project:
+  name: Tauri Plugin State
+  description: Simple yet effective state management for Tauri apps
+
+type: library
+stack: frontend
+language: typescript
+platform: node
+
+tasks:
+    build:
+        command: 'pnpm rollup -c'
+        inputs:
+            - rollup.config.js
+            - guest-js
+    dev:
+        command: 'pnpm rollup -c -w'
+        local: true

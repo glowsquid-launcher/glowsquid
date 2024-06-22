@@ -13,6 +13,7 @@ tauri-build = { version = "2.0.0-beta", features = [] }
 [dependencies]
 tauri = { version = "=2.0.0-beta.22", features = [] }
 copper = { path = "../../libs/copper" }
+tauri-plugin-state = { path = "../../libs/tauri-plugin-state" }
 
 serde.workspace = true
 serde_json.workspace = true
@@ -30,8 +31,9 @@ once_cell = "1.19.0"
 axum = "0.7.5"
 tokio = "1.38.0"
 open = "5.1.4"
-specta = { version = "=2.0.0-rc.12", features = ["serde", "serde_json", "typescript"] }
-tauri-specta = { version = "=2.0.0-rc.11", features = ["javascript", "typescript"] }
+
+specta.workspace = true
+tauri-specta.workspace = true
 
 
 [features]

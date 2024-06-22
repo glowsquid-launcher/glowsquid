@@ -1,4 +1,3 @@
-use crate::state;
 use copper::client::auth::{MinecraftProfile, MinecraftToken};
 use once_cell::sync::OnceCell;
 use serde::Serialize;
@@ -11,7 +10,7 @@ pub struct State {
     /// If the user decided to enable authentication
     password_hash: OnceCell<String>,
     connection: Connection,
-    frontend_state: state::State<AuthState>,
+    frontend_state: tauri_plugin_state::State<AuthState>,
 }
 
 #[derive(Clone, Serialize, Type)]
@@ -45,7 +44,11 @@ impl State {
         Self {
             password_hash: OnceCell::new(),
             connection,
-            frontend_state: state::State::new("auth", frontend_state, app_handle.clone()),
+            frontend_state: tauri_plugin_state::State::new(
+                "auth",
+                frontend_state,
+                app_handle.clone(),
+            ),
         }
     }
 
