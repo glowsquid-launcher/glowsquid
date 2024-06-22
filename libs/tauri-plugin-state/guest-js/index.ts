@@ -1,6 +1,6 @@
-import { emit, listen } from '@tauri-apps/api/event';
+import { emit, listen } from '@tauri-apps/api/event'
 
-let internalStateStore: Map<string, unknown> = new Map();
+let internalStateStore: Map<string, unknown> = new Map()
 
 /**
  * Set's up the js side for state management. This should be called once on page start/reload.
@@ -14,12 +14,12 @@ export const setupState = (mapImpl: Map<string, unknown> = new Map()) => {
 
     internalStateStore = mapImpl
 
-    listen<{ key: string, value: unknown }>("plugin:state-state_change", (event) => {
-        const { key, value } = event.payload;
+    listen<{ key: string, value: unknown }>('plugin:state-state_change', (event) => {
+        const { key, value } = event.payload
         internalStateStore?.set(key, value)
-    });
+    })
 
-    emit("plugin:state-sync_ready")
+    emit('plugin:state-sync_ready')
 }
 
 /**
@@ -30,12 +30,12 @@ export const setupState = (mapImpl: Map<string, unknown> = new Map()) => {
  */
 export const tauriState = <T>(key: string, defaultValue: T) => {
     if (!internalStateStore.has(key)) {
-        internalStateStore.set(key, defaultValue);
+        internalStateStore.set(key, defaultValue)
     }
 
     return {
         get value() {
             return internalStateStore.get(key) as T
-        }
+        },
     }
 }
