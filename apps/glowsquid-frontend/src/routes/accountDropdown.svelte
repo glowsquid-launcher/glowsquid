@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { createDropdownMenu, melt, name } from '@melt-ui/svelte'
+    import { createDropdownMenu, melt } from '@melt-ui/svelte'
     import { fly } from 'svelte/transition'
 
     import DownArrow from '~icons/material-symbols/keyboard-arrow-down'

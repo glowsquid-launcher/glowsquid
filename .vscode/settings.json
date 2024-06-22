@@ -28,7 +28,8 @@
   ],
   "conventionalCommits.scopes": [
     "copper",
-    "glowsquid"
+    "glowsquid",
+    "tauri-plugin-state"
   ],
   "yaml.schemas": {
     "https://moonrepo.dev/schemas/workspace.json": ".moon/workspace.yml",
@@ -42,6 +43,8 @@
     "quickplay",
     "reqwest",
     "Singleplayer",
-    "Tauri"
+    "specta",
+    "Tauri",
+    "typesafety"
   ]
 }

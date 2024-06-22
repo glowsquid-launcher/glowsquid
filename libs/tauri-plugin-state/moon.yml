@@ -18,3 +18,37 @@ tasks:
     dev:
         command: 'pnpm rollup -c -w'
         local: true
+    test:
+        command: noop
+        deps:
+            - test-doctest
+            - test-nextest
+            - test-js
+    test-js:
+        command: noop
+        inputs:
+            - rollup.config.js
+            - guest-js
+        deps:
+            - build
+    test-doctest:
+        command: 'cargo test --doc'
+        inputs:
+            - src
+            - Cargo.toml
+    test-nextest:
+        command: 'cargo nextest run'
+        inputs:
+            - src
+            - Cargo.toml
+    release:
+        command: noop
+        deps:
+            - publish-npm
+            - publish-crate
+    publish-npm:
+        command: 'pnpm publish'
+        deps:
+            - build
+    publish-crate:
+        command: 'cargo publish'
