@@ -1,8 +1,8 @@
-$schema: 'https://moonrepo.dev/schemas/project.json'
+$schema: "https://moonrepo.dev/schemas/project.json"
 
 project:
-  name: UI
-  description: Common UI components and utilities
+    name: UI
+    description: Common UI components and utilities
 
 type: library
 stack: frontend
@@ -10,17 +10,17 @@ language: typescript
 platform: node
 
 tasks:
-  test:
-    command: pnpm vitest run
-    inputs:
-      - src/**/*.ts
-      - vitest.config.ts
-      - package.json
-  coverage:
-    command: pnpm vitest run --coverage
-    inputs:
-      - src/**/*.ts
-      - vitest.config.ts
-      - package.json
-    outputs:
-      - coverage/
+    test:
+        command: pnpm vitest run
+        inputs:
+            - src/**/*.ts
+            - vitest.config.ts
+            - package.json
+    coverage:
+        command: pnpm vitest run --coverage
+        inputs:
+            - src/**/*.ts
+            - vitest.config.ts
+            - package.json
+        outputs:
+            - coverage/

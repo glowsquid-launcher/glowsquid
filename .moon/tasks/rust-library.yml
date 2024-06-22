@@ -1,15 +1,15 @@
-$schema: 'https://moonrepo.dev/schemas/tasks.json'
+$schema: "https://moonrepo.dev/schemas/tasks.json"
 
 tasks:
-  test:
-    command: 'cargo nextest run'
-    inputs:
-      - '@globs(sources)'
-      - '@globs(tests)'
-  coverage:
-    command: 'cargo llvm-cov nextest --all-features --codecov --output-path codecov.json'
-    inputs:
-      - '@globs(sources)'
-      - '@globs(tests)'
-    outputs:
-      - 'codecov.json'
+    test:
+        command: "cargo nextest run"
+        inputs:
+            - "@globs(sources)"
+            - "@globs(tests)"
+    coverage:
+        command: "cargo llvm-cov nextest --all-features --codecov --output-path codecov.json"
+        inputs:
+            - "@globs(sources)"
+            - "@globs(tests)"
+        outputs:
+            - "codecov.json"

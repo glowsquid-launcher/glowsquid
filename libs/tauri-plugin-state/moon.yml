@@ -1,8 +1,8 @@
-$schema: 'https://moonrepo.dev/schemas/project.json'
+$schema: "https://moonrepo.dev/schemas/project.json"
 
 project:
-  name: Tauri Plugin State
-  description: Simple yet effective state management for Tauri apps
+    name: Tauri Plugin State
+    description: Simple yet effective state management for Tauri apps
 
 type: library
 stack: frontend
@@ -11,12 +11,12 @@ platform: node
 
 tasks:
     build:
-        command: 'pnpm rollup -c'
+        command: "pnpm rollup -c"
         inputs:
             - rollup.config.js
             - guest-js
     dev:
-        command: 'pnpm rollup -c -w'
+        command: "pnpm rollup -c -w"
         local: true
     test:
         command: noop
@@ -32,12 +32,12 @@ tasks:
         deps:
             - build
     test-doctest:
-        command: 'cargo test --doc'
+        command: "cargo test --doc"
         inputs:
             - src
             - Cargo.toml
     test-nextest:
-        command: 'cargo nextest run'
+        command: "cargo nextest run"
         inputs:
             - src
             - Cargo.toml
@@ -47,8 +47,8 @@ tasks:
             - publish-npm
             - publish-crate
     publish-npm:
-        command: 'pnpm publish'
+        command: "pnpm publish"
         deps:
             - build
     publish-crate:
-        command: 'cargo publish'
+        command: "cargo publish"

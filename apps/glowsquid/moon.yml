@@ -1,15 +1,15 @@
-$schema: 'https://moonrepo.dev/schemas/project.json'
+$schema: "https://moonrepo.dev/schemas/project.json"
 
 fileGroups:
-  sources:
-    - 'src/**/*'
-    - 'icons/**/*'
-    - 'tauri.conf.json'
-    - 'Cargo.toml'
+    sources:
+        - "src/**/*"
+        - "icons/**/*"
+        - "tauri.conf.json"
+        - "Cargo.toml"
 
 project:
-  name: Glowsquid
-  description: Tauri code and actual app for Glowsquid
+    name: Glowsquid
+    description: Tauri code and actual app for Glowsquid
 
 type: application
 stack: frontend
@@ -17,33 +17,33 @@ language: rust
 platform: rust
 
 tasks:
-  dev:
-    command: noop
-    deps:
-      - dev-tauri
-      - ^:dev
-    local: true
-  dev-tauri:
-    command: 'cargo tauri dev'
-    local: true
-  build:
-    command: 'tauri build'
-    deps:
-      - ^:build
-    outputs:
-      - '/target/release/glowsquid*'
-      - '!/target/release/glowsquid.d'
-      - '!/target/release/glowsquid.pdb'
-      - '/target/release/bundle/**/*'
-    options:
-      mergeArgs: 'replace'
-  coverage:
-    deps:
-      # tauri proc macro moment
-      - glowsquid-frontend:build
+    dev:
+        command: noop
+        deps:
+            - dev-tauri
+            - ^:dev
+        local: true
+    dev-tauri:
+        command: "cargo tauri dev"
+        local: true
+    build:
+        command: "tauri build"
+        deps:
+            - ^:build
+        outputs:
+            - "/target/release/glowsquid*"
+            - "!/target/release/glowsquid.d"
+            - "!/target/release/glowsquid.pdb"
+            - "/target/release/bundle/**/*"
+        options:
+            mergeArgs: "replace"
+    coverage:
+        deps:
+            # tauri proc macro moment
+            - glowsquid-frontend:build
 
 tags:
-  - tauri
+    - tauri
 
 dependsOn:
-  - glowsquid-frontend
+    - glowsquid-frontend

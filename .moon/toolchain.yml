@@ -1,38 +1,44 @@
 # https://moonrepo.dev/docs/config/toolchain
-$schema: 'https://moonrepo.dev/schemas/toolchain.json'
+$schema: "https://moonrepo.dev/schemas/toolchain.json"
 
 node:
-  packageManager: 'pnpm'
+    packageManager: "pnpm"
 
-  # Add `node.version` as a constraint in the root `package.json` `engines`.
-  addEnginesConstraint: true
+    # Add `node.version` as a constraint in the root `package.json` `engines`.
+    addEnginesConstraint: true
 
-  # Currently buggy and dedupes even with up to date lockfiles
-  dedupeOnLockfileChange: false
+    # Currently buggy and dedupes even with up to date lockfiles
+    dedupeOnLockfileChange: false
 
-  dependencyVersionFormat: 'workspace'
+    dependencyVersionFormat: "workspace"
 
-  inferTasksFromScripts: false
+    inferTasksFromScripts: false
 
-  # Support the "one version policy" by only declaring dependencies in the root `package.json`.
-  # rootPackageOnly: true
+    # Support the "one version policy" by only declaring dependencies in the root `package.json`.
+    # rootPackageOnly: true
 
-  # Sync a project's relationships as `dependencies` within the project's `package.json`.
-  syncProjectWorkspaceDependencies: true
+    # Sync a project's relationships as `dependencies` within the project's `package.json`.
+    syncProjectWorkspaceDependencies: true
 
 # Configures Rust within the toolchain.
 rust:
-  version: 'stable'
-  bins: ['cargo-watch', 'tauri-cli@^2.0.0-beta', 'cargo-nextest', 'cargo-llvm-cov']
-  components: ['rustfmt', 'rust-src', 'rust-analyzer', 'llvm-tools-preview']
-  targets: []
+    version: "stable"
+    bins:
+        [
+            "cargo-watch",
+            "tauri-cli@^2.0.0-beta",
+            "cargo-nextest",
+            "cargo-llvm-cov",
+        ]
+    components: ["rustfmt", "rust-src", "rust-analyzer", "llvm-tools-preview"]
+    targets: []
 
-  syncToolchainConfig: true
+    syncToolchainConfig: true
 
 typescript:
-  createMissingConfig: true
-  includeProjectReferenceSources: false
-  includeSharedTypes: true
-  routeOutDirToCache: false
-  syncProjectReferences: true
-  syncProjectReferencesToPaths: false
+    createMissingConfig: true
+    includeProjectReferenceSources: false
+    includeSharedTypes: true
+    routeOutDirToCache: false
+    syncProjectReferences: true
+    syncProjectReferencesToPaths: false

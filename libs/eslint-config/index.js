@@ -52,10 +52,13 @@ export const createSvelteConfig = svelteConfig => ([
         files: ['**/*.svelte.ts', '*.svelte.ts'],
         languageOptions: {
             parser: svelteParser,
-            svelteConfig,
             parserOptions: {
                 parser: typescript.parser,
                 svelteConfig,
+                svelteFeatures: {
+                    runes: true,
+                    experimentalGenerics: true,
+                },
             },
         },
     },

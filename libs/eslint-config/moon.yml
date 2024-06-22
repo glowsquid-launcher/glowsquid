@@ -1,11 +1,7 @@
 project:
-  name: Eslint Config
-  description: Standard eslint config for the repo. Doesn't include ignore files
+    name: Eslint Config
+    description: Standard eslint config for the repo. Doesn't include ignore files
 
 type: configuration
 language: typescript
 platform: node
-
-tasks:
-  dev:
-    local: true

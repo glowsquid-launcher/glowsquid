@@ -1,8 +1,8 @@
-$schema: 'https://moonrepo.dev/schemas/project.json'
+$schema: "https://moonrepo.dev/schemas/project.json"
 
 project:
-  name: Glowsquid Frontend
-  description: Frontend code for Glowsquid
+    name: Glowsquid Frontend
+    description: Frontend code for Glowsquid
 
 type: library
 stack: frontend
@@ -10,22 +10,22 @@ language: typescript
 platform: node
 
 tasks:
-  test:
-    command: noop
-    deps:
-      #    - test-intergration
-      - test-unit
-  # TODO: Add test-intergration through webdriver
-  # test-intergration:
-  #   command: 'pnpm playwright test'
-  #   inputs:
-  #     - '@globs(sources)'
-  #     - '@globs(tests)'
-  test-unit:
-    command: 'pnpm vitest run'
-    inputs:
-      - '@globs(sources)'
-      - '@globs(tests)'
+    test:
+        command: noop
+        deps:
+            #    - test-intergration
+            - test-unit
+    # TODO: Add test-intergration through webdriver
+    # test-intergration:
+    #   command: 'pnpm playwright test'
+    #   inputs:
+    #     - '@globs(sources)'
+    #     - '@globs(tests)'
+    test-unit:
+        command: "pnpm vitest run"
+        inputs:
+            - "@globs(sources)"
+            - "@globs(tests)"
 
 tags:
-  - sveltekit
+    - sveltekit

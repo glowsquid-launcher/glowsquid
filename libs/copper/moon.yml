@@ -1,18 +1,18 @@
 project:
-  name: Copper
-  description: Minecraft launcher library for rust
+    name: Copper
+    description: Minecraft launcher library for rust
 
 type: library
 language: rust
 platform: rust
 
 tasks:
-  example/auth:
-    command: cargo run --example auth
-  example/assets:
-    command: cargo run --example asset_downloader
-  example/launch:
-    command: cargo run --example full_launch
+    example/auth:
+        command: cargo run --example auth
+    example/assets:
+        command: cargo run --example asset_downloader
+    example/launch:
+        command: cargo run --example full_launch
 
 env:
-  CARGO_TERM_COLOR: "always"
+    CARGO_TERM_COLOR: "always"
