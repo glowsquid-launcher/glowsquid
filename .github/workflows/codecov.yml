@@ -20,17 +20,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Cache Rust
-        uses: Swatinem/rust-cache@v2
-
       - name: Install binstall
         uses: cargo-bins/cargo-binstall@main
-
-      - name: Force install cargo-llvm-cov
-        run: cargo binstall cargo-llvm-cov --force -y
-
-      - name: Force install nextest
-        run: cargo binstall nextest --force -y
 
       - uses: 'moonrepo/setup-toolchain@v0'
         with:

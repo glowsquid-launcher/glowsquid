@@ -23,9 +23,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Cache Rust
-        uses: Swatinem/rust-cache@v2
-
       - name: Install binstall
         uses: cargo-bins/cargo-binstall@main
 
