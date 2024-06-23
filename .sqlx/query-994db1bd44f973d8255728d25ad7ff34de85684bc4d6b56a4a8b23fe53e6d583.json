@@ -1,0 +1,56 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT username, id, expires_at, access_token, ms_refresh_token, ms_access_token, encrypted_token FROM auth",
+  "describe": {
+    "columns": [
+      {
+        "name": "username",
+        "ordinal": 0,
+        "type_info": "Text"
+      },
+      {
+        "name": "id",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "expires_at",
+        "ordinal": 2,
+        "type_info": "Text"
+      },
+      {
+        "name": "access_token",
+        "ordinal": 3,
+        "type_info": "Text"
+      },
+      {
+        "name": "ms_refresh_token",
+        "ordinal": 4,
+        "type_info": "Text"
+      },
+      {
+        "name": "ms_access_token",
+        "ordinal": 5,
+        "type_info": "Text"
+      },
+      {
+        "name": "encrypted_token",
+        "ordinal": 6,
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "994db1bd44f973d8255728d25ad7ff34de85684bc4d6b56a4a8b23fe53e6d583"
+}
