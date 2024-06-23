@@ -29,6 +29,9 @@ jobs:
       - name: Force install cargo-llvm-cov
         run: cargo binstall cargo-llvm-cov --force -y
 
+      - name: Force install nextest
+        run: cargo binstall nextest --force -y
+
       - uses: 'moonrepo/setup-toolchain@v0'
         with:
           auto-install: true
