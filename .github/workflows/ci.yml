@@ -33,9 +33,6 @@ jobs:
         with:
           auto-install: true
 
-      - name: Force install cargo-llvm-cov
-        run: cargo binstall cargo-llvm-cov --force
-
       - name: Get pnpm store directory
         shell: bash
         run: |
