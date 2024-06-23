@@ -2,13 +2,13 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod auth;
+pub mod database;
 pub mod error;
 
 use auth::*;
 use specta::TypeCollection;
 use tauri::{async_runtime::block_on, Manager};
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 #[specta::specta]
 fn greet(name: &str) -> String {
@@ -32,6 +32,18 @@ fn main() {
     };
 
     tauri::Builder::default()
+        .setup(|app| {
+            let data_path = app.path().app_data_dir()?;
+
+            let db_path = data_path.join("glowsquid.db");
+            app.manage(block_on(async move {
+                tokio_rusqlite::Connection::open(&db_path)
+                    .await
+                    .map(database::DbState::new)
+            })?);
+
+            Ok(())
+        })
         .plugin(tauri_plugin_state::init(|app| {
             let handle = app.app_handle().clone();
             if !handle.manage(block_on(auth::state::State::new(&handle))) {

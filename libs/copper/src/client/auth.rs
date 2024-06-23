@@ -44,7 +44,7 @@ impl MicrosoftAuthenticator {
         redirect_uri: String,
         client_id: String,
         client_secret: String,
-    ) -> Result<(Self, AuthenticationInfo), ParseError> {
+    ) -> Result<Self, ParseError> {
         debug!("Attempting to create new MSauth client");
 
         let client = BasicClient::new(
@@ -55,22 +55,26 @@ impl MicrosoftAuthenticator {
         )
         .set_redirect_uri(RedirectUrl::new(redirect_uri)?);
 
+        Ok(Self(client, reqwest_client))
+    }
+
+    /// Create a new authentication flow for authenticating with Microsoft services
+    pub fn create_new_auth_flow(&self) -> AuthenticationInfo {
         let (pkce_challenge, pkce_verifier) = PkceCodeChallenge::new_random_sha256();
 
-        let (auth_url, csrf_token) = client
+        let (auth_url, csrf_token) = self
+            .0
             .authorize_url(CsrfToken::new_random)
             .add_scope(Scope::new("XboxLive.signin".to_string()))
             .add_scope(Scope::new("offline_access".to_string()))
             .set_pkce_challenge(pkce_challenge)
             .url();
 
-        let authentication_info = AuthenticationInfo {
+        AuthenticationInfo {
             csrf_token,
             url: auth_url,
             pkce_verifier,
-        };
-
-        Ok((Self(client, reqwest_client), authentication_info))
+        }
     }
 
     #[tracing::instrument]

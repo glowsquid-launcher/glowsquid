@@ -12,11 +12,6 @@ use error_stack::ResultExt;
 
 use crate::error::Error;
 
-// Glowsquids details. If you're making your own app, please do not use these.
-// These are just for ease of use/packaging.
-const CLIENT_ID: &str = "2aa32806-92e3-4242-babc-392ac0f0fd30";
-const CLIENT_SECRET: &str = "nky8Q~8lORwTC0OjdxVsgZSs0hCdTcEdec3hNbaP";
-
 #[tauri::command]
 #[specta::specta]
 /// Switch to a different account
@@ -44,21 +39,9 @@ pub async fn add_account(
     state: tauri::State<'_, state::State>,
 ) -> Result<u8, Error<server::AuthError>> {
     // setup the server
-    let listener = TcpListener::bind(("127.0.0.1", 0)).await.unwrap();
-    let port = listener.local_addr().unwrap().port();
-
-    let redirect_uri = format!("http://localhost:{}/code", port);
 
     // TODO: tell frontend that the user needs to go to the redirect uri and complete the auth process
     // for now, we'll just auto open it
-
-    let (oauth, authentication_info) = MicrosoftAuthenticator::new(
-        reqwest::Client::new(),
-        redirect_uri,
-        CLIENT_ID.to_string(),
-        CLIENT_SECRET.to_string(),
-    )
-    .expect("To be able to create client");
 
     let (send_token, mut recv_token) = async_runtime::channel(1);
 

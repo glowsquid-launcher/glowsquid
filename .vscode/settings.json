@@ -38,10 +38,12 @@
   },
   "rust-analyzer.showUnlinkedFileNotification": false,
   "cSpell.words": [
+    "glowsquid",
     "Mojang",
     "Pkce",
     "quickplay",
     "reqwest",
+    "rusqlite",
     "Singleplayer",
     "specta",
     "Tauri",
