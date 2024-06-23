@@ -23,6 +23,7 @@ fn main() {
             .commands(tauri_specta::collect_commands![
                 greet,
                 add_account,
+                remove_account,
                 switch_to_account
             ]);
 
@@ -34,14 +35,8 @@ fn main() {
 
     tauri::Builder::default()
         .setup(|app| {
-            let db_path = if cfg!(debug_assertions) {
-                let data_path = app.path().app_data_dir()?;
-                data_path.join("glowsquid.db3")
-            } else {
-                // use db/glowsquid.db3 relative to cwd
-                let cwd = std::env::current_dir()?;
-                cwd.join("db/glowsquid.db3")
-            };
+            let data_path = app.path().app_data_dir()?;
+            let db_path = data_path.join("glowsquid.db3");
 
             if !db_path.exists() {
                 std::fs::File::create(&db_path)?;

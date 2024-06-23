@@ -3,4 +3,4 @@ export default [
     'libs/*/vite.config.ts',
     'apps/*/vite.config.ts',
     'apps/*/vitest.config.ts',
-];
+]

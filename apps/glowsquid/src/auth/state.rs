@@ -195,6 +195,7 @@ impl State {
     pub async fn remove_account(&self, account_index: u8) {
         let mut state = self.frontend_state.lock().await;
 
+        // TODO: error handling if account_index is out of bounds
         let profile = state.profiles.remove(account_index.into());
         let id = profile.id();
 

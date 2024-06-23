@@ -22,6 +22,20 @@ try {
 }
 },
 /**
+ * Removes an account
+ * 
+ * # Returns
+ * returns Ok(()) if the account was removed successfully, otherwise returns Err(())
+ */
+async removeAccount(accountIndex: number) : Promise<Result<null, null>> {
+try {
+    return { status: "ok", data: await TAURI_INVOKE("remove_account", { accountIndex }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
  * Switch to a different account
  * 
  * # Returns

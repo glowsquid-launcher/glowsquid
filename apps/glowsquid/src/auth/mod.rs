@@ -30,6 +30,21 @@ pub async fn switch_to_account(
 
 #[tauri::command]
 #[specta::specta]
+/// Removes an account
+///
+/// # Returns
+/// returns Ok(()) if the account was removed successfully, otherwise returns Err(())
+pub async fn remove_account(
+    state: tauri::State<'_, state::State>,
+    account_index: u8,
+) -> Result<(), ()> {
+    state.remove_account(account_index).await;
+
+    Ok(())
+}
+
+#[tauri::command]
+#[specta::specta]
 /// Add a new account
 ///
 /// # Returns
