@@ -15,6 +15,12 @@
     "rust-analyzer.server.extraEnv": {
         "DATABASE_URL": "sqlite://db/glowsquid.db3"
     },
+    "rust-analyzer.check.extraEnv": {
+        "DATABASE_URL": "sqlite://db/glowsquid.db3"
+    },
+    "rust-analyzer.cargo.extraEnv": {
+        "DATABASE_URL": "sqlite://db/glowsquid.db3"
+    },
     "eslint.validate": [
         "svelte",
         "typescript",

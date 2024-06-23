@@ -37,6 +37,7 @@ testem.log
 /target
 /.minecraft
 /logs
+/db
 
 # System Files
 .DS_Store

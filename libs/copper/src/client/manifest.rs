@@ -98,6 +98,7 @@ impl Manifest {
 impl TryFrom<api::client::Manifest> for Manifest {
     type Error = Report<ConversionError>;
 
+    #[allow(clippy::manual_let_else)]
     fn try_from(value: api::client::Manifest) -> Result<Self, Self::Error> {
         let java_version = value.java_version.unwrap_or(JavaVersion {
             component: "java-runtime-delta".to_string(),
@@ -113,7 +114,6 @@ impl TryFrom<api::client::Manifest> for Manifest {
             .collect::<Result<Vec<Library>, Report<ConversionError>>>()?;
 
         // bug: this cannot be written as let ... else as we're returning something from both branches
-        #[allow(clippy::manual_let_else)]
         let arguments = match value.arguments {
             Some(args) => args,
             None => Arguments {

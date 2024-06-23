@@ -58,13 +58,15 @@ async fn main() {
 
     // This creates the actual authenticator.
     // This is the main struct that will be used to authenticate with Microsoft and Mojang APIs
-    let (oauth, authentication_info) = MicrosoftAuthenticator::new(
+    let oauth = MicrosoftAuthenticator::new(
         reqwest::Client::new(),
         redirect_uri,
         CLIENT_ID.to_string(),
         CLIENT_SECRET.to_string(),
     )
     .expect("To be able to create client");
+
+    let authentication_info = oauth.create_auth_info();
 
     info!("Initializing server...");
 

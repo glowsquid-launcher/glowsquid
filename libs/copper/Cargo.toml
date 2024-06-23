@@ -20,8 +20,8 @@ error-stack.workspace = true
 oauth2.workspace = true
 reqwest.workspace = true
 specta.workspace = true
+chrono.workspace = true
 
-chrono = { version = "0.4.35", default-features = false, features = ["std"] }
 derive_builder = { version = "0.20.0", features = ["clippy"] }
 dunce = "1.0.4"
 futures = "0.3.30"

@@ -44,7 +44,7 @@ pub async fn add_account(
     // for now, we'll just auto open it
 
     let (send_token, mut recv_token) = async_runtime::channel(1);
-    let authentication_info = oauth.create_new_auth_flow();
+    let authentication_info = oauth.create_auth_info();
 
     let router = Router::new()
         .route("/code", routing::get(server::get_code))

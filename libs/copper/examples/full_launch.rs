@@ -83,13 +83,15 @@ async fn main() {
     // we need a redirect uri so that the oauth server can redirect the user back to our server
     info!("Initializing oauth2 client...");
     let redirect_uri = "http://localhost:3000/code".to_string();
-    let (oauth, auth_info) = MicrosoftAuthenticator::new(
+    let oauth = MicrosoftAuthenticator::new(
         client.clone(),
         redirect_uri,
         CLIENT_ID.to_string(),
         CLIENT_SECRET.to_string(),
     )
     .expect("To be able to create client");
+
+    let auth_info = oauth.create_auth_info();
 
     // Check if the token.json file already exists. If it does, we can just load the token from disk
     if token_path.exists() {

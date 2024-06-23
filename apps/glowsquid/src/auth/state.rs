@@ -1,4 +1,10 @@
+use chrono::DateTime;
 use copper::client::auth::{MicrosoftAuthenticator, MinecraftProfile, MinecraftToken};
+use futures::future::join_all;
+use oauth2::{
+    basic::BasicTokenType, AccessToken, EmptyExtraTokenFields, RefreshToken, StandardTokenResponse,
+    TokenResponse,
+};
 use once_cell::sync::OnceCell;
 use prqlx::query;
 use serde::Serialize;
@@ -62,16 +68,62 @@ impl State {
         let db_users = query!(
             "
             from auth
-            select { username, id }
+            select { username, id, expires_at, access_token, ms_refresh_token, ms_access_token, encrypted_token }
             "
         )
         .fetch_all(&pool)
         .await
         .expect("To be able to fetch users");
 
+        let (encrypted, non_encypted): (Vec<_>, Vec<_>) =
+            db_users.into_iter().partition(|user| user.encrypted_token);
+
+        let encrypted_profiles = encrypted.into_iter().map(|user| user.username).collect();
+
+        let profiles = join_all(
+            non_encypted
+                .into_iter()
+                .map(|record| {
+                    let mut ms_token = StandardTokenResponse::new(
+                        AccessToken::new(record.ms_access_token),
+                        BasicTokenType::Bearer,
+                        EmptyExtraTokenFields {},
+                    );
+
+                    ms_token.set_refresh_token(Some(RefreshToken::new(record.ms_refresh_token)));
+
+                    MinecraftToken {
+                        username: record.username,
+                        id: record.id,
+                        access_token: record.access_token,
+                        expires_at: DateTime::parse_from_rfc3339(&record.expires_at)
+                            .expect("To be able to parse date")
+                            .to_utc(),
+                        ms_token,
+                    }
+                })
+                .map(|mut token| async {
+                    if token.is_expired() {
+                        token
+                            .refresh(&oauth)
+                            .await
+                            .expect("To be able to refresh token")
+                    }
+
+                    token
+                })
+                .map(|token| async {
+                    oauth
+                        .get_minecraft_profile(&token.await)
+                        .await
+                        .expect("To be able to get minecraft profile")
+                }),
+        )
+        .await;
+
         let frontend_state = AuthState {
-            profiles: vec![],
-            encrypted_profiles: vec![],
+            profiles,
+            encrypted_profiles,
             current_profile_index: None,
         };
 
@@ -107,7 +159,30 @@ impl State {
     pub async fn add_account(&self, token: MinecraftToken, profile: MinecraftProfile) -> u8 {
         let mut state = self.frontend_state.lock().await;
 
-        // TODO: save token to database
+        // TODO: encryption
+
+        let ms_access_token = token.ms_token.access_token().secret();
+        let ms_refresh_token = token.ms_token.refresh_token().unwrap().secret();
+        let expires_at = token.expires_at.to_rfc3339();
+        let username = profile.name();
+        let id = profile.id();
+
+        sqlx::query!(
+            "
+                INSERT INTO auth (username, id, expires_at, access_token, ms_refresh_token, ms_access_token, encrypted_token)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            ",
+            username,
+            id,
+            expires_at,
+            token.access_token,
+            ms_access_token,
+            ms_refresh_token,
+            false
+        )
+        .execute(&self.pool)
+        .await
+        .expect("To be able to update database");
 
         if let Some(idx) = state.profiles.iter().position(|p| p.id() == profile.id()) {
             return idx.try_into().unwrap();
@@ -115,5 +190,35 @@ impl State {
         state.profiles.push(profile);
 
         state.profiles.len() as u8 - 1
+    }
+
+    pub async fn remove_account(&self, account_index: u8) {
+        let mut state = self.frontend_state.lock().await;
+
+        let profile = state.profiles.remove(account_index.into());
+        let id = profile.id();
+
+        sqlx::query!(
+            "
+                DELETE FROM auth
+                WHERE id = ?
+            ",
+            id
+        )
+        .execute(&self.pool)
+        .await
+        .expect("To be able to update database");
+
+        if let Some(current_index) = state.current_profile_index {
+            match current_index.cmp(&account_index) {
+                std::cmp::Ordering::Less => {
+                    state.current_profile_index = Some(current_index - 1);
+                }
+                std::cmp::Ordering::Equal => {
+                    state.current_profile_index = None;
+                }
+                std::cmp::Ordering::Greater => {}
+            }
+        }
     }
 }

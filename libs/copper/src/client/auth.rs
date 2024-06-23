@@ -58,8 +58,8 @@ impl MicrosoftAuthenticator {
         Ok(Self(client, reqwest_client))
     }
 
-    /// Create a new authentication flow for authenticating with Microsoft services
-    pub fn create_new_auth_flow(&self) -> AuthenticationInfo {
+    /// Create a new authentication info struct for the client
+    pub fn create_auth_info(&self) -> AuthenticationInfo {
         let (pkce_challenge, pkce_verifier) = PkceCodeChallenge::new_random_sha256();
 
         let (auth_url, csrf_token) = self

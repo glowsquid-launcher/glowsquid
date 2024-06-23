@@ -57,6 +57,10 @@ export type AuthState = {
  */
 profiles: MinecraftProfile[]; 
 /**
+ * All currently encrypted profiles usernames
+ */
+encryptedProfiles: string[]; 
+/**
  * Index of the currently selected profile
  */
 currentProfileIndex: number | null }

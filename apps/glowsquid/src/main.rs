@@ -40,11 +40,14 @@ fn main() {
             } else {
                 // use db/glowsquid.db3 relative to cwd
                 let cwd = std::env::current_dir()?;
-                cwd.join("./db/glowsquid.db3")
+                cwd.join("db/glowsquid.db3")
             };
 
-            let db =
-                block_on(async move { SqlitePool::connect(&db_path.to_str().unwrap()).await })?;
+            if !db_path.exists() {
+                std::fs::File::create(&db_path)?;
+            }
+
+            let db = block_on(async move { SqlitePool::connect(db_path.to_str().unwrap()).await })?;
 
             let db_state = block_on(database::DbState::new(db))?;
 
