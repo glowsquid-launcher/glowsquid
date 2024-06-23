@@ -1,52 +1,55 @@
 {
-  "eslint.workingDirectories": [
-    {
-      "mode": "auto"
-    }
-  ],
-  "editor.formatOnSave": true,
-  "svelte.enable-ts-plugin": true,
-  "eslint.experimental.useFlatConfig": true,
-  "eslint.format.enable": true,
-  "eslint.enable": true,
-  "rust-analyzer.testExplorer": true,
-  "rust-analyzer.interpret.tests": true,
-  "rust-analyzer.check.command": "clippy",
-  "eslint.validate": [
-    "svelte",
-    "typescript",
-    "javascript",
-    "json",
-    "yaml"
-  ],
-  "eslint.probe": [
-    "svelte",
-    "typescript",
-    "javascript",
-    "json",
-    "yaml"
-  ],
-  "conventionalCommits.scopes": [
-    "copper",
-    "glowsquid",
-    "tauri-plugin-state"
-  ],
-  "yaml.schemas": {
-    "https://moonrepo.dev/schemas/workspace.json": ".moon/workspace.yml",
-    "https://moonrepo.dev/schemas/project.json": "**/moon.yml",
-    "https://moonrepo.dev/schemas/tasks.json": ".moon/tasks/*.yml"
-  },
-  "rust-analyzer.showUnlinkedFileNotification": false,
-  "cSpell.words": [
-    "glowsquid",
-    "Mojang",
-    "Pkce",
-    "quickplay",
-    "reqwest",
-    "rusqlite",
-    "Singleplayer",
-    "specta",
-    "Tauri",
-    "typesafety"
-  ]
+    "eslint.workingDirectories": [
+        {
+            "mode": "auto"
+        }
+    ],
+    "editor.formatOnSave": true,
+    "svelte.enable-ts-plugin": true,
+    "eslint.useFlatConfig": true,
+    "eslint.format.enable": true,
+    "eslint.enable": true,
+    "rust-analyzer.testExplorer": true,
+    "rust-analyzer.interpret.tests": true,
+    "rust-analyzer.check.command": "clippy",
+    "rust-analyzer.server.extraEnv": {
+        "DATABASE_URL": "sqlite://db/glowsquid.db3"
+    },
+    "eslint.validate": [
+        "svelte",
+        "typescript",
+        "javascript",
+        "json",
+        "yaml"
+    ],
+    "eslint.probe": [
+        "svelte",
+        "typescript",
+        "javascript",
+        "json",
+        "yaml"
+    ],
+    "conventionalCommits.scopes": [
+        "copper",
+        "glowsquid",
+        "tauri-plugin-state"
+    ],
+    "yaml.schemas": {
+        "https://moonrepo.dev/schemas/workspace.json": ".moon/workspace.yml",
+        "https://moonrepo.dev/schemas/project.json": "**/moon.yml",
+        "https://moonrepo.dev/schemas/tasks.json": ".moon/tasks/*.yml"
+    },
+    "rust-analyzer.showUnlinkedFileNotification": false,
+    "cSpell.words": [
+        "glowsquid",
+        "Mojang",
+        "Pkce",
+        "quickplay",
+        "reqwest",
+        "rusqlite",
+        "Singleplayer",
+        "specta",
+        "Tauri",
+        "typesafety"
+    ]
 }

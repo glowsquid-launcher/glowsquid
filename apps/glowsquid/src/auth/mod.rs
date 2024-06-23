@@ -4,8 +4,7 @@ pub mod state;
 use std::{future::IntoFuture, sync::Arc};
 
 use axum::{routing, Router};
-use copper::client::auth::MicrosoftAuthenticator;
-use tauri::{async_runtime, AppHandle};
+use tauri::async_runtime;
 use tokio::net::TcpListener;
 
 use error_stack::ResultExt;
@@ -39,11 +38,13 @@ pub async fn add_account(
     state: tauri::State<'_, state::State>,
 ) -> Result<u8, Error<server::AuthError>> {
     // setup the server
+    let state::State { oauth, port, .. } = state.inner();
 
     // TODO: tell frontend that the user needs to go to the redirect uri and complete the auth process
     // for now, we'll just auto open it
 
     let (send_token, mut recv_token) = async_runtime::channel(1);
+    let authentication_info = oauth.create_new_auth_flow();
 
     let router = Router::new()
         .route("/code", routing::get(server::get_code))
@@ -54,6 +55,7 @@ pub async fn add_account(
             send_token,
         });
 
+    let listener = TcpListener::bind(("127.0.0.1", *port)).await.unwrap();
     let server_task =
         async_runtime::spawn(axum::serve(listener, router.into_make_service()).into_future());
 

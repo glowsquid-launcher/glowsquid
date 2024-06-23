@@ -7,6 +7,7 @@ pub mod error;
 
 use auth::*;
 use specta::TypeCollection;
+use sqlx::SqlitePool;
 use tauri::{async_runtime::block_on, Manager};
 
 #[tauri::command]
@@ -33,14 +34,21 @@ fn main() {
 
     tauri::Builder::default()
         .setup(|app| {
-            let data_path = app.path().app_data_dir()?;
+            let db_path = if cfg!(debug_assertions) {
+                let data_path = app.path().app_data_dir()?;
+                data_path.join("glowsquid.db3")
+            } else {
+                // use db/glowsquid.db3 relative to cwd
+                let cwd = std::env::current_dir()?;
+                cwd.join("./db/glowsquid.db3")
+            };
 
-            let db_path = data_path.join("glowsquid.db");
-            app.manage(block_on(async move {
-                tokio_rusqlite::Connection::open(&db_path)
-                    .await
-                    .map(database::DbState::new)
-            })?);
+            let db =
+                block_on(async move { SqlitePool::connect(&db_path.to_str().unwrap()).await })?;
+
+            let db_state = block_on(database::DbState::new(db))?;
+
+            app.manage(db_state);
 
             Ok(())
         })

@@ -1,51 +1,23 @@
-use rusqlite_migration::{AsyncMigrations, M};
-use tokio_rusqlite::Connection;
+use sqlx::{migrate, migrate::MigrateError, SqlitePool};
 
 #[derive(Clone)]
 pub struct DbState {
-    connection: Connection,
+    pool: SqlitePool,
 }
-
 impl DbState {
     /// Initializes and runs migrations on the database
     ///
     /// TODO: error handling and propagation
     /// TODO: logging
-    pub async fn new(mut connection: Connection) -> Self {
-        let migrations = AsyncMigrations::new(vec![M::up(include_str!(
-            "./migrations/0000_init_auth_up.sql"
-        ))
-        .down(include_str!("./migrations/0000_init_auth_down.sql"))]);
+    pub async fn new(pool: SqlitePool) -> Result<Self, MigrateError> {
+        migrate!("db/migrations").run(&pool).await?;
 
-        debug_assert!(
-            migrations.validate().await.is_ok(),
-            "Migrations are not valid"
-        );
-
-        migrations
-            .to_latest(&mut connection)
-            .await
-            .expect("Failed to run migrations");
-
-        // pragma is better to run outside of migrations
-        connection
-            .call(|conn| Ok(conn.pragma_update(None, "journal_mode", "WAL")))
-            .await
-            .expect("Failed to send update to database")
-            .expect("Failed to set journal mode");
-
-        connection
-            .call(|conn| Ok(conn.pragma_update(None, "foreign_keys", "ON")))
-            .await
-            .expect("Failed to send update to database")
-            .expect("Failed to enable foreign keys");
-
-        Self { connection }
+        Ok(Self { pool })
     }
 
     /// Get a connection to the database
-    pub fn connection(&self) -> Connection {
+    pub fn connection(&self) -> SqlitePool {
         // connection is a cheap clone as it's just a Sender internally
-        self.connection.clone()
+        self.pool.clone()
     }
 }

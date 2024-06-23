@@ -29,6 +29,7 @@ rust:
             "tauri-cli@^2.0.0-beta",
             "cargo-nextest",
             "cargo-llvm-cov",
+            "sqlx-cli",
         ]
     components: ["rustfmt", "rust-src", "rust-analyzer", "llvm-tools-preview"]
     targets: []

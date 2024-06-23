@@ -1,3 +1,4 @@
+-- Add up migration script here
 CREATE TABLE auth (
     id TEXT PRIMARY KEY,
     -- minecraft username
@@ -8,5 +9,5 @@ CREATE TABLE auth (
     ms_access_token TEXT NOT NULL,
     ms_refresh_token TEXT NOT NULL,
     -- ISO 8601 date format
-    expires_at TEXT NOT NULL,
-);
+    expires_at TEXT NOT NULL
+)

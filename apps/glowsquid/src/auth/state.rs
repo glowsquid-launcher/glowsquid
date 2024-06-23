@@ -1,12 +1,11 @@
-use std::sync::Arc;
-
 use copper::client::auth::{MicrosoftAuthenticator, MinecraftProfile, MinecraftToken};
 use once_cell::sync::OnceCell;
+use prqlx::query;
 use serde::Serialize;
 use specta::Type;
+use sqlx::SqlitePool;
 use tauri::{AppHandle, Manager};
 use tokio::net::TcpListener;
-use tokio_rusqlite::Connection;
 
 use crate::database::DbState;
 
@@ -18,13 +17,17 @@ const CLIENT_SECRET: &str = "nky8Q~8lORwTC0OjdxVsgZSs0hCdTcEdec3hNbaP";
 #[derive(Clone)]
 pub struct State {
     /// If the user decided to enable authentication
-    password_hash: OnceCell<String>,
-    connection: Connection,
-    frontend_state: tauri_plugin_state::State<AuthState>,
+    pub password_hash: OnceCell<String>,
+    pub pool: SqlitePool,
+    pub frontend_state: tauri_plugin_state::State<AuthState>,
     /// Oauth handler
-    oauth: MicrosoftAuthenticator,
-    /// Tcp listener for running the auth server on
-    listener: Arc<TcpListener>,
+    pub oauth: MicrosoftAuthenticator,
+    /// Port to listen for the oauth redirect
+    ///
+    /// Gotten from an available socket on launch by the system
+    ///
+    /// TODO: figure out a better way to make sure that this is always available
+    pub port: u16,
 }
 
 #[derive(Clone, Serialize, Type)]
@@ -42,7 +45,7 @@ pub struct AuthState {
 impl State {
     pub async fn new(app_handle: &AppHandle) -> Self {
         let db_state: tauri::State<DbState> = app_handle.state();
-        let connection = db_state.connection();
+        let pool = db_state.connection();
 
         let listener = TcpListener::bind(("127.0.0.1", 0)).await.unwrap();
         let port = listener.local_addr().unwrap().port();
@@ -56,28 +59,15 @@ impl State {
         )
         .expect("To be able to create client");
 
-        struct DbResult {
-            username: String,
-            encypted_token: bool,
-        }
-
-        let usernames_from_db = connection
-            .call(|conn| {
-                let stmt = conn.prepare("SELECT username, encypted_token FROM auth")?;
-                let usernames = stmt
-                    .query_map([], |row| {
-                        Ok(DbResult {
-                            username: row.get(0)?,
-                            encypted_token: row.get(1)?,
-                        })
-                    })?
-                    .collect::<Result<Vec<DbResult>, _>>();
-
-                Ok(usernames)
-            })
-            .await
-            .expect("Failed to send query to database")
-            .expect("Failed to get usernames from database");
+        let db_users = query!(
+            "
+            from auth
+            select { username, id }
+            "
+        )
+        .fetch_all(&pool)
+        .await
+        .expect("To be able to fetch users");
 
         let frontend_state = AuthState {
             profiles: vec![],
@@ -87,14 +77,14 @@ impl State {
 
         Self {
             password_hash: OnceCell::new(),
-            connection,
+            pool,
             frontend_state: tauri_plugin_state::State::new(
                 "auth",
                 frontend_state,
                 app_handle.clone(),
             ),
             oauth,
-            listener: Arc::new(listener),
+            port,
         }
     }
 
