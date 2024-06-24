@@ -39,6 +39,7 @@ fn main() {
             let db_path = data_path.join("glowsquid.db3");
 
             if !db_path.exists() {
+                std::fs::create_dir_all(&data_path)?;
                 std::fs::File::create(&db_path)?;
             }
 
