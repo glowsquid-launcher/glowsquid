@@ -38,6 +38,7 @@
     "conventionalCommits.scopes": [
         "copper",
         "glowsquid",
+        "tauri-plugin-state",
         "tauri-plugin-state"
     ],
     "yaml.schemas": {
