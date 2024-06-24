@@ -1,21 +1,19 @@
 {
-  "name": "@repo/eslint-config",
-  "version": "0.0.0",
-  "type": "module",
-  "main": "./index.js",
-  "dependencies": {
-    "@stylistic/eslint-plugin": "^2.2.2",
-    "@typescript-eslint/eslint-plugin": "^7.13.1",
-    "@typescript-eslint/parser": "^7.13.1",
-    "eslint-config-prettier": "^9.1.0"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.5.0",
-    "@types/eslint": "^8.56.7",
-    "@types/eslint-config-prettier": "^6.11.3",
-    "@types/eslint__js": "^8.42.3",
-    "eslint-plugin-svelte": "2.40.0",
-    "svelte": "^4.2.18",
-    "typescript-eslint": "^7.13.1"
-  }
+    "name": "@repo/eslint-config",
+    "version": "0.0.0",
+    "type": "module",
+    "main": "./index.js",
+    "devDependencies": {
+        "@eslint/js": "^9.5.0",
+        "@types/eslint": "^8.56.7",
+        "@types/eslint__js": "^8.42.3",
+        "@stylistic/eslint-plugin": "^2.2.2",
+        "typescript-eslint": "8.0.0-alpha.30",
+        "@typescript-eslint/utils": "8.0.0-alpha.30",
+        "eslint-plugin-svelte": "2.40.0",
+        "svelte": "^4.2.18"
+    },
+    "overrides": {
+        "@typescript-eslint/utils": "$@typescript-eslint/utils"
+    }
 }

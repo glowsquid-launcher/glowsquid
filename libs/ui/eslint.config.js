@@ -4,7 +4,7 @@ import svelteConfig from './svelte.config.js'
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
     {
-        ignores: ['node_modules'],
+        ignores: ['node_modules', 'coverage'],
     },
     ...baseConfig,
     ...createSvelteConfig(svelteConfig),
