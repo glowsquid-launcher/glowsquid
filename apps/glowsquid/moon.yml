@@ -20,6 +20,7 @@ tasks:
     dev:
         command: noop
         deps:
+            - prepare
             - dev-tauri
             - ^:dev
         local: true
@@ -29,6 +30,7 @@ tasks:
     build:
         command: "tauri build"
         deps:
+            - prepare
             - ^:build
         outputs:
             - "/target/release/glowsquid*"
@@ -41,6 +43,10 @@ tasks:
         deps:
             # tauri proc macro moment
             - glowsquid-frontend:build
+    prepare:
+        command: "npx zx setup-db.js"
+        options:
+            cache: false
 
 tags:
     - tauri
