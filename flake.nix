@@ -7,7 +7,6 @@
       url = "github:oxalica/rust-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
       };
     };
   };
@@ -33,6 +32,13 @@
         mesa_drivers
         glfw-wayland
         libglvnd
+        webkitgtk_4_1
+        gtk3
+        cairo
+        gdk-pixbuf
+        glib
+        dbus
+        librsvg
       ];
 
       packages = with pkgs; [

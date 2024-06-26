@@ -30,7 +30,7 @@ impl<T: Serialize + Type + Clone> State<T> {
     /// - `value` - The initial value of the state
     /// - `handle` - The tauri handle to use for sending updates to the frontend
     ///
-    /// See usage from [`tauri_plugin_state::init`]
+    /// See usage from [`crate::init`]
     pub fn new(key: &str, value: T, handle: AppHandle) -> Self {
         if let Err(e) = handle.emit(
             STATE_CHANGE_EVENT,

@@ -2,7 +2,11 @@
 name = "tauri-plugin-state"
 version = "0.1.0"
 authors = ["Suyashtnt <Suyashtnt@gmail.com>"]
-description = ""
+description = "Dead simple state management for tauri"
+license = "MIT"
+homepage = "https://github.com/glowsquid-launcher/glowsquid/tree/dev/libs/tauri-plugin-state"
+repository = "https://github.com/glowsquid-launcher/glowsquid"
+documentation = "https://docs.rs/tauri-plugin-state"
 edition = "2021"
 rust-version = "1.70"
 exclude = ["/webview-dist", "/webview-src", "/node_modules"]
