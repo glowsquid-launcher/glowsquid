@@ -39,6 +39,7 @@
         glib
         dbus
         librsvg
+        libxkbcommon
       ];
 
       packages = with pkgs; [
